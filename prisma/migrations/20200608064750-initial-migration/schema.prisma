@@ -1,0 +1,111 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Task {
+    id                 String               @id @default(uuid())
+    createdAt          DateTime             @default(now())
+    updatedAt          DateTime             @updatedAt
+    name                String
+    description         String?
+    dueDate             DateTime
+    status              String?
+    priority            String?
+    tags                Tag[]                @relation(references: [id])
+}
+
+model Person {
+    id                 String               @id @default(uuid())
+    createdAt          DateTime             @default(now())
+    updatedAt          DateTime             @updatedAt
+}
+
+model Project {
+    id                 String               @id @default(uuid())
+    createdAt          DateTime             @default(now())
+    updatedAt          DateTime             @updatedAt
+    name               String
+    description        String?
+    tags                Tag[]                @relation(references: [id])
+}
+
+model Initiative {
+    id                 String               @id @default(uuid())
+    createdAt          DateTime             @default(now())
+    updatedAt          DateTime             @updatedAt
+    name               String
+    description        String?
+    tags                Tag[]                @relation(references: [id])
+}
+
+model BloodGlucose{
+    id                 String               @id @default(uuid())
+    createdAt          DateTime             @default(now())
+    updatedAt          DateTime             @updatedAt
+    value              Int
+    decription         String?
+    timestamp          DateTime
+}
+
+model WaterConsumption{
+    id                 String               @id @default(uuid())
+    createdAt          DateTime             @default(now())
+    updatedAt          DateTime             @updatedAt
+    value              Int
+    decription         String?
+    timestamp          DateTime
+}
+
+
+model InsulinTracker{
+    id                 String               @id @default(uuid())
+    createdAt          DateTime             @default(now())
+    updatedAt          DateTime             @updatedAt
+    value              Int
+    decription         String?
+    timestamp          DateTime
+}
+
+model Transaction {
+    id                 String               @id @default(uuid())
+    createdAt          DateTime             @default(now())
+    updatedAt          DateTime             @updatedAt
+    amount             Float
+    timestamp          DateTime
+    tags                Tag[]                @relation(references: [id])
+}
+
+model FoodLog{
+    id                 String               @id @default(uuid())
+    createdAt          DateTime             @default(now())
+    updatedAt          DateTime             @updatedAt
+    dishId             String
+    dish               Dish                 @relation(fields: [dishId], references: [id])
+}
+
+model Dish{
+    id                 String               @id @default(uuid())
+    createdAt          DateTime             @default(now())
+    updatedAt          DateTime             @updatedAt
+    name               String
+}
+
+model Tag {
+  id          String     @id @default(uuid())
+  createdAt   DateTime   @default(now())
+  name        String
+  description String?
+  transactions  Transaction[] @relation(references: [id])
+  initiatives   Initiative[] @relation(references: [id])
+  projects      Project[]    @relation(references: [id])
+  tasks          Task[]   @relation(references: [id])
+}
+

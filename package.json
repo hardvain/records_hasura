@@ -1,0 +1,35 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^0.8.0",
+    "@ckeditor/ckeditor5-build-classic": "^19.0.2",
+    "@ckeditor/ckeditor5-react": "^2.1.0",
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
+    "@prisma/client": "^2.0.0-beta.8",
+    "csvtojson": "^2.0.10",
+    "emotion-theming": "^10.0.27",
+    "formidable": "^1.2.2",
+    "lodash": "^4.17.15",
+    "next": "9.4.4",
+    "nprogress": "^0.2.0",
+    "prettier": "^2.0.5",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-icons": "^3.10.0",
+    "react-window": "^1.8.5",
+    "recharts": "^1.8.5",
+    "swr": "^0.2.2",
+    "uuid": "^8.1.0"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.0.0-beta.8"
+  }
+}
