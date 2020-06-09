@@ -47,9 +47,11 @@ export default ({ Component, pageProps }) => {
       </Head>
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
-          <CSSReset config={config} />
-          <Navbar />
-          <App Component={Component} pageProps={pageProps} />
+          <DarkMode>
+            <CSSReset config={config} />
+            <Navbar />
+            <App Component={Component} pageProps={pageProps} />
+          </DarkMode>
         </ColorModeProvider>
       </ThemeProvider>
     </Box>
@@ -58,10 +60,8 @@ export default ({ Component, pageProps }) => {
 
 const App = ({ Component, pageProps }) => {
   return (
-    <DarkMode>
-      <Box id="component-box" minHeight={'90vh'}>
-        <Component {...pageProps} />
-      </Box>
-    </DarkMode>
+    <Box id="component-box" minHeight={'90vh'}>
+      <Component {...pageProps} />
+    </Box>
   );
 };
