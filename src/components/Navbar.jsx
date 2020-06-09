@@ -16,31 +16,6 @@ export default () => {
       <NextLink href="/" as={`/`}>
         <IconButton size={'sm'} variant="default" icon={FaHome} />
       </NextLink>
-      <Button size="sm" variant="default">
-        <NextLink href="/assessments">
-          <a>Assessments</a>
-        </NextLink>
-      </Button>
-      <Button size="sm" variant="default">
-        <NextLink href="/questions">
-          <a>Questions</a>
-        </NextLink>
-      </Button>
-      <Button size="sm" variant="default">
-        <NextLink href="/reports">
-          <a>Reports</a>
-        </NextLink>
-      </Button>
-      <Box flexGrow={1} />
-      <NextLink href="/account" as={`/account`}>
-        <IconButton size={'sm'} variant="default" icon={FaUser} />
-      </NextLink>
-      <IconButton
-        size={'sm'}
-        variant="default"
-        icon={colorMode === 'light' ? 'moon' : 'sun'}
-        onClick={toggleColorMode}
-      />
     </Flex>
   );
 };

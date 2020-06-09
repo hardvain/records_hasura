@@ -7,11 +7,13 @@ import {
   ThemeProvider,
   CSSReset,
   Box,
+  DarkMode,
   ColorModeProvider,
   useColorMode,
 } from '@chakra-ui/core';
 import theme from '../theme';
 import NProgress from 'nprogress';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import Router from 'next/router';
 NProgress.configure({ showSpinner: false });
@@ -32,7 +34,7 @@ const config = (theme) => ({
   },
   dark: {
     color: theme.colors.whiteAlpha[900],
-    bg: '#333',
+    bg: '#191A1B',
     borderColor: theme.colors.whiteAlpha[100],
     placeholderColor: theme.colors.whiteAlpha[400],
   },
@@ -55,15 +57,11 @@ export default ({ Component, pageProps }) => {
 };
 
 const App = ({ Component, pageProps }) => {
-  const { colorMode, toggleColorMode } = useColorMode();
-
   return (
-    <Box
-      id="component-box"
-      minHeight={"90vh"}
-      bg={colorMode === 'light' ? '#F5F8FA' : '#212121'}
-    >
-      <Component {...pageProps} />
-    </Box>
+    <DarkMode>
+      <Box id="component-box" minHeight={'90vh'}>
+        <Component {...pageProps} />
+      </Box>
+    </DarkMode>
   );
 };
