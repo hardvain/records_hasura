@@ -9,7 +9,7 @@ export default ({ record }) => {
       <Box as={FaTasks} alignSelf={'center'} mr={3} />
       <Stack flexGrow={1}>
         <Text>{record.data.name}</Text>
-        <Badge w={80}>
+        <Badge w={100}>
           <DatePicker.TextDatePicker selected={new Date(record.timestamp)}/>
         </Badge>
       </Stack>

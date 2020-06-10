@@ -7,7 +7,7 @@ export default ({record}) => {
     <Box as={GrApps} color={"white"} alignSelf={'center'} mr={3} />
     <Stack flexGrow={1}>
       <Text>{record.data.value}</Text>
-      <Badge w={80}>
+      <Badge w={100}>
         <DatePicker.TextDatePicker selected={new Date(record.timestamp)}/>
       </Badge>
     </Stack>

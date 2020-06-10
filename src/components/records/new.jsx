@@ -59,10 +59,25 @@ const GlucoseInput = ({ data, setData }) => {
   );
 };
 
+
+const WaterInput = ({ data, setData }) => {
+  return (
+    <Input
+      ref={input => input && input.focus()}
+      type={'number'}
+      variant="unstyled"
+      placeholder={'Enter water consumption value'}
+      value={data.value}
+      onChange={(e) => setData({ ...data, value: e.target.value })}
+    />
+  );
+};
+
 const InputMap = {
   task: TaskInput,
   glucose: GlucoseInput,
   generic: GenericInput,
+  water: WaterInput,
 };
 
 export default ({ date, recordData = {}, onSave }) => {

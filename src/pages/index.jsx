@@ -17,7 +17,7 @@ import {
   Select,
 } from '@chakra-ui/core';
 import moment from 'moment';
-
+import {GrMoreVertical} from 'react-icons/gr'
 import Card from 'components/Card';
 import DatePicker from 'components/DatePicker';
 import Records from 'components/records';
@@ -31,10 +31,12 @@ const recordDisplay = (record) => {
       return <Records.BloodGlucose record={record} />;
     case 'generic':
       return <Records.Generic record={record} />;
+    case 'water':
+      return <Records.WaterConsumption record={record} />;
   }
 };
 const fetchRecords = async (key, params) => {
-  const date = moment(params.date).format("yyyy-MM-DD")
+  const date = moment(params.date).format('yyyy-MM-DD');
   return fetch(`/api/records?date=${date}`).then((r) => r.json());
 };
 
@@ -119,7 +121,10 @@ export default () => {
               key={record.id}
               onClick={() => setRecordData(record)}
             >
-              <Box width={'100%'}>{recordDisplay(record)}</Box>
+              <Flex width={"100%"} alignItems={"center"}>
+                <Box flexGrow={1}>{recordDisplay(record)}</Box>
+                <Box as={GrMoreVertical}/>
+              </Flex>
             </Card>
           ))
         )}
