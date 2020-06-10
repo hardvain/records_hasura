@@ -33,6 +33,7 @@ const TaskInput = ({ data, setData }) => {
 };
 
 const GenericInput = ({ data, setData }) => {
+  const value = data.value || ""
   return (
     <Textarea
       ref={input => input && input.focus()}
@@ -40,20 +41,22 @@ const GenericInput = ({ data, setData }) => {
       placeholder="Add new record"
       borderRadius={3}
       resize={'none'}
-      value={data.value}
+      value={value}
       onChange={(e) => setData({ ...data, value: e.target.value })}
     />
   );
 };
 
 const GlucoseInput = ({ data, setData }) => {
+  const value = data.value || ""
+
   return (
     <Input
       ref={input => input && input.focus()}
       type={'number'}
       variant="unstyled"
       placeholder={'Enter blood glucose value'}
-      value={data.value}
+      value={value}
       onChange={(e) => setData({ ...data, value: e.target.value })}
     />
   );
@@ -61,13 +64,15 @@ const GlucoseInput = ({ data, setData }) => {
 
 
 const WaterInput = ({ data, setData }) => {
+  const value = data.value || ""
+
   return (
     <Input
       ref={input => input && input.focus()}
       type={'number'}
       variant="unstyled"
       placeholder={'Enter water consumption value'}
-      value={data.value}
+      value={value}
       onChange={(e) => setData({ ...data, value: e.target.value })}
     />
   );

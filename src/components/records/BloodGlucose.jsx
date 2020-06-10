@@ -1,15 +1,42 @@
-import { Badge, Box, Checkbox, Flex, Stack, Text } from '@chakra-ui/core';
-import {GiLoveInjection} from 'react-icons/gi'
+import { useState } from 'react';
+import { Badge, Box, useToast, Flex, Stack, Text } from '@chakra-ui/core';
+import { GiLoveInjection } from 'react-icons/gi';
 import DatePicker from 'components/DatePicker';
+import moment from 'moment';
+export default ({ record, refetch }) => {
+  const [timestamp, setTimestamp] = useState(new Date(record.timestamp));
+  const toast = useToast();
+  const onDateChange = async (value) => {
+    setTimestamp(new Date(value));
+    await fetch(`/api/records/${record.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        ...record,
+        timestamp: moment(value).toISOString(),
+      }),
+    });
+    refetch();
+    toast({
+      title: 'Record updated successfully',
+      status: 'success',
+      duration: 3000,
+      position: 'top',
+      isClosable: true,
+    });
+  };
 
-export default ({record}) => {
-  return <Flex alignItems={"center"}>
-    <Box as={GiLoveInjection} alignSelf={'center'} mr={3} />
-    <Stack flexGrow={1}>
-      <Text>{record.data.value}</Text>
-      <Badge w={100}>
-        <DatePicker.TextDatePicker selected={new Date(record.timestamp)}/>
-      </Badge>
-    </Stack>
-  </Flex>
-}
+  return (
+    <Flex alignItems={'center'}>
+      <Box as={GiLoveInjection} alignSelf={'center'} mr={3} />
+      <Stack flexGrow={1}>
+        <Text>{record.data.value}</Text>
+        <Badge w={100}>
+          <DatePicker.TextDatePicker
+            selected={new Date(timestamp)}
+            onChange={onDateChange}
+          />
+        </Badge>
+      </Stack>
+    </Flex>
+  );
+};

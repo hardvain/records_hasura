@@ -9,10 +9,13 @@ function sleep(ms) {
 export default async (req, res) => {
   if (req.method === 'PUT') {
     const { body } = req;
-    const updatedRecord = await records.update(body);
+    const updatedRecord = await records.update(JSON.parse(body));
     res.json(updatedRecord);
   } else if (req.method === 'GET') {
     const result = await records.get(req.query.id);
+    res.json(result);
+  } else if (req.method === 'DELETE') {
+    const result = await records.del(req.query.id);
     res.json(result);
   } else {
     res.statusCode = 405;

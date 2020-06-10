@@ -1,16 +1,38 @@
-import { Badge, Box, Checkbox, Flex, Stack, Text } from '@chakra-ui/core';
+import { Badge, Box, Checkbox, Flex, Stack, Text, useToast } from '@chakra-ui/core';
+import moment from 'moment';
+import { useState } from 'react';
 import { FaTasks } from 'react-icons/fa';
 import DatePicker from 'components/DatePicker';
 
-export default ({ record }) => {
+export default ({ record, refetch }) => {
+  const [timestamp, setTimestamp] = useState(new Date(record.timestamp));
+  const toast = useToast();
+  const onDateChange = async (value) => {
+    setTimestamp(new Date(value));
+    await fetch(`/api/records/${record.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        ...record,
+        timestamp: moment(value).toISOString(),
+      }),
+    });
+    refetch()
+    toast({
+      title: 'Record updated successfully',
+      status: 'success',
+      duration: 3000,
+      position: 'top',
+      isClosable: true,
+    });
+  };
   const tags = record.tags || []
   return (
     <Flex alignItems={'center'}>
-      <Box as={FaTasks} alignSelf={'center'} mr={3} />
+      <Box as={FaTasks} alignSelf={'center'} mr={3} color={"green.500"}/>
       <Stack flexGrow={1}>
         <Text>{record.data.name}</Text>
         <Badge w={100}>
-          <DatePicker.TextDatePicker selected={new Date(record.timestamp)}/>
+          <DatePicker.TextDatePicker selected={new Date(timestamp)}  onChange={onDateChange}/>
         </Badge>
       </Stack>
       <Flex alignSelf={'center'}>

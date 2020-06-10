@@ -1,7 +1,6 @@
 import prisma from '../../prisma/prisma-client';
 import moment from 'moment';
 export const create = async (record) => {
-  console.log(record);
   return await prisma.record.create({
     data: { ...JSON.parse(record) },
   });
@@ -14,9 +13,16 @@ export const get = async (id) => {
 };
 
 export const update = async (record) => {
+  console.log(record)
   return await prisma.record.update({
     where: { id: record.id },
     data: record,
+  });
+};
+
+export const del = async (id) => {
+  return await prisma.record.delete({
+    where: { id },
   });
 };
 
@@ -44,6 +50,9 @@ export const getAll = async (params = {}) => {
           },
         }
       : {},
+    orderBy:{
+      timestamp:"desc"
+    }
   });
   let response = {
     count,

@@ -14,6 +14,7 @@ import {
   Textarea,
   Skeleton,
   Divider,
+  useToast,
   Select,
 } from '@chakra-ui/core';
 import moment from 'moment';
@@ -23,16 +24,16 @@ import DatePicker from 'components/DatePicker';
 import Records from 'components/records';
 import { useQuery } from 'react-query';
 import NewRecord from 'components/records/new';
-const recordDisplay = (record) => {
+const recordDisplay = (record, refetch) => {
   switch (record.recordType) {
     case 'task':
-      return <Records.Task record={record} />;
+      return <Records.Task record={record} refetch={refetch}/>;
     case 'glucose':
-      return <Records.BloodGlucose record={record} />;
+      return <Records.BloodGlucose record={record} refetch={refetch}/>;
     case 'generic':
-      return <Records.Generic record={record} />;
+      return <Records.Generic record={record} refetch={refetch}/>;
     case 'water':
-      return <Records.WaterConsumption record={record} />;
+      return <Records.WaterConsumption record={record} refetch={refetch}/>;
   }
 };
 const fetchRecords = async (key, params) => {
@@ -54,6 +55,7 @@ const Loading = ({ count }) => {
 
 export default () => {
   const [date, setDate] = useState(Date.now());
+  const toast = useToast()
   const [recordData, setRecordData] = useState({});
   const { status, data, error, refetch } = useQuery(
     ['records', { date }],
@@ -68,6 +70,20 @@ export default () => {
     setRecordData({});
     refetch();
   };
+
+  const del = async id => {
+    await fetch(`/api/records/${id}`,{
+      method:"DELETE"
+    })
+    toast({
+      title: 'Record delete successfully',
+      status: 'success',
+      duration: 3000,
+      position: 'top',
+      isClosable: true,
+    });
+    refetch()
+  }
 
   const prevDate = () => {
     setDate(moment(date).subtract(1, 'days').toDate());
@@ -107,7 +123,6 @@ export default () => {
         </Box>
       </Flex>
       <NewRecord date={date} recordData={recordData.data} onSave={onSave} />
-
       <Stack w={'100%'}>
         {status === 'loading' ? (
           <Loading count={10} />
@@ -122,8 +137,8 @@ export default () => {
               onClick={() => setRecordData(record)}
             >
               <Flex width={"100%"} alignItems={"center"}>
-                <Box flexGrow={1}>{recordDisplay(record)}</Box>
-                <Box as={GrMoreVertical}/>
+                <Box flexGrow={1}>{recordDisplay(record, refetch)}</Box>
+                <IconButton variant={"default"} icon={"delete"} size={"sm"} onClick={() => del(record.id)}/>
               </Flex>
             </Card>
           ))
