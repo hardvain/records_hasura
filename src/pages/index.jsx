@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {
   Box,
   Input,
@@ -14,18 +14,15 @@ import {
   Textarea,
   Skeleton,
   Divider,
+  Select,
 } from '@chakra-ui/core';
 import moment from 'moment';
-import { FaTasks, FaCalendarAlt } from 'react-icons/fa';
-import Dropdown from 'components/Dropdown';
-import { MdLabelOutline } from 'react-icons/md';
-import { GoProject } from 'react-icons/go';
+
 import Card from 'components/Card';
 import DatePicker from 'components/DatePicker';
 import Records from 'components/records';
 import { useQuery } from 'react-query';
-
-
+import NewRecord from 'components/records/new'
 const recordDisplay = (record) => {
   switch (record.recordType) {
     case 'task':
@@ -51,7 +48,8 @@ const Loading = ({ count }) => {
 };
 
 export default () => {
-  const [date,setDate] = useState(Date.now())
+  const [date, setDate] = useState(Date.now());
+
   const { status, data, error } = useQuery('records', fetchRecords);
 
   if (status === 'error') {
@@ -73,38 +71,12 @@ export default () => {
         <Box ml={'auto'}>
           <Flex>
             <IconButton size={'sm'} icon={'chevron-left'} mr={2} />
-            <DatePicker.ButtonDatePicker selected={date}/>
+            <DatePicker.ButtonDatePicker selected={date} />
             <IconButton size={'sm'} icon={'chevron-right'} ml={2} />
           </Flex>
         </Box>
       </Flex>
-      <Card my={3} borderWidth={1} p={3}>
-        <Stack w={'100%'}>
-          <Textarea
-            rounded="0"
-            variant="filled"
-            placeholder="Add new record"
-            borderRadius={3}
-            resize={'none'}
-          />
-          <Divider />
-          <Flex justifyContent={'space-around'} mt={2}>
-            <Box mr={2}>
-              <DatePicker.IconDatePicker />
-            </Box>
-            <IconButton size={'sm'} icon={'sun'} mr={2} />
-            <IconButton size={'sm'} icon={GoProject} mr={2} />
-            <IconButton size={'sm'} icon={MdLabelOutline} mr={2} />
-            <Box flexGrow={1}></Box>
-            <Button variant="solid" size={'sm'} mr={2}>
-              Clear
-            </Button>
-            <Button variant="solid" variantColor={'cyan'} size={'sm'}>
-              Add
-            </Button>
-          </Flex>
-        </Stack>
-      </Card>
+      <NewRecord date={date}/>
 
       <Stack w={'100%'}>
         {status === 'loading' ? (
