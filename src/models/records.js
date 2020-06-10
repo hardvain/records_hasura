@@ -23,7 +23,7 @@ export const update = async (record) => {
 export const getAll = async (params = {}) => {
   const takeInt = parseInt(params.take);
   const skipInt = parseInt(params.skip);
-  const daily = params.daily;
+  const date = params.date;
   const count = await prisma.record.count();
   const nextSkip = skipInt + takeInt;
   const prevSkip = skipInt - takeInt;
@@ -36,11 +36,11 @@ export const getAll = async (params = {}) => {
   }
   const tasks = await prisma.record.findMany({
     ...criteria,
-    where: daily
+    where: date
       ? {
           timestamp: {
-            gte: moment().startOf('day').toISOString(),
-            lte: moment().endOf('day').toISOString(),
+            gte: moment(date).startOf('day').toISOString(),
+            lte: moment(date).endOf('day').toISOString(),
           },
         }
       : {},

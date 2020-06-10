@@ -7,6 +7,7 @@ import {
   Input,
   Select,
   Stack,
+  useToast,
   Textarea,
 } from '@chakra-ui/core';
 import { useState } from 'react';
@@ -20,8 +21,8 @@ import moment from 'moment';
 const TaskInput = ({ data, setData }) => {
   return (
     <Textarea
-      rounded="0"
-      variant="filled"
+      ref={input => input && input.focus()}
+      variant="unstyled"
       placeholder="Add new task"
       borderRadius={3}
       resize={'none'}
@@ -34,8 +35,8 @@ const TaskInput = ({ data, setData }) => {
 const GenericInput = ({ data, setData }) => {
   return (
     <Textarea
-      rounded="0"
-      variant="filled"
+      ref={input => input && input.focus()}
+      variant="unstyled"
       placeholder="Add new record"
       borderRadius={3}
       resize={'none'}
@@ -48,7 +49,9 @@ const GenericInput = ({ data, setData }) => {
 const GlucoseInput = ({ data, setData }) => {
   return (
     <Input
+      ref={input => input && input.focus()}
       type={'number'}
+      variant="unstyled"
       placeholder={'Enter blood glucose value'}
       value={data.value}
       onChange={(e) => setData({ ...data, value: e.target.value })}
@@ -63,6 +66,7 @@ const InputMap = {
 };
 
 export default ({ date, recordData = {}, onSave }) => {
+  const toast = useToast();
   const [newRecordType, setNewRecordType] = useState('generic');
   const [data, setData] = useState(recordData);
   const InputElement = InputMap[newRecordType];
@@ -78,18 +82,27 @@ export default ({ date, recordData = {}, onSave }) => {
   };
 
   const submit = async () => {
-    await fetch(recordData.id ? `/api/records/${recordData.id}` : `/api/records`, {
-      method: recordData.id ? 'PUT' : 'POST',
-      body: JSON.stringify({
-        data,
-        recordType: newRecordType,
-        timestamp: getTimestamp(data),
-      }),
+    await fetch(
+      recordData.id ? `/api/records/${recordData.id}` : `/api/records`,
+      {
+        method: recordData.id ? 'PUT' : 'POST',
+        body: JSON.stringify({
+          data,
+          recordType: newRecordType,
+          timestamp: getTimestamp(data),
+        }),
+      }
+    );
+    toast({
+      title: recordData.id ? 'Record updated' : 'Record Created',
+      status: 'success',
+      duration: 3000,
+      position: 'top',
+      isClosable: true,
     });
-    setData({})
-    onSave()
+    setData({});
+    onSave();
   };
-
   return (
     <Card my={3} borderWidth={1} p={3}>
       <Stack w={'100%'}>

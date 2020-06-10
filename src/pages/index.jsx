@@ -33,8 +33,9 @@ const recordDisplay = (record) => {
       return <Records.Generic record={record} />;
   }
 };
-const fetchRecords = async (key) => {
-  return fetch('/api/records?daily=true').then((r) => r.json());
+const fetchRecords = async (key, params) => {
+  const date = moment(params.date).format("yyyy-MM-DD")
+  return fetch(`/api/records?date=${date}`).then((r) => r.json());
 };
 
 const Loading = ({ count }) => {
@@ -52,7 +53,10 @@ const Loading = ({ count }) => {
 export default () => {
   const [date, setDate] = useState(Date.now());
   const [recordData, setRecordData] = useState({});
-  const { status, data, error, refetch } = useQuery('records', fetchRecords);
+  const { status, data, error, refetch } = useQuery(
+    ['records', { date }],
+    fetchRecords
+  );
 
   if (status === 'error') {
     return <span>Error: {error.message}</span>;
@@ -61,8 +65,15 @@ export default () => {
   const onSave = () => {
     setRecordData({});
     refetch();
-  }
+  };
 
+  const prevDate = () => {
+    setDate(moment(date).subtract(1, 'days').toDate());
+  };
+
+  const nextDate = () => {
+    setDate(moment(date).add(1, 'days').toDate());
+  };
   return (
     <Box py={30} px={50}>
       <Flex justifyContent={'space-around'}>
@@ -77,17 +88,23 @@ export default () => {
         </Button>
         <Box ml={'auto'}>
           <Flex>
-            <IconButton size={'sm'} icon={'chevron-left'} mr={2} />
-            <DatePicker.ButtonDatePicker selected={date} />
-            <IconButton size={'sm'} icon={'chevron-right'} ml={2} />
+            <IconButton
+              size={'sm'}
+              icon={'chevron-left'}
+              mr={2}
+              onClick={prevDate}
+            />
+            <DatePicker.ButtonDatePicker selected={date} onChange={setDate} />
+            <IconButton
+              size={'sm'}
+              icon={'chevron-right'}
+              ml={2}
+              onClick={nextDate}
+            />
           </Flex>
         </Box>
       </Flex>
-      <NewRecord
-        date={date}
-        recordData={recordData.data}
-        onSave={onSave}
-      />
+      <NewRecord date={date} recordData={recordData.data} onSave={onSave} />
 
       <Stack w={'100%'}>
         {status === 'loading' ? (

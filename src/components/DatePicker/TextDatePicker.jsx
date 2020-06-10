@@ -14,6 +14,7 @@ export default ({ selected, onChange }) => {
     <DatePicker
       selected={selected}
       onChange={onChange}
+      dateFormat="MMMM d, yyyy"
       customInput={<Component ref={ref}/>}
     />
   );
