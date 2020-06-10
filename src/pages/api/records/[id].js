@@ -7,14 +7,12 @@ function sleep(ms) {
   });
 }
 export default async (req, res) => {
-  if (req.method === 'POST') {
+  if (req.method === 'PUT') {
     const { body } = req;
-    const createdRecord = await records.create(body);
-    res.json(createdRecord);
+    const updatedRecord = await records.update(body);
+    res.json(updatedRecord);
   } else if (req.method === 'GET') {
-    const urlValue = url.parse(req.url);
-    const qs = querystring.parse(urlValue.query);
-    const result = await records.getAll(qs);
+    const result = await records.get(req.query.id);
     res.json(result);
   } else {
     res.statusCode = 405;

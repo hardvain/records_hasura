@@ -22,17 +22,19 @@ import Card from 'components/Card';
 import DatePicker from 'components/DatePicker';
 import Records from 'components/records';
 import { useQuery } from 'react-query';
-import NewRecord from 'components/records/new'
+import NewRecord from 'components/records/new';
 const recordDisplay = (record) => {
   switch (record.recordType) {
     case 'task':
       return <Records.Task record={record} />;
     case 'glucose':
       return <Records.BloodGlucose record={record} />;
+    case 'generic':
+      return <Records.Generic record={record} />;
   }
 };
 const fetchRecords = async (key) => {
-  return fetch('/api/records').then((r) => r.json());
+  return fetch('/api/records?daily=true').then((r) => r.json());
 };
 
 const Loading = ({ count }) => {
@@ -49,11 +51,16 @@ const Loading = ({ count }) => {
 
 export default () => {
   const [date, setDate] = useState(Date.now());
-
-  const { status, data, error } = useQuery('records', fetchRecords);
+  const [recordData, setRecordData] = useState({});
+  const { status, data, error, refetch } = useQuery('records', fetchRecords);
 
   if (status === 'error') {
     return <span>Error: {error.message}</span>;
+  }
+
+  const onSave = () => {
+    setRecordData({});
+    refetch();
   }
 
   return (
@@ -76,14 +83,25 @@ export default () => {
           </Flex>
         </Box>
       </Flex>
-      <NewRecord date={date}/>
+      <NewRecord
+        date={date}
+        recordData={recordData.data}
+        onSave={onSave}
+      />
 
       <Stack w={'100%'}>
         {status === 'loading' ? (
           <Loading count={10} />
         ) : (
           data.items.map((record) => (
-            <Card borderWidth={1} my={3} px={4} py={2} key={record.id}>
+            <Card
+              borderWidth={1}
+              my={3}
+              px={4}
+              py={2}
+              key={record.id}
+              onClick={() => setRecordData(record)}
+            >
               <Box width={'100%'}>{recordDisplay(record)}</Box>
             </Card>
           ))

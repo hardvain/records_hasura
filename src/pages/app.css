@@ -1,5 +1,6 @@
-button:focus {
+button:focus, textarea:focus, select:focus {
   box-shadow: none !important;
+  border-color: #333 !important;
 }
 
 a:hover {
