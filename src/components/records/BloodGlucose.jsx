@@ -8,7 +8,7 @@ export default ({record}) => {
     <Stack flexGrow={1}>
       <Text>{record.data.value}</Text>
       <Badge w={80}>
-        <DatePicker.TextDatePicker />
+        <DatePicker.TextDatePicker selected={new Date(record.timestamp)}/>
       </Badge>
     </Stack>
   </Flex>

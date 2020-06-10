@@ -7,11 +7,10 @@ export default ({ record }) => {
   return (
     <Flex alignItems={'center'}>
       <Box as={FaTasks} alignSelf={'center'} mr={3} />
-      <Checkbox defaultIsChecked={record.data.status === 'done'} mr={4} />
       <Stack flexGrow={1}>
         <Text>{record.data.name}</Text>
         <Badge w={80}>
-          <DatePicker.TextDatePicker />
+          <DatePicker.TextDatePicker selected={new Date(record.timestamp)}/>
         </Badge>
       </Stack>
       <Flex alignSelf={'center'}>

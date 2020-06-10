@@ -1,5 +1,5 @@
 import prisma from '../../prisma/prisma-client';
-
+import moment from 'moment'
 export const create = async (record) => {
   return await prisma.record.create({
     data: {
@@ -21,15 +21,27 @@ export const get = async (id) => {
   });
 };
 
-export const getAll = async ({ take = 20, skip = 0 } = {}) => {
-  const takeInt = parseInt(take);
-  const skipInt = parseInt(skip);
+export const getAll = async (params = {}) => {
+  const takeInt = parseInt(params.take);
+  const skipInt = parseInt(params.skip);
   const count = await prisma.record.count();
   const nextSkip = skipInt + takeInt;
   const prevSkip = skipInt - takeInt;
+  let criteria = {}
+  if(takeInt){
+    criteria.take = takeInt
+  }
+  if(skipInt){
+    criteria.skip = skipInt
+  }
   const tasks = await prisma.record.findMany({
-    take: takeInt,
-    skip: skipInt,
+    ...criteria,
+    where:{
+      timestamp:{
+        gte: moment().startOf('day').toISOString(),
+        lte: moment().endOf('day').toISOString()
+      }
+    }
   });
   let response = {
     count,

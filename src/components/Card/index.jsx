@@ -11,7 +11,7 @@ export default ({ children, ...rest }) => {
       onMouseLeave={() => setIsHovered(false)}
       minWidth={300}
       borderWidth={1}
-      borderRadius={3}
+      borderRadius={5}
       h={'100%'}
       cursor={isHovered ? 'pointer' : ''}
       bg={'#232626' }

@@ -1,25 +1,29 @@
 import { Button } from '@chakra-ui/core';
+import { createRef, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 
 import { FaCalendarAlt } from 'react-icons/fa';
 
-const Component = ({ value, onClick }) => (
+const Component = forwardRef(({value,onClick}, ref) => (
   <Button
     variant={'solid'}
-    variantColor={'teal'}
+    variantColor={'cyan'}
     size={'sm'}
     leftIcon={FaCalendarAlt}
     onClick={onClick}
   >
     {value}
   </Button>
-);
-export default () => {
+));
+export default ({ selected, onChange }) => {
+  const ref = createRef()
+
   return (
     <DatePicker
-      selected={Date.now()}
-      monthsShown={2}
-      customInput={<Component />}
+      selected={selected}
+      onChange={onChange}
+      customInput={<Component ref={ref}/>}
+
     />
   );
 };
