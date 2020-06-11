@@ -8,8 +8,8 @@ function sleep(ms) {
 }
 export default async (req, res) => {
   if (req.method === 'PUT') {
-    const { body } = req;
-    const updatedRecord = await records.update(JSON.parse(body));
+    const { body, query } = req;
+    const updatedRecord = await records.update(query.id,JSON.parse(body));
     res.json(updatedRecord);
   } else if (req.method === 'GET') {
     const result = await records.get(req.query.id);

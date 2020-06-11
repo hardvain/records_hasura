@@ -1,11 +1,7 @@
-import {
-  Flex,
-  IconButton,
-  useColorMode,
-} from '@chakra-ui/core';
-import { FaHome, FaUser } from 'react-icons/fa';
+import { Flex, IconButton, useColorMode } from '@chakra-ui/core';
+import { FaHome, FaCalendar } from 'react-icons/fa';
 import NextLink from 'next/link';
-
+import MenuButton from 'components/MenuButton';
 export default () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -15,13 +11,20 @@ export default () => {
       direction="row"
       borderBottomWidth={1}
       borderBottom="gray.200"
-      alignItems={"center"}
-      py={2}
+      alignItems={'center'}
+      py={"2px"}
       px={2}
     >
-      <NextLink href="/" as={`/`}>
-        <IconButton size={'lg'} variant="default" icon={FaHome} />
-      </NextLink>
+      <MenuButton>
+        <NextLink href="/" as={`/`}>
+          <IconButton size={'lg'} variant="default" icon={FaHome} />
+        </NextLink>
+      </MenuButton>
+      <MenuButton>
+        <NextLink href="/calendar" as={`/calendar`}>
+          <IconButton size={'lg'} variant="default" icon={FaCalendar} />
+        </NextLink>
+      </MenuButton>
     </Flex>
   );
 };

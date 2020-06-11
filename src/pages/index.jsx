@@ -18,7 +18,7 @@ import {
   Select,
 } from '@chakra-ui/core';
 import moment from 'moment';
-import {GrMoreVertical} from 'react-icons/gr'
+import NotFound from 'assets/NotFound';
 import Card from 'components/Card';
 import DatePicker from 'components/DatePicker';
 import Records from 'components/records';
@@ -27,13 +27,13 @@ import NewRecord from 'components/records/new';
 const recordDisplay = (record, refetch) => {
   switch (record.recordType) {
     case 'task':
-      return <Records.Task record={record} refetch={refetch}/>;
+      return <Records.Task recordData={record} refetch={refetch} />;
     case 'glucose':
-      return <Records.BloodGlucose record={record} refetch={refetch}/>;
+      return <Records.BloodGlucose recordData={record} refetch={refetch} />;
     case 'generic':
-      return <Records.Generic record={record} refetch={refetch}/>;
+      return <Records.Generic recordData={record} refetch={refetch} />;
     case 'water':
-      return <Records.WaterConsumption record={record} refetch={refetch}/>;
+      return <Records.WaterConsumption recordData={record} refetch={refetch} />;
   }
 };
 const fetchRecords = async (key, params) => {
@@ -55,7 +55,7 @@ const Loading = ({ count }) => {
 
 export default () => {
   const [date, setDate] = useState(Date.now());
-  const toast = useToast()
+  const toast = useToast();
   const [recordData, setRecordData] = useState({});
   const { status, data, error, refetch } = useQuery(
     ['records', { date }],
@@ -71,10 +71,10 @@ export default () => {
     refetch();
   };
 
-  const del = async id => {
-    await fetch(`/api/records/${id}`,{
-      method:"DELETE"
-    })
+  const del = async (id) => {
+    await fetch(`/api/records/${id}`, {
+      method: 'DELETE',
+    });
     toast({
       title: 'Record delete successfully',
       status: 'success',
@@ -82,8 +82,8 @@ export default () => {
       position: 'top',
       isClosable: true,
     });
-    refetch()
-  }
+    refetch();
+  };
 
   const prevDate = () => {
     setDate(moment(date).subtract(1, 'days').toDate());
@@ -95,38 +95,38 @@ export default () => {
   return (
     <Box py={30} px={50}>
       <Flex justifyContent={'space-around'}>
-        <Button mr={2} size="sm">
-          Tasks
-        </Button>
-        <Button mr={2} size="sm">
-          Projects
-        </Button>
-        <Button mr={2} size="sm">
-          Initiatives
-        </Button>
+        <Flex>
+          <IconButton
+            size={'sm'}
+            icon={'chevron-left'}
+            mr={2}
+            onClick={prevDate}
+          />
+          <DatePicker.ButtonDatePicker selected={date} onChange={setDate} />
+          <IconButton
+            size={'sm'}
+            icon={'chevron-right'}
+            ml={2}
+            onClick={nextDate}
+          />
+        </Flex>
         <Box ml={'auto'}>
-          <Flex>
-            <IconButton
-              size={'sm'}
-              icon={'chevron-left'}
-              mr={2}
-              onClick={prevDate}
-            />
-            <DatePicker.ButtonDatePicker selected={date} onChange={setDate} />
-            <IconButton
-              size={'sm'}
-              icon={'chevron-right'}
-              ml={2}
-              onClick={nextDate}
-            />
-          </Flex>
+          <Button mr={2} size="sm">
+            Tasks
+          </Button>
+          <Button mr={2} size="sm">
+            Projects
+          </Button>
+          <Button mr={2} size="sm">
+            Initiatives
+          </Button>
         </Box>
       </Flex>
-      <NewRecord date={date} recordData={recordData.data} onSave={onSave} />
+      <NewRecord date={date} recordModel={recordData} onSave={onSave} />
       <Stack w={'100%'}>
         {status === 'loading' ? (
           <Loading count={10} />
-        ) : (
+        ) : data.items.length > 0 ? (
           data.items.map((record) => (
             <Card
               borderWidth={1}
@@ -136,12 +136,21 @@ export default () => {
               key={record.id}
               onClick={() => setRecordData(record)}
             >
-              <Flex width={"100%"} alignItems={"center"}>
+              <Flex width={'100%'} alignItems={'center'}>
                 <Box flexGrow={1}>{recordDisplay(record, refetch)}</Box>
-                <IconButton variant={"default"} icon={"delete"} size={"sm"} onClick={() => del(record.id)}/>
+                <IconButton
+                  variant={'default'}
+                  icon={'delete'}
+                  size={'sm'}
+                  onClick={() => del(record.id)}
+                />
               </Flex>
             </Card>
           ))
+        ) : (
+          <Flex justifyContent={'space-around'} w={'100%'}>
+            <NotFound />
+          </Flex>
         )}
       </Stack>
     </Box>

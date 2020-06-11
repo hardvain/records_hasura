@@ -3,15 +3,15 @@ import { Badge, Box, useToast, Flex, Stack, Text } from '@chakra-ui/core';
 import { GiLoveInjection } from 'react-icons/gi';
 import DatePicker from 'components/DatePicker';
 import moment from 'moment';
-export default ({ record, refetch }) => {
-  const [timestamp, setTimestamp] = useState(new Date(record.timestamp));
+export default ({ recordData, refetch }) => {
+  const [timestamp, setTimestamp] = useState(new Date(recordData.timestamp));
   const toast = useToast();
   const onDateChange = async (value) => {
     setTimestamp(new Date(value));
-    await fetch(`/api/records/${record.id}`, {
+    await fetch(`/api/records/${recordData.id}`, {
       method: 'PUT',
       body: JSON.stringify({
-        ...record,
+        ...recordData,
         timestamp: moment(value).toISOString(),
       }),
     });
@@ -29,7 +29,7 @@ export default ({ record, refetch }) => {
     <Flex alignItems={'center'}>
       <Box as={GiLoveInjection} alignSelf={'center'} mr={3} />
       <Stack flexGrow={1}>
-        <Text>{record.data.value}</Text>
+        <Text>{recordData.data.value}</Text>
         <Badge w={100}>
           <DatePicker.TextDatePicker
             selected={new Date(timestamp)}
