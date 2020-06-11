@@ -19,3 +19,4 @@ export const RecordPreview = ({ recordData, refetch }) => {
     refetch,
   });
 };
+

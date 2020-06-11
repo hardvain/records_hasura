@@ -1,4 +1,12 @@
-import { Badge, Box, Checkbox, Flex, Stack, Text, useToast } from '@chakra-ui/core';
+import {
+  Badge,
+  Box,
+  Checkbox,
+  Flex,
+  Stack,
+  Text,
+  useToast,
+} from '@chakra-ui/core';
 import moment from 'moment';
 import { useState } from 'react';
 import { IoMdWater } from 'react-icons/io';
@@ -16,7 +24,7 @@ export default ({ recordData, refetch }) => {
         timestamp: moment(value).toISOString(),
       }),
     });
-    refetch()
+    refetch();
     toast({
       title: 'Record updated successfully',
       status: 'success',
@@ -27,11 +35,14 @@ export default ({ recordData, refetch }) => {
   };
   return (
     <Flex alignItems={'center'}>
-      <Box as={IoMdWater} alignSelf={'center'} mr={3} color={"blue.500"}/>
+      <Box as={IoMdWater} alignSelf={'center'} mr={3} color={'blue.500'} />
       <Stack flexGrow={1}>
         <Text>{recordData.data.value}</Text>
         <Badge w={100}>
-          <DatePicker.TextDatePicker selected={new Date(timestamp)}  onChange={onDateChange}/>
+          <DatePicker.TextDatePicker
+            selected={moment(timestamp)}
+            onChange={onDateChange}
+          />
         </Badge>
       </Stack>
     </Flex>

@@ -1,5 +1,5 @@
 import { Flex, IconButton, useColorMode } from '@chakra-ui/core';
-import { FaHome, FaCalendar } from 'react-icons/fa';
+import { FaHome, FaCalendar, FaChartBar } from 'react-icons/fa';
 import NextLink from 'next/link';
 import MenuButton from 'components/MenuButton';
 export default () => {
@@ -23,6 +23,11 @@ export default () => {
       <MenuButton>
         <NextLink href="/calendar" as={`/calendar`}>
           <IconButton size={'lg'} variant="default" icon={FaCalendar} />
+        </NextLink>
+      </MenuButton>
+      <MenuButton>
+        <NextLink href="/reports" as={`/reports`}>
+          <IconButton size={'lg'} variant="default" icon={FaChartBar} />
         </NextLink>
       </MenuButton>
     </Flex>

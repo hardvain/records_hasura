@@ -6,3 +6,5 @@
 * Search
 * Capture food information
 * Add more details to each record type
+* Simplify date picker
+* Nice error page

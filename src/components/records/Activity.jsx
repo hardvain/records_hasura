@@ -31,10 +31,10 @@ export default ({recordData, refetch}) => {
       <Text>{recordData.data.value}</Text>
       <Stack isInline>
         <Badge w={100} mr={2}>
-          <DatePicker.TextDatePicker selected={new Date(recordData.from)}  onChange={onDateChange}/>
+          <DatePicker.TextDatePicker selected={moment(recordData.from)}  onChange={onDateChange}/>
         </Badge>
         <Badge w={100}>
-          <DatePicker.TextDatePicker selected={new Date(recordData.to)}  onChange={onDateChange}/>
+          <DatePicker.TextDatePicker selected={moment(recordData.to)}  onChange={onDateChange}/>
         </Badge>
       </Stack>
     </Stack>

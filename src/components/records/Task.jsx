@@ -32,7 +32,7 @@ export default ({ recordData, refetch }) => {
       <Stack flexGrow={1}>
         <Text>{recordData.data.name}</Text>
         <Badge w={100}>
-          <DatePicker.TextDatePicker selected={new Date(timestamp)}  onChange={onDateChange}/>
+          <DatePicker.TextDatePicker selected={moment(timestamp)}  onChange={onDateChange}/>
         </Badge>
       </Stack>
       <Flex alignSelf={'center'}>

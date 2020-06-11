@@ -35,7 +35,7 @@ export default ({ recordData, refetch }) => {
         <Text>{recordData.data.value}</Text>
         <Badge w={100}>
           <DatePicker.TextDatePicker
-            selected={new Date(timestamp)}
+            selected={moment(timestamp)}
             onChange={onDateChange}
           />
         </Badge>

@@ -12,7 +12,7 @@ export default ({ selected, onChange }) => {
   const ref = createRef()
   return (
     <DatePicker
-      selected={selected}
+      selected={selected?.toDate()}
       onChange={onChange}
       dateFormat="MMMM d, yyyy"
       customInput={<Component ref={ref}/>}

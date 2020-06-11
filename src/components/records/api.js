@@ -1,8 +1,7 @@
 import moment from 'moment';
 
-export const fetchRecords = async (key, params) => {
-  const date = moment(params.date).format('yyyy-MM-DD');
-  return fetch(`/api/records?date=${date}`).then((r) => r.json());
+export const fetchRecords = async (key,params) => {
+  return fetch(`/api/records?date=${params.filters.date}`).then((r) => r.json());
 };
 
 export const updateRecord = async (id, record) => {

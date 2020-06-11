@@ -161,22 +161,22 @@ const InputMap = {
   activity: ActivityInput,
 };
 
-export default ({ date, recordModel = {}, onSave }) => {
+export default ({ date, model = {}, onSave }) => {
 
   const toast = useToast();
   const [newRecordType, setNewRecordType] = useState(
-    recordModel.recordType || 'generic'
+    model.recordType || 'generic'
   );
-  const [record = {}, setRecord] = useState(recordModel);
+  const [record = {}, setRecord] = useState(model);
   const InputElement = InputMap[newRecordType];
 
   useEffect(() => {
-    setRecord(recordModel);
-    setNewRecordType(recordModel.recordType || 'generic');
-  }, [recordModel]);
+    setRecord(model);
+    setNewRecordType(model.recordType || 'generic');
+  }, [model]);
 
   const getTimestamp = (data) => {
-    const timestamp = date || moment().toISOString();
+    const timestamp = moment(date).toISOString() || moment().toISOString();
     switch (newRecordType) {
       case 'task':
         return data.dueDate || timestamp;
@@ -187,20 +187,20 @@ export default ({ date, recordModel = {}, onSave }) => {
 
   const submit = async () => {
     await fetch(
-      recordModel.id ? `/api/records/${recordModel.id}` : `/api/records`,
+      model.id ? `/api/records/${model.id}` : `/api/records`,
       {
-        method: recordModel.id ? 'PUT' : 'POST',
+        method: model.id ? 'PUT' : 'POST',
         body: JSON.stringify({
           data: record.data,
           recordType: newRecordType,
-          timestamp: recordModel.id
+          timestamp: model.id
             ? record.timestamp
             : getTimestamp(record.data),
         }),
       }
     );
     toast({
-      title: recordModel.id ? 'Record updated' : 'Record Created',
+      title: model.id ? 'Record updated' : 'Record Created',
       status: 'success',
       duration: 3000,
       position: 'top',
@@ -245,7 +245,7 @@ export default ({ date, recordModel = {}, onSave }) => {
             size={'sm'}
             onClick={submit}
           >
-            {recordModel.id ? 'Update' : 'Save'}
+            {model.id ? 'Update' : 'Save'}
           </Button>
         </Flex>
       </Stack>
