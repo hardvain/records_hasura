@@ -11,6 +11,8 @@ export const get = async (id) => {
     where: { id },
   });
 };
+const queries = {};
+const raw = async (key) => await prisma.raw(queries[key]);
 
 export const update = async (id, record) => {
   return await prisma.record.update({

@@ -8,3 +8,5 @@
 
 * For all records, the timestamp field will define which day it will be displayed
 * Notes are stored separately
+
+https://smusamashah.github.io/text-to-diagram

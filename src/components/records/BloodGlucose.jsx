@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Badge, Box, useToast, Flex, Stack, Text } from '@chakra-ui/core';
 import { GiLoveInjection } from 'react-icons/gi';
 import DatePicker from 'components/DatePicker';
+import Diabetes from 'assets/Diabetes'
 import moment from 'moment';
 export default ({ recordData, refetch }) => {
   const [timestamp, setTimestamp] = useState(new Date(recordData.timestamp));
@@ -27,7 +28,9 @@ export default ({ recordData, refetch }) => {
 
   return (
     <Flex alignItems={'center'}>
-      <Box as={GiLoveInjection} alignSelf={'center'} mr={3} />
+      <Box alignSelf={'center'} mr={2}>
+        <Diabetes width={30} height={30}/>
+      </Box>
       <Stack flexGrow={1}>
         <Text>{recordData.data.value}</Text>
         <Badge w={100}>

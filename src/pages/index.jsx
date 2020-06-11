@@ -21,25 +21,11 @@ import moment from 'moment';
 import NotFound from 'assets/NotFound';
 import Card from 'components/Card';
 import DatePicker from 'components/DatePicker';
-import Records from 'components/records';
+import {RecordPreview} from 'components/records';
 import { useQuery } from 'react-query';
 import NewRecord from 'components/records/new';
-const recordDisplay = (record, refetch) => {
-  switch (record.recordType) {
-    case 'task':
-      return <Records.Task recordData={record} refetch={refetch} />;
-    case 'glucose':
-      return <Records.BloodGlucose recordData={record} refetch={refetch} />;
-    case 'generic':
-      return <Records.Generic recordData={record} refetch={refetch} />;
-    case 'water':
-      return <Records.WaterConsumption recordData={record} refetch={refetch} />;
-  }
-};
-const fetchRecords = async (key, params) => {
-  const date = moment(params.date).format('yyyy-MM-DD');
-  return fetch(`/api/records?date=${date}`).then((r) => r.json());
-};
+import { fetchRecords, deleteRecord } from './record-fetch';
+import useStore from 'store'
 
 const Loading = ({ count }) => {
   return (
@@ -54,6 +40,10 @@ const Loading = ({ count }) => {
 };
 
 export default () => {
+  const {activeDay,selectedRecord} = useStore(state => ({
+
+  }))
+
   const [date, setDate] = useState(Date.now());
   const toast = useToast();
   const [recordData, setRecordData] = useState({});
@@ -66,17 +56,15 @@ export default () => {
     return <span>Error: {error.message}</span>;
   }
 
-  const onSave = () => {
+  const onSaveCallback = () => {
     setRecordData({});
     refetch();
   };
 
   const del = async (id) => {
-    await fetch(`/api/records/${id}`, {
-      method: 'DELETE',
-    });
+    await deleteRecord(id);
     toast({
-      title: 'Record delete successfully',
+      title: 'Record deleted successfully',
       status: 'success',
       duration: 3000,
       position: 'top',
@@ -122,22 +110,22 @@ export default () => {
           </Button>
         </Box>
       </Flex>
-      <NewRecord date={date} recordModel={recordData} onSave={onSave} />
+      <NewRecord date={date} recordModel={recordData} onSave={onSaveCallback} />
       <Stack w={'100%'}>
         {status === 'loading' ? (
           <Loading count={10} />
         ) : data.items.length > 0 ? (
           data.items.map((record) => (
-            <Card
-              borderWidth={1}
-              my={3}
-              px={4}
-              py={2}
-              key={record.id}
-              onClick={() => setRecordData(record)}
-            >
+            <Card borderWidth={1} my={3} px={4} py={2} key={record.id}>
               <Flex width={'100%'} alignItems={'center'}>
-                <Box flexGrow={1}>{recordDisplay(record, refetch)}</Box>
+                <Box flexGrow={1}><RecordPreview recordData={record} refetch={refetch}/></Box>
+                <IconButton
+                  mr={2}
+                  onClick={() => setRecordData(record)}
+                  variant={'default'}
+                  icon={'edit'}
+                  size={'sm'}
+                />
                 <IconButton
                   variant={'default'}
                   icon={'delete'}

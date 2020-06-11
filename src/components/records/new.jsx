@@ -7,6 +7,8 @@ import {
   Input,
   Select,
   Stack,
+  FormControl,
+  FormLabel,
   useToast,
   Textarea,
 } from '@chakra-ui/core';
@@ -32,6 +34,63 @@ const TaskInput = ({ record = {}, setRecord }) => {
         setRecord({ ...record, data: { ...record.data, name: e.target.value } })
       }
     />
+  );
+};
+
+const ActivityInput = ({ record = {}, setRecord }) => {
+  const value = record ? (record.data ? record.data.name : '') : '';
+  const from = record
+    ? record.data
+      ? record.data.from
+      : Date.now()
+    : Date.now();
+  const to = record ? (record.data ? record.data.to : Date.now()) : Date.now();
+  return (
+    <Stack>
+      <Stack isInline>
+        <Box mr={2}>
+          <FormControl>
+            <FormLabel htmlFor="email">From</FormLabel>
+            <DatePicker.InputDatePicker
+              selected={from}
+              onChange={(v) =>
+                setRecord({ ...record, data: { ...record.data, from: v } })
+              }
+            />
+          </FormControl>
+        </Box>
+        <Box mr={2}>
+          <FormControl>
+            <FormLabel htmlFor="email">To</FormLabel>
+            <DatePicker.InputDatePicker
+              selected={to}
+              onChange={(v) =>
+                setRecord({ ...record, data: { ...record.data, to: v } })
+              }
+            />
+          </FormControl>
+        </Box>
+      </Stack>
+      <Box mr={2}>
+        <FormControl>
+          <FormLabel htmlFor="email">Description</FormLabel>
+          <Textarea
+            ref={(input) => input && input.focus()}
+            variant="unstyled"
+            placeholder="Add new task"
+            borderRadius={3}
+            resize={'none'}
+            value={value}
+            onChange={(e) =>
+              setRecord({
+                ...record,
+                data: { ...record.data, name: e.target.value },
+              })
+            }
+          />
+        </FormControl>
+      </Box>
+    </Stack>
   );
 };
 
@@ -85,7 +144,10 @@ const WaterInput = ({ record = {}, setRecord }) => {
       placeholder={'Enter water consumption value'}
       value={value}
       onChange={(e) =>
-        setRecord({ ...record, data: { ...record.data, value: e.target.value } })
+        setRecord({
+          ...record,
+          data: { ...record.data, value: e.target.value },
+        })
       }
     />
   );
@@ -96,9 +158,11 @@ const InputMap = {
   glucose: GlucoseInput,
   generic: GenericInput,
   water: WaterInput,
+  activity: ActivityInput,
 };
 
 export default ({ date, recordModel = {}, onSave }) => {
+
   const toast = useToast();
   const [newRecordType, setNewRecordType] = useState(
     recordModel.recordType || 'generic'
@@ -108,7 +172,7 @@ export default ({ date, recordModel = {}, onSave }) => {
 
   useEffect(() => {
     setRecord(recordModel);
-    setNewRecordType(recordModel.recordType);
+    setNewRecordType(recordModel.recordType || 'generic');
   }, [recordModel]);
 
   const getTimestamp = (data) => {
@@ -159,6 +223,7 @@ export default ({ date, recordModel = {}, onSave }) => {
             onChange={(v) => setNewRecordType(v.target.value)}
           >
             <option value="generic">Generic</option>
+            <option value="activity">Activity</option>
             <option value="task">Task</option>
             <option value="glucose">Blood Glucose</option>
             <option value="water">Water Consumption</option>

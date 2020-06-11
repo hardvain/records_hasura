@@ -1,5 +1,4 @@
 import { Flex } from '@chakra-ui/core';
-import isDarkMode from 'hooks/isDarkMode';
 import { useState } from 'react';
 export default ({ children, ...rest }) => {
   const [isHovered, setIsHovered] = useState(false);
