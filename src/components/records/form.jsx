@@ -4,180 +4,44 @@ import {
   Divider,
   Flex,
   IconButton,
-  Input,
   Select,
   Stack,
-  FormControl,
-  FormLabel,
   useToast,
-  Textarea,
 } from '@chakra-ui/core';
 import { useEffect, useState, createElement } from 'react';
 import Card from 'components/Card';
 import DatePicker from 'components/DatePicker';
-import { FaTasks, FaCalendarAlt } from 'react-icons/fa';
 import { MdLabelOutline } from 'react-icons/md';
 import { GoProject } from 'react-icons/go';
 import moment from 'moment';
+import TaskForm from './Task/Form';
+import GlucoseForm from './Glucose/Form';
+import WaterForm from './Water/Form';
+import ActivityForm from './Activity/Form';
+import GenericForm from './Generic/Form';
 
-const TaskInput = ({ record = {}, setRecord }) => {
-  const value = record ? (record.data ? record.data.name : '') : '';
-  return (
-    <Textarea
-      ref={(input) => input && input.focus()}
-      variant="unstyled"
-      placeholder="Add new task"
-      borderRadius={3}
-      resize={'none'}
-      value={value}
-      onChange={(e) =>
-        setRecord({ ...record, data: { ...record.data, name: e.target.value } })
-      }
-    />
-  );
-};
-
-const ActivityInput = ({ record = {}, setRecord }) => {
-  const value = record ? (record.data ? record.data.name : '') : '';
-  const from = record
-    ? record.data
-      ? record.data.from
-      : Date.now()
-    : Date.now();
-  const to = record ? (record.data ? record.data.to : Date.now()) : Date.now();
-  return (
-    <Stack>
-      <Stack isInline>
-        <Box mr={2}>
-          <FormControl>
-            <FormLabel htmlFor="email">From</FormLabel>
-            <DatePicker.InputDatePicker
-              selected={from}
-              onChange={(v) =>
-                setRecord({ ...record, data: { ...record.data, from: v } })
-              }
-            />
-          </FormControl>
-        </Box>
-        <Box mr={2}>
-          <FormControl>
-            <FormLabel htmlFor="email">To</FormLabel>
-            <DatePicker.InputDatePicker
-              selected={to}
-              onChange={(v) =>
-                setRecord({ ...record, data: { ...record.data, to: v } })
-              }
-            />
-          </FormControl>
-        </Box>
-      </Stack>
-      <Box mr={2}>
-        <FormControl>
-          <FormLabel htmlFor="email">Description</FormLabel>
-          <Textarea
-            ref={(input) => input && input.focus()}
-            variant="unstyled"
-            placeholder="Add new task"
-            borderRadius={3}
-            resize={'none'}
-            value={value}
-            onChange={(e) =>
-              setRecord({
-                ...record,
-                data: { ...record.data, name: e.target.value },
-              })
-            }
-          />
-        </FormControl>
-      </Box>
-    </Stack>
-  );
-};
-
-const GenericInput = ({ record = {}, setRecord }) => {
-  const value = record ? (record.data ? record.data.value : '') : '';
-  return (
-    <Textarea
-      ref={(input) => input && input.focus()}
-      variant="unstyled"
-      placeholder="Add new record"
-      borderRadius={3}
-      resize={'none'}
-      value={value}
-      onChange={(e) =>
-        setRecord({
-          ...record,
-          data: { ...record.data, value: e.target.value },
-        })
-      }
-    />
-  );
-};
-
-const GlucoseInput = ({ record = {}, setRecord }) => {
-  const value = record ? (record.data ? record.data.value : '') : '';
-
-  return (
-    <Input
-      ref={(input) => input && input.focus()}
-      type={'number'}
-      variant="unstyled"
-      placeholder={'Enter blood glucose value'}
-      value={value}
-      onChange={(e) =>
-        setRecord({
-          ...record,
-          data: { ...record.data, value: e.target.value },
-        })
-      }
-    />
-  );
-};
-
-const WaterInput = ({ record = {}, setRecord }) => {
-  const value = record ? (record.data ? record.data.value : '') : '';
-  return (
-    <Input
-      ref={(input) => input && input.focus()}
-      type={'number'}
-      variant="unstyled"
-      placeholder={'Enter water consumption value'}
-      value={value}
-      onChange={(e) =>
-        setRecord({
-          ...record,
-          data: { ...record.data, value: e.target.value },
-        })
-      }
-    />
-  );
-};
-
-const InputMap = {
-  task: TaskInput,
-  glucose: GlucoseInput,
-  generic: GenericInput,
-  water: WaterInput,
-  activity: ActivityInput,
+const FormMap = {
+  task: TaskForm,
+  glucose: GlucoseForm,
+  generic: GenericForm,
+  water: WaterForm,
+  activity: ActivityForm,
 };
 
 export default ({ date, model = {}, onSave }) => {
-
   const toast = useToast();
-  const [newRecordType, setNewRecordType] = useState(
-    model.recordType || 'generic'
-  );
+  const [recordType, setRecordType] = useState(model.recordType || 'generic');
   const [record = {}, setRecord] = useState(model);
-  const InputElement = InputMap[newRecordType];
+  const FormComponent = FormMap[recordType];
 
   useEffect(() => {
     setRecord(model);
-    setNewRecordType(model.recordType || 'generic');
+    setRecordType(model.recordType || 'generic');
   }, [model]);
 
   const getTimestamp = (data) => {
     const timestamp = moment(date).toISOString() || moment().toISOString();
-    switch (newRecordType) {
+    switch (recordType) {
       case 'task':
         return data.dueDate || timestamp;
       default:
@@ -186,19 +50,14 @@ export default ({ date, model = {}, onSave }) => {
   };
 
   const submit = async () => {
-    await fetch(
-      model.id ? `/api/records/${model.id}` : `/api/records`,
-      {
-        method: model.id ? 'PUT' : 'POST',
-        body: JSON.stringify({
-          data: record.data,
-          recordType: newRecordType,
-          timestamp: model.id
-            ? record.timestamp
-            : getTimestamp(record.data),
-        }),
-      }
-    );
+    await fetch(model.id ? `/api/records/${model.id}` : `/api/records`, {
+      method: model.id ? 'PUT' : 'POST',
+      body: JSON.stringify({
+        data: record.data,
+        recordType: recordType,
+        timestamp: model.id ? record.timestamp : getTimestamp(record.data),
+      }),
+    });
     toast({
       title: model.id ? 'Record updated' : 'Record Created',
       status: 'success',
@@ -212,15 +71,16 @@ export default ({ date, model = {}, onSave }) => {
   return (
     <Card my={3} borderWidth={1} p={3}>
       <Stack w={'100%'}>
-        {InputElement && createElement(InputElement, { record, setRecord })}
+        {/*TODO: Convert to a component*/}
+        {FormComponent && createElement(FormComponent, { record, setRecord })}
         <Divider />
         <Flex justifyContent={'space-around'} mt={2}>
           <Select
             w={200}
             mr={2}
             size={'sm'}
-            value={newRecordType}
-            onChange={(v) => setNewRecordType(v.target.value)}
+            value={recordType}
+            onChange={(v) => setRecordType(v.target.value)}
           >
             <option value="generic">Generic</option>
             <option value="activity">Activity</option>

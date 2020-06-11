@@ -31,26 +31,23 @@ export default ({ filters, onItemSelect, mutatedAt }) => {
   const toast = useToast();
   const [records, setRecords] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { getRecords } = useStore((state) => ({
+  const { getRecords, deleteRecord } = useStore((state) => ({
     getRecords: state.getRecords,
+    deleteRecord: state.deleteRecord,
   }));
-  useEffect(() => {
+  const updateRecords = () => {
     getRecords(filters).then((d) => {
       setRecords(d);
       setIsLoading(false);
     });
+  }
+  useEffect(() => {
+    updateRecords()
   }, [filters]);
 
   const del = async (id) => {
-    await deleteRecord(id);
-    toast({
-      title: 'Record deleted successfully',
-      status: 'success',
-      duration: 3000,
-      position: 'top',
-      isClosable: true,
-    });
-    refetch();
+    await deleteRecord(id,toast)
+    updateRecords()
   };
 
   return (

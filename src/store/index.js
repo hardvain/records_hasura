@@ -30,6 +30,25 @@ export const [useStore] = create((set, get) => ({
   },
   getRecord: () => {},
   createRecord: () => {},
-  deleteRecord: () => {},
+  deleteRecord: async (id, toast) => {
+    const response = await fetch(`/api/records/${id}`, { method: 'DELETE' });
+    if(response.status === 200){
+      toast({
+        title: 'Record deleted successfully',
+        status: 'success',
+        duration: 3000,
+        position: 'top',
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: 'Error during record deletion',
+        status: 'error',
+        duration: 3000,
+        position: 'top',
+        isClosable: true,
+      });
+    }
+  },
   updateRecord: () => {},
 }));

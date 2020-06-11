@@ -30,7 +30,7 @@ export default ({ recordData, refetch }) => {
     <Flex alignItems={'center'}>
       <Box as={FaTasks} alignSelf={'center'} mr={3} color={"green.500"}/>
       <Stack flexGrow={1}>
-        <Text>{recordData.data.name}</Text>
+        <Text>{recordData.data.value}</Text>
         <Badge w={100}>
           <DatePicker.TextDatePicker selected={moment(timestamp)}  onChange={onDateChange}/>
         </Badge>

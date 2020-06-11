@@ -1,22 +1,20 @@
 import { createElement } from 'react';
-import Task from './Task';
-import BloodGlucose from './BloodGlucose';
-import WaterConsumption from './WaterConsumption';
-import Generic from './Generic';
-import Activity from './Activity';
+import TaskPreview from './Task/Preview';
+import GlucosePreview from './Glucose/Preview';
+import WaterPreview from './Water/Preview';
+import GenericPreview from './Generic/Preview';
+import ActivityPreview from './Activity/Preview';
 
 const RecordMap = {
-  task: Task,
-  glucose: BloodGlucose,
-  water: WaterConsumption,
-  generic: Generic,
-  activity: Activity,
+  task: TaskPreview,
+  glucose: GlucosePreview,
+  water: WaterPreview,
+  generic: GenericPreview,
+  activity: ActivityPreview,
 };
 
-export const RecordPreview = ({ recordData, refetch }) => {
+export const RecordPreview = ({ recordData }) => {
   return createElement(RecordMap[recordData.recordType], {
     recordData,
-    refetch,
   });
 };
-
