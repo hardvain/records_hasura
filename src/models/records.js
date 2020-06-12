@@ -1,5 +1,6 @@
-import prisma from '../../prisma/prisma-client';
 import moment from 'moment';
+import prisma from '../../prisma/prisma-client';
+
 export const create = async (record) => {
   return await prisma.record.create({
     data: { ...JSON.parse(record) },
@@ -26,52 +27,45 @@ export const del = async (id) => {
     where: { id },
   });
 };
-
-export const getAll = async (params = {}) => {
-  const takeInt = parseInt(params.take);
-  const skipInt = parseInt(params.skip);
-  const date = params.date;
-  const count = await prisma.record.count();
-  const nextSkip = skipInt + takeInt;
-  const prevSkip = skipInt - takeInt;
-  let criteria = {};
+const constructWhere = ({
+  recordType,
+  date,
+  take,
+  skip,
+  orderBy,
+  orderDirection,
+}) => {
+  const orderByField = orderBy || 'timestamp';
+  let query = { where: {}, orderBy: {} };
+  if (recordType) {
+    query.where.recordType = { equals: recordType };
+  }
+  if (date) {
+    query.where.timestamp = {
+      gte: moment(date).startOf('day').toISOString(),
+      lte: moment(date).endOf('day').toISOString(),
+    };
+  }
+  const takeInt = parseInt(take);
+  const skipInt = parseInt(skip);
   if (takeInt) {
-    criteria.take = takeInt;
+    query.take = takeInt;
   }
   if (skipInt) {
-    criteria.skip = skipInt;
+    query.skip = skipInt;
   }
-  const tasks = await prisma.record.findMany({
-    ...criteria,
-    where: date
-      ? {
-          timestamp: {
-            gte: moment(date).startOf('day').toISOString(),
-            lte: moment(date).endOf('day').toISOString(),
-          },
-        }
-      : {},
-    orderBy: {
-      timestamp: 'desc',
-    },
-  });
-  let response = {
+  query.orderBy = {
+    [orderByField]: orderDirection || 'desc',
+  };
+  return query
+};
+export const getAll = async (params = {}) => {
+  const count = await prisma.record.count();
+  const tasks = await prisma.record.findMany(constructWhere(params));
+  return {
     count,
     items: tasks,
   };
-  if (nextSkip <= count) {
-    response['next'] = {
-      take,
-      skip: nextSkip,
-    };
-  }
-  if (prevSkip > 0) {
-    response['prev'] = {
-      take,
-      skip: prevSkip,
-    };
-  }
-  return response;
 };
 
 export const getForCalendar = async (params = {}) => {
