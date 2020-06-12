@@ -8,9 +8,9 @@ import {
   useToast,
 } from '@chakra-ui/core';
 import { useEffect, useState } from 'react';
-import Card from 'components/Card';
+import Card from 'src/components/Card';
 import moment from 'moment';
-import { useStore } from 'store';
+import { useStore } from 'src/store';
 import { RecordForm } from './index';
 
 let defaultRecord = { recordType: 'generic' };

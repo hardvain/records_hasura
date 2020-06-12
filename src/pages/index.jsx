@@ -1,10 +1,10 @@
 import { Box, Button, Flex, IconButton, Stack } from '@chakra-ui/core';
-import DatePicker from 'components/DatePicker';
-import RecordForm from 'components/records/form';
-import RecordsList from 'components/records/list';
+import DatePicker from 'src/components/DatePicker';
+import RecordForm from 'src/components/records/form';
+import RecordsList from 'src/components/records/list';
 import moment from 'moment';
 import { useState } from 'react';
-import { useStore } from 'store';
+import { useStore } from 'src/store';
 
 export default () => {
   const { date, nextDate, prevDate, setDate } = useStore((state) => ({

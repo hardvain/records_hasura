@@ -7,10 +7,10 @@ import {
   Skeleton,
   useToast,
 } from '@chakra-ui/core';
-import NotFound from 'assets/NotFound';
-import Card from 'components/Card';
-import { RecordPreview } from 'components/records';
-import { useStore } from 'store';
+import NotFound from 'src/assets/NotFound';
+import Card from 'src/components/Card';
+import { RecordPreview } from 'src/components/records';
+import { useStore } from 'src/store';
 
 const Loading = ({ count }) => {
   return (

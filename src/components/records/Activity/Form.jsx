@@ -1,6 +1,6 @@
 import { Box, FormControl, FormLabel, Stack, Textarea } from '@chakra-ui/core';
 import moment from 'moment';
-import DatePicker from 'components/DatePicker';
+import DatePicker from 'src/components/DatePicker';
 export default ({ record = {}, setRecord }) => {
   const value = record ? (record.data ? record.data.value : '') : '';
   let timestamp = moment();

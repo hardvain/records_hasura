@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import './app.css';
-import isDarkMode from 'hooks/isDarkMode';
 import Navbar from '../components/Navbar';
 import {
   ThemeProvider,

@@ -9,7 +9,7 @@ import {
 import moment from 'moment';
 import { useState } from 'react';
 import { IoMdWater } from 'react-icons/io';
-import DatePicker from 'components/DatePicker';
+import DatePicker from 'src/components/DatePicker';
 
 export default ({ recordData, refetch }) => {
   const [timestamp, setTimestamp] = useState(new Date(recordData.timestamp));

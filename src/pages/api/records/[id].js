@@ -1,4 +1,4 @@
-import * as records from 'models/records';
+import * as records from 'src/models/records';
 import querystring from 'querystring';
 import url from 'url';
 function sleep(ms) {

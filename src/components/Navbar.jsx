@@ -1,7 +1,7 @@
 import { Flex, IconButton } from '@chakra-ui/core';
 import { FaHome, FaCalendar, FaChartBar } from 'react-icons/fa';
 import NextLink from 'next/link';
-import MenuButton from 'components/MenuButton';
+import MenuButton from 'src/components/MenuButton';
 export default () => {
   return (
     <Flex
