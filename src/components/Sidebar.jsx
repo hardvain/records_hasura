@@ -2,6 +2,7 @@ import NextLink from 'next/link';
 import { useState } from 'react';
 import { Box, Divider, Flex, IconButton, Stack, Text } from '@chakra-ui/core';
 import { FaTasks, FaNutritionix } from 'react-icons/fa';
+import { MdApps } from 'react-icons/md';
 import Diabetes from 'src/assets/Diabetes';
 import { IoMdWater } from 'react-icons/io';
 const MenuItem = ({ children }) => {
@@ -25,9 +26,17 @@ export default () => {
   return (
     <Box w={300} pl={3} pt={3}>
       <MenuItem>
+        <NextLink href="/" as={`/`}>
+          <Stack isInline>
+            <Box as={MdApps} fontSize={25} alignSelf={'center'} color={'cyan.500'} mx={1} />
+            <Text ml={1}>All</Text>
+          </Stack>
+        </NextLink>
+      </MenuItem>
+      <MenuItem>
         <NextLink href="/tasks" as={`/tasks`}>
           <Stack isInline>
-            <Box as={FaTasks} alignSelf={'center'} color={'cyan.500'} mx={2} />
+            <Box as={FaTasks} alignSelf={'center'} color={'green.500'} mx={2} />
             <Text ml={2}>Tasks</Text>
           </Stack>
         </NextLink>
@@ -56,7 +65,7 @@ export default () => {
           <Box
             as={FaNutritionix}
             alignSelf={'center'}
-            color={'green.500'}
+            color={'teal.500'}
             mx={2}
           />
           <Text ml={2}>Nutrition</Text>
