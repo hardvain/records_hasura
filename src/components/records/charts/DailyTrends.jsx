@@ -12,12 +12,13 @@ import {
 } from 'recharts';
 import List from 'src/components/core/List';
 import moment from 'moment';
-export default ({ date  }) => {
+export default ({ date, recordType  }) => {
   return (
-    <Card title={"Weekly Trends"}>
+    <Card title={"Daily Trends"}>
       <List
+        isBlock={true}
         filters={{
-          recordType: 'water',
+          recordType: recordType,
           orderBy: 'timestamp',
           orderDirection: 'asc',
           date,
@@ -41,13 +42,12 @@ export default ({ date  }) => {
               >
                 <XAxis
                   dataKey="timestamp"
-                  tickFormatter={(timeStr) => moment(timeStr).format('MMMM d')}
+                  tickFormatter={(timeStr) => moment(timeStr).format('HH:mm')}
                 />
-                <YAxis dataKey={'value'}/>
+                <YAxis dataKey={'value'} name={"Time"}/>
                 <Tooltip />
                 <Legend />
                 <Line
-                  name={"Water"}
                   type="monotone"
                   dataKey="value"
                   stroke="#8884d8"

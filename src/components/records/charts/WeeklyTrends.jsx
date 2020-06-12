@@ -12,24 +12,25 @@ import {
 } from 'recharts';
 import List from 'src/components/core/List';
 import moment from 'moment';
-export default ({ date = moment().format('yyyy-MM-DD') }) => {
+export default ({ date, recordType }) => {
   return (
-    <Card>
+    <Card title={'Weekly Trends'}>
       <List
+        isBlock={true}
         filters={{
-          recordType: 'glucose',
+          recordType: recordType,
           orderBy: 'timestamp',
           orderDirection: 'asc',
-          date
+          date,
         }}
       >
         {(records) =>
           records.length > 0 && (
-            <ResponsiveContainer width={"100%"} height={200}>
+            <ResponsiveContainer width={'100%'} height={200}>
               <LineChart
                 width={500}
                 data={records.map((item) => ({
-                  value: item.data.value,
+                  value: parseInt(item.data.value),
                   timestamp: item.timestamp,
                 }))}
                 margin={{
@@ -39,15 +40,15 @@ export default ({ date = moment().format('yyyy-MM-DD') }) => {
                   bottom: 5,
                 }}
               >
-                <CartesianGrid strokeDasharray="3 3" />
                 <XAxis
                   dataKey="timestamp"
-                  tickFormatter={(timeStr) => moment(timeStr).format('HH:mm')}
+                  tickFormatter={(timeStr) => moment(timeStr).format('MMMM d')}
                 />
                 <YAxis dataKey={'value'} />
                 <Tooltip />
                 <Legend />
                 <Line
+                  name={'Water'}
                   type="monotone"
                   dataKey="value"
                   stroke="#8884d8"
