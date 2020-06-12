@@ -4,11 +4,9 @@ import { useState } from 'react';
 import { FaTasks } from 'react-icons/fa';
 import DatePicker from 'src/components/DatePicker';
 
-export default ({ recordData, refetch }) => {
-  const [timestamp, setTimestamp] = useState(new Date(recordData.timestamp));
+export default ({ recordData }) => {
   const toast = useToast();
   const onDateChange = async (value) => {
-    setTimestamp(new Date(value));
     await fetch(`/api/records/${recordData.id}`, {
       method: 'PUT',
       body: JSON.stringify({
@@ -16,7 +14,6 @@ export default ({ recordData, refetch }) => {
         timestamp: moment(value).toISOString(),
       }),
     });
-    refetch()
     toast({
       title: 'Record updated successfully',
       status: 'success',
@@ -25,14 +22,17 @@ export default ({ recordData, refetch }) => {
       isClosable: true,
     });
   };
-  const tags = recordData.tags || []
+  const tags = recordData.tags || [];
   return (
     <Flex alignItems={'center'}>
-      <Box as={FaTasks} alignSelf={'center'} mr={3} color={"green.500"}/>
+      <Box as={FaTasks} alignSelf={'center'} mr={3} color={'green.500'} />
       <Stack flexGrow={1}>
         <Text>{recordData.data.value}</Text>
         <Badge w={100}>
-          <DatePicker.TextDatePicker selected={moment(timestamp)}  onChange={onDateChange}/>
+          <DatePicker.TextDatePicker
+            selected={moment(recordData.timestamp)}
+            onChange={onDateChange}
+          />
         </Badge>
       </Stack>
       <Flex alignSelf={'center'}>
