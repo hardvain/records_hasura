@@ -6,7 +6,6 @@ export default ({ children, isActive }) => {
   const { colors } = useStore((state) => ({
     colors: state.ui.colors,
   }));
-  console.log(`${colors.primary}.200` )
   const [isHovered, setIsHovered] = useState(false);
   return (
     <Box

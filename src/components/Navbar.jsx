@@ -11,7 +11,7 @@ import {
   Box,
 } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
-import { FaHome, FaCalendar, FaChartBar } from 'react-icons/fa';
+import { FaHome, FaCalendar, FaChartBar, FaFolder } from 'react-icons/fa';
 import { IoIosApps } from 'react-icons/io';
 import NextLink from 'next/link';
 import MenuButton from 'src/components/MenuButton';
@@ -51,6 +51,11 @@ export default () => {
       <MenuButton isActive={pathname === '/reports'}>
         <NextLink href="/reports" as={`/reports`}>
           <IconButton size={'lg'} variant="default" icon={FaChartBar} />
+        </NextLink>
+      </MenuButton>
+      <MenuButton isActive={pathname === '/docs'}>
+        <NextLink href="/docs" as={`/docs`}>
+          <IconButton size={'lg'} variant="default" icon={FaFolder} />
         </NextLink>
       </MenuButton>
       <Box flexGrow={1}></Box>
