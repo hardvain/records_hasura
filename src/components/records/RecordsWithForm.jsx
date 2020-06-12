@@ -31,7 +31,7 @@ export default ({ filters, frozenType }) => {
           mr={2}
           onClick={prevDate}
         />
-        <DatePicker selected={date} onChange={setDate} />
+        <DatePicker selected={date} onChange={setDate} type={"button"}/>
         <Button mx={2} size={"sm"} onClick={() => setDate(moment())}>Today</Button>
         <IconButton
           size={'sm'}

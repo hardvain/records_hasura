@@ -1,5 +1,17 @@
-import { Flex, IconButton } from '@chakra-ui/core';
+import {
+  Flex,
+  IconButton,
+  Stack,
+  Heading,
+  Text,
+  Icon,
+  InputGroup,
+  InputLeftElement,
+  Input,
+  Box,
+} from '@chakra-ui/core';
 import { FaHome, FaCalendar, FaChartBar } from 'react-icons/fa';
+import { IoIosApps } from 'react-icons/io';
 import NextLink from 'next/link';
 import MenuButton from 'src/components/MenuButton';
 export default () => {
@@ -13,11 +25,12 @@ export default () => {
       py={'2px'}
       px={2}
     >
-      <MenuButton>
-        <NextLink href="/" as={`/`}>
-          <IconButton size={'lg'} variant="default" icon={FaHome} />
-        </NextLink>
-      </MenuButton>
+      <NextLink href="/" as={`/`}>
+        <Stack isInline alignItems={'center'} mr={2} cursor={'pointer'}>
+          <Box as={IoIosApps} fontSize={'4xl'} mr={3} />
+          <Text fontSize={'lg'}>Records</Text>
+        </Stack>
+      </NextLink>
       <MenuButton>
         <NextLink href="/calendar" as={`/calendar`}>
           <IconButton size={'lg'} variant="default" icon={FaCalendar} />
@@ -28,6 +41,11 @@ export default () => {
           <IconButton size={'lg'} variant="default" icon={FaChartBar} />
         </NextLink>
       </MenuButton>
+      <Box flexGrow={1}></Box>
+      <InputGroup w={300} mr={2}>
+        <InputLeftElement children={<Icon name="search" color="gray.300" />} />
+        <Input  type="phone" placeholder="Search Records" />
+      </InputGroup>
     </Flex>
   );
 };
