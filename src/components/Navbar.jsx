@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { FaHome, FaCalendar, FaPlus, FaFolder } from 'react-icons/fa';
 import { FiMenu } from 'react-icons/fi';
 import { IoIosApps } from 'react-icons/io';
-import Logo from 'src/assets/Logo'
+import Logo from 'src/assets/Logo';
 import NextLink from 'next/link';
 import Project from 'src/assets/Project';
 import MenuButton from 'src/components/MenuButton';
@@ -44,7 +44,7 @@ export default () => {
         size={'lg'}
         variant="default"
         icon={FiMenu}
-        mr={2}
+        mr={4}
         onClick={toggleSidebar}
       />
       <Stack isInline alignItems={'center'} mr={2} cursor={'pointer'}>
@@ -69,7 +69,12 @@ export default () => {
       </MenuButton>
       <Box flexGrow={1}></Box>
       <MenuButton isActive={pathname === '/docs'}>
-        <IconButton size={'lg'} variant="default" icon={FaPlus} onClick={toggleFormPopup}/>
+        <IconButton
+          size={'lg'}
+          variant="default"
+          icon={FaPlus}
+          onClick={toggleFormPopup}
+        />
       </MenuButton>
       <InputGroup w={300} mr={2}>
         <InputLeftElement children={<Icon name="search" color="gray.300" />} />

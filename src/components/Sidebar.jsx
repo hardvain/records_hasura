@@ -18,6 +18,8 @@ import Project from 'src/assets/Project';
 import Money from 'src/assets/Money';
 import Medicine from 'src/assets/Medicine';
 import Brain from 'src/assets/Brain';
+import Company from 'src/assets/Company';
+import Goal from 'src/assets/Goal';
 import Team from 'src/assets/Team';
 import Settings from 'src/assets/Settings';
 import Heart from 'src/assets/Heart';
@@ -58,7 +60,7 @@ export default () => {
       height={'100%'}
       left={0}
       overflowX={'hidden'}
-      overflowY={"scroll"}
+      overflowY={'scroll'}
     >
       <MenuItem isActive={pathname === '/'}>
         <NextLink href="/" as={`/`}>
@@ -111,14 +113,10 @@ export default () => {
       <MenuItem isActive={pathname === '/records/nutrition'}>
         <NextLink href="/records/nutrition" as={`/records/nutrition`}>
           <Stack isInline alignItems={'center'}>
-            <Box
-              as={FaNutritionix}
-              fontSize={30}
-              alignSelf={'center'}
-              color={'teal.500'}
-              mr={2}
-            />
-            <Text ml={2}>Nutrition</Text>
+            <Box alignSelf={'center'} mr={4}>
+              <Fruit width={30} height={30} />
+            </Box>
+            <Text ml={2}>Food</Text>
           </Stack>
         </NextLink>
       </MenuItem>
@@ -146,9 +144,13 @@ export default () => {
         <MenuItem isActive={pathname === '/records/dishes'}>
           <NextLink href="/records/dishes" as={`/records/dishes`}>
             <Stack isInline alignItems={'center'}>
-              <Box alignSelf={'center'} mr={5}>
-                <Fruit width={30} height={30} />
-              </Box>
+              <Box
+                as={FaNutritionix}
+                fontSize={30}
+                alignSelf={'center'}
+                color={'teal.500'}
+                mr={2}
+              />
               <Text ml={2}>Dishes</Text>
             </Stack>
           </NextLink>
@@ -212,6 +214,26 @@ export default () => {
         {show ? 'Show Less' : 'Show More'}
       </Button>
       <Divider borderWidth={2} my={5} />
+      <MenuItem isActive={pathname === '/teams'}>
+        <NextLink href="/teams" as={`/teams`}>
+          <Stack isInline alignItems={'center'}>
+            <Box alignSelf={'center'} mr={4}>
+              <Company width={30} height={30} />
+            </Box>
+            <Text ml={2}>Teams</Text>
+          </Stack>
+        </NextLink>
+      </MenuItem>
+      <MenuItem isActive={pathname === '/goals'}>
+        <NextLink href="/goals" as={`/goals`}>
+          <Stack isInline alignItems={'center'}>
+            <Box alignSelf={'center'} mr={4}>
+              <Goal width={30} height={30} />
+            </Box>
+            <Text ml={2}>Goals</Text>
+          </Stack>
+        </NextLink>
+      </MenuItem>
       <MenuItem isActive={pathname === '/initiatives'}>
         <NextLink href="/initiatives" as={`/initiatives`}>
           <Stack isInline alignItems={'center'}>
