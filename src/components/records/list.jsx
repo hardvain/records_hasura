@@ -56,7 +56,7 @@ export default ({ filters, onItemSelect, mutatedAt }) => {
           <Card borderWidth={1} my={3} px={4} py={2} key={record.id}>
             <Flex width={'100%'} alignItems={'center'}>
               <Box flexGrow={1}>
-                <RecordPreview recordData={record} />
+                <RecordPreview record={record} />
               </Box>
               <IconButton
                 mr={2}

@@ -3,23 +3,18 @@ import { Badge, Box, useToast, Flex, Stack, Text } from '@chakra-ui/core';
 import DatePicker from 'src/components/DatePicker';
 import Diabetes from 'src/assets/Diabetes'
 import moment from 'moment';
-export default ({ recordData }) => {
+import { useStore } from 'src/store';
+export default ({ record }) => {
+  const { updateRecord } = useStore((state) => ({
+    updateRecord: state.updateRecord,
+  }));
+
   const toast = useToast();
   const onDateChange = async (value) => {
-    await fetch(`/api/records/${recordData.id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        ...recordData,
-        timestamp: moment(value).toISOString(),
-      }),
-    });
-    toast({
-      title: 'Record updated successfully',
-      status: 'success',
-      duration: 3000,
-      position: 'top',
-      isClosable: true,
-    });
+    updateRecord(
+      { ...record, timestamp: moment(value).toISOString() },
+      toast
+    );
   };
 
   return (
@@ -28,10 +23,10 @@ export default ({ recordData }) => {
         <Diabetes width={30} height={30}/>
       </Box>
       <Stack flexGrow={1}>
-        <Text>{recordData.data.value}</Text>
+        <Text>{record.data.value}</Text>
         <Badge w={100}>
           <DatePicker.TextDatePicker
-            selected={moment(recordData.timestamp)}
+            selected={moment(record.timestamp)}
             onChange={onDateChange}
           />
         </Badge>

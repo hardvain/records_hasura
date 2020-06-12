@@ -13,9 +13,9 @@ const RecordMap = {
   activity: Activity,
 };
 
-export const RecordPreview = ({ recordData }) => {
-  return createElement(RecordMap[recordData.recordType].Preview, {
-    recordData,
+export const RecordPreview = ({ record }) => {
+  return createElement(RecordMap[record.recordType].Preview, {
+    record,
   });
 };
 

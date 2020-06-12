@@ -3,24 +3,19 @@ import moment from 'moment';
 import { useState } from 'react';
 import { FiActivity } from 'react-icons/fi';
 import DatePicker from 'src/components/DatePicker';
+import { useStore } from 'src/store';
 
-export default ({ recordData }) => {
+export default ({ record }) => {
+  const { updateRecord } = useStore((state) => ({
+    updateRecord: state.updateRecord,
+  }));
+
   const toast = useToast();
   const onDateChange = async (value) => {
-    await fetch(`/api/records/${recordData.id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        ...recordData,
-        timestamp: moment(value).toISOString(),
-      }),
-    });
-    toast({
-      title: 'Record updated successfully',
-      status: 'success',
-      duration: 3000,
-      position: 'top',
-      isClosable: true,
-    });
+    updateRecord(
+      { ...record, timestamp: moment(value).toISOString() },
+      toast
+    );
   };
   return (
     <Flex alignItems={'center'}>
@@ -32,17 +27,17 @@ export default ({ recordData }) => {
         color={'white'}
       />
       <Stack flexGrow={1}>
-        <Text>{recordData.data.value}</Text>
+        <Text>{record.data.value}</Text>
         <Stack isInline>
           <Badge w={100} mr={2}>
             <DatePicker.TextDatePicker
-              selected={moment(recordData.from)}
+              selected={moment(record.from)}
               onChange={onDateChange}
             />
           </Badge>
           <Badge w={100}>
             <DatePicker.TextDatePicker
-              selected={moment(recordData.to)}
+              selected={moment(record.to)}
               onChange={onDateChange}
             />
           </Badge>

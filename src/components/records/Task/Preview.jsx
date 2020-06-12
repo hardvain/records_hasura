@@ -3,34 +3,29 @@ import moment from 'moment';
 import { useState } from 'react';
 import { FaTasks } from 'react-icons/fa';
 import DatePicker from 'src/components/DatePicker';
+import { useStore } from 'src/store';
 
-export default ({ recordData }) => {
+export default ({ record }) => {
+  const { updateRecord } = useStore((state) => ({
+    updateRecord: state.updateRecord,
+  }));
+
   const toast = useToast();
   const onDateChange = async (value) => {
-    await fetch(`/api/records/${recordData.id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        ...recordData,
-        timestamp: moment(value).toISOString(),
-      }),
-    });
-    toast({
-      title: 'Record updated successfully',
-      status: 'success',
-      duration: 3000,
-      position: 'top',
-      isClosable: true,
-    });
+    updateRecord(
+      { ...record, timestamp: moment(value).toISOString() },
+      toast
+    );
   };
-  const tags = recordData.tags || [];
+  const tags = record.tags || [];
   return (
     <Flex alignItems={'center'}>
       <Box as={FaTasks} alignSelf={'center'} mr={3} color={'green.500'} />
       <Stack flexGrow={1}>
-        <Text>{recordData.data.value}</Text>
+        <Text>{record.data.value}</Text>
         <Badge w={100}>
           <DatePicker.TextDatePicker
-            selected={moment(recordData.timestamp)}
+            selected={moment(record.timestamp)}
             onChange={onDateChange}
           />
         </Badge>
