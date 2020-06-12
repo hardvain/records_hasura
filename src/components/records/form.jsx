@@ -30,6 +30,9 @@ export default ({ date, model = defaultRecord, frozenType }) => {
     if (!payload.timestamp) {
       payload.timestamp = moment().toISOString();
     }
+    if (frozenType) {
+      payload.recordType = frozenType;
+    }
     if (payload.id) {
       await updateRecord(payload, toast);
     } else {
@@ -40,7 +43,11 @@ export default ({ date, model = defaultRecord, frozenType }) => {
   return (
     <Card my={3} borderWidth={1} p={3}>
       <Stack w={'100%'}>
-        <RecordForm record={record} setRecord={setRecord} frozenType={frozenType}/>
+        <RecordForm
+          record={record}
+          setRecord={setRecord}
+          frozenType={frozenType}
+        />
         <Divider />
         <Flex justifyContent={'space-around'} mt={2}>
           <Select

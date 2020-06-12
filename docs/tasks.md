@@ -9,3 +9,4 @@
 [*] Simplify date picker
 [] Nice error page
 [] Responsive app
+[*] Add transaction type
