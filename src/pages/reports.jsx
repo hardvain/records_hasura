@@ -26,36 +26,23 @@ export default () => {
 
   return (
     <Box py={30} px={50}>
-      <Flex justifyContent={'space-around'}>
-        <Flex>
-          <IconButton
-            size={'sm'}
-            icon={'chevron-left'}
-            mr={2}
-            onClick={prevDate}
-          />
-          <DatePicker type={"button"} selected={date} onChange={setDate} />
-          <IconButton
-            size={'sm'}
-            icon={'chevron-right'}
-            ml={2}
-            onClick={nextDate}
-          />
-        </Flex>
-        <Box ml={'auto'}>
-          <Button mr={2} size="sm">
-            Tasks
-          </Button>
-          <Button mr={2} size="sm">
-            Projects
-          </Button>
-          <Button mr={2} size="sm">
-            Initiatives
-          </Button>
-        </Box>
+      <Flex justifyContent={'flex-start'}>
+        <IconButton
+          size={'sm'}
+          icon={'chevron-left'}
+          mr={2}
+          onClick={prevDate}
+        />
+        <DatePicker type={'button'} selected={date} onChange={setDate} />
+        <IconButton
+          size={'sm'}
+          icon={'chevron-right'}
+          ml={2}
+          onClick={nextDate}
+        />
       </Flex>
       <SimpleGrid columns={2} spacing={10} mt={5}>
-        <GlucoseDailyTrends date={date.format('yyyy-MM-DD')}/>
+        <GlucoseDailyTrends date={date.format('yyyy-MM-DD')} />
         <WaterDailyTrends date={date.format('yyyy-MM-DD')} />
       </SimpleGrid>
     </Box>
