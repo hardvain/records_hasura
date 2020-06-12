@@ -1,10 +1,10 @@
 import { Button } from '@chakra-ui/core';
 import { createRef, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
-
+import moment from 'moment';
 import { FaCalendarAlt } from 'react-icons/fa';
 
-const Component = forwardRef(({value,onClick}, ref) => (
+const Component = forwardRef(({ value, onClick }, ref) => (
   <Button
     variant={'solid'}
     variantColor={'cyan'}
@@ -16,15 +16,14 @@ const Component = forwardRef(({value,onClick}, ref) => (
   </Button>
 ));
 export default ({ selected, onChange }) => {
-  const ref = createRef()
+  const ref = createRef();
 
   return (
     <DatePicker
       selected={selected?.toDate()}
-      onChange={onChange}
+      onChange={(v) => onChange(moment(v))}
       dateFormat="MMMM d, yyyy"
-      customInput={<Component ref={ref}/>}
-
+      customInput={<Component ref={ref} />}
     />
   );
 };

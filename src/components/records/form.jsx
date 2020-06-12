@@ -14,7 +14,7 @@ import { useStore } from 'src/store';
 import { RecordForm } from './index';
 
 let defaultRecord = { recordType: 'generic' };
-export default ({ date, model = defaultRecord, onSave }) => {
+export default ({ date, model = defaultRecord }) => {
   const toast = useToast();
   const [record, setRecord] = useState(model);
   const { createRecord, updateRecord } = useStore((state) => ({

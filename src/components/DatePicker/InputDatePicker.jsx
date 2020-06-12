@@ -1,4 +1,5 @@
 import { Input } from '@chakra-ui/core';
+import moment from 'moment';
 import { createRef, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -19,7 +20,7 @@ export default ({ selected, onChange }) => {
   return (
     <DatePicker
       selected={selected?.toDate()}
-      onChange={onChange}
+      onChange={(v) => onChange(moment(v))}
       dateFormat="MMMM d, yyyy"
       customInput={<Component ref={ref}/>}
     />
