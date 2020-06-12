@@ -1,13 +1,14 @@
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Box, Divider, Flex, IconButton, Stack, Text } from '@chakra-ui/core';
-import { FaTasks, FaNutritionix,FaRegMoneyBillAlt } from 'react-icons/fa';
+import { FaTasks, FaNutritionix, FaRegMoneyBillAlt } from 'react-icons/fa';
 import { MdApps } from 'react-icons/md';
 import Sugar from 'src/assets/Sugar';
 import Money from 'src/assets/Money';
 import Water from 'src/assets/Water';
 import { IoMdWater } from 'react-icons/io';
-const MenuItem = ({ children }) => {
+const MenuItem = ({ children, isActive }) => {
   const [isHovering, setIsHovering] = useState(false);
   return (
     <Box
@@ -15,7 +16,7 @@ const MenuItem = ({ children }) => {
       borderRadius={4}
       p={2}
       mb={2}
-      bg={isHovering ? '#232626' : ''}
+      bg={isActive || isHovering ? '#232626' : ''}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -25,59 +26,82 @@ const MenuItem = ({ children }) => {
 };
 
 export default () => {
+  const router = useRouter();
+  const pathname = router.pathname;
   return (
-    <Box w={300} pl={3} pt={3} position={'fixed'} zIndex={1000} height={'100%'} left={0} overflowX={'hidden'}>
-      <MenuItem>
+    <Box
+      w={300}
+      pl={3}
+      pt={3}
+      position={'fixed'}
+      zIndex={1000}
+      height={'100%'}
+      left={0}
+      overflowX={'hidden'}
+    >
+      <MenuItem isActive={pathname === '/'}>
         <NextLink href="/" as={`/`}>
           <Stack isInline>
-            <Box as={MdApps} fontSize={25} alignSelf={'center'} color={'cyan.500'} mx={1} />
+            <Box
+              as={MdApps}
+              fontSize={25}
+              alignSelf={'center'}
+              color={'cyan.500'}
+              mx={1}
+            />
             <Text ml={1}>All</Text>
           </Stack>
         </NextLink>
       </MenuItem>
-      <MenuItem>
+      <MenuItem isActive={pathname === '/tasks'}>
         <NextLink href="/tasks" as={`/tasks`}>
           <Stack isInline>
-            <Box as={FaTasks} fontSize={"2xl"} alignSelf={'center'} color={'green.500'} mx={2} />
+            <Box
+              as={FaTasks}
+              fontSize={'2xl'}
+              alignSelf={'center'}
+              color={'green.500'}
+              mx={2}
+            />
             <Text ml={2}>Tasks</Text>
           </Stack>
         </NextLink>
       </MenuItem>
-      <MenuItem>
+      <MenuItem isActive={pathname === '/glucose'}>
         <NextLink href="/glucose" as={`/glucose`}>
-        <Stack isInline>
-          <Box alignSelf={'center'} mr={4}>
-            <Sugar width={30} height={30} />
-          </Box>
-          <Text>Glucose</Text>
-        </Stack>
+          <Stack isInline>
+            <Box alignSelf={'center'} mr={4}>
+              <Sugar width={30} height={30} />
+            </Box>
+            <Text>Glucose</Text>
+          </Stack>
         </NextLink>
       </MenuItem>
-      <MenuItem>
+      <MenuItem isActive={pathname === '/water'}>
         <NextLink href="/water" as={`/water`}>
-        <Stack isInline alignItems={"center"}>
-          <Box alignSelf={'center'} mr={4}>
-            <Water width={30} height={30} />
-          </Box>
-          <Text ml={2}>Water</Text>
-        </Stack>
+          <Stack isInline alignItems={'center'}>
+            <Box alignSelf={'center'} mr={4}>
+              <Water width={30} height={30} />
+            </Box>
+            <Text ml={2}>Water</Text>
+          </Stack>
         </NextLink>
       </MenuItem>
-      <MenuItem>
+      <MenuItem isActive={pathname === '/nutrition'}>
         <NextLink href="/nutrition" as={`/nutrition`}>
-        <Stack isInline>
-          <Box
-            as={FaNutritionix}
-            fontSize={"2xl"}
-            alignSelf={'center'}
-            color={'teal.500'}
-            mx={2}
-          />
-          <Text ml={2}>Nutrition</Text>
-        </Stack>
+          <Stack isInline>
+            <Box
+              as={FaNutritionix}
+              fontSize={'2xl'}
+              alignSelf={'center'}
+              color={'teal.500'}
+              mx={2}
+            />
+            <Text ml={2}>Nutrition</Text>
+          </Stack>
         </NextLink>
       </MenuItem>
-      <MenuItem>
+      <MenuItem isActive={pathname === '/transactions'}>
         <NextLink href="/transactions" as={`/transactions`}>
           <Stack isInline>
             <Box alignSelf={'center'} mr={4}>
