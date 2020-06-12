@@ -34,7 +34,7 @@ export default () => {
             mr={2}
             onClick={prevDate}
           />
-          <DatePicker.ButtonDatePicker selected={date} onChange={setDate} />
+          <DatePicker type={"button"} selected={date} onChange={setDate} />
           <IconButton
             size={'sm'}
             icon={'chevron-right'}

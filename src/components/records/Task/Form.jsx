@@ -16,7 +16,8 @@ export default ({ record = {}, setRecord }) => {
         <Box mr={2}>
           <FormControl>
             <FormLabel htmlFor="email">From</FormLabel>
-            <DatePicker.InputDatePicker
+            <DatePicker
+              type={"input"}
               selected={moment(from)}
               onChange={(v) => {
                 const timestamp = moment(v).toISOString();
@@ -32,7 +33,8 @@ export default ({ record = {}, setRecord }) => {
         <Box mr={2}>
           <FormControl>
             <FormLabel htmlFor="email">To</FormLabel>
-            <DatePicker.InputDatePicker
+            <DatePicker
+              type={"input"}
               selected={moment(to)}
               onChange={(v) =>
                 setRecord({ ...record, data: { ...record.data, to: moment(v).toISOString() } })

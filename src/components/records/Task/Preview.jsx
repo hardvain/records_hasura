@@ -20,10 +20,11 @@ export default ({ record }) => {
   return (
     <Flex alignItems={'center'}>
       <Box as={FaTasks} alignSelf={'center'} mr={3} color={'green.500'} />
-      <Stack flexGrow={1}>
+      <Stack>
         <Text>{record.data.value}</Text>
-        <Badge w={100}>
-          <DatePicker.TextDatePicker
+        <Badge>
+          <DatePicker
+            type={"text"}
             selected={moment(record.timestamp)}
             onChange={onDateChange}
           />

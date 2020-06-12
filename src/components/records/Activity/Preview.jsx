@@ -26,17 +26,19 @@ export default ({ record }) => {
         mr={3}
         color={'white'}
       />
-      <Stack flexGrow={1}>
+      <Stack>
         <Text>{record.data.value}</Text>
         <Stack isInline>
-          <Badge w={100} mr={2}>
-            <DatePicker.TextDatePicker
+          <Badge mr={2}>
+            <DatePicker
+              type={"text"}
               selected={moment(record.from)}
               onChange={onDateChange}
             />
           </Badge>
           <Badge w={100}>
-            <DatePicker.TextDatePicker
+            <DatePicker
+              type={"text"}
               selected={moment(record.to)}
               onChange={onDateChange}
             />

@@ -13,7 +13,7 @@ import moment from 'moment';
 import { useState } from 'react';
 import { useStore } from 'src/store';
 
-export default ({filters, frozenType}) => {
+export default ({ filters, frozenType }) => {
   const { date, nextDate, prevDate, setDate } = useStore((state) => ({
     date: state.ui.date,
     nextDate: state.nextDate,
@@ -24,40 +24,28 @@ export default ({filters, frozenType}) => {
 
   return (
     <Box>
-      <Flex justifyContent={'space-around'}>
-        <Flex>
-          <IconButton
-            size={'sm'}
-            icon={'chevron-left'}
-            mr={2}
-            onClick={prevDate}
-          />
-          <DatePicker.ButtonDatePicker selected={date} onChange={setDate} />
-          <IconButton
-            size={'sm'}
-            icon={'chevron-right'}
-            ml={2}
-            onClick={nextDate}
-          />
-        </Flex>
-        <Box ml={'auto'}>
-          <Button mr={2} size="sm">
-            Tasks
-          </Button>
-          <Button mr={2} size="sm">
-            Projects
-          </Button>
-          <Button mr={2} size="sm">
-            Initiatives
-          </Button>
-        </Box>
+      <Flex justifyContent={'flex-start'}>
+        <IconButton
+          size={'sm'}
+          icon={'chevron-left'}
+          mr={2}
+          onClick={prevDate}
+        />
+        <DatePicker selected={date} onChange={setDate} />
+        <Button mx={2} size={"sm"} onClick={() => setDate(moment())}>Today</Button>
+        <IconButton
+          size={'sm'}
+          icon={'chevron-right'}
+          onClick={nextDate}
+        />
       </Flex>
       <Stack>
-        <RecordForm date={date} model={selectedRecord} frozenType={frozenType}/>
-        <RecordsList
-          filters={filters}
-          onItemSelect={setSelectedRecord}
+        <RecordForm
+          date={date}
+          model={selectedRecord}
+          frozenType={frozenType}
         />
+        <RecordsList filters={filters} onItemSelect={setSelectedRecord} />
       </Stack>
     </Box>
   );

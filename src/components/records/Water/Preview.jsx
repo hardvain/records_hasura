@@ -20,10 +20,11 @@ export default ({ record }) => {
   return (
     <Flex alignItems={'center'}>
       <Box as={IoMdWater} alignSelf={'center'} mr={3} color={'blue.500'} />
-      <Stack flexGrow={1}>
+      <Stack>
         <Text>{record.data.value}</Text>
-        <Badge w={100}>
-          <DatePicker.TextDatePicker
+        <Badge w={"100%"}>
+          <DatePicker
+            type={"text"}
             selected={moment(record.timestamp)}
             onChange={onDateChange}
           />

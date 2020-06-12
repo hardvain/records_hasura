@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Badge, Box, useToast, Flex, Stack, Text } from '@chakra-ui/core';
 import DatePicker from 'src/components/DatePicker';
-import Diabetes from 'src/assets/Diabetes'
+import Diabetes from 'src/assets/Diabetes';
 import moment from 'moment';
 import { useStore } from 'src/store';
 export default ({ record }) => {
@@ -11,21 +11,19 @@ export default ({ record }) => {
 
   const toast = useToast();
   const onDateChange = async (value) => {
-    updateRecord(
-      { ...record, timestamp: moment(value).toISOString() },
-      toast
-    );
+    updateRecord({ ...record, timestamp: moment(value).toISOString() }, toast);
   };
 
   return (
     <Flex alignItems={'center'}>
       <Box alignSelf={'center'} mr={2}>
-        <Diabetes width={30} height={30}/>
+        <Diabetes width={30} height={30} />
       </Box>
-      <Stack flexGrow={1}>
+      <Stack>
         <Text>{record.data.value}</Text>
-        <Badge w={100}>
-          <DatePicker.TextDatePicker
+        <Badge>
+          <DatePicker
+            type={"text"}
             selected={moment(record.timestamp)}
             onChange={onDateChange}
           />
