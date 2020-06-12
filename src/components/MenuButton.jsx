@@ -1,15 +1,22 @@
 import { useState } from 'react';
 import { Box } from '@chakra-ui/core';
+import { useStore } from 'src/store';
 
-export default ({ children }) => {
+export default ({ children, isActive }) => {
+  const { colors } = useStore((state) => ({
+    colors: state.ui.colors,
+  }));
+  console.log(`${colors.primary}.200` )
   const [isHovered, setIsHovered] = useState(false);
   return (
     <Box
       mr={2}
-      borderRadius={10}
+      borderRadius={2}
+      color={isActive ? `${colors.primary}.200` : ''}
       bg={isHovered ? '#333' : ''}
       onMouseEnter={() => setIsHovered(true)}
-      px={10} py={1}
+      px={10}
+      pt={1}
       onMouseLeave={() => setIsHovered(false)}
     >
       {children}

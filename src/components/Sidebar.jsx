@@ -44,17 +44,17 @@ export default () => {
           <Stack isInline>
             <Box
               as={MdApps}
-              fontSize={25}
+              fontSize={30}
               alignSelf={'center'}
               color={'cyan.500'}
               mx={1}
             />
-            <Text ml={1}>All</Text>
+            <Text ml={2}>All</Text>
           </Stack>
         </NextLink>
       </MenuItem>
-      <MenuItem isActive={pathname === '/tasks'}>
-        <NextLink href="/tasks" as={`/tasks`}>
+      <MenuItem isActive={pathname === '/records/tasks'}>
+        <NextLink href="/records/tasks" as={`/records/tasks`}>
           <Stack isInline>
             <Box
               as={FaTasks}
@@ -67,18 +67,18 @@ export default () => {
           </Stack>
         </NextLink>
       </MenuItem>
-      <MenuItem isActive={pathname === '/glucose'}>
-        <NextLink href="/glucose" as={`/glucose`}>
+      <MenuItem isActive={pathname === '/records/glucose'}>
+        <NextLink href="/records/glucose" as={`/records/glucose`}>
           <Stack isInline>
-            <Box alignSelf={'center'} mr={4}>
+            <Box alignSelf={'center'} mr={5}>
               <Sugar width={30} height={30} />
             </Box>
-            <Text>Glucose</Text>
+            <Text ml={2}>Glucose</Text>
           </Stack>
         </NextLink>
       </MenuItem>
-      <MenuItem isActive={pathname === '/water'}>
-        <NextLink href="/water" as={`/water`}>
+      <MenuItem isActive={pathname === '/records/water'}>
+        <NextLink href="/records/water" as={`/records/water`}>
           <Stack isInline alignItems={'center'}>
             <Box alignSelf={'center'} mr={4}>
               <Water width={30} height={30} />
@@ -87,22 +87,22 @@ export default () => {
           </Stack>
         </NextLink>
       </MenuItem>
-      <MenuItem isActive={pathname === '/nutrition'}>
-        <NextLink href="/nutrition" as={`/nutrition`}>
+      <MenuItem isActive={pathname === '/records/nutrition'}>
+        <NextLink href="/records/nutrition" as={`/records/nutrition`}>
           <Stack isInline>
             <Box
               as={FaNutritionix}
-              fontSize={'2xl'}
+              fontSize={30}
               alignSelf={'center'}
               color={'teal.500'}
-              mx={2}
+              mr={2}
             />
             <Text ml={2}>Nutrition</Text>
           </Stack>
         </NextLink>
       </MenuItem>
-      <MenuItem isActive={pathname === '/transactions'}>
-        <NextLink href="/transactions" as={`/transactions`}>
+      <MenuItem isActive={pathname === '/records/transactions'}>
+        <NextLink href="/records/transactions" as={`/records/transactions`}>
           <Stack isInline>
             <Box alignSelf={'center'} mr={4}>
               <Money width={30} height={30} />
