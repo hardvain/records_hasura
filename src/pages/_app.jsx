@@ -56,7 +56,7 @@ export default ({ Component, pageProps }) => {
             <Navbar />
             <Flex direction={'row'} mt={60}>
               {showSidebar && <Sidebar />}
-              <Box ml={showSidebar ? 310 : 0} mr={5} flexGrow={1}>
+              <Box ml={showSidebar ? 330 : 5} mr={5} flexGrow={1}>
                 <App Component={Component} pageProps={pageProps} />
                 <FormModal/>
               </Box>

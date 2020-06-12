@@ -14,7 +14,9 @@ import { useRouter } from 'next/router';
 import { FaHome, FaCalendar, FaPlus, FaFolder } from 'react-icons/fa';
 import { FiMenu } from 'react-icons/fi';
 import { IoIosApps } from 'react-icons/io';
+import Logo from 'src/assets/Logo'
 import NextLink from 'next/link';
+import Project from 'src/assets/Project';
 import MenuButton from 'src/components/MenuButton';
 import { useStore } from 'src/store';
 export default () => {
@@ -46,8 +48,9 @@ export default () => {
         onClick={toggleSidebar}
       />
       <Stack isInline alignItems={'center'} mr={2} cursor={'pointer'}>
-        <Box as={IoIosApps} fontSize={'4xl'} mr={3} />
-        <Text fontSize={'lg'}>Records</Text>
+        <Box alignSelf={'center'} mr={4}>
+          <Logo width={30} height={30} />
+        </Box>
       </Stack>
       <MenuButton isActive={pathname.includes('/records')}>
         <NextLink href="/" as={`/`}>

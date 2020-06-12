@@ -1,15 +1,31 @@
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { Box, Divider, Flex, IconButton, Stack, Text } from '@chakra-ui/core';
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Collapse,
+  Stack,
+  Text,
+} from '@chakra-ui/core';
 import { FaTasks, FaNutritionix, FaCog } from 'react-icons/fa';
 import { MdApps } from 'react-icons/md';
 import Sugar from 'src/assets/Sugar';
+import Fruit from 'src/assets/Fruit';
+import Project from 'src/assets/Project';
 import Money from 'src/assets/Money';
+import Medicine from 'src/assets/Medicine';
+import Brain from 'src/assets/Brain';
+import Team from 'src/assets/Team';
+import Settings from 'src/assets/Settings';
+import Heart from 'src/assets/Heart';
+import Sleep from 'src/assets/Sleep';
+import Target from 'src/assets/Target';
 import Water from 'src/assets/Water';
+import Time from 'src/assets/Time';
 import { GoProject } from 'react-icons/go';
-import { GiBrain } from 'react-icons/gi';
-import { IoMdWater } from 'react-icons/io';
 const MenuItem = ({ children, isActive }) => {
   const [isHovering, setIsHovering] = useState(false);
   return (
@@ -28,6 +44,8 @@ const MenuItem = ({ children, isActive }) => {
 };
 
 export default () => {
+  const [show, setShow] = useState(false);
+  const handleToggle = () => setShow(!show);
   const router = useRouter();
   const pathname = router.pathname;
   return (
@@ -40,6 +58,7 @@ export default () => {
       height={'100%'}
       left={0}
       overflowX={'hidden'}
+      overflowY={"scroll"}
     >
       <MenuItem isActive={pathname === '/'}>
         <NextLink href="/" as={`/`}>
@@ -113,46 +132,113 @@ export default () => {
           </Stack>
         </NextLink>
       </MenuItem>
-      <Divider borderWidth={2} my={5}/>
+      <Collapse isOpen={show}>
+        <MenuItem isActive={pathname === '/people'}>
+          <NextLink href="/people" as={`/people`}>
+            <Stack isInline alignItems={'center'}>
+              <Box alignSelf={'center'} mr={5}>
+                <Team width={30} height={30} />
+              </Box>
+              <Text ml={2}>People</Text>
+            </Stack>
+          </NextLink>
+        </MenuItem>
+        <MenuItem isActive={pathname === '/records/dishes'}>
+          <NextLink href="/records/dishes" as={`/records/dishes`}>
+            <Stack isInline alignItems={'center'}>
+              <Box alignSelf={'center'} mr={5}>
+                <Fruit width={30} height={30} />
+              </Box>
+              <Text ml={2}>Dishes</Text>
+            </Stack>
+          </NextLink>
+        </MenuItem>
+        <MenuItem isActive={pathname === '/records/sleep'}>
+          <NextLink href="/records/sleep" as={`/records/sleep`}>
+            <Stack isInline alignItems={'center'}>
+              <Box alignSelf={'center'} mr={5}>
+                <Sleep width={30} height={30} />
+              </Box>
+              <Text ml={2}>Sleep</Text>
+            </Stack>
+          </NextLink>
+        </MenuItem>
+        <MenuItem isActive={pathname === '/records/timesheet'}>
+          <NextLink href="/records/timesheet" as={`/records/timesheet`}>
+            <Stack isInline alignItems={'center'}>
+              <Box alignSelf={'center'} mr={4}>
+                <Time width={30} height={30} />
+              </Box>
+              <Text ml={2}>Timesheet</Text>
+            </Stack>
+          </NextLink>
+        </MenuItem>
+        <MenuItem isActive={pathname === '/records/knowledge'}>
+          <NextLink href="/records/knowledge" as={`/records/knowledge`}>
+            <Stack isInline alignItems={'center'}>
+              <Box alignSelf={'center'} mr={4}>
+                <Brain width={30} height={30} />
+              </Box>
+              <Text ml={2}>Knowledge</Text>
+            </Stack>
+          </NextLink>
+        </MenuItem>
+        <MenuItem isActive={pathname === '/records/heart'}>
+          <NextLink href="/records/heart" as={`/records/heart`}>
+            <Stack isInline alignItems={'center'}>
+              <Box alignSelf={'center'} mr={4}>
+                <Heart width={30} height={30} />
+              </Box>
+              <Text ml={2}>Heart</Text>
+            </Stack>
+          </NextLink>
+        </MenuItem>
+        <MenuItem isActive={pathname === '/records/medications'}>
+          <NextLink href="/records/medications" as={`/records/medications`}>
+            <Stack isInline alignItems={'center'}>
+              <Box alignSelf={'center'} mr={4}>
+                <Medicine width={30} height={30} />
+              </Box>
+              <Text ml={2}>Medications</Text>
+            </Stack>
+          </NextLink>
+        </MenuItem>
+      </Collapse>
+      <Button
+        rightIcon={show ? 'chevron-up' : 'chevron-down'}
+        w={'100%'}
+        onClick={handleToggle}
+      >
+        {show ? 'Show Less' : 'Show More'}
+      </Button>
+      <Divider borderWidth={2} my={5} />
       <MenuItem isActive={pathname === '/initiatives'}>
         <NextLink href="/initiatives" as={`/initiatives`}>
           <Stack isInline alignItems={'center'}>
-            <Box
-              as={GiBrain}
-              fontSize={30}
-              alignSelf={'center'}
-              color={'lime.500'}
-              mr={2}
-            />
-            <Text ml={2}>Inititives & Projects</Text>
+            <Box alignSelf={'center'} mr={4}>
+              <Target width={30} height={30} />
+            </Box>
+            <Text ml={2}>Inititives</Text>
           </Stack>
         </NextLink>
       </MenuItem>
       <MenuItem isActive={pathname === '/projects'}>
         <NextLink href="/projects" as={`/projects`}>
           <Stack isInline alignItems={'center'}>
-            <Box
-              as={GoProject}
-              fontSize={30}
-              alignSelf={'center'}
-              color={'orange.500'}
-              mr={2}
-            />
+            <Box alignSelf={'center'} mr={4}>
+              <Project width={30} height={30} />
+            </Box>
             <Text ml={2}>Projects</Text>
           </Stack>
         </NextLink>
       </MenuItem>
-      <Divider borderWidth={2} my={5}/>
+      <Divider borderWidth={2} my={5} />
       <MenuItem isActive={pathname === '/settings'}>
         <NextLink href="/settings" as={`/settings`}>
           <Stack isInline alignItems={'center'}>
-            <Box
-              as={FaCog}
-              fontSize={30}
-              alignSelf={'center'}
-              color={'red.500'}
-              mr={2}
-            />
+            <Box alignSelf={'center'} mr={4}>
+              <Settings width={30} height={30} />
+            </Box>
             <Text ml={2}>Settings</Text>
           </Stack>
         </NextLink>
