@@ -57,11 +57,12 @@ const constructWhere = ({
   query.orderBy = {
     [orderByField]: orderDirection || 'desc',
   };
-  return query
+  return query;
 };
 export const getAll = async (params = {}) => {
   const count = await prisma.record.count();
-  const tasks = await prisma.record.findMany(constructWhere(params));
+  const criterium = constructWhere(params);
+  const tasks = await prisma.record.findMany(criterium);
   return {
     count,
     items: tasks,

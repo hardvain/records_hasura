@@ -24,7 +24,11 @@ export const [useStore] = create((set, get) => ({
     }));
   },
   getRecords: async (filters) => {
-    const response = await fetch(`/api/records?date=${filters.date}`, {
+    let qs=""
+    Object.keys(filters).forEach(key => {
+      qs = qs + `${key}=${filters[key]}&`
+    })
+    const response = await fetch(`/api/records?${qs}`, {
       method: 'GET',
     });
     return await response.json();

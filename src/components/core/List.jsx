@@ -11,7 +11,7 @@ import NotFound from 'src/assets/NotFound';
 import Card from 'src/components/Card';
 import { RecordPreview } from 'src/components/records';
 import { useStore } from 'src/store';
-import List from "src/components/core/List"
+
 const Loading = ({ count }) => {
   return (
     <Box>
@@ -24,7 +24,7 @@ const Loading = ({ count }) => {
   );
 };
 
-export default ({ filters, onItemSelect }) => {
+export default ({ filters, children, ...rest }) => {
   const toast = useToast();
   const [records, setRecords] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -50,30 +50,15 @@ export default ({ filters, onItemSelect }) => {
 
   return (
     <Stack w={'100%'}>
-      <List filters={filters}>
-        {records => records.map((record) => (
-          <Card borderWidth={1} my={3} px={4} py={2} key={record.id}>
-            <Flex width={'100%'} alignItems={'center'}>
-              <Box flexGrow={1}>
-                <RecordPreview record={record} />
-              </Box>
-              <IconButton
-                mr={2}
-                onClick={() => onItemSelect(record)}
-                variant={'default'}
-                icon={'edit'}
-                size={'sm'}
-              />
-              <IconButton
-                variant={'default'}
-                icon={'delete'}
-                size={'sm'}
-                onClick={() => del(record.id)}
-              />
-            </Flex>
-          </Card>
-        ))}
-      </List>
+      {isLoading ? (
+        <Loading count={10} />
+      ) : records.items.length > 0 ? (
+        children(records.items)
+      ) : (
+        <Flex justifyContent={'space-around'} w={'100%'}>
+          <NotFound />
+        </Flex>
+      )}
     </Stack>
   );
 };

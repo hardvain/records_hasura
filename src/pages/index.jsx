@@ -1,6 +1,7 @@
 import { Box, Button, Flex, IconButton, Stack } from '@chakra-ui/core';
 import DatePicker from 'src/components/DatePicker';
 import RecordForm from 'src/components/records/form';
+import DailyTrends from 'src/components/records/Glucose/DailyTrends';
 import RecordsList from 'src/components/records/list';
 import moment from 'moment';
 import { useState } from 'react';
@@ -51,6 +52,7 @@ export default () => {
           filters={{ date: date.format('yyyy-MM-DD') }}
           onItemSelect={setSelectedRecord}
         />
+        <DailyTrends />
       </Stack>
     </Box>
   );
