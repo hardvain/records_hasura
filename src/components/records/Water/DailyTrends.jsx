@@ -17,10 +17,10 @@ export default ({ date = moment().format('yyyy-MM-DD') }) => {
     <Card>
       <List
         filters={{
-          recordType: 'glucose',
+          recordType: 'water',
           orderBy: 'timestamp',
           orderDirection: 'asc',
-          date
+          date,
         }}
       >
         {(records) =>

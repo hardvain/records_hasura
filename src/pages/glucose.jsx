@@ -9,7 +9,7 @@ export default () => {
 
   return (
     <Box py={30} px={50}>
-      <RecordsWithForm filters={{ date: date.format('yyyy-MM-DD') }} />
+      <RecordsWithForm filters={{ date: date.format('yyyy-MM-DD'), recordType:"glucose" }} frozenType={"glucose"} />
     </Box>
   );
 };

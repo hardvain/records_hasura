@@ -1,6 +1,5 @@
 import { Badge, Box, Flex, Stack, Text, useToast } from '@chakra-ui/core';
 import moment from 'moment';
-import { useState } from 'react';
 import { FaTasks } from 'react-icons/fa';
 import DatePicker from 'src/components/DatePicker';
 import { useStore } from 'src/store';

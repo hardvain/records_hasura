@@ -14,7 +14,7 @@ import { useStore } from 'src/store';
 import { RecordForm } from './index';
 
 let defaultRecord = { recordType: 'generic' };
-export default ({ date, model = defaultRecord }) => {
+export default ({ date, model = defaultRecord, frozenType }) => {
   const toast = useToast();
   const [record, setRecord] = useState(model);
   const { createRecord, updateRecord } = useStore((state) => ({
@@ -40,14 +40,15 @@ export default ({ date, model = defaultRecord }) => {
   return (
     <Card my={3} borderWidth={1} p={3}>
       <Stack w={'100%'}>
-        <RecordForm record={record} setRecord={setRecord} />
+        <RecordForm record={record} setRecord={setRecord} frozenType={frozenType}/>
         <Divider />
         <Flex justifyContent={'space-around'} mt={2}>
           <Select
             w={200}
             mr={2}
+            isDisabled={frozenType}
             size={'sm'}
-            value={record.recordType}
+            value={frozenType || record.recordType}
             onChange={(v) => {
               setRecord({ ...record, recordType: v.target.value });
             }}

@@ -1,7 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
+import { Flex, Stack } from '@chakra-ui/core';
 import './app.css';
 import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
 import {
   ThemeProvider,
   CSSReset,
@@ -42,14 +44,19 @@ export default ({ Component, pageProps }) => {
   return (
     <Box height="100vh">
       <Head>
-        <title>Assess</title>
+        <title>Records</title>
       </Head>
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
           <DarkMode>
             <CSSReset config={config} />
             <Navbar />
-            <App Component={Component} pageProps={pageProps} />
+            <Flex direction={"row"}>
+              <Sidebar />
+              <Box flexGrow={1}>
+                <App Component={Component} pageProps={pageProps} />
+              </Box>
+            </Flex>
           </DarkMode>
         </ColorModeProvider>
       </ThemeProvider>

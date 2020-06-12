@@ -19,8 +19,8 @@ export const RecordPreview = ({ record }) => {
   });
 };
 
-export const RecordForm = ({ record, setRecord }) => {
-  return createElement(RecordMap[record.recordType].Form, {
+export const RecordForm = ({ record, setRecord, frozenType }) => {
+  return createElement(RecordMap[frozenType || record.recordType].Form, {
     record,
     setRecord,
   });
