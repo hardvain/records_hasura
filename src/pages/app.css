@@ -103,7 +103,13 @@ a:hover {
   background: #8d8d8d !important;
   color: #333 !important;
 }
-.react-datepicker__day--selected, .react-datepicker__time-list-item--selected {
+.react-datepicker__day--selected,
+.react-datepicker__time-list-item--selected {
   background: white !important;
   color: #333 !important;
+}
+
+#modal-1-header,
+#modal-1-body {
+  background: #232626 !important;
 }

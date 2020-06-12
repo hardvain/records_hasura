@@ -2,7 +2,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Box, Divider, Flex, IconButton, Stack, Text } from '@chakra-ui/core';
-import { FaTasks, FaNutritionix, FaRegMoneyBillAlt } from 'react-icons/fa';
+import { FaTasks, FaNutritionix, FaCog } from 'react-icons/fa';
 import { MdApps } from 'react-icons/md';
 import Sugar from 'src/assets/Sugar';
 import Money from 'src/assets/Money';
@@ -139,6 +139,21 @@ export default () => {
               mr={2}
             />
             <Text ml={2}>Projects</Text>
+          </Stack>
+        </NextLink>
+      </MenuItem>
+      <Divider borderWidth={2} my={5}/>
+      <MenuItem isActive={pathname === '/settings'}>
+        <NextLink href="/settings" as={`/settings`}>
+          <Stack isInline alignItems={'center'}>
+            <Box
+              as={FaCog}
+              fontSize={30}
+              alignSelf={'center'}
+              color={'red.500'}
+              mr={2}
+            />
+            <Text ml={2}>Settings</Text>
           </Stack>
         </NextLink>
       </MenuItem>

@@ -4,11 +4,18 @@ export const [useStore] = create((set, get) => ({
   ui: {
     date: moment(),
     showSidebar:true,
+    showFormPopup: false,
     refreshedAt: moment().toISOString(),
     colors: {
       primary: 'deeppurple',
       secondary: 'deeporange',
     },
+  },
+  toggleFormPopup: () => {
+    set((state) => ({
+      ...state,
+      ui: { ...state.ui, showFormPopup: !get().ui.showFormPopup },
+    }));
   },
   toggleSidebar: () => {
     set((state) => ({

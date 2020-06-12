@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { Flex, Stack } from '@chakra-ui/core';
 import './app.css';
+import FormModal from 'src/components/records/FormModal';
 import { useStore } from 'src/store';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
@@ -57,6 +58,7 @@ export default ({ Component, pageProps }) => {
               {showSidebar && <Sidebar />}
               <Box ml={showSidebar ? 310 : 0} mr={5} flexGrow={1}>
                 <App Component={Component} pageProps={pageProps} />
+                <FormModal/>
               </Box>
             </Flex>
           </DarkMode>

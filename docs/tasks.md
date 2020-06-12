@@ -1,14 +1,14 @@
-[*] Easy way to add new record types
-[*] Record type specific api
-[] Calendar
-[] Add tags
 [] Projects and Initiatives
-[*] Graphs for health parameters
-[] Search
-[] Capture food information
+[] Add tags
 [] Record details page/form
-[*] Simplify date picker
+[] Capture food information
+[] Calendar
+[] Search
 [] Nice error page
 [] Responsive app
-[*] Add transaction type
 [] Animate motions
+[*] Easy way to add new record types
+[*] Record type specific api
+[*] Graphs for health parameters
+[*] Simplify date picker
+[*] Add transaction type
