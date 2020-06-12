@@ -1,4 +1,4 @@
-import { Button, Text } from '@chakra-ui/core';
+import { Text } from '@chakra-ui/core';
 import DatePicker from 'react-datepicker';
 import {forwardRef, createRef} from 'react'
 import { FaCalendarAlt } from 'react-icons/fa';

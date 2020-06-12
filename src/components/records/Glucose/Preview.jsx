@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Badge, Box, useToast, Flex, Stack, Text } from '@chakra-ui/core';
-import { GiLoveInjection } from 'react-icons/gi';
 import DatePicker from 'components/DatePicker';
 import Diabetes from 'assets/Diabetes'
 import moment from 'moment';

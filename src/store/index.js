@@ -29,10 +29,29 @@ export const [useStore] = create((set, get) => ({
     return await response.json();
   },
   getRecord: () => {},
-  createRecord: () => {},
+  createRecord: async (record, toast) => {
+    const response = await fetch(`/api/records`, { method: 'POST', body: JSON.stringify(record) });
+    if (response.status === 200) {
+      toast({
+        title: 'Record created successfully',
+        status: 'success',
+        duration: 3000,
+        position: 'top',
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: 'Error during record creation',
+        status: 'error',
+        duration: 3000,
+        position: 'top',
+        isClosable: true,
+      });
+    }
+  },
   deleteRecord: async (id, toast) => {
     const response = await fetch(`/api/records/${id}`, { method: 'DELETE' });
-    if(response.status === 200){
+    if (response.status === 200) {
       toast({
         title: 'Record deleted successfully',
         status: 'success',
@@ -50,5 +69,24 @@ export const [useStore] = create((set, get) => ({
       });
     }
   },
-  updateRecord: () => {},
+  updateRecord: async (record, toast) => {
+    const response = await fetch(`/api/records/${record.id}`, { method: 'PUT', body: JSON.stringify(record) });
+    if (response.status === 200) {
+      toast({
+        title: 'Record updated successfully',
+        status: 'success',
+        duration: 3000,
+        position: 'top',
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: 'Error during record updation',
+        status: 'error',
+        duration: 3000,
+        position: 'top',
+        isClosable: true,
+      });
+    }
+  },
 }));

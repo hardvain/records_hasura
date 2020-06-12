@@ -7,12 +7,9 @@ import {
   Skeleton,
   useToast,
 } from '@chakra-ui/core';
-import moment from 'moment';
 import NotFound from 'assets/NotFound';
 import Card from 'components/Card';
 import { RecordPreview } from 'components/records';
-import { useQuery } from 'react-query';
-import { fetchRecords, deleteRecord } from './api';
 import { useStore } from 'store';
 
 const Loading = ({ count }) => {

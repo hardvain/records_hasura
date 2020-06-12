@@ -1,7 +1,6 @@
 import {
   Badge,
   Box,
-  Checkbox,
   Flex,
   Stack,
   Text,

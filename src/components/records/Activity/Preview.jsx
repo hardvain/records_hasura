@@ -1,4 +1,4 @@
-import { Badge, Box, Checkbox, Flex, Stack, Text, useToast } from '@chakra-ui/core';
+import { Badge, Box, Flex, Stack, Text, useToast } from '@chakra-ui/core';
 import moment from 'moment';
 import { useState } from 'react';
 import {FiActivity} from 'react-icons/fi'

@@ -1,10 +1,8 @@
-import { Flex, IconButton, useColorMode } from '@chakra-ui/core';
+import { Flex, IconButton } from '@chakra-ui/core';
 import { FaHome, FaCalendar, FaChartBar } from 'react-icons/fa';
 import NextLink from 'next/link';
 import MenuButton from 'components/MenuButton';
 export default () => {
-  const { colorMode, toggleColorMode } = useColorMode();
-
   return (
     <Flex
       bg={'#232626'}
@@ -12,7 +10,7 @@ export default () => {
       borderBottomWidth={1}
       borderBottom="gray.200"
       alignItems={'center'}
-      py={"2px"}
+      py={'2px'}
       px={2}
     >
       <MenuButton>

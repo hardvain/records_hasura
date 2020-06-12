@@ -1,7 +1,6 @@
-import { Button, Input } from '@chakra-ui/core';
+import { Input } from '@chakra-ui/core';
 import { createRef, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
-
 import { FaCalendarAlt } from 'react-icons/fa';
 
 const Component = forwardRef(({value,onClick}, ref) => (

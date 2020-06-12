@@ -3,40 +3,38 @@ import {
   Button,
   Divider,
   Flex,
-  IconButton,
   Select,
   Stack,
   useToast,
 } from '@chakra-ui/core';
-import { useEffect, useState, createElement } from 'react';
+import { useEffect, useState } from 'react';
 import Card from 'components/Card';
-import DatePicker from 'components/DatePicker';
-import { MdLabelOutline } from 'react-icons/md';
-import { GoProject } from 'react-icons/go';
 import moment from 'moment';
+import { useStore } from 'store';
 import { RecordForm } from './index';
 
 let defaultRecord = { recordType: 'generic' };
 export default ({ date, model = defaultRecord, onSave }) => {
   const toast = useToast();
   const [record, setRecord] = useState(model);
-
+  const { createRecord, updateRecord } = useStore((state) => ({
+    createRecord: state.createRecord,
+    updateRecord: state.updateRecord,
+  }));
   useEffect(() => {
     setRecord(model);
   }, [model]);
 
   const submit = async () => {
-    await fetch(model.id ? `/api/records/${model.id}` : `/api/records`, {
-      method: model.id ? 'PUT' : 'POST',
-      body: JSON.stringify(record),
-    });
-    toast({
-      title: model.id ? 'Record updated' : 'Record Created',
-      status: 'success',
-      duration: 3000,
-      position: 'top',
-      isClosable: true,
-    });
+    const payload = { ...record };
+    if (!payload.timestamp) {
+      payload.timestamp = moment().toISOString();
+    }
+    if (payload.id) {
+      await updateRecord(payload, toast);
+    } else {
+      await createRecord(payload, toast);
+    }
     setRecord(defaultRecord);
     onSave();
   };
@@ -73,7 +71,7 @@ export default ({ date, model = defaultRecord, onSave }) => {
             size={'sm'}
             onClick={submit}
           >
-            {model.id ? 'Update' : 'Save'}
+            {record.id ? 'Update' : 'Save'}
           </Button>
         </Flex>
       </Stack>
