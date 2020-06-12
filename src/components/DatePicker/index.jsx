@@ -52,7 +52,7 @@ const ComponentMap = {
   input: InputComponent,
 };
 
-export default ({ selected, onChange, type }) => {
+export default ({ selected, onChange, type, includeTime }) => {
   const ref = createRef();
   return (
     <DatePicker
@@ -63,7 +63,7 @@ export default ({ selected, onChange, type }) => {
       timeCaption="Time"
       selected={selected?.toDate()}
       onChange={(v) => onChange(moment(v))}
-      dateFormat="MMMM d, yyyy - HH:mm"
+      dateFormat={includeTime ? "MMMM d, yyyy - HH:mm" :"MMMM d, yyyy"}
       customInput={createElement(ComponentMap[type || 'input'], { ref })}
     />
   );

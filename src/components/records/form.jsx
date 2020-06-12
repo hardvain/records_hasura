@@ -29,20 +29,22 @@ export default ({ model = defaultRecord, frozenType }) => {
 
   const submit = async () => {
     const payload = { ...record };
+
     if (!payload.timestamp) {
       payload.timestamp = moment().toISOString();
     }
-    payload.timestamp = moment(payload.timestamp);
-    payload.timestamp.set('year', date.get('year'));
-    payload.timestamp.set('month', date.get('month'));
-    payload.timestamp.set('date', date.get('date'));
-    payload.timestamp = payload.timestamp.toISOString();
+
     if (frozenType) {
       payload.recordType = frozenType;
     }
     if (payload.id) {
       await updateRecord(payload, toast);
     } else {
+      payload.timestamp = moment(payload.timestamp);
+      payload.timestamp.set('year', date.get('year'));
+      payload.timestamp.set('month', date.get('month'));
+      payload.timestamp.set('date', date.get('date'));
+      payload.timestamp = payload.timestamp.toISOString();
       await createRecord(payload, toast);
     }
     setRecord(defaultRecord);

@@ -1,44 +1,35 @@
 import { Box, FormControl, FormLabel, Stack, Textarea } from '@chakra-ui/core';
 import moment from 'moment';
+import { useEffect } from 'react';
 import DatePicker from 'src/components/DatePicker';
+import { useStore } from 'src/store';
 export default ({ record = {}, setRecord }) => {
+  const date = useStore(state => state.ui.date)
   const value = record ? (record.data ? record.data.value : '') : '';
-  let timestamp = moment();
-  const from = record
+  let ts = date.toISOString();
+  const dueDate = record
     ? record.data
-      ? record.data.from
-      : timestamp
-    : timestamp;
-  const to = record ? (record.data ? record.data.to : timestamp) : timestamp;
+      ? record.data.dueDate
+      : ts
+    : ts;
   return (
     <Stack>
       <Stack isInline>
         <Box mr={2}>
           <FormControl>
-            <FormLabel htmlFor="email">From</FormLabel>
+            <FormLabel htmlFor="due date">Due Date</FormLabel>
             <DatePicker
-              type={"input"}
-              selected={moment(from)}
+              type={'input'}
+              includeTime={true}
+              selected={moment(dueDate)}
               onChange={(v) => {
                 const timestamp = moment(v).toISOString();
                 setRecord({
                   ...record,
                   timestamp,
-                  data: { ...record.data, from: timestamp },
+                  data: { ...record.data, dueDate: timestamp },
                 });
               }}
-            />
-          </FormControl>
-        </Box>
-        <Box mr={2}>
-          <FormControl>
-            <FormLabel htmlFor="email">To</FormLabel>
-            <DatePicker
-              type={"input"}
-              selected={moment(to)}
-              onChange={(v) =>
-                setRecord({ ...record, data: { ...record.data, to: moment(v).toISOString() } })
-              }
             />
           </FormControl>
         </Box>
