@@ -14,25 +14,11 @@ import DatePicker from 'components/DatePicker';
 import { MdLabelOutline } from 'react-icons/md';
 import { GoProject } from 'react-icons/go';
 import moment from 'moment';
-import TaskForm from './Task/Form';
-import GlucoseForm from './Glucose/Form';
-import WaterForm from './Water/Form';
-import ActivityForm from './Activity/Form';
-import GenericForm from './Generic/Form';
-
-const FormMap = {
-  task: TaskForm,
-  glucose: GlucoseForm,
-  generic: GenericForm,
-  water: WaterForm,
-  activity: ActivityForm,
-};
-
+import { RecordForm } from './index';
 export default ({ date, model = {}, onSave }) => {
   const toast = useToast();
   const [recordType, setRecordType] = useState(model.recordType || 'generic');
   const [record = {}, setRecord] = useState(model);
-  const FormComponent = FormMap[recordType];
 
   useEffect(() => {
     setRecord(model);
@@ -71,8 +57,7 @@ export default ({ date, model = {}, onSave }) => {
   return (
     <Card my={3} borderWidth={1} p={3}>
       <Stack w={'100%'}>
-        {/*TODO: Convert to a component*/}
-        {FormComponent && createElement(FormComponent, { record, setRecord })}
+        <RecordForm recordType={recordType} record={record} setRecord={setRecord} />
         <Divider />
         <Flex justifyContent={'space-around'} mt={2}>
           <Select

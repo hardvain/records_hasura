@@ -1,20 +1,27 @@
 import { createElement } from 'react';
-import TaskPreview from './Task/Preview';
-import GlucosePreview from './Glucose/Preview';
-import WaterPreview from './Water/Preview';
-import GenericPreview from './Generic/Preview';
-import ActivityPreview from './Activity/Preview';
+import Task from './Task';
+import Glucose from './Glucose';
+import Water from './Water';
+import Generic from './Generic';
+import Activity from './Activity';
 
 const RecordMap = {
-  task: TaskPreview,
-  glucose: GlucosePreview,
-  water: WaterPreview,
-  generic: GenericPreview,
-  activity: ActivityPreview,
+  task: Task,
+  glucose: Glucose,
+  water: Water,
+  generic: Generic,
+  activity: Activity,
 };
 
 export const RecordPreview = ({ recordData }) => {
-  return createElement(RecordMap[recordData.recordType], {
+  return createElement(RecordMap[recordData.recordType].Preview, {
     recordData,
+  });
+};
+
+export const RecordForm = ({ recordType, record, setRecord }) => {
+  return createElement(RecordMap[recordType].Form, {
+    record,
+    setRecord,
   });
 };
