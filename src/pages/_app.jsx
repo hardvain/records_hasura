@@ -51,9 +51,9 @@ export default ({ Component, pageProps }) => {
           <DarkMode>
             <CSSReset config={config} />
             <Navbar />
-            <Flex direction={"row"}>
+            <Flex direction={"row"} mt={60}>
               <Sidebar />
-              <Box flexGrow={1}>
+              <Box ml={300} flexGrow={1}>
                 <App Component={Component} pageProps={pageProps} />
               </Box>
             </Flex>

@@ -24,6 +24,10 @@ export default () => {
       alignItems={'center'}
       py={'2px'}
       px={2}
+      position={'fixed'}
+      width='100%'
+      top={0}
+      zIndex={1000}
     >
       <NextLink href="/" as={`/`}>
         <Stack isInline alignItems={'center'} mr={2} cursor={'pointer'}>

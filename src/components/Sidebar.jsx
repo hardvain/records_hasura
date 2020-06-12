@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { Box, Divider, Flex, IconButton, Stack, Text } from '@chakra-ui/core';
 import { FaTasks, FaNutritionix,FaRegMoneyBillAlt } from 'react-icons/fa';
 import { MdApps } from 'react-icons/md';
-import Diabetes from 'src/assets/Diabetes';
 import Sugar from 'src/assets/Sugar';
+import Money from 'src/assets/Money';
 import Water from 'src/assets/Water';
 import { IoMdWater } from 'react-icons/io';
 const MenuItem = ({ children }) => {
@@ -26,7 +26,7 @@ const MenuItem = ({ children }) => {
 
 export default () => {
   return (
-    <Box w={300} pl={3} pt={3}>
+    <Box w={300} pl={3} pt={3} position={'fixed'} zIndex={1000} height={'100%'} left={0} overflowX={'hidden'}>
       <MenuItem>
         <NextLink href="/" as={`/`}>
           <Stack isInline>
@@ -79,12 +79,9 @@ export default () => {
       <MenuItem>
         <NextLink href="/transactions" as={`/transactions`}>
           <Stack isInline>
-            <Box
-              as={FaRegMoneyBillAlt}
-              alignSelf={'center'}
-              color={'teal.500'}
-              mx={2}
-            />
+            <Box alignSelf={'center'} mr={4}>
+              <Money width={30} height={30} />
+            </Box>
             <Text ml={2}>Transactions</Text>
           </Stack>
         </NextLink>
