@@ -24,11 +24,12 @@ const Loading = ({ count }) => {
   );
 };
 
-export default ({ filters, onItemSelect, mutatedAt }) => {
+export default ({ filters, onItemSelect }) => {
   const toast = useToast();
   const [records, setRecords] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { getRecords, deleteRecord } = useStore((state) => ({
+  const { getRecords, deleteRecord, refreshedAt } = useStore((state) => ({
+    refreshedAt: state.ui.refreshedAt,
     getRecords: state.getRecords,
     deleteRecord: state.deleteRecord,
   }));
@@ -37,14 +38,14 @@ export default ({ filters, onItemSelect, mutatedAt }) => {
       setRecords(d);
       setIsLoading(false);
     });
-  }
+  };
   useEffect(() => {
-    updateRecords()
-  }, [filters]);
+    updateRecords();
+  }, [filters, refreshedAt]);
 
   const del = async (id) => {
-    await deleteRecord(id,toast)
-    updateRecords()
+    await deleteRecord(id, toast);
+    updateRecords();
   };
 
   return (

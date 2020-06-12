@@ -36,7 +36,6 @@ export default ({ date, model = defaultRecord, onSave }) => {
       await createRecord(payload, toast);
     }
     setRecord(defaultRecord);
-    onSave();
   };
   return (
     <Card my={3} borderWidth={1} p={3}>

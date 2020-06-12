@@ -13,12 +13,7 @@ export default () => {
     prevDate: state.prevDate,
     setDate: state.setDate,
   }));
-  const [mutatedAt, setMutatedAt] = useState(moment().toISOString());
   const [selectedRecord, setSelectedRecord] = useState();
-
-  const onSave = () => {
-    setMutatedAt(moment().toISOString());
-  };
 
   return (
     <Box py={30} px={50}>
@@ -51,11 +46,10 @@ export default () => {
         </Box>
       </Flex>
       <Stack>
-        <RecordForm date={date} model={selectedRecord} onSave={onSave} />
+        <RecordForm date={date} model={selectedRecord}  />
         <RecordsList
           filters={{ date: date.format('yyyy-MM-DD') }}
           onItemSelect={setSelectedRecord}
-          mutatedAt={mutatedAt}
         />
       </Stack>
     </Box>

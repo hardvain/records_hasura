@@ -3,6 +3,7 @@ import moment from 'moment';
 export const [useStore] = create((set, get) => ({
   ui: {
     date: moment(),
+    refreshedAt: moment().toISOString(),
   },
   setDate: (value) => {
     set((state) => ({
@@ -30,7 +31,10 @@ export const [useStore] = create((set, get) => ({
   },
   getRecord: () => {},
   createRecord: async (record, toast) => {
-    const response = await fetch(`/api/records`, { method: 'POST', body: JSON.stringify(record) });
+    const response = await fetch(`/api/records`, {
+      method: 'POST',
+      body: JSON.stringify(record),
+    });
     if (response.status === 200) {
       toast({
         title: 'Record created successfully',
@@ -48,6 +52,10 @@ export const [useStore] = create((set, get) => ({
         isClosable: true,
       });
     }
+    set((state) => ({
+      ...state,
+      ui: { ...state.ui, refreshedAt: moment().toISOString() },
+    }));
   },
   deleteRecord: async (id, toast) => {
     const response = await fetch(`/api/records/${id}`, { method: 'DELETE' });
@@ -68,9 +76,16 @@ export const [useStore] = create((set, get) => ({
         isClosable: true,
       });
     }
+    set((state) => ({
+      ...state,
+      ui: { ...state.ui, refreshedAt: moment().toISOString() },
+    }));
   },
   updateRecord: async (record, toast) => {
-    const response = await fetch(`/api/records/${record.id}`, { method: 'PUT', body: JSON.stringify(record) });
+    const response = await fetch(`/api/records/${record.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(record),
+    });
     if (response.status === 200) {
       toast({
         title: 'Record updated successfully',
@@ -88,6 +103,9 @@ export const [useStore] = create((set, get) => ({
         isClosable: true,
       });
     }
+    set((state) => ({
+      ...state,
+      ui: { ...state.ui, refreshedAt: moment().toISOString() },
+    }));
   },
-
 }));
