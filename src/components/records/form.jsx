@@ -14,13 +14,14 @@ import { useStore } from 'src/store';
 import { RecordForm } from './index';
 
 let defaultRecord = { recordType: 'generic' };
-export default ({ date, model = defaultRecord, frozenType }) => {
+export default ({ model = defaultRecord, frozenType }) => {
   const toast = useToast();
   const [record, setRecord] = useState(model);
-  const { createRecord, updateRecord, colors } = useStore((state) => ({
+  const { date, createRecord, updateRecord, colors } = useStore((state) => ({
     createRecord: state.createRecord,
     updateRecord: state.updateRecord,
     colors: state.ui.colors,
+    date: state.ui.date,
   }));
   useEffect(() => {
     setRecord(model);
@@ -31,6 +32,11 @@ export default ({ date, model = defaultRecord, frozenType }) => {
     if (!payload.timestamp) {
       payload.timestamp = moment().toISOString();
     }
+    payload.timestamp = moment(payload.timestamp);
+    payload.timestamp.set('year', date.get('year'));
+    payload.timestamp.set('month', date.get('month'));
+    payload.timestamp.set('date', date.get('date'));
+    payload.timestamp = payload.timestamp.toISOString();
     if (frozenType) {
       payload.recordType = frozenType;
     }
