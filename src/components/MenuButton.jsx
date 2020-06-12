@@ -10,9 +10,9 @@ export default ({ children, isActive }) => {
   return (
     <Box
       mr={2}
-      borderRadius={2}
+      borderRadius={10}
       color={isActive ? `${colors.primary}.200` : ''}
-      bg={isHovered ? '#333' : ''}
+      bg={isHovered ? '#3e4242' : ''}
       onMouseEnter={() => setIsHovered(true)}
       px={10}
       pt={1}

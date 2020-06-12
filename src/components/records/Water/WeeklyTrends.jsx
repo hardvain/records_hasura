@@ -14,7 +14,7 @@ import List from 'src/components/core/List';
 import moment from 'moment';
 export default ({ date  }) => {
   return (
-    <Card title={"Daily Trends"}>
+    <Card title={"Weekly Trends"}>
       <List
         filters={{
           recordType: 'water',
@@ -41,12 +41,13 @@ export default ({ date  }) => {
               >
                 <XAxis
                   dataKey="timestamp"
-                  tickFormatter={(timeStr) => moment(timeStr).format('HH:mm')}
+                  tickFormatter={(timeStr) => moment(timeStr).format('MMMM d')}
                 />
-                <YAxis dataKey={'value'} name={"Time"}/>
+                <YAxis dataKey={'value'}/>
                 <Tooltip />
                 <Legend />
                 <Line
+                  name={"Water"}
                   type="monotone"
                   dataKey="value"
                   stroke="#8884d8"

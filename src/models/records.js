@@ -40,7 +40,7 @@ const constructWhere = ({
   if (recordType) {
     query.where.recordType = { equals: recordType };
   }
-  if (date) {
+  if (date && date !== 'undefined') {
     query.where.timestamp = {
       gte: moment(date).startOf('day').toISOString(),
       lte: moment(date).endOf('day').toISOString(),
@@ -60,11 +60,10 @@ const constructWhere = ({
   return query;
 };
 export const getAll = async (params = {}) => {
-  const count = await prisma.record.count();
   const criterium = constructWhere(params);
   const tasks = await prisma.record.findMany(criterium);
   return {
-    count,
+    count: tasks.length,
     items: tasks,
   };
 };

@@ -13,10 +13,10 @@ const MenuItem = ({ children, isActive }) => {
   return (
     <Box
       cursor={'pointer'}
-      borderRadius={4}
+      borderRadius={6}
       p={2}
       mb={2}
-      bg={isActive || isHovering ? '#232626' : ''}
+      bg={isActive || isHovering ? '#3e4242' : ''}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >

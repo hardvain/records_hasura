@@ -1,28 +1,29 @@
-import { Flex } from '@chakra-ui/core';
+import { Flex, Box, Heading } from '@chakra-ui/core';
 import { useState } from 'react';
 import { useStore } from 'src/store';
-export default ({ children, ...rest }) => {
+export default ({ title, children, ...rest }) => {
   const { colors } = useStore((state) => ({
     colors: state.ui.colors,
   }));
   const [isHovered, setIsHovered] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   return (
-    <Flex
+    <Box
       onClick={() => setShowDetails(!showDetails)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       minWidth={300}
       borderWidth={1}
       borderRadius={5}
+      my={2}
       borderColor={colors.primary}
       h={'100%'}
       cursor={isHovered ? 'pointer' : ''}
       bg={'#232626'}
-      p={5}
       {...rest}
     >
-      {children}
-    </Flex>
+      {title && <Box p={3} borderBottomWidth={2}><Heading size={"sm"}>{title}</Heading></Box>}
+      <Box py={2}>{children}</Box>
+    </Box>
   );
 };
