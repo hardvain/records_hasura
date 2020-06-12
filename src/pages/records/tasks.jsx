@@ -10,10 +10,10 @@ export default () => {
   }));
 
   useEffect(() => {
-    setColors({primary:'green', secondary:'yellow'})
-  },[])
+    setColors({ primary: 'green', secondary: 'yellow' });
+  }, []);
   return (
-    <Box py={30} px={50}>
+    <Box py={30}>
       <RecordsWithForm
         filters={{ date: date.format('yyyy-MM-DD'), recordType: 'task' }}
         frozenType={'task'}

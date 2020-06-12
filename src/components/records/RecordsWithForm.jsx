@@ -49,7 +49,7 @@ export default ({ filters, frozenType, collapseList = false }) => {
         />
         {collapseList ? (
           <Box mt={2} >
-            <Button w={"100%"} onClick={handleToggle}>Show Records</Button>
+            <Button w={"100%"} onClick={handleToggle}>{show ? 'Hide Records' : 'Show Records'}</Button>
             <Collapse mt={4} isOpen={show}>
               <RecordsList filters={filters} onItemSelect={setSelectedRecord} />
             </Collapse>

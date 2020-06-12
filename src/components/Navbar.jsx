@@ -50,11 +50,6 @@ export default () => {
           <IconButton size={'lg'} variant="default" icon={FaCalendar} />
         </NextLink>
       </MenuButton>
-      <MenuButton isActive={pathname === '/reports'}>
-        <NextLink href="/reports" as={`/reports`}>
-          <IconButton size={'lg'} variant="default" icon={FaChartBar} />
-        </NextLink>
-      </MenuButton>
       <MenuButton isActive={pathname === '/docs'}>
         <NextLink href="/docs" as={`/docs`}>
           <IconButton size={'lg'} variant="default" icon={FaFolder} />

@@ -13,7 +13,7 @@ export default () => {
     setColors({ primary: 'deeppurple', secondary: 'deeporange' });
   }, []);
   return (
-    <Box py={30} px={50}>
+    <Box py={30}>
       <RecordsWithForm filters={{ date: date.format('yyyy-MM-DD') }} />
     </Box>
   );

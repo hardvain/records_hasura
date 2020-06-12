@@ -6,15 +6,18 @@ import { useStore } from 'src/store';
 export default () => {
   const { date, setColors } = useStore((state) => ({
     date: state.ui.date,
-    setColors: state.setColors
+    setColors: state.setColors,
   }));
 
   useEffect(() => {
-    setColors({primary:'teal', secondary:'blue'})
-  },[])
+    setColors({ primary: 'teal', secondary: 'blue' });
+  }, []);
   return (
-    <Box py={30} px={50}>
-      <RecordsWithForm filters={{ date: date.format('yyyy-MM-DD'), recordType:"transaction" }} frozenType={"transaction"}/>
+    <Box py={30}>
+      <RecordsWithForm
+        filters={{ date: date.format('yyyy-MM-DD'), recordType: 'transaction' }}
+        frozenType={'transaction'}
+      />
     </Box>
   );
 };

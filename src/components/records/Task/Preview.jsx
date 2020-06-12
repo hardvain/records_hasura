@@ -20,6 +20,7 @@ export default ({ record }) => {
       <Stack>
         <Text>{record.data.value}</Text>
         <DatePicker
+          includeTime={true}
           type={'text'}
           selected={moment(record.timestamp)}
           onChange={onDateChange}

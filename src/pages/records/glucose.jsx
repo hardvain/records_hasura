@@ -15,7 +15,7 @@ export default () => {
     setColors({ primary: 'red', secondary: 'orange' });
   }, []);
   return (
-    <Box py={30} px={50}>
+    <Box py={30} >
       <RecordsWithForm
         filters={{ date: date.format('yyyy-MM-DD'), recordType: 'glucose' }}
         frozenType={'glucose'}

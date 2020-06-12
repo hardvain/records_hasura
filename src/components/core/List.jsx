@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Flex, Stack, Skeleton, useToast } from '@chakra-ui/core';
+import { Box, Flex, Stack, Skeleton, useToast, Heading } from '@chakra-ui/core';
 import NotFound from 'src/assets/NotFound';
 import Card from 'src/components/Card';
 import { useStore } from 'src/store';
@@ -8,7 +8,7 @@ const Loading = ({ count, isBlock }) => {
   return (
     <Box>
       {isBlock ? (
-        <Card my={5} height="200px" >
+        <Card my={5} height="200px">
           <Skeleton colorStart="#232626" colorEnd="#232626" />
         </Card>
       ) : (
@@ -49,12 +49,13 @@ export default ({ filters, children, isBlock = false, ...rest }) => {
   return (
     <Stack w={'100%'}>
       {isLoading ? (
-        <Loading count={10} isBlock={isBlock}/>
+        <Loading count={10} isBlock={isBlock} />
       ) : records.items.length > 0 ? (
         children(records.items)
       ) : (
-        <Flex justifyContent={'space-around'} w={'100%'}>
+        <Flex alignItems={'center'} w={'100%'} textAlign={"center"} direction={"column"}>
           <NotFound />
+          <Heading>No Matching Records Found</Heading>
         </Flex>
       )}
     </Stack>

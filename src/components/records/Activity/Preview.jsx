@@ -12,10 +12,7 @@ export default ({ record }) => {
 
   const toast = useToast();
   const onDateChange = async (value) => {
-    updateRecord(
-      { ...record, timestamp: moment(value).toISOString() },
-      toast
-    );
+    updateRecord({ ...record, timestamp: moment(value).toISOString() }, toast);
   };
   return (
     <Flex alignItems={'center'}>
@@ -31,14 +28,15 @@ export default ({ record }) => {
         <Stack isInline>
           <Box mr={2}>
             <DatePicker
-              type={"text"}
+              includeTime={true}
+              type={'text'}
               selected={moment(record.from)}
               onChange={onDateChange}
             />
           </Box>
           <Box w={100}>
             <DatePicker
-              type={"text"}
+              type={'text'}
               selected={moment(record.to)}
               onChange={onDateChange}
             />

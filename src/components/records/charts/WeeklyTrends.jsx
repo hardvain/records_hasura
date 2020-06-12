@@ -42,7 +42,7 @@ export default ({ date, recordType }) => {
               >
                 <XAxis
                   dataKey="timestamp"
-                  tickFormatter={(timeStr) => moment(timeStr).format('MMMM d')}
+                  tickFormatter={(timeStr) => moment(timeStr).format('MMM DD')}
                 />
                 <YAxis dataKey={'value'} />
                 <Tooltip />

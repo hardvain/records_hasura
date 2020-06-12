@@ -14,16 +14,15 @@ import List from 'src/components/core/List';
 import moment from 'moment';
 
 const data = [];
-const generateMinutes = () => {
-  [...Array(24).keys()].forEach((hour) => {
-    [...Array(60).keys()].forEach((min) => {
-      const h = hour < 9 ? `0${hour}` : `${hour}`;
-      const m = hour < 9 ? `0${min}` : `${hour}`;
-      data.push({ time: `${h}:${m}` });
-    });
-  });
+const generateMinutes = (records) => {
+  let data = records.map((item) => ({
+    value: parseInt(item.data.value),
+    timestamp: item.timestamp,
+  }));
+  data.unshift({ value: 0, timestamp: moment().startOf('day').toISOString() });
+  data.push({ value: 0, timestamp: moment().endOf('day').toISOString() });
+  return data;
 };
-
 export default ({ date, recordType }) => {
   return (
     <Card title={'Daily Trends'}>
@@ -41,10 +40,7 @@ export default ({ date, recordType }) => {
             <ResponsiveContainer width={'100%'} height={200}>
               <LineChart
                 width={500}
-                data={records.map((item) => ({
-                  value: parseInt(item.data.value),
-                  timestamp: item.timestamp,
-                }))}
+                data={generateMinutes(records)}
                 margin={{
                   top: 5,
                   right: 30,

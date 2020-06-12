@@ -65,6 +65,7 @@ export default ({ record = {}, setRecord }) => {
             <FormLabel htmlFor="email">Timestamp</FormLabel>
             <Box>
               <DatePicker
+                includeTime={true}
                 type={'input'}
                 selected={moment(to)}
                 onChange={(v) => {
