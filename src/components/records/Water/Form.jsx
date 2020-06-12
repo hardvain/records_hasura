@@ -5,7 +5,6 @@ export default ({ record = {}, setRecord }) => {
 
   return (
     <Input
-      ref={(input) => input && input.focus()}
       type={'number'}
       variant="unstyled"
       placeholder={'Enter water consumption value'}

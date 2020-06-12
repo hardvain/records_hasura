@@ -38,7 +38,7 @@ export default () => {
       <MenuItem>
         <NextLink href="/tasks" as={`/tasks`}>
           <Stack isInline>
-            <Box as={FaTasks} alignSelf={'center'} color={'green.500'} mx={2} />
+            <Box as={FaTasks} fontSize={"2xl"} alignSelf={'center'} color={'green.500'} mx={2} />
             <Text ml={2}>Tasks</Text>
           </Stack>
         </NextLink>
@@ -68,6 +68,7 @@ export default () => {
         <Stack isInline>
           <Box
             as={FaNutritionix}
+            fontSize={"2xl"}
             alignSelf={'center'}
             color={'teal.500'}
             mx={2}

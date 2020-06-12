@@ -4,7 +4,6 @@ export default ({ record = {}, setRecord }) => {
   const value = record ? (record.data ? record.data.value : '') : '';
   return (
     <Input
-      ref={(input) => input && input.focus()}
       type={'number'}
       variant="unstyled"
       placeholder={'Enter blood glucose value'}

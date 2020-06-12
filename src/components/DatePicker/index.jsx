@@ -3,6 +3,7 @@ import { createElement, createRef, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { FaCalendarAlt } from 'react-icons/fa';
+import { useStore } from 'src/store';
 
 const IconComponent = forwardRef(({ value, onClick }, ref) => (
   <IconButton
@@ -28,17 +29,22 @@ const InputComponent = forwardRef(({ value, onClick }, ref) => (
     value={value}
   />
 ));
-const ButtonComponent = forwardRef(({ value, onClick }, ref) => (
-  <Button
-    variant={'solid'}
-    variantColor={'cyan'}
-    size={'sm'}
-    leftIcon={FaCalendarAlt}
-    onClick={onClick}
-  >
-    {value}
-  </Button>
-));
+const ButtonComponent = forwardRef(({ value, onClick }, ref) => {
+  const { colors } = useStore((state) => ({
+    colors: state.ui.colors,
+  }));
+  return (
+    <Button
+      variant={'solid'}
+      variantColor={colors.primary}
+      size={'sm'}
+      leftIcon={FaCalendarAlt}
+      onClick={onClick}
+    >
+      {value}
+    </Button>
+  );
+});
 const ComponentMap = {
   button: ButtonComponent,
   icon: IconComponent,

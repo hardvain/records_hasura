@@ -17,9 +17,10 @@ let defaultRecord = { recordType: 'generic' };
 export default ({ date, model = defaultRecord, frozenType }) => {
   const toast = useToast();
   const [record, setRecord] = useState(model);
-  const { createRecord, updateRecord } = useStore((state) => ({
+  const { createRecord, updateRecord, colors } = useStore((state) => ({
     createRecord: state.createRecord,
     updateRecord: state.updateRecord,
+    colors: state.ui.colors,
   }));
   useEffect(() => {
     setRecord(model);
@@ -75,7 +76,7 @@ export default ({ date, model = defaultRecord, frozenType }) => {
           </Button>
           <Button
             variant="solid"
-            variantColor={'cyan'}
+            variantColor={colors.primary}
             size={'sm'}
             onClick={submit}
           >

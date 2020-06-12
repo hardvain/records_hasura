@@ -4,11 +4,21 @@ export const [useStore] = create((set, get) => ({
   ui: {
     date: moment(),
     refreshedAt: moment().toISOString(),
+    colors: {
+      primary: 'deeppurple',
+      secondary: 'deeporange',
+    },
   },
   setDate: (value) => {
     set((state) => ({
       ...state,
       ui: { ...state.ui, date: value },
+    }));
+  },
+  setColors: (colors) => {
+    set((state) => ({
+      ...state,
+      ui: { ...state.ui, colors },
     }));
   },
   prevDate: () => {
@@ -24,10 +34,10 @@ export const [useStore] = create((set, get) => ({
     }));
   },
   getRecords: async (filters) => {
-    let qs=""
-    Object.keys(filters).forEach(key => {
-      qs = qs + `${key}=${filters[key]}&`
-    })
+    let qs = '';
+    Object.keys(filters).forEach((key) => {
+      qs = qs + `${key}=${filters[key]}&`;
+    });
     const response = await fetch(`/api/records?${qs}`, {
       method: 'GET',
     });

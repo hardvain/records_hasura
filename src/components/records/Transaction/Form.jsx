@@ -12,6 +12,7 @@ import moment from 'moment';
 import DatePicker from 'src/components/DatePicker';
 export default ({ record = {}, setRecord }) => {
   const value = record ? (record.data ? record.data.value : '') : '';
+  const description = record ? (record.data ? record.data.description : '') : '';
   const transactionType = record ? (record.data ? record.data.transactionType : 'expense') : 'expense';
   let timestamp = moment();
   const from = record
@@ -84,16 +85,15 @@ export default ({ record = {}, setRecord }) => {
         <FormControl>
           <FormLabel htmlFor="email">Description</FormLabel>
           <Textarea
-            ref={(input) => input && input.focus()}
             variant="unstyled"
             placeholder="Add new transaction"
             borderRadius={3}
             resize={'none'}
-            value={value}
+            value={description}
             onChange={(e) =>
               setRecord({
                 ...record,
-                data: { ...record.data, value: e.target.value },
+                data: { ...record.data, description: e.target.value },
               })
             }
           />

@@ -15,7 +15,7 @@ a:hover {
 }
 
 #nprogress .bar {
-  background: cyan;
+  background: #673ab7;
 
   position: fixed;
   z-index: 1031;
@@ -23,7 +23,7 @@ a:hover {
   left: 0;
 
   width: 100%;
-  height: 2px;
+  height: 3px;
 }
 
 /* Fancy blur effect */
@@ -33,7 +33,6 @@ a:hover {
   right: 0px;
   width: 100px;
   height: 100%;
-  box-shadow: 0 0 10px #29d, 0 0 5px #29d;
   opacity: 1;
 
   -webkit-transform: rotate(3deg) translate(0px, -4px);
@@ -56,8 +55,6 @@ a:hover {
   box-sizing: border-box;
 
   border: solid 2px transparent;
-  border-top-color: #29d;
-  border-left-color: #29d;
   border-radius: 50%;
 
   -webkit-animation: nprogress-spinner 400ms linear infinite;

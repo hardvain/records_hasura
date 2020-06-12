@@ -6,4 +6,15 @@
 * Daily water consumption chart
 
 # Glucose
-* 
+* Daily glucose trend
+* Average glucose
+    * Today
+    * Week
+    * Month
+    * Quarter
+
+# Transactions
+* Expenses & Income with category split
+    * Today
+    * Week
+    * Month

@@ -47,7 +47,6 @@ export default ({ record = {}, setRecord }) => {
         <FormControl>
           <FormLabel htmlFor="email">Description</FormLabel>
           <Textarea
-            ref={(input) => input && input.focus()}
             variant="unstyled"
             placeholder="Add new activity"
             borderRadius={3}

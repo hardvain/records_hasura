@@ -4,7 +4,6 @@ export default ({ record = {}, setRecord }) => {
 
   return (
     <Textarea
-      ref={(input) => input && input.focus()}
       variant="unstyled"
       placeholder="Add new record"
       borderRadius={3}
