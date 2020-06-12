@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { Flex, Stack } from '@chakra-ui/core';
 import './app.css';
+import { useStore } from 'src/store';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import {
@@ -41,6 +42,7 @@ const config = (theme) => ({
   },
 });
 export default ({ Component, pageProps }) => {
+  const showSidebar = useStore((state) => state.ui.showSidebar);
   return (
     <Box height="100vh">
       <Head>
@@ -51,9 +53,9 @@ export default ({ Component, pageProps }) => {
           <DarkMode>
             <CSSReset config={config} />
             <Navbar />
-            <Flex direction={"row"} mt={60}>
-              <Sidebar />
-              <Box ml={300} flexGrow={1}>
+            <Flex direction={'row'} mt={60}>
+              {showSidebar && <Sidebar />}
+              <Box ml={showSidebar ? 300 : 0} flexGrow={1}>
                 <App Component={Component} pageProps={pageProps} />
               </Box>
             </Flex>

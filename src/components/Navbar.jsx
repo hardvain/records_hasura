@@ -12,12 +12,13 @@ import {
 } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import { FaHome, FaCalendar, FaChartBar, FaFolder } from 'react-icons/fa';
+import { FiMenu } from 'react-icons/fi';
 import { IoIosApps } from 'react-icons/io';
 import NextLink from 'next/link';
 import MenuButton from 'src/components/MenuButton';
 import { useStore } from 'src/store';
 export default () => {
-
+  const toggleSidebar = useStore(state => state.toggleSidebar)
   const router = useRouter();
   const pathname = router.pathname;
   return (
@@ -34,6 +35,7 @@ export default () => {
       top={0}
       zIndex={1000}
     >
+      <IconButton size={'lg'} variant="default" icon={FiMenu} mr={2} onClick={toggleSidebar}/>
       <Stack isInline alignItems={'center'} mr={2} cursor={'pointer'}>
         <Box as={IoIosApps} fontSize={'4xl'} mr={3} />
         <Text fontSize={'lg'}>Records</Text>

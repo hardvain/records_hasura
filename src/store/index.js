@@ -3,11 +3,18 @@ import moment from 'moment';
 export const [useStore] = create((set, get) => ({
   ui: {
     date: moment(),
+    showSidebar:true,
     refreshedAt: moment().toISOString(),
     colors: {
       primary: 'deeppurple',
       secondary: 'deeporange',
     },
+  },
+  toggleSidebar: () => {
+    set((state) => ({
+      ...state,
+      ui: { ...state.ui, showSidebar: !get().ui.showSidebar },
+    }));
   },
   setDate: (value) => {
     set((state) => ({

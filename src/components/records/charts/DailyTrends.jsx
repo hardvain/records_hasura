@@ -12,9 +12,21 @@ import {
 } from 'recharts';
 import List from 'src/components/core/List';
 import moment from 'moment';
-export default ({ date, recordType  }) => {
+
+const data = [];
+const generateMinutes = () => {
+  [...Array(24).keys()].forEach((hour) => {
+    [...Array(60).keys()].forEach((min) => {
+      const h = hour < 9 ? `0${hour}` : `${hour}`;
+      const m = hour < 9 ? `0${min}` : `${hour}`;
+      data.push({ time: `${h}:${m}` });
+    });
+  });
+};
+
+export default ({ date, recordType }) => {
   return (
-    <Card title={"Daily Trends"}>
+    <Card title={'Daily Trends'}>
       <List
         isBlock={true}
         filters={{
@@ -26,7 +38,7 @@ export default ({ date, recordType  }) => {
       >
         {(records) =>
           records.length > 0 && (
-            <ResponsiveContainer width={"100%"} height={200}>
+            <ResponsiveContainer width={'100%'} height={200}>
               <LineChart
                 width={500}
                 data={records.map((item) => ({
@@ -44,7 +56,7 @@ export default ({ date, recordType  }) => {
                   dataKey="timestamp"
                   tickFormatter={(timeStr) => moment(timeStr).format('HH:mm')}
                 />
-                <YAxis dataKey={'value'} name={"Time"}/>
+                <YAxis dataKey={'value'} name={'Time'} />
                 <Tooltip />
                 <Legend />
                 <Line
