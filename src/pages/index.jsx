@@ -14,7 +14,7 @@ export default () => {
     setDate: state.setDate,
   }));
   const [mutatedAt, setMutatedAt] = useState(moment().toISOString());
-  const [selectedRecord, setSelectedRecord] = useState({});
+  const [selectedRecord, setSelectedRecord] = useState();
 
   const onSave = () => {
     setMutatedAt(moment().toISOString());

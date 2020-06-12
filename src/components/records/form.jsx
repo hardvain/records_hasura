@@ -15,34 +15,20 @@ import { MdLabelOutline } from 'react-icons/md';
 import { GoProject } from 'react-icons/go';
 import moment from 'moment';
 import { RecordForm } from './index';
-export default ({ date, model = {}, onSave }) => {
+
+let defaultRecord = { recordType: 'generic' };
+export default ({ date, model = defaultRecord, onSave }) => {
   const toast = useToast();
-  const [recordType, setRecordType] = useState(model.recordType || 'generic');
-  const [record = {}, setRecord] = useState(model);
+  const [record, setRecord] = useState(model);
 
   useEffect(() => {
     setRecord(model);
-    setRecordType(model.recordType || 'generic');
   }, [model]);
-
-  const getTimestamp = (data) => {
-    const timestamp = moment(date).toISOString() || moment().toISOString();
-    switch (recordType) {
-      case 'task':
-        return data.dueDate || timestamp;
-      default:
-        return timestamp;
-    }
-  };
 
   const submit = async () => {
     await fetch(model.id ? `/api/records/${model.id}` : `/api/records`, {
       method: model.id ? 'PUT' : 'POST',
-      body: JSON.stringify({
-        data: record.data,
-        recordType: recordType,
-        timestamp: model.id ? record.timestamp : getTimestamp(record.data),
-      }),
+      body: JSON.stringify(record),
     });
     toast({
       title: model.id ? 'Record updated' : 'Record Created',
@@ -51,21 +37,23 @@ export default ({ date, model = {}, onSave }) => {
       position: 'top',
       isClosable: true,
     });
-    setRecord({});
+    setRecord(defaultRecord);
     onSave();
   };
   return (
     <Card my={3} borderWidth={1} p={3}>
       <Stack w={'100%'}>
-        <RecordForm recordType={recordType} record={record} setRecord={setRecord} />
+        <RecordForm record={record} setRecord={setRecord} />
         <Divider />
         <Flex justifyContent={'space-around'} mt={2}>
           <Select
             w={200}
             mr={2}
             size={'sm'}
-            value={recordType}
-            onChange={(v) => setRecordType(v.target.value)}
+            value={record.recordType}
+            onChange={(v) => {
+              setRecord({ ...record, recordType: v.target.value });
+            }}
           >
             <option value="generic">Generic</option>
             <option value="activity">Activity</option>
@@ -75,11 +63,6 @@ export default ({ date, model = {}, onSave }) => {
             <option value="insulin">Insulin</option>
             <option value="note">Note</option>
           </Select>
-          <Box mr={2}>
-            <DatePicker.IconDatePicker />
-          </Box>
-          <IconButton size={'sm'} icon={GoProject} mr={2} />
-          <IconButton size={'sm'} icon={MdLabelOutline} mr={2} />
           <Box flexGrow={1}></Box>
           <Button variant="solid" size={'sm'} mr={2}>
             Clear

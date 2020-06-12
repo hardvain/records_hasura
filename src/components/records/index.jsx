@@ -19,8 +19,8 @@ export const RecordPreview = ({ recordData }) => {
   });
 };
 
-export const RecordForm = ({ recordType, record, setRecord }) => {
-  return createElement(RecordMap[recordType].Form, {
+export const RecordForm = ({ record, setRecord }) => {
+  return createElement(RecordMap[record.recordType].Form, {
     record,
     setRecord,
   });

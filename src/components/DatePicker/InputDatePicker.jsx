@@ -9,6 +9,7 @@ const Component = forwardRef(({value,onClick}, ref) => (
     size={'sm'}
     leftIcon={FaCalendarAlt}
     onClick={onClick}
+    onChange={() => {}}
     value={value}
   >
   </Input>
