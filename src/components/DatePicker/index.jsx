@@ -51,9 +51,13 @@ export default ({ selected, onChange, type }) => {
   return (
     <DatePicker
       className="data-picker"
+      showTimeSelect
+      timeFormat="HH:mm"
+      timeIntervals={15}
+      timeCaption="Time"
       selected={selected?.toDate()}
       onChange={(v) => onChange(moment(v))}
-      dateFormat="MMMM d, yyyy"
+      dateFormat="MMMM d, yyyy - HH:mm"
       customInput={createElement(ComponentMap[type || 'input'], { ref })}
     />
   );

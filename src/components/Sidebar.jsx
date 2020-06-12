@@ -1,9 +1,11 @@
 import NextLink from 'next/link';
 import { useState } from 'react';
 import { Box, Divider, Flex, IconButton, Stack, Text } from '@chakra-ui/core';
-import { FaTasks, FaNutritionix } from 'react-icons/fa';
+import { FaTasks, FaNutritionix,FaRegMoneyBillAlt } from 'react-icons/fa';
 import { MdApps } from 'react-icons/md';
 import Diabetes from 'src/assets/Diabetes';
+import Sugar from 'src/assets/Sugar';
+import Water from 'src/assets/Water';
 import { IoMdWater } from 'react-icons/io';
 const MenuItem = ({ children }) => {
   const [isHovering, setIsHovering] = useState(false);
@@ -45,7 +47,7 @@ export default () => {
         <NextLink href="/glucose" as={`/glucose`}>
         <Stack isInline>
           <Box alignSelf={'center'} mr={4}>
-            <Diabetes width={30} height={30} />
+            <Sugar width={30} height={30} />
           </Box>
           <Text>Glucose</Text>
         </Stack>
@@ -53,8 +55,10 @@ export default () => {
       </MenuItem>
       <MenuItem>
         <NextLink href="/water" as={`/water`}>
-        <Stack isInline>
-          <Box as={IoMdWater} alignSelf={'center'} color={'blue.500'} mx={2} />
+        <Stack isInline alignItems={"center"}>
+          <Box alignSelf={'center'} mr={4}>
+            <Water width={30} height={30} />
+          </Box>
           <Text ml={2}>Water</Text>
         </Stack>
         </NextLink>
@@ -70,6 +74,19 @@ export default () => {
           />
           <Text ml={2}>Nutrition</Text>
         </Stack>
+        </NextLink>
+      </MenuItem>
+      <MenuItem>
+        <NextLink href="/transactions" as={`/transactions`}>
+          <Stack isInline>
+            <Box
+              as={FaRegMoneyBillAlt}
+              alignSelf={'center'}
+              color={'teal.500'}
+              mx={2}
+            />
+            <Text ml={2}>Transactions</Text>
+          </Stack>
         </NextLink>
       </MenuItem>
     </Box>

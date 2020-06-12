@@ -1,4 +1,6 @@
-button:focus, textarea:focus, select:focus {
+button:focus,
+textarea:focus,
+select:focus {
   box-shadow: none !important;
   border-color: #333 !important;
 }
@@ -32,7 +34,7 @@ a:hover {
   width: 100px;
   height: 100%;
   box-shadow: 0 0 10px #29d, 0 0 5px #29d;
-  opacity: 1.0;
+  opacity: 1;
 
   -webkit-transform: rotate(3deg) translate(0px, -4px);
   -ms-transform: rotate(3deg) translate(0px, -4px);
@@ -73,24 +75,38 @@ a:hover {
 }
 
 @-webkit-keyframes nprogress-spinner {
-  0%   { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 @keyframes nprogress-spinner {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.react-datepicker, .react-datepicker__header, .react-datepicker__day-name,.react-datepicker__current-month,.react-datepicker__day {
+.react-datepicker,
+.react-datepicker__header,
+.react-datepicker__day-name,
+.react-datepicker__current-month,
+.react-datepicker__day,
+.react-datepicker__time-list-item {
+  z-index: 1000 !important;
   background: #232626 !important;
-  color:white !important;
-  border-radius: 4px;
+  color: white !important;
+  border-color: gray !important;
 }
-.react-datepicker__day--today{
+.react-datepicker__day--today {
   background: #8d8d8d !important;
-  color: #333 !important
+  color: #333 !important;
 }
-.react-datepicker__day--selected{
-  background: white!important;
-  color: #333 !important
+.react-datepicker__day--selected, .react-datepicker__time-list-item--selected {
+  background: white !important;
+  color: #333 !important;
 }

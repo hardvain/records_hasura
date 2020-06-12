@@ -21,13 +21,11 @@ export default ({ record }) => {
       </Box>
       <Stack>
         <Text>{record.data.value}</Text>
-        <Badge>
-          <DatePicker
-            type={"text"}
-            selected={moment(record.timestamp)}
-            onChange={onDateChange}
-          />
-        </Badge>
+        <DatePicker
+          type={'text'}
+          selected={moment(record.timestamp)}
+          onChange={onDateChange}
+        />
       </Stack>
     </Flex>
   );

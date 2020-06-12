@@ -12,23 +12,18 @@ export default ({ record }) => {
 
   const toast = useToast();
   const onDateChange = async (value) => {
-    updateRecord(
-      { ...record, timestamp: moment(value).toISOString() },
-      toast
-    );
+    updateRecord({ ...record, timestamp: moment(value).toISOString() }, toast);
   };
   return (
     <Flex alignItems={'center'}>
       <Box as={IoMdWater} alignSelf={'center'} mr={3} color={'blue.500'} />
       <Stack>
         <Text>{record.data.value}</Text>
-        <Badge w={"100%"}>
-          <DatePicker
-            type={"text"}
-            selected={moment(record.timestamp)}
-            onChange={onDateChange}
-          />
-        </Badge>
+        <DatePicker
+          type={'text'}
+          selected={moment(record.timestamp)}
+          onChange={onDateChange}
+        />
       </Stack>
     </Flex>
   );

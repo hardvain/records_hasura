@@ -11,10 +11,7 @@ export default ({ record }) => {
 
   const toast = useToast();
   const onDateChange = async (value) => {
-    updateRecord(
-      { ...record, timestamp: moment(value).toISOString() },
-      toast
-    );
+    updateRecord({ ...record, timestamp: moment(value).toISOString() }, toast);
   };
   const tags = record.tags || [];
   return (
@@ -22,13 +19,11 @@ export default ({ record }) => {
       <Box as={FaTasks} alignSelf={'center'} mr={3} color={'green.500'} />
       <Stack>
         <Text>{record.data.value}</Text>
-        <Badge>
-          <DatePicker
-            type={"text"}
-            selected={moment(record.timestamp)}
-            onChange={onDateChange}
-          />
-        </Badge>
+        <DatePicker
+          type={'text'}
+          selected={moment(record.timestamp)}
+          onChange={onDateChange}
+        />
       </Stack>
       <Flex alignSelf={'center'}>
         {tags.map((tag) => (

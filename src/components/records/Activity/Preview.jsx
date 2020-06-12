@@ -29,20 +29,20 @@ export default ({ record }) => {
       <Stack>
         <Text>{record.data.value}</Text>
         <Stack isInline>
-          <Badge mr={2}>
+          <Box mr={2}>
             <DatePicker
               type={"text"}
               selected={moment(record.from)}
               onChange={onDateChange}
             />
-          </Badge>
-          <Badge w={100}>
+          </Box>
+          <Box w={100}>
             <DatePicker
               type={"text"}
               selected={moment(record.to)}
               onChange={onDateChange}
             />
-          </Badge>
+          </Box>
         </Stack>
       </Stack>
     </Flex>
