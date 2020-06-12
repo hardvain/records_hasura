@@ -4,17 +4,13 @@ import {
   CartesianGrid,
   Legend,
   ResponsiveContainer,
-  Scatter,
   LineChart,
   Line,
-  ScatterChart,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
-import moment from 'moment';
 import List from 'src/components/core/List';
-import { useStore } from 'src/store';
 export default () => {
   return (
     <Card>

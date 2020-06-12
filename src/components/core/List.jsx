@@ -3,13 +3,11 @@ import {
   Box,
   Flex,
   Stack,
-  IconButton,
   Skeleton,
   useToast,
 } from '@chakra-ui/core';
 import NotFound from 'src/assets/NotFound';
 import Card from 'src/components/Card';
-import { RecordPreview } from 'src/components/records';
 import { useStore } from 'src/store';
 
 const Loading = ({ count }) => {
