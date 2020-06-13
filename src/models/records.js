@@ -1,5 +1,6 @@
 import moment from 'moment';
 import prisma from '../../prisma/prisma-client';
+import { raw } from "@prisma/client"
 
 export const create = async (record) => {
   return await prisma.record.create({
@@ -12,8 +13,6 @@ export const get = async (id) => {
     where: { id },
   });
 };
-const queries = {};
-const raw = async (key) => await prisma.raw(queries[key]);
 
 export const update = async (id, record) => {
   if (record.teams && record.teams.length > 0) {
@@ -46,6 +45,7 @@ const constructWhere = ({
   orderDirection,
   team,
   project,
+  search,
 }) => {
   const orderByField = orderBy || 'timestamp';
   let query = { where: {}, orderBy: {} };
@@ -75,6 +75,7 @@ const constructWhere = ({
   if (project && project !== 'undefined' && project !== 'all') {
     query.where.projects = { some: { id: project } };
   }
+
   query.include = {
     teams: true,
     projects: true,
@@ -85,6 +86,15 @@ const constructWhere = ({
 export const getAll = async (params = {}) => {
   const criterium = constructWhere(params);
   const tasks = await prisma.record.findMany(criterium);
+  return {
+    count: tasks.length,
+    items: tasks,
+  };
+};
+
+
+export const search = async ({search} = {}) => {
+  const tasks = await prisma.queryRaw(`Select * from "Record" where data ->> 'value' like '%${search}%'`);
   return {
     count: tasks.length,
     items: tasks,

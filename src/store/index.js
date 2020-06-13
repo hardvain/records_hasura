@@ -3,8 +3,8 @@ import moment from 'moment';
 export const [useStore] = create((set, get) => ({
   ui: {
     date: moment(),
-    showSidebar:true,
-    currentTeam:'all',
+    showSidebar: true,
+    currentTeam: 'all',
     showFormPopup: false,
     refreshedAt: moment().toISOString(),
     colors: {
@@ -127,6 +127,11 @@ export const [useStore] = create((set, get) => ({
       });
     }
   },
+  searchRecords: async (searchText) => {
+    return await fetch(`/api/records/search?search=${searchText}`, {
+      method: 'GET',
+    }).then(r => r.json());
+  },
   deleteRecord: async (id, toast) => {
     const response = await fetch(`/api/records/${id}`, { method: 'DELETE' });
     if (response.status === 200) {
@@ -222,5 +227,4 @@ export const [useStore] = create((set, get) => ({
       ui: { ...state.ui, refreshedAt: moment().toISOString() },
     }));
   },
-
 }));

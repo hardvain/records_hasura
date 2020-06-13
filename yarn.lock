@@ -5202,11 +5202,6 @@ react-dom@16.13.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
-react-expand-animated@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-expand-animated/-/react-expand-animated-1.0.2.tgz#17bc31a9defd153df99364e1aa0d3b1ba96d64f3"
-  integrity sha512-WV3TGl4XX7GyS6Pm6awPg4cMc1PLZIsMLirIDluKRhDjGWX31lY9RIPDOkq6pBiqRoK8VDMk8hbnX01uDBpYAw==
-
 react-focus-lock@^2.2.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/react-focus-lock/-/react-focus-lock-2.3.1.tgz#9d5d85899773609c7eefa4fc54fff6a0f5f2fc47"

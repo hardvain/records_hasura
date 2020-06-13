@@ -8,9 +8,11 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
-  Box, useColorMode,
+  Box,
+  useColorMode,
 } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { FaHome, FaCalendar, FaPlus, FaFolder } from 'react-icons/fa';
 import { FiMenu } from 'react-icons/fi';
 import { IoIosApps } from 'react-icons/io';
@@ -18,19 +20,37 @@ import Logo from 'src/assets/Logo';
 import NextLink from 'next/link';
 import Project from 'src/assets/Project';
 import MenuButton from 'src/components/MenuButton';
+import SearchSelect from 'src/components/SearchSelect';
 import { useStore } from 'src/store';
+import _ from 'lodash';
+
 export default () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const [searchText, setSearchText] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const { toggleSidebar, toggleFormPopup, searchRecords } = useStore(
+    (state) => ({
+      toggleSidebar: state.toggleSidebar,
+      searchRecords: state.searchRecords,
+      toggleFormPopup: state.toggleFormPopup,
+    })
+  );
+  const sendQuery = async (query) => {
+    const result = await searchRecords(query);
+    setSearchResults(result.items);
+  };
+  const delayedQuery = _.debounce((q) => sendQuery(q), 500);
 
-  const { toggleSidebar, toggleFormPopup } = useStore((state) => ({
-    toggleSidebar: state.toggleSidebar,
-    toggleFormPopup: state.toggleFormPopup,
-  }));
   const router = useRouter();
   const pathname = router.pathname;
+
+  const search = async (e) => {
+    setSearchText(e.target.value);
+    delayedQuery(e.target.value);
+  };
   return (
     <Flex
-      boxShadow={"none"}
+      boxShadow={'none'}
       bg={colorMode === 'light' ? 'white' : '#232626'}
       direction="row"
       borderBottom="gray.200"
@@ -80,12 +100,17 @@ export default () => {
       </MenuButton>
       <InputGroup w={300} mr={2}>
         <InputLeftElement children={<Icon name="search" color="gray.300" />} />
-        <Input type="phone" placeholder="Search Records" />
+        <Input
+          type="phone"
+          placeholder="Search Records"
+          value={searchText}
+          onChange={search}
+        />
       </InputGroup>
       <IconButton
         size={'lg'}
         variant="default"
-        icon={colorMode === 'light'?"moon":"sun"}
+        icon={colorMode === 'light' ? 'moon' : 'sun'}
         mr={4}
         onClick={toggleColorMode}
       />

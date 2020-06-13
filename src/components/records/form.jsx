@@ -50,11 +50,12 @@ export default ({ model = defaultRecord, frozenType }) => {
         : undefined
     );
   }, [model]);
-  console.log(record, selectedProject);
+
   useEffect(() => {
     getTeams().then((r) => setTeams(r.items));
     getProjects().then((r) => setProjects(r.items));
   }, []);
+
   const submit = async () => {
     const payload = { ...record };
 
