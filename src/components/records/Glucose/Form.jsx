@@ -5,7 +5,6 @@ export default ({ record = {}, setRecord }) => {
   return (
     <Input
       type={'number'}
-      variant="unstyled"
       placeholder={'Enter blood glucose value'}
       value={value}
       onChange={(e) =>

@@ -4,7 +4,6 @@ export default ({ record = {}, setRecord }) => {
 
   return (
     <Textarea
-      variant="unstyled"
       placeholder="Add new record"
       borderRadius={3}
       resize={'none'}

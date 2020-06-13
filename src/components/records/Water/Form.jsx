@@ -50,7 +50,6 @@ export default ({ record = {}, setRecord }) => {
         <Divider />
         <Input
           type={'number'}
-          variant="unstyled"
           placeholder={'Enter water consumption value'}
           value={value}
           onChange={(e) => setValue(e.target.value)}

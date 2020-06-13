@@ -1,6 +1,7 @@
 import { Flex, Box, Heading, useColorMode } from '@chakra-ui/core';
 import { useState } from 'react';
 import { useStore } from 'src/store';
+
 export default ({ title, children, ...rest }) => {
   const { colorMode } = useColorMode();
   const { colors } = useStore((state) => ({

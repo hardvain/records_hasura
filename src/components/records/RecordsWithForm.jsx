@@ -15,13 +15,16 @@ import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useStore } from 'src/store';
 
-export default ({ filters, frozenType, collapseList = false }) => {
+export default ({
+  filters,
+  frozenType,
+  collapseList = false,
+  showForm = true,
+}) => {
   const [show, setShow] = useState(false);
 
   const handleToggle = () => setShow(!show);
-  const {
-    date,
-  } = useStore((state) => ({
+  const { date } = useStore((state) => ({
     date: state.ui.date,
   }));
 
@@ -30,21 +33,20 @@ export default ({ filters, frozenType, collapseList = false }) => {
   return (
     <Box>
       <Stack>
-        <RecordForm
-          date={filters.date || date}
-          model={selectedRecord}
-          frozenType={frozenType}
-        />
+        {showForm && (
+          <RecordForm
+            date={filters.date || date}
+            model={selectedRecord}
+            frozenType={frozenType}
+          />
+        )}
         {collapseList ? (
           <Box mt={2}>
             <Button w={'100%'} onClick={handleToggle}>
               {show ? 'Hide Records' : 'Show Records'}
             </Button>
             <Collapse mt={4} isOpen={show}>
-              <RecordsList
-                filters={filters}
-                onItemSelect={setSelectedRecord}
-              />
+              <RecordsList filters={filters} onItemSelect={setSelectedRecord} />
             </Collapse>
           </Box>
         ) : (

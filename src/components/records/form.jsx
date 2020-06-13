@@ -1,8 +1,9 @@
 import {
+  Badge,
   Box,
   Button,
   Divider,
-  Flex,
+  Flex, Heading,
   Input,
   Select,
   Stack,
@@ -22,6 +23,7 @@ export default ({ model = defaultRecord, frozenType }) => {
   const [record, setRecord] = useState(model);
   const [teams, setTeams] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState();
+  const [selectedProject, setSelectedProject] = useState();
   const { date, createRecord, updateRecord, colors, getTeams } = useStore(
     (state) => ({
       createRecord: state.createRecord,
@@ -90,12 +92,21 @@ export default ({ model = defaultRecord, frozenType }) => {
             <option value="insulin">Insulin</option>
             <option value="note">Note</option>
           </Select>
-          {/*<SearchSelect*/}
-          {/*  multiple*/}
-          {/*  items={teams}*/}
-          {/*  value={[selectedTeam]}*/}
-          {/*  onChange={(v) => setSelectedTeam(v[0])}*/}
-          {/*/>*/}
+          <SearchSelect
+            placeholder={"Select a project"}
+            multiple
+            items={teams}
+            value={[selectedTeam]}
+            onChange={(v) => setSelectedTeam(v[0])}
+          />
+          <SearchSelect
+            ml={2}
+            placeholder={"Select tags"}
+            multiple
+            items={teams}
+            value={[selectedTeam]}
+            onChange={(v) => setSelectedTeam(v[0])}
+          />
           <Select
             ml={2}
             size={'sm'}
@@ -110,8 +121,6 @@ export default ({ model = defaultRecord, frozenType }) => {
               </option>
             ))}
           </Select>
-          <Input ml={2} placeholder={'Select a project'} w={200} size={'sm'} />
-          <Input ml={2} placeholder={'Select tags'} w={200} size={'sm'} />
           <Box flexGrow={1}></Box>
           <Button variant="solid" size={'sm'} mr={2}>
             Clear

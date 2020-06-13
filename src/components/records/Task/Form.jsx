@@ -1,4 +1,4 @@
-import { Box, FormControl, FormLabel, Stack, Textarea } from '@chakra-ui/core';
+import { Box, Divider, FormControl, FormLabel, Input, Stack, Textarea } from '@chakra-ui/core';
 import moment from 'moment';
 import { useEffect } from 'react';
 import DatePicker from 'src/components/DatePicker';
@@ -14,32 +14,10 @@ export default ({ record = {}, setRecord }) => {
     : ts;
   return (
     <Stack>
-      <Stack isInline>
-        <Box mr={2}>
-          <FormControl>
-            <FormLabel htmlFor="due date">Due Date</FormLabel>
-            <DatePicker
-              type={'input'}
-              includeTime={true}
-              selected={moment(dueDate)}
-              onChange={(v) => {
-                const timestamp = moment(v).toISOString();
-                setRecord({
-                  ...record,
-                  timestamp,
-                  data: { ...record.data, dueDate: timestamp },
-                });
-              }}
-            />
-          </FormControl>
-        </Box>
-      </Stack>
-      <Box mr={2}>
+      <Stack mr={2} spacing={5}>
         <FormControl>
-          <FormLabel htmlFor="email">Description</FormLabel>
-          <Textarea
-            variant="unstyled"
-            placeholder="Add new task"
+          <FormLabel htmlFor="email">Name</FormLabel>
+          <Input
             borderRadius={3}
             resize={'none'}
             value={value}
@@ -51,7 +29,37 @@ export default ({ record = {}, setRecord }) => {
             }
           />
         </FormControl>
-      </Box>
+        <FormControl>
+          <FormLabel htmlFor="email">Description</FormLabel>
+          <Textarea
+            borderRadius={3}
+            resize={'none'}
+            value={value}
+            onChange={(e) =>
+              setRecord({
+                ...record,
+                data: { ...record.data, value: e.target.value },
+              })
+            }
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel htmlFor="due date">Due Date</FormLabel>
+          <DatePicker
+            type={'input'}
+            includeTime={true}
+            selected={moment(dueDate)}
+            onChange={(v) => {
+              const timestamp = moment(v).toISOString();
+              setRecord({
+                ...record,
+                timestamp,
+                data: { ...record.data, dueDate: timestamp },
+              });
+            }}
+          />
+        </FormControl>
+      </Stack>
     </Stack>
   );
 };

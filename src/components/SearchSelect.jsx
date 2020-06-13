@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/core';
 import { useEffect, useRef, useState } from 'react';
 
-export default ({ items, value, onChange, multiple = false }) => {
+export default ({ items, value, onChange, multiple = false, placeholder,...rest }) => {
   const select = useRef();
   const [searchText, setSearchText] = useState('');
   const [showOptions, setShowOptions] = useState(false);
@@ -42,9 +42,9 @@ export default ({ items, value, onChange, multiple = false }) => {
     };
   });
   return (
-    <Box ref={select}>
+    <Box ref={select} {...rest}>
       <Input
-        placeholder={'Select a team'}
+        placeholder={placeholder}
         size={'sm'}
         onFocus={() => setShowOptions(true)}
         value={searchText}
@@ -59,7 +59,7 @@ export default ({ items, value, onChange, multiple = false }) => {
           borderRadius={5}
           width={select.current.offsetWidth}
         >
-          <Stack>
+          <Stack spacing={0}>
             {items
               .filter((item) =>
                 item.name.toLowerCase().includes(searchText.toLowerCase())

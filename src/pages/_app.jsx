@@ -52,17 +52,17 @@ export default ({ Component, pageProps }) => {
       </Head>
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
-          <LightMode>
+          <DarkMode>
             <CSSReset config={config} />
             <Navbar />
             <Flex direction={'row'} mt={60}>
-              {showSidebar && <Sidebar />}
-              <Box ml={showSidebar ? 330 : 5} mr={5} flexGrow={1}>
+              {<Sidebar />}
+              <Box ml={showSidebar ? 310 : 100} mr={5} flexGrow={1}>
                 <App Component={Component} pageProps={pageProps} />
                 <FormModal />
               </Box>
             </Flex>
-          </LightMode>
+          </DarkMode>
         </ColorModeProvider>
       </ThemeProvider>
     </Box>
