@@ -32,7 +32,11 @@ export default ({ filters, children, isBlock = false, ...rest }) => {
     deleteRecord: state.deleteRecord,
   }));
   const updateRecords = () => {
-    getRecords(filters).then((d) => {
+    const transformedFilters = { ...filters };
+    if (filters.date) {
+      transformedFilters.date = filters.date.format('yyyy-MM-DD');
+    }
+    getRecords(transformedFilters).then((d) => {
       setRecords(d);
       setIsLoading(false);
     });
@@ -53,7 +57,12 @@ export default ({ filters, children, isBlock = false, ...rest }) => {
       ) : records.items.length > 0 ? (
         children(records.items)
       ) : (
-        <Flex alignItems={'center'} w={'100%'} textAlign={"center"} direction={"column"}>
+        <Flex
+          alignItems={'center'}
+          w={'100%'}
+          textAlign={'center'}
+          direction={'column'}
+        >
           <NotFound />
           <Heading>No Matching Records Found</Heading>
         </Flex>

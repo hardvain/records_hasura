@@ -8,7 +8,7 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
-  Box,
+  Box, useColorMode,
 } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import { FaHome, FaCalendar, FaPlus, FaFolder } from 'react-icons/fa';
@@ -20,6 +20,8 @@ import Project from 'src/assets/Project';
 import MenuButton from 'src/components/MenuButton';
 import { useStore } from 'src/store';
 export default () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+
   const { toggleSidebar, toggleFormPopup } = useStore((state) => ({
     toggleSidebar: state.toggleSidebar,
     toggleFormPopup: state.toggleFormPopup,
@@ -29,7 +31,7 @@ export default () => {
   return (
     <Flex
       boxShadow={"none"}
-      bg={'#232626'}
+      bg={colorMode === 'light' ? 'white' : '#232626'}
       direction="row"
       borderBottom="gray.200"
       alignItems={'center'}
@@ -80,6 +82,13 @@ export default () => {
         <InputLeftElement children={<Icon name="search" color="gray.300" />} />
         <Input type="phone" placeholder="Search Records" />
       </InputGroup>
+      <IconButton
+        size={'lg'}
+        variant="default"
+        icon={colorMode === 'light'?"moon":"sun"}
+        mr={4}
+        onClick={toggleColorMode}
+      />
     </Flex>
   );
 };

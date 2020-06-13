@@ -11,6 +11,7 @@ import {
   CSSReset,
   Box,
   DarkMode,
+  LightMode,
   ColorModeProvider,
   useColorMode,
 } from '@chakra-ui/core';
@@ -31,7 +32,7 @@ export function reportWebVitals(metric) {
 const config = (theme) => ({
   light: {
     color: theme.colors.gray[800],
-    bg: undefined,
+    bg: theme.colors.gray[100],
     borderColor: theme.colors.gray[200],
     placeholderColor: theme.colors.gray[400],
   },
@@ -51,17 +52,17 @@ export default ({ Component, pageProps }) => {
       </Head>
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
-          <DarkMode>
+          <LightMode>
             <CSSReset config={config} />
             <Navbar />
             <Flex direction={'row'} mt={60}>
               {showSidebar && <Sidebar />}
               <Box ml={showSidebar ? 330 : 5} mr={5} flexGrow={1}>
                 <App Component={Component} pageProps={pageProps} />
-                <FormModal/>
+                <FormModal />
               </Box>
             </Flex>
-          </DarkMode>
+          </LightMode>
         </ColorModeProvider>
       </ThemeProvider>
     </Box>

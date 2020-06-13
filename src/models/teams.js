@@ -10,6 +10,7 @@ export const create = async (team) => {
 export const get = async (id) => {
   return await prisma.team.findOne({
     where: { id },
+    include: { records: true },
   });
 };
 const queries = {};
@@ -29,7 +30,7 @@ export const del = async (id) => {
 };
 
 export const getAll = async (params = {}) => {
-  const teams = await prisma.team.findMany({include:{records:true}});
+  const teams = await prisma.team.findMany({ include: { records: true } });
   return {
     count: teams.length,
     items: teams,

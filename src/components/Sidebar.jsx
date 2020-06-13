@@ -9,6 +9,7 @@ import {
   Collapse,
   Stack,
   Text,
+  useColorMode,
 } from '@chakra-ui/core';
 import { FaTasks, FaNutritionix, FaCog } from 'react-icons/fa';
 import { MdApps } from 'react-icons/md';
@@ -29,6 +30,8 @@ import Water from 'src/assets/Water';
 import Time from 'src/assets/Time';
 import Menu from 'src/assets/Menu';
 const MenuItem = ({ children, isActive }) => {
+  const { colorMode } = useColorMode();
+
   const [isHovering, setIsHovering] = useState(false);
   return (
     <Box
@@ -36,7 +39,13 @@ const MenuItem = ({ children, isActive }) => {
       borderRadius={6}
       p={2}
       mb={2}
-      bg={isActive || isHovering ? '#3e4242' : ''}
+      bg={
+        isActive || isHovering
+          ? colorMode === 'light'
+            ? 'grey.500'
+            : '#3e4242'
+          : ''
+      }
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >

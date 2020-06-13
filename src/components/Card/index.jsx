@@ -1,7 +1,8 @@
-import { Flex, Box, Heading } from '@chakra-ui/core';
+import { Flex, Box, Heading, useColorMode } from '@chakra-ui/core';
 import { useState } from 'react';
 import { useStore } from 'src/store';
 export default ({ title, children, ...rest }) => {
+  const { colorMode } = useColorMode();
   const { colors } = useStore((state) => ({
     colors: state.ui.colors,
   }));
@@ -19,11 +20,17 @@ export default ({ title, children, ...rest }) => {
       borderColor={colors.primary}
       h={'100%'}
       cursor={isHovered ? 'pointer' : ''}
-      bg={'#232626'}
+      bg={colorMode === 'light' ? 'white' : '#232626'}
       {...rest}
     >
-      {title && <Box p={3} borderBottomWidth={2}><Heading size={"sm"}>{title}</Heading></Box>}
-      <Box h={"100%"} py={2}>{children}</Box>
+      {title && (
+        <Box p={3} borderBottomWidth={2}>
+          <Heading size={'sm'}>{title}</Heading>
+        </Box>
+      )}
+      <Box h={'100%'} py={2}>
+        {children}
+      </Box>
     </Box>
   );
 };

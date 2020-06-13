@@ -13,14 +13,14 @@ import {
 } from '@chakra-ui/core';
 import MonthView from './Month';
 import moment from 'moment';
-
+import Card from 'src/components/Card'
 const CalendarViewMap = {
   month: MonthView,
 };
 export default () => {
   const [calendarType, setCalendarType] = useState('month');
   return (
-    <Box>
+    <Card>
       <Flex
         height={50}
         my={5}
@@ -43,6 +43,6 @@ export default () => {
         </Select>
       </Flex>
       <Box>{createElement(CalendarViewMap[calendarType])}</Box>
-    </Box>
+    </Card>
   );
 };
