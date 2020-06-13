@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/core';
 import { useEffect } from 'react';
+import Filters from 'src/components/records/Filters';
 import RecordsWithForm from 'src/components/records/RecordsWithForm';
 import { useStore } from 'src/store';
 
@@ -14,10 +15,11 @@ export default () => {
   }, []);
   return (
     <Box py={30}>
-      <RecordsWithForm
-        filters={{ date: date.format('yyyy-MM-DD'), recordType: 'task' }}
-        frozenType={'task'}
-      />
+      <Filters
+        filters={{ date: date, recordType: 'task' }}
+      >
+        {(filters) => <RecordsWithForm filters={filters} frozenType={'task'} />}
+      </Filters>
     </Box>
   );
 };

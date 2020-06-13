@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -27,7 +27,7 @@ model Team {
     createdAt          DateTime             @default(now())
     updatedAt          DateTime             @updatedAt
     name                String
-    description         String?
+    description         String
     records             Record[]            @relation(references: [id])
 }
 

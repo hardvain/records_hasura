@@ -72,6 +72,7 @@ export default ({ model = defaultRecord, frozenType }) => {
             <option value="generic">Generic</option>
             <option value="activity">Activity</option>
             <option value="task">Task</option>
+            <option value="food">Food</option>
             <option value="transaction">Transaction</option>
             <option value="glucose">Blood Glucose</option>
             <option value="water">Water Consumption</option>

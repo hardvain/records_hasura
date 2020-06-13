@@ -34,6 +34,7 @@ const constructWhere = ({
   skip,
   orderBy,
   orderDirection,
+  team,
 }) => {
   const orderByField = orderBy || 'timestamp';
   let query = { where: {}, orderBy: {} };
@@ -56,6 +57,12 @@ const constructWhere = ({
   }
   query.orderBy = {
     [orderByField]: orderDirection || 'desc',
+  };
+  if (team && team !== 'undefined' && team !== 'all') {
+    query.where.teams = { some: { id: team } };
+  }
+  query.include = {
+    teams: true,
   };
   return query;
 };

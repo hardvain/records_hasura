@@ -4,6 +4,7 @@ export const [useStore] = create((set, get) => ({
   ui: {
     date: moment(),
     showSidebar:true,
+    currentTeam:'all',
     showFormPopup: false,
     refreshedAt: moment().toISOString(),
     colors: {
@@ -21,6 +22,12 @@ export const [useStore] = create((set, get) => ({
     set((state) => ({
       ...state,
       ui: { ...state.ui, showSidebar: !get().ui.showSidebar },
+    }));
+  },
+  setCurrentTeam: (value) => {
+    set((state) => ({
+      ...state,
+      ui: { ...state.ui, currentTeam: value },
     }));
   },
   setDate: (value) => {
@@ -53,6 +60,12 @@ export const [useStore] = create((set, get) => ({
       qs = qs + `${key}=${filters[key]}&`;
     });
     const response = await fetch(`/api/records?${qs}`, {
+      method: 'GET',
+    });
+    return await response.json();
+  },
+  getTeams: async (filters) => {
+    const response = await fetch(`/api/teams`, {
       method: 'GET',
     });
     return await response.json();

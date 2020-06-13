@@ -1,5 +1,6 @@
 import { Box, SimpleGrid, Stack } from '@chakra-ui/core';
 import { useEffect } from 'react';
+import Filters from 'src/components/records/Filters';
 import RecordsWithForm from 'src/components/records/RecordsWithForm';
 import DailyTrends from 'src/components/records/charts/DailyTrends';
 import WeeklyTrends from 'src/components/records/charts/WeeklyTrends';
@@ -16,17 +17,30 @@ export default () => {
   }, []);
   return (
     <Box py={30}>
-      <RecordsWithForm
-        filters={{ date: date.format('yyyy-MM-DD'), recordType: 'water' }}
-        frozenType={'water'}
-        collapseList={true}
-      />
-      <Box mt={4}>
-        <SimpleGrid columns={2} spacing={10}>
-          <DailyTrends date={date.format('yyyy-MM-DD')} recordType={'water'} />
-          <WeeklyTrends recordType={'water'} />
-        </SimpleGrid>
-      </Box>
+      <Filters
+        filters={{
+          recordType: 'water',
+          orderBy: 'timestamp',
+          orderDirection: 'asc',
+          date,
+        }}
+      >
+        {(filters) => (
+          <>
+            <RecordsWithForm
+              filters={filters}
+              frozenType={'water'}
+              collapseList={true}
+            />
+            <Box mt={4}>
+              <SimpleGrid columns={2} spacing={10}>
+                <DailyTrends filters={filters} />
+                <WeeklyTrends filters={filters} />
+              </SimpleGrid>
+            </Box>
+          </>
+        )}
+      </Filters>
     </Box>
   );
 };

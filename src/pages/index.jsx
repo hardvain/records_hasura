@@ -1,8 +1,8 @@
 import { Box } from '@chakra-ui/core';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import RecordsWithForm from 'src/components/records/RecordsWithForm';
 import { useStore } from 'src/store';
-
+import Filters from 'src/components/records/Filters';
 export default () => {
   const { date, setColors } = useStore((state) => ({
     date: state.ui.date,
@@ -14,7 +14,9 @@ export default () => {
   }, []);
   return (
     <Box py={30}>
-      <RecordsWithForm filters={{ date: date.format('yyyy-MM-DD') }} />
+      <Filters filters={{ date }}>
+        {(filters) => <RecordsWithForm filters={filters} />}
+      </Filters>
     </Box>
   );
 };

@@ -12,17 +12,12 @@ import {
 } from 'recharts';
 import List from 'src/components/core/List';
 import moment from 'moment';
-export default ({ date, recordType }) => {
+export default ({filters}) => {
   return (
     <Card title={'Weekly Trends'}>
       <List
         isBlock={true}
-        filters={{
-          recordType: recordType,
-          orderBy: 'timestamp',
-          orderDirection: 'asc',
-          date,
-        }}
+        filters={filters}
       >
         {(records) =>
           records.length > 0 && (

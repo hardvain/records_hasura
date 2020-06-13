@@ -23,17 +23,12 @@ const generateMinutes = (records) => {
   data.push({ value: 0, timestamp: moment().endOf('day').toISOString() });
   return data;
 };
-export default ({ date, recordType }) => {
+export default ({ filters }) => {
   return (
     <Card title={'Daily Trends'}>
       <List
         isBlock={true}
-        filters={{
-          recordType: recordType,
-          orderBy: 'timestamp',
-          orderDirection: 'asc',
-          date,
-        }}
+        filters={filters}
       >
         {(records) =>
           records.length > 0 && (

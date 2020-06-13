@@ -27,7 +27,7 @@ import Sleep from 'src/assets/Sleep';
 import Target from 'src/assets/Target';
 import Water from 'src/assets/Water';
 import Time from 'src/assets/Time';
-import { GoProject } from 'react-icons/go';
+import Menu from 'src/assets/Menu';
 const MenuItem = ({ children, isActive }) => {
   const [isHovering, setIsHovering] = useState(false);
   return (
@@ -60,18 +60,13 @@ export default () => {
       height={'100%'}
       left={0}
       overflowX={'hidden'}
-      overflowY={'scroll'}
     >
       <MenuItem isActive={pathname === '/'}>
         <NextLink href="/" as={`/`}>
           <Stack isInline alignItems={'center'}>
-            <Box
-              as={MdApps}
-              fontSize={30}
-              alignSelf={'center'}
-              color={'cyan.500'}
-              mx={1}
-            />
+            <Box mr={5} ml={2}>
+              <Menu width={25} height={25} />
+            </Box>
             <Text ml={2}>All</Text>
           </Stack>
         </NextLink>
@@ -110,8 +105,8 @@ export default () => {
           </Stack>
         </NextLink>
       </MenuItem>
-      <MenuItem isActive={pathname === '/records/nutrition'}>
-        <NextLink href="/records/nutrition" as={`/records/nutrition`}>
+      <MenuItem isActive={pathname === '/records/food'}>
+        <NextLink href="/records/food" as={`/records/food`}>
           <Stack isInline alignItems={'center'}>
             <Box alignSelf={'center'} mr={4}>
               <Fruit width={30} height={30} />
@@ -240,7 +235,7 @@ export default () => {
             <Box alignSelf={'center'} mr={4}>
               <Target width={30} height={30} />
             </Box>
-            <Text ml={2}>Inititives</Text>
+            <Text ml={2}>Objectives</Text>
           </Stack>
         </NextLink>
       </MenuItem>

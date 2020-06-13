@@ -5,7 +5,7 @@ import Water from './Water';
 import Generic from './Generic';
 import Activity from './Activity';
 import Transaction from './Transaction';
-import Nutrition from './Nutrition';
+import Food from './Food';
 
 const RecordMap = {
   task: Task,
@@ -14,7 +14,7 @@ const RecordMap = {
   generic: Generic,
   activity: Activity,
   transaction: Transaction,
-  nutrition: Nutrition
+  food: Food
 };
 
 export const RecordPreview = ({ record }) => {
