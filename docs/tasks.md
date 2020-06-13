@@ -2,10 +2,10 @@
 [] Projects and Tags
 [] Record details page/form
 [] Update records
-[] Capture food information
+[] Tasks without timestamp
+[] Forms for all types added so far
 [] Calendar
 [] Search
-
 
 [] Nice error page
 [] Responsive app

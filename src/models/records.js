@@ -16,6 +16,16 @@ const queries = {};
 const raw = async (key) => await prisma.raw(queries[key]);
 
 export const update = async (id, record) => {
+  if (record.teams && record.teams.length > 0) {
+    record.teams = {
+      connect: record.teams.map((t) => ({ id: t.id })),
+    };
+  }
+  if (record.projects && record.projects.length > 0) {
+    record.projects = {
+      connect: record.projects.map((t) => ({ id: t.id })),
+    };
+  }
   return await prisma.record.update({
     where: { id },
     data: record,
@@ -35,6 +45,7 @@ const constructWhere = ({
   orderBy,
   orderDirection,
   team,
+  project,
 }) => {
   const orderByField = orderBy || 'timestamp';
   let query = { where: {}, orderBy: {} };
@@ -60,6 +71,9 @@ const constructWhere = ({
   };
   if (team && team !== 'undefined' && team !== 'all') {
     query.where.teams = { some: { id: team } };
+  }
+  if (project && project !== 'undefined' && project !== 'all') {
+    query.where.projects = { some: { id: project } };
   }
   query.include = {
     teams: true,

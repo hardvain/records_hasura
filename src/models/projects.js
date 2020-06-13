@@ -2,7 +2,6 @@ import moment from 'moment';
 import prisma from '../../prisma/prisma-client';
 
 export const create = async (project) => {
-  console.log(project);
   return await prisma.project.create({
     data: JSON.parse(project),
   });

@@ -19,20 +19,25 @@ export default ({ filters: initialFilters, children }) => {
   const [filters, setFilters] = useState(initialFilters);
 
   const [teams, setTeams] = useState([]);
-  const { date, nextDate, prevDate, setDate, getTeams } = useStore((state) => ({
-    date: state.ui.date,
-    nextDate: state.nextDate,
-    prevDate: state.prevDate,
-    setDate: state.setDate,
-    getTeams: state.getTeams,
-    setCurrentTeam: state.setCurrentTeam,
-    currentTeam: state.ui.currentTeam,
-  }));
+  const [projects, setProjects] = useState([]);
+  const { date, nextDate, prevDate, setDate, getTeams, getProjects } = useStore(
+    (state) => ({
+      date: state.ui.date,
+      nextDate: state.nextDate,
+      prevDate: state.prevDate,
+      setDate: state.setDate,
+      getTeams: state.getTeams,
+      getProjects: state.getProjects,
+      setCurrentTeam: state.setCurrentTeam,
+      currentTeam: state.ui.currentTeam,
+    })
+  );
   useEffect(() => {
     setFilters({ ...filters, date });
   }, [date.toISOString()]);
   useEffect(() => {
     getTeams().then((r) => setTeams(r.items));
+    getProjects().then((r) => setProjects(r.items));
   }, []);
 
   return (
@@ -57,11 +62,11 @@ export default ({ filters: initialFilters, children }) => {
           ml={2}
           size={'sm'}
           w={200}
-          value={filters.team || 'all'}
-          onChange={(e) => setFilters({ ...filters, team: e.target.value })}
+          value={filters.project || 'all'}
+          onChange={(e) => setFilters({ ...filters, project: e.target.value })}
         >
           <option value={'all'}>All</option>
-          {teams.map((t) => (
+          {projects.map((t) => (
             <option key={t.id} value={t.id}>
               {t.name}
             </option>
