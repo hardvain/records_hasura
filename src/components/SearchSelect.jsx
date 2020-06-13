@@ -10,19 +10,26 @@ import {
 } from '@chakra-ui/core';
 import { useEffect, useRef, useState } from 'react';
 
-export default ({ items }) => {
+export default ({ items, value, onChange, multiple = false }) => {
   const select = useRef();
   const [searchText, setSearchText] = useState('');
   const [showOptions, setShowOptions] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(value);
 
   const toggleItem = (isChecked, item) => {
     if (isChecked) {
-      setSelectedOptions([...selectedOptions, item.id]);
+      const result = multiple ? [...selectedOptions, item.id] : [item.id];
+      setSelectedOptions(result);
+      onChange(result);
     } else {
-      setSelectedOptions(selectedOptions.filter((opt) => opt !== item.id));
+      const result = multiple
+        ? selectedOptions.filter((opt) => opt !== item.id)
+        : [];
+      setSelectedOptions(result);
+      onChange(result);
     }
   };
+
   const handleClickOutside = (event) => {
     if (select.current && !select.current.contains(event.target)) {
       setShowOptions(false);
@@ -44,23 +51,24 @@ export default ({ items }) => {
         onChange={(e) => setSearchText(e.target.value)}
       />
       {showOptions && (
-        <Box mt={2} zIndex={1000} position={'absolute'} spacing={0} borderRadius={5} width={select.current.offsetWidth}>
+        <Box
+          mt={2}
+          zIndex={1000}
+          position={'absolute'}
+          spacing={0}
+          borderRadius={5}
+          width={select.current.offsetWidth}
+        >
           <Stack>
             {items
               .filter((item) =>
                 item.name.toLowerCase().includes(searchText.toLowerCase())
               )
               .map((item) => (
-                <>
                   <Stack
                     isInline
                     w={'100%'}
                     key={item.id}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setSelectedOptions([...selectedOptions, item.id]);
-                    }}
                     p={2}
                     bg={'#333'}
                   >
@@ -70,7 +78,6 @@ export default ({ items }) => {
                     />
                     <Text>{item.name}</Text>
                   </Stack>
-                </>
               ))}
           </Stack>
         </Box>

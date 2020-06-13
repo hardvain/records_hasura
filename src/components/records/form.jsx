@@ -2,7 +2,8 @@ import {
   Box,
   Button,
   Divider,
-  Flex, Input,
+  Flex,
+  Input,
   Select,
   Stack,
   useToast,
@@ -11,6 +12,7 @@ import { useEffect, useState } from 'react';
 import Card from 'src/components/Card';
 import moment from 'moment';
 import DatePicker from 'src/components/DatePicker';
+import SearchSelect from 'src/components/SearchSelect';
 import { useStore } from 'src/store';
 import { RecordForm } from './index';
 
@@ -88,6 +90,12 @@ export default ({ model = defaultRecord, frozenType }) => {
             <option value="insulin">Insulin</option>
             <option value="note">Note</option>
           </Select>
+          <SearchSelect
+            multiple
+            items={teams}
+            value={[selectedTeam]}
+            onChange={(v) => setSelectedTeam(v[0])}
+          />
           <Select
             ml={2}
             size={'sm'}
@@ -102,8 +110,8 @@ export default ({ model = defaultRecord, frozenType }) => {
               </option>
             ))}
           </Select>
-          <Input ml={2} placeholder={"Select a project"} w={200} size={"sm"}/>
-          <Input ml={2} placeholder={"Select tags"} w={200} size={"sm"}/>
+          <Input ml={2} placeholder={'Select a project'} w={200} size={'sm'} />
+          <Input ml={2} placeholder={'Select tags'} w={200} size={'sm'} />
           <Box flexGrow={1}></Box>
           <Button variant="solid" size={'sm'} mr={2}>
             Clear
