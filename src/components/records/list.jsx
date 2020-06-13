@@ -5,7 +5,7 @@ import {
   Stack,
   IconButton,
   Skeleton,
-  useToast,
+  useToast, Heading, Badge,
 } from '@chakra-ui/core';
 import Card from 'src/components/Card';
 import { RecordPreview } from 'src/components/records';
@@ -32,6 +32,13 @@ export default ({ filters, onItemSelect }) => {
                 <Box flexGrow={1}>
                   <RecordPreview record={record} />
                 </Box>
+                <Stack mr={2}>
+                  <Box>
+                    {record.projects?.map((t) => (
+                      <Badge key={t.id}>{t.name}</Badge>
+                    ))}
+                  </Box>
+                </Stack>
                 <IconButton
                   mr={2}
                   onClick={() => onItemSelect(record)}

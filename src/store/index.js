@@ -70,6 +70,12 @@ export const [useStore] = create((set, get) => ({
     });
     return await response.json();
   },
+  getProjects: async (filters) => {
+    const response = await fetch(`/api/projects`, {
+      method: 'GET',
+    });
+    return await response.json();
+  },
   getRecord: () => {},
   createRecord: async (record, toast) => {
     const response = await fetch(`/api/records`, {
@@ -98,6 +104,29 @@ export const [useStore] = create((set, get) => ({
       ui: { ...state.ui, refreshedAt: moment().toISOString() },
     }));
   },
+  createProject: async (project, toast) => {
+    const response = await fetch(`/api/projects`, {
+      method: 'POST',
+      body: JSON.stringify(project),
+    });
+    if (response.status === 200) {
+      toast({
+        title: 'Project created successfully',
+        status: 'success',
+        duration: 3000,
+        position: 'top',
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: 'Error during project creation',
+        status: 'error',
+        duration: 3000,
+        position: 'top',
+        isClosable: true,
+      });
+    }
+  },
   deleteRecord: async (id, toast) => {
     const response = await fetch(`/api/records/${id}`, { method: 'DELETE' });
     if (response.status === 200) {
@@ -117,10 +146,49 @@ export const [useStore] = create((set, get) => ({
         isClosable: true,
       });
     }
-    set((state) => ({
-      ...state,
-      ui: { ...state.ui, refreshedAt: moment().toISOString() },
-    }));
+  },
+  deleteProject: async (id, toast) => {
+    const response = await fetch(`/api/projects/${id}`, { method: 'DELETE' });
+    if (response.status === 200) {
+      toast({
+        title: 'Project deleted successfully',
+        status: 'success',
+        duration: 3000,
+        position: 'top',
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: 'Error during project deletion',
+        status: 'error',
+        duration: 3000,
+        position: 'top',
+        isClosable: true,
+      });
+    }
+  },
+  updateProject: async (project, toast) => {
+    const response = await fetch(`/api/projects/${project.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(project),
+    });
+    if (response.status === 200) {
+      toast({
+        title: 'Project updated successfully',
+        status: 'success',
+        duration: 3000,
+        position: 'top',
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: 'Error during project updation',
+        status: 'error',
+        duration: 3000,
+        position: 'top',
+        isClosable: true,
+      });
+    }
   },
   updateRecord: async (record, toast) => {
     const response = await fetch(`/api/records/${record.id}`, {
@@ -144,9 +212,11 @@ export const [useStore] = create((set, get) => ({
         isClosable: true,
       });
     }
+
     set((state) => ({
       ...state,
       ui: { ...state.ui, refreshedAt: moment().toISOString() },
     }));
   },
+
 }));

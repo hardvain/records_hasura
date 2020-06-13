@@ -28,6 +28,7 @@ export default ({ items, value, onChange, multiple = false, placeholder,...rest 
       setSelectedOptions(result);
       onChange(result);
     }
+
   };
 
   const handleClickOutside = (event) => {

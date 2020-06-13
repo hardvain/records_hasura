@@ -14,7 +14,7 @@ import {
   IconButton,
 } from '@chakra-ui/core';
 import { FaTasks, FaNutritionix, FaCog } from 'react-icons/fa';
-import { MdApps } from 'react-icons/md';
+import { GoProject } from 'react-icons/go';
 import Sugar from 'src/assets/Sugar';
 import Fruit from 'src/assets/Fruit';
 import Project from 'src/assets/Project';
@@ -302,9 +302,13 @@ export default () => {
         isActive={pathname === '/projects'}
       >
         <Stack isInline alignItems={'center'}>
-          <Box alignSelf={'center'} mr={4}>
-            <Project width={30} height={30} />
-          </Box>
+          <Box
+            as={GoProject}
+            fontSize={30}
+            alignSelf={'center'}
+            color={'teal.500'}
+            mr={2}
+          />
         </Stack>
       </MenuItem>
       <Divider borderWidth={2} my={5} />

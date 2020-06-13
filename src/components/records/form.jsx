@@ -3,7 +3,8 @@ import {
   Box,
   Button,
   Divider,
-  Flex, Heading,
+  Flex,
+  Heading,
   Input,
   Select,
   Stack,
@@ -22,22 +23,30 @@ export default ({ model = defaultRecord, frozenType }) => {
   const toast = useToast();
   const [record, setRecord] = useState(model);
   const [teams, setTeams] = useState([]);
+  const [projects, setProjects] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState();
   const [selectedProject, setSelectedProject] = useState();
-  const { date, createRecord, updateRecord, colors, getTeams } = useStore(
-    (state) => ({
-      createRecord: state.createRecord,
-      getTeams: state.getTeams,
-      updateRecord: state.updateRecord,
-      colors: state.ui.colors,
-      date: state.ui.date,
-    })
-  );
+  const {
+    date,
+    createRecord,
+    updateRecord,
+    colors,
+    getTeams,
+    getProjects,
+  } = useStore((state) => ({
+    createRecord: state.createRecord,
+    getTeams: state.getTeams,
+    getProjects: state.getProjects,
+    updateRecord: state.updateRecord,
+    colors: state.ui.colors,
+    date: state.ui.date,
+  }));
   useEffect(() => {
     setRecord(model);
   }, [model]);
   useEffect(() => {
     getTeams().then((r) => setTeams(r.items));
+    getProjects().then((r) => setProjects(r.items));
   }, []);
   const submit = async () => {
     const payload = { ...record };
@@ -45,7 +54,11 @@ export default ({ model = defaultRecord, frozenType }) => {
     if (!payload.timestamp) {
       payload.timestamp = moment().toISOString();
     }
-
+    if (selectedProject) {
+      payload.projects = {
+        connect: [{ id: selectedProject }],
+      };
+    }
     if (frozenType) {
       payload.recordType = frozenType;
     }
@@ -59,6 +72,7 @@ export default ({ model = defaultRecord, frozenType }) => {
       payload.timestamp = payload.timestamp.toISOString();
       await createRecord(payload, toast);
     }
+    setSelectedProject(undefined);
     setRecord(defaultRecord);
   };
   return (
@@ -93,34 +107,33 @@ export default ({ model = defaultRecord, frozenType }) => {
             <option value="note">Note</option>
           </Select>
           <SearchSelect
-            placeholder={"Select a project"}
-            multiple
-            items={teams}
-            value={[selectedTeam]}
-            onChange={(v) => setSelectedTeam(v[0])}
+            placeholder={'Select a project'}
+            items={projects}
+            value={selectedProject?[selectedProject]:[]}
+            onChange={(v) => setSelectedProject(v[0])}
           />
           <SearchSelect
             ml={2}
-            placeholder={"Select tags"}
+            placeholder={'Select tags'}
             multiple
             items={teams}
             value={[selectedTeam]}
             onChange={(v) => setSelectedTeam(v[0])}
           />
-          <Select
-            ml={2}
-            size={'sm'}
-            w={200}
-            placeholder={'Select a team'}
-            value={selectedTeam}
-            onChange={(e) => setSelectedTeam(e.target.value)}
-          >
-            {teams.map((t) => (
-              <option key={t.id} value={t.id}>
-                {t.name}
-              </option>
-            ))}
-          </Select>
+          {/*<Select*/}
+          {/*  ml={2}*/}
+          {/*  size={'sm'}*/}
+          {/*  w={200}*/}
+          {/*  placeholder={'Select a team'}*/}
+          {/*  value={selectedTeam}*/}
+          {/*  onChange={(e) => setSelectedTeam(e.target.value)}*/}
+          {/*>*/}
+          {/*  {teams.map((t) => (*/}
+          {/*    <option key={t.id} value={t.id}>*/}
+          {/*      {t.name}*/}
+          {/*    </option>*/}
+          {/*  ))}*/}
+          {/*</Select>*/}
           <Box flexGrow={1}></Box>
           <Button variant="solid" size={'sm'} mr={2}>
             Clear

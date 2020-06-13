@@ -1,9 +1,12 @@
-[] Projects and Initiatives
-[] Add tags
+# V1
+[] Projects and Tags
 [] Record details page/form
+[] Update records
 [] Capture food information
 [] Calendar
 [] Search
+
+
 [] Nice error page
 [] Responsive app
 [] Animate motions

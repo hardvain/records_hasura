@@ -2,6 +2,7 @@ import moment from 'moment';
 import prisma from '../../prisma/prisma-client';
 
 export const create = async (project) => {
+  console.log(project);
   return await prisma.project.create({
     data: JSON.parse(project),
   });
@@ -18,7 +19,10 @@ const raw = async (key) => await prisma.raw(queries[key]);
 export const update = async (id, project) => {
   return await prisma.project.update({
     where: { id },
-    data: project,
+    data: {
+      name: project.name,
+      description: project.description,
+    },
   });
 };
 

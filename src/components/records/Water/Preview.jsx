@@ -36,14 +36,7 @@ export default ({ record }) => {
           />
         </Stack>
         <Box flexGrow={1}></Box>
-        <Stack mr={2}>
-          <Heading size={'sm'}>Team</Heading>
-          <Box>
-            {record.teams?.map((t) => (
-              <Badge key={t.id}>{t.name}</Badge>
-            ))}
-          </Box>
-        </Stack>
+
       </Stack>
     </Flex>
   );

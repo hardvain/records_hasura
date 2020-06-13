@@ -6,6 +6,7 @@ import { useStore } from 'src/store';
 export default ({ record = {}, setRecord }) => {
   const date = useStore(state => state.ui.date)
   const value = record ? (record.data ? record.data.value : '') : '';
+  const description = record ? (record.data ? record.data.description : '') : '';
   let ts = date.toISOString();
   const dueDate = record
     ? record.data
@@ -34,11 +35,11 @@ export default ({ record = {}, setRecord }) => {
           <Textarea
             borderRadius={3}
             resize={'none'}
-            value={value}
+            value={description}
             onChange={(e) =>
               setRecord({
                 ...record,
-                data: { ...record.data, value: e.target.value },
+                data: { ...record.data, description: e.target.value },
               })
             }
           />
