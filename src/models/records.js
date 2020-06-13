@@ -63,6 +63,8 @@ const constructWhere = ({
   }
   query.include = {
     teams: true,
+    projects: true,
+    tags: true,
   };
   return query;
 };

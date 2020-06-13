@@ -1,8 +1,9 @@
-import { Box, Heading, SimpleGrid } from '@chakra-ui/core';
+import { Box, Flex, Heading, SimpleGrid } from '@chakra-ui/core';
 import { useEffect, useState } from 'react';
-import SearchSelect from 'src/components/SearchSelect';
+import NextLink from 'next/link';
 import { useStore } from 'src/store';
 import Card from 'src/components/Card';
+
 export default () => {
   const [teams, setTeams] = useState([]);
   const { getTeams } = useStore((state) => ({
@@ -17,14 +18,19 @@ export default () => {
       <Box my={4}>
         <Heading size={'lg'}>Teams</Heading>
       </Box>
-      <Box w={200}>
-        <SearchSelect items={teams}/>
-      </Box>
       <SimpleGrid columns={3} spacing={20}>
         {teams.map((team) => (
-          <Card key={team.id} mb={10} textAlign={"center"}>
-            {team.name}
-          </Card>
+          <NextLink as={`/teams/${team.id}`} href={`/teams/[id]`}>
+            <Card key={team.id} mb={10} textAlign={'center'}>
+              <Flex
+                alignItems={'center'}
+                justifyContent={'space-around'}
+                h={'100%'}
+              >
+                {team.name}
+              </Flex>
+            </Card>
+          </NextLink>
         ))}
       </SimpleGrid>
     </Box>

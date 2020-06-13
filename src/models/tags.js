@@ -1,37 +1,37 @@
 import moment from 'moment';
 import prisma from '../../prisma/prisma-client';
 
-export const create = async (team) => {
-  return await prisma.team.create({
-    data: JSON.parse(team),
+export const create = async (tag) => {
+  return await prisma.tag.create({
+    data: JSON.parse(tag),
   });
 };
 
 export const get = async (id) => {
-  return await prisma.team.findOne({
+  return await prisma.tag.findOne({
     where: { id },
   });
 };
 const queries = {};
 const raw = async (key) => await prisma.raw(queries[key]);
 
-export const update = async (id, team) => {
-  return await prisma.team.update({
+export const update = async (id, tag) => {
+  return await prisma.tag.update({
     where: { id },
-    data: team,
+    data: tag,
   });
 };
 
 export const del = async (id) => {
-  return await prisma.team.delete({
+  return await prisma.tag.delete({
     where: { id },
   });
 };
 
 export const getAll = async (params = {}) => {
-  const teams = await prisma.team.findMany({include:{records:true}});
+  const tags = await prisma.tag.findMany({include:{records:true}});
   return {
-    count: teams.length,
-    items: teams,
+    count: tags.length,
+    items: tags,
   };
 };

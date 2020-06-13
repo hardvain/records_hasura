@@ -90,12 +90,12 @@ export default ({ model = defaultRecord, frozenType }) => {
             <option value="insulin">Insulin</option>
             <option value="note">Note</option>
           </Select>
-          <SearchSelect
-            multiple
-            items={teams}
-            value={[selectedTeam]}
-            onChange={(v) => setSelectedTeam(v[0])}
-          />
+          {/*<SearchSelect*/}
+          {/*  multiple*/}
+          {/*  items={teams}*/}
+          {/*  value={[selectedTeam]}*/}
+          {/*  onChange={(v) => setSelectedTeam(v[0])}*/}
+          {/*/>*/}
           <Select
             ml={2}
             size={'sm'}

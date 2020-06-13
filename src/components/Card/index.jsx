@@ -23,7 +23,7 @@ export default ({ title, children, ...rest }) => {
       {...rest}
     >
       {title && <Box p={3} borderBottomWidth={2}><Heading size={"sm"}>{title}</Heading></Box>}
-      <Box py={2}>{children}</Box>
+      <Box h={"100%"} py={2}>{children}</Box>
     </Box>
   );
 };
