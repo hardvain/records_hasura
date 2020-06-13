@@ -10,12 +10,18 @@ import {
 } from '@chakra-ui/core';
 import { useEffect, useRef, useState } from 'react';
 
-export default ({ items, value, onChange, multiple = false, placeholder,...rest }) => {
+export default ({
+  items,
+  value,
+  onChange,
+  multiple = false,
+  placeholder,
+  ...rest
+}) => {
   const select = useRef();
   const [searchText, setSearchText] = useState('');
   const [showOptions, setShowOptions] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState(value);
-
   const toggleItem = (isChecked, item) => {
     if (isChecked) {
       const result = multiple ? [...selectedOptions, item.id] : [item.id];
@@ -28,7 +34,6 @@ export default ({ items, value, onChange, multiple = false, placeholder,...rest 
       setSelectedOptions(result);
       onChange(result);
     }
-
   };
 
   const handleClickOutside = (event) => {
@@ -37,11 +42,14 @@ export default ({ items, value, onChange, multiple = false, placeholder,...rest 
     }
   };
   useEffect(() => {
+    setSelectedOptions(value);
+  }, [value]);
+  useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  });
+  }, []);
   return (
     <Box ref={select} {...rest}>
       <Input
@@ -66,19 +74,13 @@ export default ({ items, value, onChange, multiple = false, placeholder,...rest 
                 item.name.toLowerCase().includes(searchText.toLowerCase())
               )
               .map((item) => (
-                  <Stack
-                    isInline
-                    w={'100%'}
-                    key={item.id}
-                    p={2}
-                    bg={'#333'}
-                  >
-                    <Checkbox
-                      isChecked={selectedOptions.includes(item.id)}
-                      onChange={(e) => toggleItem(e.target.checked, item)}
-                    />
-                    <Text>{item.name}</Text>
-                  </Stack>
+                <Stack isInline w={'100%'} key={item.id} p={2} bg={'#333'}>
+                  <Checkbox
+                    isChecked={selectedOptions.includes(item.id)}
+                    onChange={(e) => toggleItem(e.target.checked, item)}
+                  />
+                  <Text>{item.name}</Text>
+                </Stack>
               ))}
           </Stack>
         </Box>

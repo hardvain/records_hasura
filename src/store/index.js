@@ -146,6 +146,10 @@ export const [useStore] = create((set, get) => ({
         isClosable: true,
       });
     }
+    set((state) => ({
+      ...state,
+      ui: { ...state.ui, refreshedAt: moment().toISOString() },
+    }));
   },
   deleteProject: async (id, toast) => {
     const response = await fetch(`/api/projects/${id}`, { method: 'DELETE' });

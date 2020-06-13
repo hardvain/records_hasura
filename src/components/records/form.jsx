@@ -26,6 +26,7 @@ export default ({ model = defaultRecord, frozenType }) => {
   const [projects, setProjects] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState();
   const [selectedProject, setSelectedProject] = useState();
+
   const {
     date,
     createRecord,
@@ -43,7 +44,9 @@ export default ({ model = defaultRecord, frozenType }) => {
   }));
   useEffect(() => {
     setRecord(model);
+    setSelectedProject(model.projects ? model.projects[0].id : undefined);
   }, [model]);
+  console.log(record,selectedProject)
   useEffect(() => {
     getTeams().then((r) => setTeams(r.items));
     getProjects().then((r) => setProjects(r.items));
@@ -109,17 +112,17 @@ export default ({ model = defaultRecord, frozenType }) => {
           <SearchSelect
             placeholder={'Select a project'}
             items={projects}
-            value={selectedProject?[selectedProject]:[]}
+            value={selectedProject ? [selectedProject] : []}
             onChange={(v) => setSelectedProject(v[0])}
           />
-          <SearchSelect
-            ml={2}
-            placeholder={'Select tags'}
-            multiple
-            items={teams}
-            value={[selectedTeam]}
-            onChange={(v) => setSelectedTeam(v[0])}
-          />
+          {/*<SearchSelect*/}
+          {/*  ml={2}*/}
+          {/*  placeholder={'Select tags'}*/}
+          {/*  multiple*/}
+          {/*  items={teams}*/}
+          {/*  value={[selectedTeam]}*/}
+          {/*  onChange={(v) => setSelectedTeam(v[0])}*/}
+          {/*/>*/}
           {/*<Select*/}
           {/*  ml={2}*/}
           {/*  size={'sm'}*/}
