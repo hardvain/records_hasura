@@ -2,7 +2,7 @@ import {
   Box,
   Button,
   Divider,
-  Flex,
+  Flex, Input,
   Select,
   Stack,
   useToast,
@@ -10,6 +10,7 @@ import {
 import { useEffect, useState } from 'react';
 import Card from 'src/components/Card';
 import moment from 'moment';
+import DatePicker from 'src/components/DatePicker';
 import { useStore } from 'src/store';
 import { RecordForm } from './index';
 
@@ -17,16 +18,23 @@ let defaultRecord = { recordType: 'generic' };
 export default ({ model = defaultRecord, frozenType }) => {
   const toast = useToast();
   const [record, setRecord] = useState(model);
-  const { date, createRecord, updateRecord, colors } = useStore((state) => ({
-    createRecord: state.createRecord,
-    updateRecord: state.updateRecord,
-    colors: state.ui.colors,
-    date: state.ui.date,
-  }));
+  const [teams, setTeams] = useState([]);
+  const [selectedTeam, setSelectedTeam] = useState();
+  const { date, createRecord, updateRecord, colors, getTeams } = useStore(
+    (state) => ({
+      createRecord: state.createRecord,
+      getTeams: state.getTeams,
+      updateRecord: state.updateRecord,
+      colors: state.ui.colors,
+      date: state.ui.date,
+    })
+  );
   useEffect(() => {
     setRecord(model);
   }, [model]);
-
+  useEffect(() => {
+    getTeams().then((r) => setTeams(r.items));
+  }, []);
   const submit = async () => {
     const payload = { ...record };
 
@@ -63,6 +71,7 @@ export default ({ model = defaultRecord, frozenType }) => {
             w={200}
             mr={2}
             isDisabled={frozenType}
+            placeholder={'Select record type'}
             size={'sm'}
             value={frozenType || record.recordType}
             onChange={(v) => {
@@ -79,6 +88,22 @@ export default ({ model = defaultRecord, frozenType }) => {
             <option value="insulin">Insulin</option>
             <option value="note">Note</option>
           </Select>
+          <Select
+            ml={2}
+            size={'sm'}
+            w={200}
+            placeholder={'Select a team'}
+            value={selectedTeam}
+            onChange={(e) => setSelectedTeam(e.target.value)}
+          >
+            {teams.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.name}
+              </option>
+            ))}
+          </Select>
+          <Input ml={2} placeholder={"Select a project"} w={200} size={"sm"}/>
+          <Input ml={2} placeholder={"Select tags"} w={200} size={"sm"}/>
           <Box flexGrow={1}></Box>
           <Button variant="solid" size={'sm'} mr={2}>
             Clear

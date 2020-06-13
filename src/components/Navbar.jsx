@@ -28,9 +28,9 @@ export default () => {
   const pathname = router.pathname;
   return (
     <Flex
+      boxShadow={"none"}
       bg={'#232626'}
       direction="row"
-      borderBottomWidth={1}
       borderBottom="gray.200"
       alignItems={'center'}
       py={'2px'}

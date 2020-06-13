@@ -1,5 +1,6 @@
 import { Box, Heading, SimpleGrid } from '@chakra-ui/core';
 import { useEffect, useState } from 'react';
+import SearchSelect from 'src/components/SearchSelect';
 import { useStore } from 'src/store';
 import Card from 'src/components/Card';
 export default () => {
@@ -15,6 +16,9 @@ export default () => {
     <Box>
       <Box my={4}>
         <Heading size={'lg'}>Teams</Heading>
+      </Box>
+      <Box w={200}>
+        <SearchSelect items={teams}/>
       </Box>
       <SimpleGrid columns={3} spacing={20}>
         {teams.map((team) => (
