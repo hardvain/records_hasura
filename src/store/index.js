@@ -76,7 +76,9 @@ export const [useStore] = create((set, get) => ({
     });
     return await response.json();
   },
-  getRecord: () => {},
+  getRecord: async (id) => {
+    return await fetch(`/api/records/${id}`, { method: 'GET' }).then(r => r.json());
+  },
   createRecord: async (record, toast) => {
     const response = await fetch(`/api/records`, {
       method: 'POST',
@@ -130,7 +132,7 @@ export const [useStore] = create((set, get) => ({
   searchRecords: async (searchText) => {
     return await fetch(`/api/records/search?search=${searchText}`, {
       method: 'GET',
-    }).then(r => r.json());
+    }).then((r) => r.json());
   },
   deleteRecord: async (id, toast) => {
     const response = await fetch(`/api/records/${id}`, { method: 'DELETE' });

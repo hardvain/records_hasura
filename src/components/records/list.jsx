@@ -5,8 +5,12 @@ import {
   Stack,
   IconButton,
   Skeleton,
-  useToast, Heading, Badge,
+  useToast,
+  Heading,
+  Badge,
 } from '@chakra-ui/core';
+import NextLink from 'next/link';
+
 import Card from 'src/components/Card';
 import { RecordPreview } from 'src/components/records';
 import { useStore } from 'src/store';
@@ -39,6 +43,15 @@ export default ({ filters, onItemSelect }) => {
                     ))}
                   </Box>
                 </Stack>
+                <NextLink as={`/records/${record.id}`} href={`/records/[id]`}>
+                  <IconButton
+                    mr={2}
+                    variant={'default'}
+                    icon={'view'}
+                    size={'sm'}
+                  />
+                </NextLink>
+
                 <IconButton
                   mr={2}
                   onClick={() => onItemSelect(record)}
