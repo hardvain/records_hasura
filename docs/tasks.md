@@ -1,12 +1,12 @@
 # V1
 [*] Projects 
 [] Tags
-[] Record details page/form
+[*] Record details page/form
 [*] Update records
 [] Tasks without timestamp
 [] Forms for all types added so far
 [] Calendar
-[] Search
+[*] Search
 
 [] Nice error page
 [] Responsive app

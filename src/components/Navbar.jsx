@@ -62,23 +62,20 @@ export default () => {
       top={0}
       zIndex={1000}
     >
-      <IconButton
-        size={'lg'}
-        variant="default"
-        icon={FiMenu}
-        mr={4}
-        onClick={toggleSidebar}
-      />
-      <Stack isInline alignItems={'center'} mr={2} cursor={'pointer'}>
-        <Box alignSelf={'center'} mr={4}>
-          <Logo width={30} height={30} />
-        </Box>
-      </Stack>
-      <MenuButton isActive={pathname.includes('/records')}>
+      {/*<IconButton*/}
+      {/*  size={'lg'}*/}
+      {/*  variant="default"*/}
+      {/*  icon={FiMenu}*/}
+      {/*  mr={4}*/}
+      {/*  onClick={toggleSidebar}*/}
+      {/*/>*/}
+      <Stack isInline alignItems={'center'} mx={4} cursor={'pointer'}>
         <NextLink href="/" as={`/`}>
-          <IconButton size={'lg'} variant="default" icon={FaHome} />
+          <Box alignSelf={'center'} mr={4}>
+            <Logo width={30} height={30} />
+          </Box>
         </NextLink>
-      </MenuButton>
+      </Stack>
       <MenuButton isActive={pathname === '/calendar'}>
         <NextLink href="/calendar" as={`/calendar`}>
           <IconButton size={'lg'} variant="default" icon={FaCalendar} />
