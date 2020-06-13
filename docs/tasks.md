@@ -1,7 +1,8 @@
 # V1
-[] Projects and Tags
+[*] Projects 
+[] Tags
 [] Record details page/form
-[] Update records
+[*] Update records
 [] Tasks without timestamp
 [] Forms for all types added so far
 [] Calendar

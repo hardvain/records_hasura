@@ -12,9 +12,9 @@ import {
 } from 'recharts';
 import List from 'src/components/core/List';
 import moment from 'moment';
-export default ({filters}) => {
+export default ({filters,...rest}) => {
   return (
-    <Card title={'Weekly Trends'}>
+    <Card title={'Weekly Trends'} {...rest}>
       <List
         isBlock={true}
         filters={filters}

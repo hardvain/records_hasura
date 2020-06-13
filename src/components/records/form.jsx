@@ -44,9 +44,13 @@ export default ({ model = defaultRecord, frozenType }) => {
   }));
   useEffect(() => {
     setRecord(model);
-    setSelectedProject(model.projects ? model.projects[0].id : undefined);
+    setSelectedProject(
+      model.projects && model.projects.length > 0
+        ? model.projects[0].id
+        : undefined
+    );
   }, [model]);
-  console.log(record,selectedProject)
+  console.log(record, selectedProject);
   useEffect(() => {
     getTeams().then((r) => setTeams(r.items));
     getProjects().then((r) => setProjects(r.items));

@@ -17,17 +17,22 @@ export default () => {
   }, []);
   return (
     <Box py={30}>
-      <Filters filters={{ date: date, recordType: 'glucose' }}>
+      <Filters
+        filters={{
+          recordType: 'glucose',
+          orderBy: 'timestamp',
+          orderDirection: 'asc',
+          date,
+        }}
+      >
         {(filters) => (
-          <Box>
+          <SimpleGrid columns={2} spacing={10}>
             <RecordsWithForm filters={filters} frozenType={'glucose'} />
-            <Box mt={4}>
-              <SimpleGrid columns={2} spacing={10}>
-                <DailyTrends filters={filters} />
-                <WeeklyTrends filters={filters} />
-              </SimpleGrid>
-            </Box>
-          </Box>
+            <Stack spacing={10}>
+              <DailyTrends filters={filters} h={300} />
+              <WeeklyTrends filters={filters} h={300} />
+            </Stack>
+          </SimpleGrid>
         )}
       </Filters>
     </Box>

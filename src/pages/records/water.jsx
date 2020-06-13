@@ -26,19 +26,13 @@ export default () => {
         }}
       >
         {(filters) => (
-          <>
-            <RecordsWithForm
-              filters={filters}
-              frozenType={'water'}
-              collapseList={true}
-            />
-            <Box mt={4}>
-              <SimpleGrid columns={2} spacing={10}>
-                <DailyTrends filters={filters} />
-                <WeeklyTrends filters={filters} />
-              </SimpleGrid>
-            </Box>
-          </>
+          <SimpleGrid columns={2} spacing={10}>
+            <RecordsWithForm filters={filters} frozenType={'water'} />
+            <Stack spacing={10}>
+              <DailyTrends filters={filters} h={300} />
+              <WeeklyTrends filters={filters} h={300} />
+            </Stack>
+          </SimpleGrid>
         )}
       </Filters>
     </Box>

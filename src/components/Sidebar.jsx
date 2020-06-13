@@ -15,6 +15,9 @@ import {
 } from '@chakra-ui/core';
 import { FaTasks, FaNutritionix, FaCog } from 'react-icons/fa';
 import { GoProject } from 'react-icons/go';
+import Logo from 'src/assets/Logo';
+import Task from 'src/assets/Task';
+import Recipes from 'src/assets/Recipes';
 import Sugar from 'src/assets/Sugar';
 import Fruit from 'src/assets/Fruit';
 import Project from 'src/assets/Project';
@@ -39,7 +42,7 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
   const [isHovering, setIsHovering] = useState(false);
   const content = (
     <Box
-      w={showSidebar ? '100%' : 50}
+      w={showSidebar ? '100%' : 45}
       cursor={'pointer'}
       borderRadius={6}
       p={2}
@@ -86,7 +89,7 @@ export default () => {
       <MenuItem href="/" as={`/`} title={'All'} isActive={pathname === '/'}>
         <Stack isInline alignItems={'center'}>
           <Box mr={5}>
-            <Menu width={25} height={25} />
+            <Logo width={25} height={25} />
           </Box>
         </Stack>
       </MenuItem>
@@ -97,12 +100,9 @@ export default () => {
         isActive={pathname === '/records/tasks'}
       >
         <Stack isInline alignItems={'center'}>
-          <Box
-            as={FaTasks}
-            fontSize={'2xl'}
-            alignSelf={'center'}
-            color={'green.500'}
-          />
+          <Box mr={5}>
+            <Task width={25} height={25} />
+          </Box>
         </Stack>
       </MenuItem>
       <MenuItem
@@ -173,13 +173,9 @@ export default () => {
           isActive={pathname === '/records/dishes'}
         >
           <Stack isInline alignItems={'center'}>
-            <Box
-              as={FaNutritionix}
-              fontSize={30}
-              alignSelf={'center'}
-              color={'teal.500'}
-              mr={2}
-            />
+            <Box mr={5}>
+              <Recipes width={25} height={25} />
+            </Box>
           </Stack>
         </MenuItem>
         <MenuItem
@@ -258,7 +254,7 @@ export default () => {
           icon={show ? 'chevron-up' : 'chevron-down'}
         />
       )}
-      <Divider borderWidth={2} my={5} />
+      <Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />
       {/*<MenuItem*/}
       {/*  href="/teams"*/}
       {/*  as={`/teams`}*/}
@@ -311,7 +307,7 @@ export default () => {
           />
         </Stack>
       </MenuItem>
-      <Divider borderWidth={2} my={5} />
+      <Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />
       <MenuItem
         href="/settings"
         as={`/settings`}
