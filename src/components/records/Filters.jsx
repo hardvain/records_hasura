@@ -8,7 +8,7 @@ import {
   Stack,
   Select,
 } from '@chakra-ui/core';
-import DatePicker from 'src/components/DatePicker';
+  import DatePicker from 'src/components/DatePicker';
 import RecordForm from 'src/components/records/form';
 import RecordsList from 'src/components/records/list';
 import moment from 'moment';

@@ -17,6 +17,7 @@ import { FaHome, FaCalendar, FaPlus, FaFolder } from 'react-icons/fa';
 import { FiMenu } from 'react-icons/fi';
 import { IoIosApps } from 'react-icons/io';
 import Logo from 'src/assets/Logo';
+import Calendar from 'src/assets/Calendar';
 import NextLink from 'next/link';
 import Project from 'src/assets/Project';
 import MenuButton from 'src/components/MenuButton';
@@ -69,13 +70,13 @@ export default () => {
       {/*  mr={4}*/}
       {/*  onClick={toggleSidebar}*/}
       {/*/>*/}
-      <Stack isInline alignItems={'center'} mx={4} cursor={'pointer'}>
+      <Box alignItems={'center'} mx={4} cursor={'pointer'}>
         <NextLink href="/" as={`/`}>
           <Box alignSelf={'center'} mr={4}>
             <Logo width={30} height={30} />
           </Box>
         </NextLink>
-      </Stack>
+      </Box>
       <MenuButton isActive={pathname === '/calendar'}>
         <NextLink href="/calendar" as={`/calendar`}>
           <IconButton size={'lg'} variant="default" icon={FaCalendar} />

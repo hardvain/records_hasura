@@ -7,6 +7,7 @@
 [] Forms for all types added so far
 [] Calendar
 [*] Search
+[] fix icons for previews
 
 [] Nice error page
 [] Responsive app

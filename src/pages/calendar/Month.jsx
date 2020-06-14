@@ -34,7 +34,7 @@ const Day = ({ date }) => {
 
 export default () => {
   return (
-    <Box>
+    <Box p={5}>
       <SimpleGrid columns={7} spacing={0} my={5} mx={5}>
         {[...Array(30).keys()].map((i) => (
           <Day key={i} date={i + 1} />
