@@ -41,7 +41,7 @@ export default ({ project, onItemSelect }) => {
         variant={'default'}
         icon={'delete'}
         size={'sm'}
-        onClick={() => deleteProject(project.id)}
+        onClick={() => deleteProject(project.id, toast)}
       />
     </Flex>
   );

@@ -1,16 +1,9 @@
-import { useState } from 'react';
-import {
-  Box,
-  Flex,
-  SimpleGrid,
-  Stack,
-  Menu,
-  MenuButton,
-  MenuList,
-  Button,
-  MenuItem,
-} from '@chakra-ui/core';
+import { useEffect, useState } from 'react';
+import { Box, SimpleGrid, Stack } from '@chakra-ui/core';
 import moment from 'moment';
+import Filter from 'src/pages/calendar/Filter';
+import { useStore } from 'src/store';
+import Card from 'src/components/Card'
 const Day = ({ date }) => {
   const [isHovering, setIsHovering] = useState(false);
   return (
@@ -32,14 +25,30 @@ const Day = ({ date }) => {
   );
 };
 
-export default () => {
+export default ({calendarType, setCalendarType}) => {
+  const [tasks, setTasks] = useState([]);
+  const { getRecords } = useStore((state) => ({
+    getRecords: state.getRecords,
+  }));
+
+  useEffect(() => {
+    getRecords({
+      date_gte: moment().startOf('month').format('yyyy-MM-DD'),
+      date_lte: moment().endOf('month').format('yyyy-MM-DD'),
+      recordType: 'task',
+    }).then((r) => setTasks(r.items));
+  }, []);
+
   return (
     <Box p={5}>
-      <SimpleGrid columns={7} spacing={0} my={5} mx={5}>
-        {[...Array(30).keys()].map((i) => (
-          <Day key={i} date={i + 1} />
-        ))}
-      </SimpleGrid>
+      <Filter calendarType={calendarType} setCalendarType={setCalendarType} />
+      <Card>
+        <SimpleGrid columns={7} spacing={0} my={5} mx={5}>
+          {[...Array(30).keys()].map((i) => (
+            <Day key={i} date={i + 1} />
+          ))}
+        </SimpleGrid>
+      </Card>
     </Box>
   );
 };

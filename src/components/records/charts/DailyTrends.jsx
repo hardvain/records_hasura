@@ -19,8 +19,8 @@ const generateMinutes = (records) => {
     value: parseInt(item.data.value),
     timestamp: item.timestamp,
   }));
-  data.unshift({ value: 0, timestamp: moment().startOf('day').toISOString() });
-  data.push({ value: 0, timestamp: moment().endOf('day').toISOString() });
+  // data.unshift({ value: 0, timestamp: moment().startOf('day').toISOString() });
+  // data.push({ value: 0, timestamp: moment().endOf('day').toISOString() });
   return data;
 };
 export default ({ filters,...rest }) => {

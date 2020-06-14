@@ -6,34 +6,27 @@ import {
   Button,
   Tooltip,
   Divider,
-  Flex,
   Collapse,
   Stack,
   Text,
   useColorMode,
   IconButton,
 } from '@chakra-ui/core';
-import { FaTasks, FaNutritionix, FaCog } from 'react-icons/fa';
 import { GoProject } from 'react-icons/go';
 import Logo from 'src/assets/Logo';
 import Task from 'src/assets/Task';
 import Recipes from 'src/assets/Recipes';
 import Sugar from 'src/assets/Sugar';
 import Fruit from 'src/assets/Fruit';
-import Project from 'src/assets/Project';
 import Money from 'src/assets/Money';
 import Medicine from 'src/assets/Medicine';
 import Brain from 'src/assets/Brain';
-import Company from 'src/assets/Company';
-import Goal from 'src/assets/Goal';
 import Team from 'src/assets/Team';
 import Settings from 'src/assets/Settings';
 import Heart from 'src/assets/Heart';
 import Sleep from 'src/assets/Sleep';
-import Target from 'src/assets/Target';
 import Water from 'src/assets/Water';
 import Time from 'src/assets/Time';
-import Menu from 'src/assets/Menu';
 import { useStore } from 'src/store';
 const MenuItem = ({ children, isActive, title, href, as }) => {
   const { colorMode } = useColorMode();
@@ -86,13 +79,43 @@ export default () => {
       left={0}
       overflowX={'hidden'}
     >
-      <MenuItem href="/" as={`/`} title={'All'} isActive={pathname === '/'}>
+      <MenuItem
+        href="/records/daily"
+        as={`/records/daily`}
+        title={'Daily'}
+        isActive={pathname === '/records/daily'}
+      >
         <Stack isInline alignItems={'center'}>
-          <Box mr={5}>
-            <Logo width={25} height={25} />
+          <Box mr={5} width={25} height={25}>
+            <img src={'/day.png'} />
           </Box>
         </Stack>
       </MenuItem>
+      <MenuItem
+        href="/records/weekly"
+        as={`/records/weekly`}
+        title={'Weekly'}
+        isActive={pathname === '/records/weekly'}
+      >
+        <Stack isInline alignItems={'center'}>
+          <Box mr={5} width={25} height={25}>
+            <img src={'/week.png'} />
+          </Box>
+        </Stack>
+      </MenuItem>
+      <MenuItem
+        href="/records/monthly"
+        as={`/records/monthly`}
+        title={'Monthly'}
+        isActive={pathname === '/records/monthly'}
+      >
+        <Stack isInline alignItems={'center'}>
+          <Box mr={5} width={25} height={25}>
+            <img src={'/month.png'} />
+          </Box>
+        </Stack>
+      </MenuItem>
+      <Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />
       <MenuItem
         href="/records/tasks"
         as={`/records/tasks`}

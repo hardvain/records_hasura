@@ -6,6 +6,7 @@ import FormModal from 'src/components/records/FormModal';
 import { useStore } from 'src/store';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
+
 import {
   ThemeProvider,
   CSSReset,

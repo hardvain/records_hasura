@@ -10,3 +10,5 @@
 * Notes are stored separately
 
 https://smusamashah.github.io/text-to-diagram
+https://beizhedenglong.github.io/rough-charts/?path=/docs/roughcharts--page
+https://linuswillner.me/react-console-emulator/

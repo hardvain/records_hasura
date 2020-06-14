@@ -45,7 +45,8 @@ const constructWhere = ({
   orderDirection,
   team,
   project,
-  search,
+  date_gte,
+  date_lte
 }) => {
   const orderByField = orderBy || 'timestamp';
   let query = { where: {}, orderBy: {} };
@@ -56,6 +57,18 @@ const constructWhere = ({
     query.where.timestamp = {
       gte: moment(date).startOf('day').toISOString(),
       lte: moment(date).endOf('day').toISOString(),
+    };
+  }
+  if (date_gte && date_gte !== 'undefined') {
+    query.where.timestamp = {
+      ...query.where.timestamp,
+      gte: moment(date_gte).toISOString(),
+    };
+  }
+  if (date_lte && date_lte !== 'undefined') {
+    query.where.timestamp = {
+      ...query.where.timestamp,
+      lte: moment(date_lte).toISOString(),
     };
   }
   const takeInt = parseInt(take);

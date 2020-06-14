@@ -16,11 +16,10 @@ export default ({ title, children, ...rest }) => {
       onMouseLeave={() => setIsHovered(false)}
       minWidth={300}
       borderWidth={1}
-      borderRadius={5}
+      borderRadius={2}
       my={2}
       borderColor={colors.primary}
       h={'100%'}
-      cursor={isHovered ? 'pointer' : ''}
       bg={colorMode === 'light' ? 'white' : '#232626'}
       {...rest}
     >

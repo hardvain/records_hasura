@@ -17,23 +17,7 @@ export default () => {
   }, []);
   return (
     <Box py={30}>
-      <Filters
-        filters={{
-          recordType: 'water',
-          orderBy: 'timestamp',
-          orderDirection: 'asc',
-          date,
-        }}
-      >
-        {(filters) => (
-          <SimpleGrid columns={2} spacing={10}>
-            <RecordsWithForm filters={filters} frozenType={'water'} />
-            <Stack spacing={10}>
-              <DailyTrends filters={filters} h={300} />
-            </Stack>
-          </SimpleGrid>
-        )}
-      </Filters>
+
     </Box>
   );
 };
