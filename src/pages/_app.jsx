@@ -6,6 +6,7 @@ import FormModal from 'src/components/records/FormModal';
 import { useStore } from 'src/store';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
+import ApolloClient from 'apollo-boost';
 
 import {
   ThemeProvider,
@@ -19,13 +20,17 @@ import {
 import theme from '../theme';
 import NProgress from 'nprogress';
 import 'react-datepicker/dist/react-datepicker.css';
-
+import { ApolloProvider } from '@apollo/react-hooks';
 import Router from 'next/router';
 NProgress.configure({ showSpinner: false });
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
+
+const client = new ApolloClient({
+  uri: 'https://records-app-graphql.herokuapp.com/v1/graphql',
+});
 
 export function reportWebVitals(metric) {
   // console.log(metric);
@@ -54,6 +59,7 @@ export default ({ Component, pageProps }) => {
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
           <DarkMode>
+            <ApolloProvider client={client}>
             <CSSReset config={config} />
             <Navbar />
             <Flex direction={'row'} mt={60}>
@@ -63,6 +69,7 @@ export default ({ Component, pageProps }) => {
                 <FormModal />
               </Box>
             </Flex>
+            </ApolloProvider>
           </DarkMode>
         </ColorModeProvider>
       </ThemeProvider>

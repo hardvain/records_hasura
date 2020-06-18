@@ -13,39 +13,38 @@ import {
   Grid,
 } from '@chakra-ui/core';
 import moment from 'moment';
-import Filter from 'src/pages/calendar/Filter';
-import Card from 'src/components/Card'
+import Filter from './Filter';
 import { useStore } from 'src/store';
-const Hour = ({ date }) => {
+import Card from 'src/components/Card';
+const Hour = ({ records }) => {
   const [isHovering, setIsHovering] = useState(false);
   return (
     <Box
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       w={'100%'}
-      h={200}
+      minHeight={100}
       borderWidth={1}
       cursor={'pointer'}
-      bg={isHovering ? '#232626' : ''}
-    ></Box>
-  );
-};
-const Heading = ({ day }) => {
-  const [isHovering, setIsHovering] = useState(false);
-  return (
-    <Box
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-      w={'100%'}
-      h={50}
-      textAlign={'center'}
-      cursor={'pointer'}
-      bg={isHovering ? '#232626' : ''}
     >
-      <Text>{day}</Text>
+      {records?.map((r) => (
+        <Box
+          my={1}
+          borderRadius={4}
+          bg={'cyan.500'}
+          p={2}
+          py={1}
+          key={r.id}
+          h={10}
+          borderWidth={1}
+        >
+          {r.data.value}
+        </Box>
+      ))}
     </Box>
   );
 };
+
 const Label = ({ hour }) => {
   const [isHovering, setIsHovering] = useState(false);
   return (
@@ -53,7 +52,7 @@ const Label = ({ hour }) => {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       w={20}
-      h={50}
+      h={100}
       justifyContent={'center'}
       alignItems={'center'}
       cursor={'pointer'}
@@ -66,50 +65,57 @@ const Label = ({ hour }) => {
 
 const generateSkeleton = (tasks) => {
   let data = [];
-  data.push({});
-  data.push({ type: 'heading', value: `Monday` });
-  data.push({ type: 'heading', value: `Tuesday` });
-  data.push({ type: 'heading', value: `Wednesday` });
-  data.push({ type: 'heading', value: `Thursday` });
-  data.push({ type: 'heading', value: `Friday` });
-  data.push({ type: 'heading', value: `Saturday` });
-  data.push({ type: 'heading', value: `Sunday` });
   for (let i = 0; i < 24; i++) {
+    let records = tasks.filter((t) => {
+      const taskHour = parseInt(moment(t.timestamp).format('hh'));
+      return taskHour === i;
+    });
     data.push({ type: 'label', value: `${i}:00` });
-    for (let i = 0; i < 7; i++) {
-      data.push({ type: 'hour' });
-    }
+    data.push({ type: 'hour', records });
   }
   return data;
 };
 
 export default ({ calendarType, setCalendarType }) => {
+  const [date, setDate] = useState(moment().toISOString());
   const [tasks, setTasks] = useState([]);
   const { getRecords } = useStore((state) => ({
     getRecords: state.getRecords,
   }));
 
+  const next = () => {
+    setDate(moment(date).add(1, 'days').toISOString());
+  };
+
+  const prev = () => {
+    setDate(moment(date).subtract(1, 'days').toISOString());
+  };
+
   useEffect(() => {
     getRecords({
-      date_gte: moment().startOf('week').format('yyyy-MM-DD'),
-      date_lte: moment().endOf('week').format('yyyy-MM-DD'),
+      date: moment(date).format('yyyy-MM-DD'),
       recordType: 'task',
     }).then((r) => setTasks(r.items));
-  }, []);
+  }, [date]);
 
   const data = generateSkeleton(tasks);
   return (
-    <Box>
-      <Filter calendarType={calendarType} setCalendarType={setCalendarType} />
-      <Card p={5}>
-        <Grid templateColumns="1fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr" gap={0}>
+    <Box p={5}>
+      {calendarType && (
+        <Filter
+          calendarType={calendarType}
+          setCalendarType={setCalendarType}
+          onNext={next}
+          onPrev={prev}
+        />
+      )}
+      <Card>
+        <Grid templateColumns="1fr 20fr" gap={0}>
           {data.map((d, index) => {
             if (d.type === 'label') {
               return <Label key={index} hour={d.value} />;
-            } else if (d.type === 'heading') {
-              return <Heading key={index} day={d.value} />;
             } else if (d.type === 'hour') {
-              return <Hour key={index} />;
+              return <Hour key={index} records={d.records} />;
             } else {
               return <Label key={index} />;
             }

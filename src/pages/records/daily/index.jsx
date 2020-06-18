@@ -15,7 +15,7 @@ import Card from 'src/components/Card';
 import ProgressBar from 'react-customizable-progressbar';
 import { useStore } from 'src/store';
 import moment from 'moment';
-import DayView from 'src/pages/calendar/Day';
+import DayView from 'src/components/calendar/Day';
 export default () => {
   const [water, setWater] = useState([]);
   const { getRecords } = useStore((state) => ({

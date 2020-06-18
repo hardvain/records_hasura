@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Box, SimpleGrid, Stack } from '@chakra-ui/core';
 import moment from 'moment';
-import Filter from 'src/pages/calendar/Filter';
+import Filter from './Filter';
 import { useStore } from 'src/store';
 import Card from 'src/components/Card'
 const Day = ({ date }) => {

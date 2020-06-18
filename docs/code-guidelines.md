@@ -1,0 +1,1 @@
+* Pages should be as dumb as possible and should be a composition of components
