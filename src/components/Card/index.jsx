@@ -28,7 +28,7 @@ export default ({ title, children, ...rest }) => {
           <Heading size={'sm'}>{title}</Heading>
         </Box>
       )}
-      <Box h={'100%'} py={2}>
+      <Box h={'100%'} p={3}>
         {children}
       </Box>
     </Box>
