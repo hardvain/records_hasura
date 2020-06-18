@@ -1,7 +1,17 @@
 // Render Prop
-import { Input, Stack, Box, Button, Textarea, Select } from '@chakra-ui/core';
+import {
+  Input,
+  Stack,
+  Box,
+  Button,
+  Textarea,
+  Select,
+  FormControl,
+  FormLabel,
+} from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { FormikDatePicker } from 'src/components/DatePicker';
 import Mutation from 'src/graphql/mutation';
 import moment from 'moment';
 export default ({ model }) => {
@@ -44,35 +54,51 @@ export default ({ model }) => {
             <Form>
               <Stack spacing={10} my={5}>
                 <Box>
-                  <Field name="name" as={Input} placeholder={'Name'} />
-                  <ErrorMessage name="name" component="div" />
+                  <FormControl>
+                    <FormLabel htmlFor="name">Name</FormLabel>
+                    <Field name="name" as={Input} placeholder={'Name'} />
+                    <ErrorMessage name="name" component="div" />
+                  </FormControl>
                 </Box>
+                <Stack isInline>
+                  <Box>
+                    <FormControl display={"grid"}>
+                      <FormLabel htmlFor="due_date">Due Date</FormLabel>
+                      <FormikDatePicker name={'due_date'} type={'input'} />
+                      <ErrorMessage name="due_date" component="div" />
+                    </FormControl>
+                  </Box>
+                  <Box>
+                    <FormControl>
+                      <FormLabel htmlFor="priority">Priority</FormLabel>
+                      <Select
+                        size={"sm"}
+                        name="priority"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.priority}
+                      >
+                        <option value={'very_high'}>Very High</option>
+                        <option value={'high'}>High</option>
+                        <option value={'medium'}>Medium</option>
+                        <option value={'low'}>Low</option>
+                        <option value={'very_low'}>Very Low</option>
+                      </Select>
+                      <ErrorMessage name="priority" component="div" />
+                    </FormControl>
+                  </Box>
+                </Stack>
+
                 <Box>
-                  <Field name="due_date" as={Input} placeholder={'due_date'} />
-                  <ErrorMessage name="due_date" component="div" />
-                </Box>
-                <Box>
-                  <Field
-                    name="description"
-                    as={Textarea}
-                    placeholder={'Description'}
-                  />
-                  <ErrorMessage name="description" component="div" />
-                </Box>
-                <Box>
-                  <Select
-                    name="priority"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.priority}
-                  >
-                    <option value={'very_high'}>Very High</option>
-                    <option value={'high'}>High</option>
-                    <option value={'medium'}>Medium</option>
-                    <option value={'low'}>Low</option>
-                    <option value={'very_low'}>Very Low</option>
-                  </Select>
-                  <ErrorMessage name="priority" component="div" />
+                  <FormControl>
+                    <FormLabel htmlFor="description">Description</FormLabel>
+                    <Field
+                      name="description"
+                      as={Textarea}
+                      placeholder={'Description'}
+                    />
+                    <ErrorMessage name="description" component="div" />
+                  </FormControl>
                 </Box>
               </Stack>
 

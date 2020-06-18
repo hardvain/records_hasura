@@ -27,20 +27,17 @@ export default ({ record }) => {
           </Box>
         </Stack>
         <IconButton
-          variant={'ghost'}
-          size={'small'}
-          icon={'edit'}
+          mr={2}
+          icon={show ? 'chevron-up' : 'chevron-down'}
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();
             handleToggle();
           }}
         />
-        <Mutation resource={'water'} operation={'delete'}>
+        <Mutation resource={'tasks'} operation={'delete'}>
           {(mutate) => (
             <IconButton
-              variant={'ghost'}
-              size={'small'}
               icon={'delete'}
               onClick={(e) => {
                 e.stopPropagation();

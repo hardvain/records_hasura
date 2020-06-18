@@ -11,6 +11,7 @@ import {
   Box,
   useColorMode,
 } from '@chakra-ui/core';
+import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { FaHome, FaCalendar, FaPlus, FaFolder } from 'react-icons/fa';
@@ -20,6 +21,7 @@ import Logo from 'src/assets/Logo';
 import Calendar from 'src/assets/Calendar';
 import NextLink from 'next/link';
 import Project from 'src/assets/Project';
+import DatePicker from 'src/components/DatePicker';
 import MenuButton from 'src/components/MenuButton';
 import SearchSelect from 'src/components/SearchSelect';
 import { useStore } from 'src/store';
@@ -29,9 +31,11 @@ export default () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const { toggleSidebar, toggleFormPopup, searchRecords } = useStore(
+  const { date, toggleFormPopup, searchRecords, setDate } = useStore(
     (state) => ({
       toggleSidebar: state.toggleSidebar,
+      setDate: state.setDate,
+      date: state.ui.date,
       searchRecords: state.searchRecords,
       toggleFormPopup: state.toggleFormPopup,
     })
@@ -87,6 +91,10 @@ export default () => {
           <IconButton size={'lg'} variant="default" icon={FaFolder} />
         </NextLink>
       </MenuButton>
+     <Box ml={2}>
+       <DatePicker selected={date} type={'button'} onChange={setDate}/>
+     </Box>
+
       <Box flexGrow={1}></Box>
       <MenuButton isActive={pathname === '/docs'}>
         <IconButton

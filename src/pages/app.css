@@ -93,7 +93,8 @@ a:hover {
 .react-datepicker__day-name,
 .react-datepicker__current-month,
 .react-datepicker__day,
-.react-datepicker__time-list-item {
+.react-datepicker__time-list-item,
+.react-datepicker__today-button {
   z-index: 1000 !important;
   background: #232626 !important;
   color: white !important;

@@ -1,4 +1,5 @@
 import { Button, IconButton, Input, Text } from '@chakra-ui/core';
+import { useField } from 'formik';
 import { createElement, createRef, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -52,6 +53,26 @@ const ComponentMap = {
   input: InputComponent,
 };
 
+export const FormikDatePicker = ({ selected, name, type, includeTime }) => {
+  let [field, meta, helpers] = useField({ name });
+  const ref = createRef();
+  return (
+    <DatePicker
+      className="data-picker"
+      showTimeSelect
+      timeFormat="HH:mm"
+      timeIntervals={15}
+      timeCaption="Time"
+      selected={moment(field.value).toDate()}
+      showWeekNumbers
+      todayButton="Today"
+      onChange={(v) => helpers.setValue(moment(v).toISOString(true))}
+      dateFormat={includeTime ? 'MMMM d, yyyy - HH:mm' : 'MMMM d, yyyy'}
+      customInput={createElement(ComponentMap[type || 'input'], { ref })}
+    />
+  );
+};
+
 export default ({ selected, onChange, type, includeTime }) => {
   const ref = createRef();
   return (
@@ -62,8 +83,10 @@ export default ({ selected, onChange, type, includeTime }) => {
       timeIntervals={15}
       timeCaption="Time"
       selected={selected?.toDate()}
+      showWeekNumbers
+      todayButton="Today"
       onChange={(v) => onChange(moment(v))}
-      dateFormat={includeTime ? "MMMM d, yyyy - HH:mm" :"MMMM d, yyyy"}
+      dateFormat={includeTime ? 'MMMM d, yyyy - HH:mm' : 'MMMM d, yyyy'}
       customInput={createElement(ComponentMap[type || 'input'], { ref })}
     />
   );

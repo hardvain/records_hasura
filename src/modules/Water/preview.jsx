@@ -1,4 +1,11 @@
-import { Box, Flex, IconButton, Stack, Collapse } from '@chakra-ui/core';
+import {
+  Box,
+  Flex,
+  IconButton,
+  Stack,
+  Collapse,
+  Divider,
+} from '@chakra-ui/core';
 import { useState } from 'react';
 import Card from 'src/components/Card';
 import Water from 'src/assets/Water';
@@ -23,9 +30,8 @@ export default ({ record }) => {
           <Box>{moment(record.timestamp).format('Do, MMMM YYYY, H:mm')}</Box>
         </Stack>
         <IconButton
-          variant={'ghost'}
-          size={'small'}
-          icon={'edit'}
+          mr={2}
+          icon={show ? 'chevron-up' : 'chevron-down'}
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();
@@ -35,8 +41,6 @@ export default ({ record }) => {
         <Mutation resource={'water'} operation={'delete'}>
           {(mutate) => (
             <IconButton
-              variant={'ghost'}
-              size={'small'}
               icon={'delete'}
               onClick={(e) => {
                 e.stopPropagation();
@@ -48,6 +52,7 @@ export default ({ record }) => {
         </Mutation>
       </Flex>
       <Collapse isOpen={show}>
+        <Divider />
         <Form model={record} />
       </Collapse>
     </Card>

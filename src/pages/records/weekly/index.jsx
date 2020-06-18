@@ -2,12 +2,10 @@ import { Box, Stack, Stat, StatLabel, StatNumber } from '@chakra-ui/core';
 import Card from 'src/components/Card';
 import Tasks from 'src/modules/Tasks';
 import Water from 'src/modules/Water';
-import { useStore } from 'src/store';
-
+import moment from 'moment';
 export default () => {
-  const { date } = useStore((state) => ({
-    date: state.ui.date,
-  }));
+  const weekStart = moment().startOf('week').toISOString(true);
+  const weekEnd = moment().endOf('week').toISOString(true);
   return (
     <Box p={10}>
       <Card title={'Task Stats'}>
@@ -15,8 +13,8 @@ export default () => {
           <Tasks.Aggregate
             where={{
               _and: [
-                { due_date: { _gte: date.startOf('day').toISOString(true) } },
-                { due_date: { _lte: date.endOf('day').toISOString(true) } },
+                { due_date: { _gte: weekStart } },
+                { due_date: { _lte: weekEnd } },
               ],
             }}
           >
@@ -42,8 +40,8 @@ export default () => {
           <Tasks.Aggregate
             where={{
               _and: [
-                { due_date: { _gte: date.startOf('day').toISOString(true) } },
-                { due_date: { _lte: date.endOf('day').toISOString(true) } },
+                { due_date: { _gte: weekStart } },
+                { due_date: { _lte: weekEnd } },
                 { priority: { _eq: 'high' } },
               ],
             }}
@@ -58,8 +56,8 @@ export default () => {
           <Tasks.Aggregate
             where={{
               _and: [
-                { due_date: { _gte: date.startOf('day').toISOString(true) } },
-                { due_date: { _lte: date.endOf('day').toISOString(true) } },
+                { due_date: { _gte: weekStart } },
+                { due_date: { _lte: weekEnd } },
                 { priority: { _eq: 'very_high' } },
               ],
             }}
@@ -77,8 +75,8 @@ export default () => {
       <Water.Aggregate
         where={{
           _and: [
-            { timestamp: { _gte: date.startOf('day').toISOString(true) } },
-            { timestamp: { _lte: date.endOf('day').toISOString(true) } },
+            { timestamp: { _gte: weekStart } },
+            { timestamp: { _lte: weekEnd } },
           ],
         }}
       >

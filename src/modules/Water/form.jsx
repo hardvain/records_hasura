@@ -1,7 +1,16 @@
 // Render Prop
-import { Input, Stack, Box, Button, Textarea } from '@chakra-ui/core';
+import {
+  Input,
+  Stack,
+  Box,
+  Button,
+  Textarea,
+  FormControl,
+  FormLabel,
+} from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import DatePicker, { FormikDatePicker } from 'src/components/DatePicker';
 import Mutation from 'src/graphql/mutation';
 import moment from 'moment';
 export default ({ model }) => {
@@ -19,7 +28,7 @@ export default ({ model }) => {
             description: currentModel?.description || '',
             timestamp: currentModel?.timestamp
               ? moment(currentModel.timestamp).toISOString(true)
-              : '',
+              : undefined,
           }}
           validate={(values) => {
             const errors = {};
@@ -45,30 +54,42 @@ export default ({ model }) => {
           {({ isSubmitting }) => (
             <Form>
               <Stack spacing={10} my={5}>
+                <Stack isInline>
+                  <Box>
+                    <FormControl>
+                      <FormLabel htmlFor="quantity">Quantity</FormLabel>
+                      <Field
+                        name="quantity"
+                        type="number"
+                        size={"sm"}
+                        as={Input}
+                        placeholder={'Quantity'}
+                      />
+                      <ErrorMessage name="quantity" component="div" />
+                    </FormControl>
+                  </Box>
+                  <Box>
+                    <FormControl>
+                      <FormLabel htmlFor="quantity">Timestamp</FormLabel>
+
+                      <Box>
+                        <FormikDatePicker name={'timestamp'} type={'input'} />
+                        <ErrorMessage name="timestamp" component="div" />
+                      </Box>
+                    </FormControl>
+                  </Box>
+                </Stack>
+
                 <Box>
-                  <Field
-                    name="quantity"
-                    type="number"
-                    as={Input}
-                    placeholder={'Quantity'}
-                  />
-                  <ErrorMessage name="quantity" component="div" />
-                </Box>
-                <Box>
-                  <Field
-                    name="timestamp"
-                    as={Input}
-                    placeholder={'Timestamp'}
-                  />
-                  <ErrorMessage name="timestamp" component="div" />
-                </Box>
-                <Box>
-                  <Field
-                    name="description"
-                    as={Textarea}
-                    placeholder={'Description'}
-                  />
-                  <ErrorMessage name="description" component="div" />
+                  <FormControl>
+                    <FormLabel htmlFor="quantity">Description</FormLabel>
+                    <Field
+                      name="description"
+                      as={Textarea}
+                      placeholder={'Description'}
+                    />
+                    <ErrorMessage name="description" component="div" />
+                  </FormControl>
                 </Box>
               </Stack>
 
