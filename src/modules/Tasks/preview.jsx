@@ -1,7 +1,7 @@
 import { Box, Flex, IconButton, Stack, Collapse } from '@chakra-ui/core';
 import { useState } from 'react';
 import Card from 'src/components/Card';
-import Water from 'src/assets/Water';
+import Task from 'src/assets/Task';
 import moment from 'moment';
 import Form from './form';
 import Mutation from 'src/graphql/mutation';
@@ -13,14 +13,18 @@ export default ({ record }) => {
     <Card>
       <Flex textAlign={'center'} alignItems={'center'} pr={4}>
         <Box mx={3}>
-          <Water width={20} height={20} />
+          <Task width={20} height={20} />
         </Box>
         <Stack alignItems={'baseline'} flexGrow={1}>
           <Stack isInline spacing={10}>
-            <Box>{record.quantity}</Box>
-            <Box>{record.description}</Box>
+            <Box>{record.name}</Box>
+            <Box>{record.priority}</Box>
           </Stack>
-          <Box>{moment(record.timestamp).format('Do, MMMM YYYY, H:mm')}</Box>
+          <Box>
+            {record.due_date
+              ? moment(record.due_date).format('Do, MMMM YYYY, H:mm')
+              : '-'}
+          </Box>
         </Stack>
         <IconButton
           variant={'ghost'}

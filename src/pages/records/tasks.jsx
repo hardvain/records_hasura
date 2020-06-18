@@ -1,25 +1,27 @@
-import { Box } from '@chakra-ui/core';
-import { useEffect } from 'react';
-import Filters from 'src/components/records/Filters';
-import RecordsWithForm from 'src/components/records/RecordsWithForm';
-import { useStore } from 'src/store';
-
+import { Box, Stack, Stat, StatLabel, StatNumber } from '@chakra-ui/core';
+import Card from 'src/components/Card';
+import Tasks from 'src/modules/Tasks';
 export default () => {
-  const { date, setColors } = useStore((state) => ({
-    date: state.ui.date,
-    setColors: state.setColors,
-  }));
-
-  useEffect(() => {
-    setColors({ primary: 'green', secondary: 'yellow' });
-  }, []);
   return (
     <Box py={30}>
-      <Filters
-        filters={{ date: date, recordType: 'task' }}
-      >
-        {(filters) => <RecordsWithForm filters={filters} frozenType={'task'} />}
-      </Filters>
+      <Tasks.Aggregate>
+        {(data) => (
+          <Card title={'Stats'}>
+            <Stack spacing={10} isInline>
+              <Stat>
+                <StatLabel>Total Tasks</StatLabel>
+                <StatNumber>{data.count}</StatNumber>
+              </Stat>
+            </Stack>
+          </Card>
+        )}
+      </Tasks.Aggregate>
+
+      <Card my={5}>
+        <Tasks.Form />
+      </Card>
+
+      <Tasks.List />
     </Box>
   );
 };

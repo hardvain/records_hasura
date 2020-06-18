@@ -13,7 +13,7 @@ export default ({
   resource,
   fields,
   where,
-  order_by = { timestamp: 'desc' },
+  order_by,
   limit,
   offset,
   config,
@@ -32,7 +32,7 @@ export default ({
           {createElement(DisplayMap[config.type], {
             data: data,
             preview: config.preview,
-            onItemSelect: config.onItemSelect,
+            onItemSelect: config.onItemSelect || (() => {}),
           })}
         </Box>
       )}

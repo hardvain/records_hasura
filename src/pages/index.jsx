@@ -7,7 +7,7 @@ import Filters from 'src/components/records/Filters';
 export default () => {
   return (
     <Box py={30}>
-      <Water limit={50} offset={0} />
+      <Water.List />
     </Box>
   );
 };

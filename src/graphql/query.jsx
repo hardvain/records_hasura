@@ -6,7 +6,7 @@ export default ({
   resource,
   fields,
   where,
-  order_by = { timestamp: 'desc' },
+  order_by = { created_at: 'desc' },
   limit,
   offset,
   aggregateObject,

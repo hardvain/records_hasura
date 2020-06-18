@@ -5,14 +5,16 @@ import Preview from './preview';
 import Collection from 'src/collection';
 const fields = `{
     id
-    quantity
+    name
+    due_date
     description
-    timestamp
+    priority
+    team
 }`;
 const WaterCollection = (props) => {
   return (
     <Collection
-      resource={'water'}
+      resource={'tasks'}
       fields={fields}
       config={{
         type: 'list',
@@ -46,14 +48,13 @@ const Table = (props) => (
 const Aggregate = ({ where, order_by, limit, offset, children, ...rest }) => {
   return (
     <Query
-      resource={'water'}
+      resource={'tasks'}
       fields={fields}
       where={where}
       order_by={order_by}
       limit={limit}
       offset={offset}
       aggregateObject={`{
-          sum{quantity}
           count
         }`}
       isAggregate={true}

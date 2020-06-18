@@ -1,5 +1,5 @@
 // Render Prop
-import { Input, Stack, Box, Button, Textarea } from '@chakra-ui/core';
+import { Input, Stack, Box, Button, Textarea, Select } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Mutation from 'src/graphql/mutation';
@@ -10,25 +10,23 @@ export default ({ model }) => {
     setCurrentModel(model);
   }, [model]);
   return (
-    <Mutation resource={'water'} operation={currentModel ? 'update' : 'insert'}>
+    <Mutation resource={'tasks'} operation={currentModel ? 'update' : 'insert'}>
       {(mutate) => (
         <Formik
           enableReinitialize={true}
           initialValues={{
-            quantity: currentModel?.quantity || '',
+            name: currentModel?.name || '',
             description: currentModel?.description || '',
-            timestamp: currentModel?.timestamp
-              ? moment(currentModel.timestamp).toISOString(true)
-              : '',
+            priority: currentModel?.priority || '',
+            team: currentModel?.team || '',
+            due_date: currentModel?.due_date
+              ? moment(currentModel.due_date).toISOString(true)
+              : undefined,
           }}
           validate={(values) => {
             const errors = {};
-            if (!values.quantity) {
-              errors.quantity = 'Required';
-            } else if (values.quantity <= 0) {
-              errors.quantity = 'Invalid quantity';
-            } else if (!values.timestamp) {
-              errors.timestamp = 'Invalid timestamp';
+            if (!values.name) {
+              errors.name = 'Required';
             }
             return errors;
           }}
@@ -42,25 +40,16 @@ export default ({ model }) => {
             setCurrentModel();
           }}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, handleChange, handleBlur, values }) => (
             <Form>
               <Stack spacing={10} my={5}>
                 <Box>
-                  <Field
-                    name="quantity"
-                    type="number"
-                    as={Input}
-                    placeholder={'Quantity'}
-                  />
-                  <ErrorMessage name="quantity" component="div" />
+                  <Field name="name" as={Input} placeholder={'Name'} />
+                  <ErrorMessage name="name" component="div" />
                 </Box>
                 <Box>
-                  <Field
-                    name="timestamp"
-                    as={Input}
-                    placeholder={'Timestamp'}
-                  />
-                  <ErrorMessage name="timestamp" component="div" />
+                  <Field name="due_date" as={Input} placeholder={'due_date'} />
+                  <ErrorMessage name="due_date" component="div" />
                 </Box>
                 <Box>
                   <Field
@@ -69,6 +58,21 @@ export default ({ model }) => {
                     placeholder={'Description'}
                   />
                   <ErrorMessage name="description" component="div" />
+                </Box>
+                <Box>
+                  <Select
+                    name="priority"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.priority}
+                  >
+                    <option value={'very_high'}>Very High</option>
+                    <option value={'high'}>High</option>
+                    <option value={'medium'}>Medium</option>
+                    <option value={'low'}>Low</option>
+                    <option value={'very_low'}>Very Low</option>
+                  </Select>
+                  <ErrorMessage name="priority" component="div" />
                 </Box>
               </Stack>
 
