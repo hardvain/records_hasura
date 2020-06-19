@@ -1,7 +1,8 @@
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-import { Box, Skeleton } from '@chakra-ui/core';
-
+import { Box, Skeleton, Stack, Text } from '@chakra-ui/core';
+import Card from 'src/components/Card';
+import NotFound from 'src/assets/NotFound';
 export default ({
   resource,
   fields,
@@ -26,14 +27,18 @@ export default ({
   return (
     <Query
       query={gql(queryString)}
-      pollInterval={1000}
+      pollInterval={10000}
       variables={{ where, order_by, limit, offset }}
     >
       {({ loading, error, data, refetch }) => {
         if (loading)
           return (
             <Box h={'100%'}>
-              <Skeleton colorStart="#232626" colorEnd="#232626" />
+              {[...Array(10).keys()].map((k) => (
+                <Card my={5} height="60px" key={k}>
+                  <Skeleton key={k} colorStart="#232626" colorEnd="#232626" />
+                </Card>
+              ))}
             </Box>
           );
         if (error) return <Box>Something went wrong</Box>;
@@ -43,10 +48,17 @@ export default ({
             ? !data[`${resource}_aggregate`]
             : data[resource].length === 0
         )
-          return <Box>No Results Found</Box>;
+          return <Box w={'100%'} height={'100%'} textAlign={'center'}>
+            <Stack>
+              <NotFound/>
+              <Text>No Results Found</Text>
+            </Stack>
+          </Box>;
 
         return children(
-          isAggregate ? data[`${resource}_aggregate`].aggregate : data[resource],
+          isAggregate
+            ? data[`${resource}_aggregate`].aggregate
+            : data[resource],
           refetch
         );
       }}

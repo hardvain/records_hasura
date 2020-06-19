@@ -7,7 +7,6 @@ import { useStore } from 'src/store';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import ApolloClient from 'apollo-boost';
-
 import {
   ThemeProvider,
   CSSReset,
@@ -62,7 +61,7 @@ export default ({ Component, pageProps }) => {
             <ApolloProvider client={client}>
             <CSSReset config={config} />
             <Navbar />
-            <Flex direction={'row'} mt={60}>
+            <Flex direction={'row'} mt={55}>
               {<Sidebar />}
               <Box ml={showSidebar ? 330 : 100} mr={5} flexGrow={1}>
                 <App Component={Component} pageProps={pageProps} />

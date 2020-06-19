@@ -3,19 +3,19 @@ import moment from 'moment';
 export const [useStore] = create((set, get) => ({
   ui: {
     date: moment(),
-    showSidebar: true,
+    showSidebar: false,
     currentTeam: 'all',
     showFormPopup: false,
     refreshedAt: moment().toISOString(),
     colors: {
-      primary: 'deeppurple',
-      secondary: 'deeporange',
+      primary: 'grey',
+      secondary: 'grey',
     },
   },
-  toggleFormPopup: () => {
+  toggleFormPopup: (recordType) => {
     set((state) => ({
       ...state,
-      ui: { ...state.ui, showFormPopup: !get().ui.showFormPopup },
+      ui: { ...state.ui, showFormPopup: !get().ui.showFormPopup, recordType },
     }));
   },
   toggleSidebar: () => {
@@ -77,7 +77,9 @@ export const [useStore] = create((set, get) => ({
     return await response.json();
   },
   getRecord: async (id) => {
-    return await fetch(`/api/records/${id}`, { method: 'GET' }).then(r => r.json());
+    return await fetch(`/api/records/${id}`, { method: 'GET' }).then((r) =>
+      r.json()
+    );
   },
   createRecord: async (record, toast) => {
     const response = await fetch(`/api/records`, {

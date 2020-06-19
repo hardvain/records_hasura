@@ -7,9 +7,18 @@ import {
   Icon,
   InputGroup,
   InputLeftElement,
+  Menu,
+  MenuButton as ChakraMenuButton,
+  MenuList,
+  MenuItem,
+  MenuGroup,
+  MenuDivider,
+  MenuOptionGroup,
+  MenuItemOption,
   Input,
   Box,
   useColorMode,
+  Button,
 } from '@chakra-ui/core';
 import moment from 'moment';
 import { useRouter } from 'next/router';
@@ -67,13 +76,6 @@ export default () => {
       top={0}
       zIndex={1000}
     >
-      {/*<IconButton*/}
-      {/*  size={'lg'}*/}
-      {/*  variant="default"*/}
-      {/*  icon={FiMenu}*/}
-      {/*  mr={4}*/}
-      {/*  onClick={toggleSidebar}*/}
-      {/*/>*/}
       <Box alignItems={'center'} mx={4} cursor={'pointer'}>
         <NextLink href="/" as={`/`}>
           <Box alignSelf={'center'} mr={4}>
@@ -91,19 +93,28 @@ export default () => {
           <IconButton size={'lg'} variant="default" icon={FaFolder} />
         </NextLink>
       </MenuButton>
-     <Box ml={2}>
-       <DatePicker selected={date} type={'button'} onChange={setDate}/>
-     </Box>
+      <Box ml={2}>
+        <DatePicker selected={date} type={'button'} onChange={setDate} />
+      </Box>
 
       <Box flexGrow={1}></Box>
-      <MenuButton isActive={pathname === '/docs'}>
-        <IconButton
-          size={'lg'}
-          variant="default"
-          icon={FaPlus}
-          onClick={toggleFormPopup}
-        />
-      </MenuButton>
+      <Box>
+        <Menu>
+          <ChakraMenuButton size={'md'} as={Button} leftIcon="add" mr={4}>
+            Create
+          </ChakraMenuButton>
+          <MenuList bg={colorMode === 'light' ? 'grey.300' : '#3e4242'}>
+            <MenuItem onClick={() => toggleFormPopup('task')}>Task</MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('water')}>Water</MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('glucose')}>
+              Glucose
+            </MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('transaction')}>
+              Transaction
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      </Box>
       <InputGroup w={300} mr={2}>
         <InputLeftElement children={<Icon name="search" color="gray.300" />} />
         <Input

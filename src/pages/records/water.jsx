@@ -33,7 +33,9 @@ export default () => {
           </Card>
         )}
       </Water.Aggregate>
-
+      <Card>
+        <Water.Form />
+      </Card>
       <Water.List
         where={{
           _and: [

@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton, Stack, Collapse } from '@chakra-ui/core';
+import { Box, Flex, IconButton, Stack, Collapse, Badge } from '@chakra-ui/core';
 import { useState } from 'react';
 import Card from 'src/components/Card';
 import Task from 'src/assets/Task';
@@ -15,10 +15,10 @@ export default ({ record }) => {
         <Box mx={3}>
           <Task width={20} height={20} />
         </Box>
-        <Stack alignItems={'baseline'} flexGrow={1}>
-          <Stack isInline spacing={10}>
+        <Stack alignItems={'flex-start'} flexGrow={1}>
+          <Stack isInline spacing={10} w={'100%'}>
             <Box>{record.name}</Box>
-            <Box>{record.priority}</Box>
+            <Box flexGrow={1}></Box>
           </Stack>
           <Box>
             {record.due_date
@@ -26,8 +26,19 @@ export default ({ record }) => {
               : '-'}
           </Box>
         </Stack>
+        <Box mr={2}>
+          <Badge>{record.priority}</Badge>
+        </Box>
+        <Box mr={2}>
+          <Badge variantColor={'yellow'}>{record.status}</Badge>
+        </Box>
+        <Box>
+          <Badge variantColor={'teal'}>{record.team}</Badge>
+        </Box>
         <IconButton
           mr={2}
+          ml={4}
+          size={"sm"}
           icon={show ? 'chevron-up' : 'chevron-down'}
           onClick={(e) => {
             e.stopPropagation();
@@ -38,6 +49,7 @@ export default ({ record }) => {
         <Mutation resource={'tasks'} operation={'delete'}>
           {(mutate) => (
             <IconButton
+              size={"sm"}
               icon={'delete'}
               onClick={(e) => {
                 e.stopPropagation();

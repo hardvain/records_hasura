@@ -10,6 +10,7 @@ const fields = `{
     description
     priority
     team
+    status
 }`;
 const WaterCollection = (props) => {
   return (
@@ -45,7 +46,7 @@ const Table = (props) => (
   />
 );
 
-const Aggregate = ({ where, order_by, limit, offset, children, ...rest }) => {
+const Aggregate = ({ where, order_by, limit, offset, aggregateObject, children, ...rest }) => {
   return (
     <Query
       resource={'tasks'}

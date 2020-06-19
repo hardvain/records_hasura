@@ -28,7 +28,7 @@ export default ({ model }) => {
             description: currentModel?.description || '',
             timestamp: currentModel?.timestamp
               ? moment(currentModel.timestamp).toISOString(true)
-              : undefined,
+              : moment().toISOString(true),
           }}
           validate={(values) => {
             const errors = {};
@@ -61,7 +61,7 @@ export default ({ model }) => {
                       <Field
                         name="quantity"
                         type="number"
-                        size={"sm"}
+                        size={'sm'}
                         as={Input}
                         placeholder={'Quantity'}
                       />
@@ -73,7 +73,7 @@ export default ({ model }) => {
                       <FormLabel htmlFor="quantity">Timestamp</FormLabel>
 
                       <Box>
-                        <FormikDatePicker name={'timestamp'} type={'input'} />
+                        <FormikDatePicker name={'timestamp'} type={'input'} includeTime/>
                         <ErrorMessage name="timestamp" component="div" />
                       </Box>
                     </FormControl>

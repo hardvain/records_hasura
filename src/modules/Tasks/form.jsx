@@ -29,6 +29,7 @@ export default ({ model }) => {
             description: currentModel?.description || '',
             priority: currentModel?.priority || '',
             team: currentModel?.team || '',
+            status: currentModel?.status || 'todo',
             due_date: currentModel?.due_date
               ? moment(currentModel.due_date).toISOString(true)
               : undefined,
@@ -47,7 +48,9 @@ export default ({ model }) => {
                 where: { id: { _eq: currentModel?.id } },
               },
             });
-            setCurrentModel();
+            if (currentModel) {
+              setCurrentModel();
+            }
           }}
         >
           {({ isSubmitting, handleChange, handleBlur, values }) => (
@@ -62,21 +65,45 @@ export default ({ model }) => {
                 </Box>
                 <Stack isInline>
                   <Box>
-                    <FormControl display={"grid"}>
+                    <FormControl display={'grid'}>
                       <FormLabel htmlFor="due_date">Due Date</FormLabel>
-                      <FormikDatePicker name={'due_date'} type={'input'} />
+                      <FormikDatePicker
+                        placeholderText="Select a due date"
+                        name={'due_date'}
+                        type={'input'}
+                        includeTime
+                      />
                       <ErrorMessage name="due_date" component="div" />
+                    </FormControl>
+                  </Box>
+                  <Box>
+                    <FormControl>
+                      <FormLabel htmlFor="team">Status</FormLabel>
+                      <Select
+                        size={'sm'}
+                        name="status"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.status}
+                        placeholder={'Select a status'}
+                      >
+                        <option value={'todo'}>To Do</option>
+                        <option value={'in_progress'}>In Progress</option>
+                        <option value={'completed'}>Completed</option>
+                      </Select>
+                      <ErrorMessage name="status" component="div" />
                     </FormControl>
                   </Box>
                   <Box>
                     <FormControl>
                       <FormLabel htmlFor="priority">Priority</FormLabel>
                       <Select
-                        size={"sm"}
+                        size={'sm'}
                         name="priority"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.priority}
+                        placeholder={'Select a Priority'}
                       >
                         <option value={'very_high'}>Very High</option>
                         <option value={'high'}>High</option>
@@ -85,6 +112,30 @@ export default ({ model }) => {
                         <option value={'very_low'}>Very Low</option>
                       </Select>
                       <ErrorMessage name="priority" component="div" />
+                    </FormControl>
+                  </Box>
+                  <Box>
+                    <FormControl>
+                      <FormLabel htmlFor="team">Team</FormLabel>
+                      <Select
+                        size={'sm'}
+                        name="team"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.team}
+                        placeholder={'Select a Team'}
+                      >
+                        <option value={'vndly'}>VNDLY</option>
+                        <option value={'family'}>Family</option>
+                        <option value={'relationships'}>Relationships</option>
+                        <option value={'knowledge'}>Knowledge</option>
+                        <option value={'health'}>Health</option>
+                        <option value={'nutrition'}>Nutrition</option>
+                        <option value={'home'}>Home</option>
+                        <option value={'personal'}>Personal</option>
+                        <option value={'finance'}>Finance</option>
+                      </Select>
+                      <ErrorMessage name="team" component="div" />
                     </FormControl>
                   </Box>
                 </Stack>

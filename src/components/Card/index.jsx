@@ -16,8 +16,9 @@ export default ({ title, children, ...rest }) => {
       onMouseLeave={() => setIsHovered(false)}
       minWidth={300}
       borderWidth={1}
-      borderRadius={2}
-      my={2}
+      borderRadius={5}
+      shadow={isHovered ? 'lg' : 'none'}
+      my={4}
       borderColor={colors.primary}
       h={'100%'}
       bg={colorMode === 'light' ? 'white' : '#232626'}

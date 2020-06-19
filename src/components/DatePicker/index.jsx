@@ -21,13 +21,14 @@ const TextComponent = forwardRef(({ value, onClick }, ref) => (
     {value}
   </Text>
 ));
-const InputComponent = forwardRef(({ value, onClick }, ref) => (
+const InputComponent = forwardRef(({ value, onClick, ...rest }, ref) => (
   <Input
     size={'sm'}
     leftIcon={FaCalendarAlt}
     onClick={onClick}
     onChange={() => {}}
     value={value}
+    {...rest}
   />
 ));
 const ButtonComponent = forwardRef(({ value, onClick }, ref) => {
@@ -53,7 +54,13 @@ const ComponentMap = {
   input: InputComponent,
 };
 
-export const FormikDatePicker = ({ selected, name, type, includeTime }) => {
+export const FormikDatePicker = ({
+  selected,
+  name,
+  type,
+  includeTime,
+  ...rest
+}) => {
   let [field, meta, helpers] = useField({ name });
   const ref = createRef();
   return (
@@ -63,17 +70,18 @@ export const FormikDatePicker = ({ selected, name, type, includeTime }) => {
       timeFormat="HH:mm"
       timeIntervals={15}
       timeCaption="Time"
-      selected={moment(field.value).toDate()}
+      selected={field.value ? moment(field.value).toDate() : undefined}
       showWeekNumbers
       todayButton="Today"
       onChange={(v) => helpers.setValue(moment(v).toISOString(true))}
       dateFormat={includeTime ? 'MMMM d, yyyy - HH:mm' : 'MMMM d, yyyy'}
       customInput={createElement(ComponentMap[type || 'input'], { ref })}
+      {...rest}
     />
   );
 };
 
-export default ({ selected, onChange, type, includeTime }) => {
+export default ({ selected, onChange, type, includeTime, ...rest }) => {
   const ref = createRef();
   return (
     <DatePicker
@@ -88,6 +96,7 @@ export default ({ selected, onChange, type, includeTime }) => {
       onChange={(v) => onChange(moment(v))}
       dateFormat={includeTime ? 'MMMM d, yyyy - HH:mm' : 'MMMM d, yyyy'}
       customInput={createElement(ComponentMap[type || 'input'], { ref })}
+      {...rest}
     />
   );
 };

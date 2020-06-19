@@ -19,6 +19,7 @@ import Recipes from 'src/assets/Recipes';
 import Sugar from 'src/assets/Sugar';
 import Fruit from 'src/assets/Fruit';
 import Money from 'src/assets/Money';
+import Reports from 'src/assets/Reports';
 import Medicine from 'src/assets/Medicine';
 import Brain from 'src/assets/Brain';
 import Team from 'src/assets/Team';
@@ -63,6 +64,7 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
 
 export default () => {
   const showSidebar = useStore((state) => state.ui.showSidebar);
+  const { colorMode } = useColorMode();
 
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
@@ -71,7 +73,7 @@ export default () => {
   return (
     <Box
       w={showSidebar ? 300 : 100}
-      pl={3}
+      px={3}
       pt={3}
       position={'fixed'}
       zIndex={1000}
@@ -79,43 +81,43 @@ export default () => {
       left={0}
       overflowX={'hidden'}
     >
-      <MenuItem
-        href="/records/daily"
-        as={`/records/daily`}
-        title={'Daily'}
-        isActive={pathname === '/records/daily'}
-      >
-        <Stack isInline alignItems={'center'}>
-          <Box mr={5} width={25} height={25}>
-            <img src={'/day.png'} />
-          </Box>
-        </Stack>
-      </MenuItem>
-      <MenuItem
-        href="/records/weekly"
-        as={`/records/weekly`}
-        title={'Weekly'}
-        isActive={pathname === '/records/weekly'}
-      >
-        <Stack isInline alignItems={'center'}>
-          <Box mr={5} width={25} height={25}>
-            <img src={'/week.png'} />
-          </Box>
-        </Stack>
-      </MenuItem>
-      <MenuItem
-        href="/records/monthly"
-        as={`/records/monthly`}
-        title={'Monthly'}
-        isActive={pathname === '/records/monthly'}
-      >
-        <Stack isInline alignItems={'center'}>
-          <Box mr={5} width={25} height={25}>
-            <img src={'/month.png'} />
-          </Box>
-        </Stack>
-      </MenuItem>
-      <Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />
+      {/*<MenuItem*/}
+      {/*  href="/records/daily"*/}
+      {/*  as={`/records/daily`}*/}
+      {/*  title={'Daily'}*/}
+      {/*  isActive={pathname === '/records/daily'}*/}
+      {/*>*/}
+      {/*  <Stack isInline alignItems={'center'}>*/}
+      {/*    <Box mr={5} width={25} height={25}>*/}
+      {/*      <img src={'/day.png'} />*/}
+      {/*    </Box>*/}
+      {/*  </Stack>*/}
+      {/*</MenuItem>*/}
+      {/*<MenuItem*/}
+      {/*  href="/records/weekly"*/}
+      {/*  as={`/records/weekly`}*/}
+      {/*  title={'Weekly'}*/}
+      {/*  isActive={pathname === '/records/weekly'}*/}
+      {/*>*/}
+      {/*  <Stack isInline alignItems={'center'}>*/}
+      {/*    <Box mr={5} width={25} height={25}>*/}
+      {/*      <img src={'/week.png'} />*/}
+      {/*    </Box>*/}
+      {/*  </Stack>*/}
+      {/*</MenuItem>*/}
+      {/*<MenuItem*/}
+      {/*  href="/records/monthly"*/}
+      {/*  as={`/records/monthly`}*/}
+      {/*  title={'Monthly'}*/}
+      {/*  isActive={pathname === '/records/monthly'}*/}
+      {/*>*/}
+      {/*  <Stack isInline alignItems={'center'}>*/}
+      {/*    <Box mr={5} width={25} height={25}>*/}
+      {/*      <img src={'/month.png'} />*/}
+      {/*    </Box>*/}
+      {/*  </Stack>*/}
+      {/*</MenuItem>*/}
+      {/*<Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />*/}
       <MenuItem
         href="/records/tasks"
         as={`/records/tasks`}
@@ -264,6 +266,7 @@ export default () => {
       </Collapse>
       {showSidebar ? (
         <Button
+          variant={'solid'}
           rightIcon={show ? 'chevron-up' : 'chevron-down'}
           w={'100%'}
           onClick={handleToggle}
@@ -273,7 +276,7 @@ export default () => {
       ) : (
         <IconButton
           onClick={handleToggle}
-          variant={'ghost'}
+          variant={'solid'}
           icon={show ? 'chevron-up' : 'chevron-down'}
         />
       )}
@@ -331,6 +334,18 @@ export default () => {
         </Stack>
       </MenuItem>
       <Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />
+      <MenuItem
+        href="/reports"
+        as={`/reports`}
+        title={'Reports'}
+        isActive={pathname === '/reports'}
+      >
+        <Stack isInline alignItems={'center'}>
+          <Box alignSelf={'center'} mr={4}>
+            <Reports width={30} height={30} />
+          </Box>
+        </Stack>
+      </MenuItem>
       <MenuItem
         href="/settings"
         as={`/settings`}
