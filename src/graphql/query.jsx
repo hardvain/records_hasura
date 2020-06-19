@@ -27,16 +27,16 @@ export default ({
   return (
     <Query
       query={gql(queryString)}
-      pollInterval={500}
+      // pollInterval={5000}
       variables={{ where, order_by, limit, offset }}
     >
       {({ loading, error, data, refetch }) => {
         if (loading)
           return (
             <Box h={'100%'}>
-              {[...Array(10).keys()].map((k) => (
+              {[...Array(isAggregate ? 1 : 10).keys()].map((k) => (
                 <Card my={5} height="60px" key={k}>
-                  <Skeleton key={k} colorStart="#232626" colorEnd="#232626" />
+                  <Skeleton key={k} colorStart="#333" colorEnd="#333" />
                 </Card>
               ))}
             </Box>
@@ -48,10 +48,18 @@ export default ({
             ? !data[`${resource}_aggregate`]
             : data[resource].length === 0
         )
-          return <Flex w={'100%'} height={'100%'} direction={'column'} alignItems={'center'} py={4}>
-              <NotFound/>
+          return (
+            <Flex
+              w={'100%'}
+              height={'100%'}
+              direction={'column'}
+              alignItems={'center'}
+              py={4}
+            >
+              <NotFound />
               <Text>No Results Found</Text>
-          </Flex>;
+            </Flex>
+          );
 
         return children(
           isAggregate

@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/core';
 import { useState } from 'react';
 import Card from 'src/components/Card';
-import Water from 'src/assets/Water';
+import Sugar from 'src/assets/Sugar';
 import moment from 'moment';
 import Form from './form';
 import Mutation from 'src/graphql/mutation';
@@ -27,17 +27,17 @@ export default ({ record }) => {
     >
       <Flex textAlign={'center'} alignItems={'center'} pr={4}>
         <Box mx={3}>
-          <Water width={20} height={20} />
+          <Sugar width={20} height={20} />
         </Box>
         <Stack alignItems={'baseline'} flexGrow={1}>
           <Stack isInline spacing={10}>
-            <Box>{record.quantity}</Box>
+            <Box>{record.value}</Box>
             <Box>{record.description}</Box>
           </Stack>
           <Box>{moment(record.timestamp).format('Do, MMMM YYYY, H:mm')}</Box>
         </Stack>
 
-        <Mutation resource={'water'} operation={'delete'}>
+        <Mutation resource={'glucose'} operation={'delete'}>
           {(mutate) => (
             <IconButton
               ml={2}

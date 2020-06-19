@@ -19,12 +19,12 @@ export default ({ model }) => {
     setCurrentModel(model);
   }, [model]);
   return (
-    <Mutation resource={'water'} operation={currentModel ? 'update' : 'insert'}>
+    <Mutation resource={'glucose'} operation={currentModel ? 'update' : 'insert'}>
       {(mutate) => (
         <Formik
           enableReinitialize={true}
           initialValues={{
-            quantity: currentModel?.quantity || '',
+            value: currentModel?.value || 0,
             description: currentModel?.description || '',
             timestamp: currentModel?.timestamp
               ? moment(currentModel.timestamp).toISOString(true)
@@ -32,10 +32,10 @@ export default ({ model }) => {
           }}
           validate={(values) => {
             const errors = {};
-            if (!values.quantity) {
-              errors.quantity = 'Required';
-            } else if (values.quantity <= 0) {
-              errors.quantity = 'Invalid quantity';
+            if (!values.value) {
+              errors.value = 'Required';
+            } else if (values.value <= 0) {
+              errors.value = 'Invalid value';
             } else if (!values.timestamp) {
               errors.timestamp = 'Invalid timestamp';
             }
@@ -57,15 +57,15 @@ export default ({ model }) => {
                 <Stack isInline>
                   <Box>
                     <FormControl>
-                      <FormLabel htmlFor="quantity">Quantity</FormLabel>
+                      <FormLabel htmlFor="value">Value</FormLabel>
                       <Field
-                        name="quantity"
+                        name="value"
                         type="number"
                         size={'sm'}
                         as={Input}
-                        placeholder={'Quantity'}
+                        placeholder={'Value'}
                       />
-                      <ErrorMessage name="quantity" component="div" />
+                      <ErrorMessage name="value" component="div" />
                     </FormControl>
                   </Box>
                   <Box>

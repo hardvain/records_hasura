@@ -1,20 +1,18 @@
+
 import Query from 'src/graphql/query';
 import Form from './form';
 import Preview from './preview';
 import Collection from 'src/collection';
 const fields = `{
     id
-    name
-    due_date
+    value
     description
-    priority
-    team
-    status
+    timestamp
 }`;
-const TasksCollection = (props) => {
+const WaterCollection = (props) => {
   return (
     <Collection
-      resource={'tasks'}
+      resource={'glucose'}
       fields={fields}
       config={{
         type: 'list',
@@ -26,7 +24,7 @@ const TasksCollection = (props) => {
 };
 
 const List = (props) => (
-  <TasksCollection
+  <WaterCollection
     config={{
       type: 'list',
       preview: Preview,
@@ -36,7 +34,7 @@ const List = (props) => (
 );
 
 const Table = (props) => (
-  <TasksCollection
+  <WaterCollection
     config={{
       type: 'table',
       preview: TablePreview,
@@ -45,16 +43,17 @@ const Table = (props) => (
   />
 );
 
-const Aggregate = ({ where, order_by, limit, offset, aggregateObject, children, ...rest }) => {
+const Aggregate = ({ where, order_by, limit, offset, children, ...rest }) => {
   return (
     <Query
-      resource={'tasks'}
+      resource={'glucose'}
       fields={fields}
       where={where}
       order_by={order_by}
       limit={limit}
       offset={offset}
       aggregateObject={`{
+          sum{value}
           count
         }`}
       isAggregate={true}
@@ -66,8 +65,8 @@ const Aggregate = ({ where, order_by, limit, offset, aggregateObject, children, 
 const TablePreview = ({ record }) => {
   return (
     <>
-      <td>{record.name}</td>
-      <td>{record.due_date}</td>
+      <td>{record.quantity}</td>
+      <td>{record.timestamp}</td>
     </>
   );
 };

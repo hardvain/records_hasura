@@ -9,7 +9,7 @@ export default () => {
     date: state.ui.date,
   }));
   return (
-    <Box py={30}>
+    <Box p={10}>
       <Water.Aggregate
         where={{
           _and: [

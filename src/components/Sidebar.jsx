@@ -11,6 +11,7 @@ import {
   Text,
   useColorMode,
   IconButton,
+  Flex,
 } from '@chakra-ui/core';
 import { GoProject } from 'react-icons/go';
 import Logo from 'src/assets/Logo';
@@ -63,8 +64,11 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
 };
 
 export default () => {
-  const showSidebar = useStore((state) => state.ui.showSidebar);
-  const { colorMode } = useColorMode();
+  const { showSidebar, toggleFormPopup } = useStore((state) => ({
+    showSidebar: state.ui.showSidebar,
+    toggleFormPopup: state.toggleFormPopup,
+  }));
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
@@ -72,52 +76,32 @@ export default () => {
   const pathname = router.pathname;
   return (
     <Box
-      w={showSidebar ? 300 : 100}
+      w={70}
       px={3}
       pt={3}
+      bg={colorMode === 'light' ? 'white' : '#232626'}
       position={'fixed'}
       zIndex={1000}
       height={'100%'}
+      borderRightWidth={0}
       left={0}
       overflowX={'hidden'}
     >
-      {/*<MenuItem*/}
-      {/*  href="/records/daily"*/}
-      {/*  as={`/records/daily`}*/}
-      {/*  title={'Daily'}*/}
-      {/*  isActive={pathname === '/records/daily'}*/}
-      {/*>*/}
-      {/*  <Stack isInline alignItems={'center'}>*/}
-      {/*    <Box mr={5} width={25} height={25}>*/}
-      {/*      <img src={'/day.png'} />*/}
-      {/*    </Box>*/}
-      {/*  </Stack>*/}
-      {/*</MenuItem>*/}
-      {/*<MenuItem*/}
-      {/*  href="/records/weekly"*/}
-      {/*  as={`/records/weekly`}*/}
-      {/*  title={'Weekly'}*/}
-      {/*  isActive={pathname === '/records/weekly'}*/}
-      {/*>*/}
-      {/*  <Stack isInline alignItems={'center'}>*/}
-      {/*    <Box mr={5} width={25} height={25}>*/}
-      {/*      <img src={'/week.png'} />*/}
-      {/*    </Box>*/}
-      {/*  </Stack>*/}
-      {/*</MenuItem>*/}
-      {/*<MenuItem*/}
-      {/*  href="/records/monthly"*/}
-      {/*  as={`/records/monthly`}*/}
-      {/*  title={'Monthly'}*/}
-      {/*  isActive={pathname === '/records/monthly'}*/}
-      {/*>*/}
-      {/*  <Stack isInline alignItems={'center'}>*/}
-      {/*    <Box mr={5} width={25} height={25}>*/}
-      {/*      <img src={'/month.png'} />*/}
-      {/*    </Box>*/}
-      {/*  </Stack>*/}
-      {/*</MenuItem>*/}
-      {/*<Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />*/}
+      <Box alignItems={'center'} mx={2} mb={10} cursor={'pointer'}>
+        <NextLink href="/" as={`/`}>
+          <Box alignSelf={'center'} mr={4}>
+            <Logo width={30} height={30} />
+          </Box>
+        </NextLink>
+      </Box>
+      <Tooltip label={"Add new record"}><IconButton
+        ml={1}
+        onClick={toggleFormPopup}
+        icon={'add'}
+        mb={8}
+        borderRadius={20}
+        variantColor={'deeppurple'}
+      /></Tooltip>
       <MenuItem
         href="/records/tasks"
         as={`/records/tasks`}
@@ -336,6 +320,18 @@ export default () => {
       <Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />
 
       <MenuItem
+        href="/reports"
+        as={`/reports`}
+        title={'Reports'}
+        isActive={pathname === '/reports'}
+      >
+        <Stack isInline alignItems={'center'}>
+          <Box alignSelf={'center'} mr={4}>
+            <Reports width={30} height={30} />
+          </Box>
+        </Stack>
+      </MenuItem>
+      <MenuItem
         href="/settings"
         as={`/settings`}
         title={'Settings'}
@@ -347,6 +343,13 @@ export default () => {
           </Box>
         </Stack>
       </MenuItem>
+      <IconButton
+        size={'lg'}
+        variant="default"
+        icon={colorMode === 'light' ? 'moon' : 'sun'}
+        mr={4}
+        onClick={toggleColorMode}
+      />
     </Box>
   );
 };

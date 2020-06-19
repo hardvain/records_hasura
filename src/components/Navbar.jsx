@@ -72,7 +72,7 @@ export default () => {
   return (
     <Flex
       boxShadow={'none'}
-      bg={colorMode === 'light' ? 'white' : '#232626'}
+      bg={'none'}
       direction="row"
       borderBottom="gray.200"
       alignItems={'center'}
@@ -83,18 +83,12 @@ export default () => {
       top={0}
       zIndex={1000}
     >
-      <Box alignItems={'center'} mx={4} cursor={'pointer'}>
-        <NextLink href="/" as={`/`}>
-          <Box alignSelf={'center'} mr={4}>
-            <Logo width={30} height={30} />
-          </Box>
-        </NextLink>
-      </Box>
-      <MenuButton isActive={pathname === '/calendar'}>
-        <NextLink href="/calendar" as={`/calendar`}>
-          <IconButton size={'lg'} variant="default" icon={FaCalendar} />
-        </NextLink>
-      </MenuButton>
+
+      {/*<MenuButton isActive={pathname === '/calendar'}>*/}
+      {/*  <NextLink href="/calendar" as={`/calendar`}>*/}
+      {/*    <IconButton size={'lg'} variant="default" icon={FaCalendar} />*/}
+      {/*  </NextLink>*/}
+      {/*</MenuButton>*/}
       <Box>
         <Menu>
           <ChakraMenuButton
@@ -141,10 +135,11 @@ export default () => {
           </MenuList>
         </Menu>
       </Box>
-      <Box flexGrow={1}></Box>
       <Box mx={2}>
         <DatePicker selected={date} type={'button'} onChange={setDate} />
       </Box>
+      <Box flexGrow={1}></Box>
+
       {/*<InputGroup size={'sm'} w={300} mr={2}>*/}
       {/*  <InputLeftElement children={<Icon name="search" color="gray.300" />} />*/}
       {/*  <Input*/}

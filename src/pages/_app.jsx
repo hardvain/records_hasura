@@ -60,10 +60,10 @@ export default ({ Component, pageProps }) => {
           <DarkMode>
             <ApolloProvider client={client}>
             <CSSReset config={config} />
-            <Navbar />
-            <Flex direction={'row'} mt={55}>
+            <Flex direction={'row'}>
               {<Sidebar />}
-              <Box ml={showSidebar ? 330 : 100} mr={5} flexGrow={1}>
+              <Box ml={70}  mr={5} flexGrow={1}>
+                {/*<Navbar />*/}
                 <App Component={Component} pageProps={pageProps} />
                 <FormModal />
               </Box>

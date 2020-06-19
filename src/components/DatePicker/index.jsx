@@ -85,7 +85,7 @@ export default ({ selected, onChange, type, includeTime, ...rest }) => {
   return (
     <DatePicker
       className="data-picker"
-      showTimeSelect
+      showTimeSelect={includeTime}
       timeFormat="HH:mm"
       timeIntervals={15}
       timeCaption="Time"

@@ -10,15 +10,17 @@ export default ({ record }) => {
 
   const handleToggle = () => setShow(!show);
   return (
-    <Card
-      onClick={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        handleToggle();
-      }}
-      cursor="pointer"
-    >
-      <Flex textAlign={'center'} alignItems={'center'} pr={4}>
+    <Card cursor="pointer">
+      <Flex
+        textAlign={'center'}
+        alignItems={'center'}
+        pr={4}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          handleToggle();
+        }}
+      >
         <Box mx={3}>
           <Task width={20} height={20} />
         </Box>
@@ -46,6 +48,7 @@ export default ({ record }) => {
         <Mutation resource={'tasks'} operation={'delete'}>
           {(mutate) => (
             <IconButton
+              ml={2}
               size={'sm'}
               icon={'delete'}
               onClick={(e) => {

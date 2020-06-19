@@ -1,40 +1,24 @@
-import { Box, SimpleGrid, Stack } from '@chakra-ui/core';
-import { useEffect } from 'react';
-import Filters from 'src/components/records/Filters';
-import RecordsWithForm from 'src/components/records/RecordsWithForm';
-import DailyTrends from 'src/components/records/charts/DailyTrends';
-import WeeklyTrends from 'src/components/records/charts/WeeklyTrends';
+import { Box, Stack, Stat, StatLabel, StatNumber } from '@chakra-ui/core';
+import Card from 'src/components/Card';
+import Glucose from 'src/modules/Glucose';
+import moment from 'moment';
+import DatePicker from 'src/components/DatePicker';
 import { useStore } from 'src/store';
-
 export default () => {
-  const { date, setColors } = useStore((state) => ({
+  const { date } = useStore((state) => ({
     date: state.ui.date,
-    setColors: state.setColors,
   }));
-
-  useEffect(() => {
-    setColors({ primary: 'red', secondary: 'orange' });
-  }, []);
   return (
     <Box py={30}>
-      <Filters
-        filters={{
-          recordType: 'glucose',
-          orderBy: 'timestamp',
-          orderDirection: 'asc',
-          date,
+
+      <Glucose.List
+        where={{
+          _and: [
+            { timestamp: { _gte: date.startOf('day').toISOString(true) } },
+            { timestamp: { _lte: date.endOf('day').toISOString(true) } },
+          ],
         }}
-      >
-        {(filters) => (
-          <SimpleGrid columns={2} spacing={10}>
-            <RecordsWithForm filters={filters} frozenType={'glucose'} />
-            <Stack spacing={10}>
-              <DailyTrends filters={filters} h={300} />
-              <WeeklyTrends filters={filters} h={300} />
-            </Stack>
-          </SimpleGrid>
-        )}
-      </Filters>
+      />
     </Box>
   );
 };
