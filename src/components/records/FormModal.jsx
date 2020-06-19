@@ -17,6 +17,7 @@ import { useStore } from 'src/store';
 import Tasks from 'src/modules/Tasks';
 import Glucose from 'src/modules/Glucose';
 import Water from 'src/modules/Water';
+import Transactions from 'src/modules/Transactions';
 import Task from 'src/assets/Task';
 import Sugar from 'src/assets/Sugar';
 import WaterIcon from 'src/assets/Water';
@@ -34,6 +35,8 @@ export default () => {
     Form = Tasks.Form;
   } else if (recordType === 'water') {
     Form = Water.Form;
+  } else if (recordType === 'transaction') {
+    Form = Transactions.Form;
   } else if (recordType === 'glucose') {
     Form = Glucose.Form;
   } else {

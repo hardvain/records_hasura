@@ -19,7 +19,6 @@ export default ({ record }) => {
   const handleToggle = () => setShow(!show);
   return (
     <Card
-      borderColor={colorMode === 'light' ? 'rgba(0,0,0,0.6)' : 'gray.500'}
       onClick={(e) => {
         e.stopPropagation();
         e.preventDefault();
