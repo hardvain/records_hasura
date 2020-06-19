@@ -55,6 +55,9 @@ const Aggregate = ({ where, order_by, limit, offset, children, ...rest }) => {
       aggregateObject={`{
           sum{value}
           count
+          max{value}
+          min{value}
+          avg{value}
         }`}
       isAggregate={true}
     >

@@ -20,6 +20,7 @@ import {
   useColorMode,
 } from '@chakra-ui/core';
 import { ErrorMessage } from 'formik';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'src/components/DatePicker';
 import Card from 'src/components/Card';
@@ -29,8 +30,9 @@ import moment from 'moment';
 
 export default () => {
   const { colorMode } = useColorMode();
-
-  const [filters, setFilters] = useState({});
+  const router = useRouter();
+  const { filter } = router.query;
+  const [filters, setFilters] = useState(undefined);
   const [activePreset, setActivePreset] = useState('today');
   const [team, setTeam] = useState('');
   const [status, setStatus] = useState('');
@@ -123,7 +125,10 @@ export default () => {
     }
     setFilters(result);
   }, [team, status, priority, date]);
-  useEffect(activateTodayFilter, []);
+  useEffect(() => {
+    activateTodayFilter();
+  }, []);
+
   return (
     <Box>
       <Stack isInline>
