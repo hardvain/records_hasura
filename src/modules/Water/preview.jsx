@@ -17,7 +17,14 @@ export default ({ record }) => {
 
   const handleToggle = () => setShow(!show);
   return (
-    <Card>
+    <Card
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        handleToggle();
+      }}
+      cursor={'pointer'}
+    >
       <Flex textAlign={'center'} alignItems={'center'} pr={4}>
         <Box mx={3}>
           <Water width={20} height={20} />
@@ -29,15 +36,7 @@ export default ({ record }) => {
           </Stack>
           <Box>{moment(record.timestamp).format('Do, MMMM YYYY, H:mm')}</Box>
         </Stack>
-        <IconButton
-          mr={2}
-          icon={show ? 'chevron-up' : 'chevron-down'}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            handleToggle();
-          }}
-        />
+
         <Mutation resource={'water'} operation={'delete'}>
           {(mutate) => (
             <IconButton

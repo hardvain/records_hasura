@@ -100,7 +100,7 @@ export default ({ model }) => {
                     Clear
                   </Button>
                 )}
-                <Button type="submit" disabled={isSubmitting}>
+                <Button type="submit" >
                   {currentModel?.id ? 'Update' : 'Submit'}
                 </Button>
               </Stack>

@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-import { Box, Skeleton, Stack, Text } from '@chakra-ui/core';
+import { Box, Skeleton, Stack, Text, Flex } from '@chakra-ui/core';
 import Card from 'src/components/Card';
 import NotFound from 'src/assets/NotFound';
 export default ({
@@ -27,7 +27,7 @@ export default ({
   return (
     <Query
       query={gql(queryString)}
-      pollInterval={10000}
+      pollInterval={500}
       variables={{ where, order_by, limit, offset }}
     >
       {({ loading, error, data, refetch }) => {
@@ -48,12 +48,10 @@ export default ({
             ? !data[`${resource}_aggregate`]
             : data[resource].length === 0
         )
-          return <Box w={'100%'} height={'100%'} textAlign={'center'}>
-            <Stack>
+          return <Flex w={'100%'} height={'100%'} direction={'column'} alignItems={'center'} py={4}>
               <NotFound/>
               <Text>No Results Found</Text>
-            </Stack>
-          </Box>;
+          </Flex>;
 
         return children(
           isAggregate

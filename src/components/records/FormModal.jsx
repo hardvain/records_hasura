@@ -7,7 +7,8 @@ import {
   ModalHeader,
   ModalOverlay,
   Button,
-  Box, useColorMode,
+  Box,
+  useColorMode,
 } from '@chakra-ui/core';
 import { useStore } from 'src/store';
 import Tasks from 'src/modules/Tasks';
@@ -31,12 +32,26 @@ export default () => {
   }
   return (
     <>
-      <Modal isOpen={showFormPopup} onClose={toggleFormPopup} size={'6xl'}>
+      <Modal
+        borderRadius={5}
+        isOpen={showFormPopup}
+        onClose={toggleFormPopup}
+        size={'6xl'}
+      >
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader bg={colorMode === 'light' ? 'grey.300' : '#3e4242'}>Add new record</ModalHeader>
+        <ModalContent borderRadius={5} shadow={'md'}>
+          <ModalHeader
+            borderRadius={5}
+            bg={colorMode === 'light' ? 'grey.300' : '#3e4242'}
+          >
+            Add new record
+          </ModalHeader>
           <ModalCloseButton />
-          <ModalBody bg={colorMode === 'light' ? 'grey.300' : '#3e4242'}>
+          <ModalBody
+            borderRadius={5}
+            shadow={'md'}
+            bg={colorMode === 'light' ? 'grey.300' : '#3e4242'}
+          >
             <Form />
           </ModalBody>
         </ModalContent>

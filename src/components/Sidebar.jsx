@@ -334,18 +334,7 @@ export default () => {
         </Stack>
       </MenuItem>
       <Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />
-      <MenuItem
-        href="/reports"
-        as={`/reports`}
-        title={'Reports'}
-        isActive={pathname === '/reports'}
-      >
-        <Stack isInline alignItems={'center'}>
-          <Box alignSelf={'center'} mr={4}>
-            <Reports width={30} height={30} />
-          </Box>
-        </Stack>
-      </MenuItem>
+
       <MenuItem
         href="/settings"
         as={`/settings`}

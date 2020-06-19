@@ -38,7 +38,6 @@ const ButtonComponent = forwardRef(({ value, onClick }, ref) => {
   return (
     <Button
       variant={'solid'}
-      variantColor={colors.primary}
       size={'sm'}
       leftIcon={FaCalendarAlt}
       onClick={onClick}

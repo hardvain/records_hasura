@@ -10,7 +10,14 @@ export default ({ record }) => {
 
   const handleToggle = () => setShow(!show);
   return (
-    <Card>
+    <Card
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        handleToggle();
+      }}
+      cursor="pointer"
+    >
       <Flex textAlign={'center'} alignItems={'center'} pr={4}>
         <Box mx={3}>
           <Task width={20} height={20} />
@@ -35,21 +42,11 @@ export default ({ record }) => {
         <Box>
           <Badge variantColor={'teal'}>{record.team}</Badge>
         </Box>
-        <IconButton
-          mr={2}
-          ml={4}
-          size={"sm"}
-          icon={show ? 'chevron-up' : 'chevron-down'}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            handleToggle();
-          }}
-        />
+
         <Mutation resource={'tasks'} operation={'delete'}>
           {(mutate) => (
             <IconButton
-              size={"sm"}
+              size={'sm'}
               icon={'delete'}
               onClick={(e) => {
                 e.stopPropagation();

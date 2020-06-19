@@ -40,15 +40,22 @@ export default () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const { date, toggleFormPopup, searchRecords, setDate } = useStore(
-    (state) => ({
-      toggleSidebar: state.toggleSidebar,
-      setDate: state.setDate,
-      date: state.ui.date,
-      searchRecords: state.searchRecords,
-      toggleFormPopup: state.toggleFormPopup,
-    })
-  );
+  const {
+    date,
+    toggleFormPopup,
+    searchRecords,
+    setDate,
+    prevDate,
+    nextDate,
+  } = useStore((state) => ({
+    toggleSidebar: state.toggleSidebar,
+    setDate: state.setDate,
+    prevDate: state.prevDate,
+    nextDate: state.nextDate,
+    date: state.ui.date,
+    searchRecords: state.searchRecords,
+    toggleFormPopup: state.toggleFormPopup,
+  }));
   const sendQuery = async (query) => {
     const result = await searchRecords(query);
     setSearchResults(result.items);
@@ -88,19 +95,38 @@ export default () => {
           <IconButton size={'lg'} variant="default" icon={FaCalendar} />
         </NextLink>
       </MenuButton>
-      <MenuButton isActive={pathname === '/docs'}>
-        <NextLink href="/docs" as={`/docs`}>
-          <IconButton size={'lg'} variant="default" icon={FaFolder} />
-        </NextLink>
-      </MenuButton>
-      <Box ml={2}>
-        <DatePicker selected={date} type={'button'} onChange={setDate} />
-      </Box>
-
-      <Box flexGrow={1}></Box>
       <Box>
         <Menu>
-          <ChakraMenuButton size={'md'} as={Button} leftIcon="add" mr={4}>
+          <ChakraMenuButton
+            variant={'ghost'}
+            size={'sm'}
+            as={Button}
+            mr={4}
+            rightIcon={'chevron-down'}
+          >
+            Dashboards
+          </ChakraMenuButton>
+          <MenuList bg={colorMode === 'light' ? 'grey.300' : '#3e4242'}>
+            <MenuItem onClick={() => toggleFormPopup('task')}>Task</MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('water')}>Water</MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('glucose')}>
+              Glucose
+            </MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('transaction')}>
+              Transaction
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      </Box>
+
+      <Box>
+        <Menu>
+          <ChakraMenuButton
+            variantColor={'deeppurple'}
+            size={'sm'}
+            as={Button}
+            mr={4}
+          >
             Create
           </ChakraMenuButton>
           <MenuList bg={colorMode === 'light' ? 'grey.300' : '#3e4242'}>
@@ -115,15 +141,19 @@ export default () => {
           </MenuList>
         </Menu>
       </Box>
-      <InputGroup w={300} mr={2}>
-        <InputLeftElement children={<Icon name="search" color="gray.300" />} />
-        <Input
-          type="phone"
-          placeholder="Search Records"
-          value={searchText}
-          onChange={search}
-        />
-      </InputGroup>
+      <Box flexGrow={1}></Box>
+      <Box mx={2}>
+        <DatePicker selected={date} type={'button'} onChange={setDate} />
+      </Box>
+      {/*<InputGroup size={'sm'} w={300} mr={2}>*/}
+      {/*  <InputLeftElement children={<Icon name="search" color="gray.300" />} />*/}
+      {/*  <Input*/}
+      {/*    type="phone"*/}
+      {/*    placeholder="Search Records"*/}
+      {/*    value={searchText}*/}
+      {/*    onChange={search}*/}
+      {/*  />*/}
+      {/*</InputGroup>*/}
       <IconButton
         size={'lg'}
         variant="default"
