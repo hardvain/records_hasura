@@ -17,40 +17,181 @@ import {
   FormControl,
   FormLabel,
   Checkbox,
+  useColorMode,
 } from '@chakra-ui/core';
 import { ErrorMessage } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'src/components/DatePicker';
 import Card from 'src/components/Card';
 import Tasks from 'src/modules/Tasks';
 import { useStore } from 'src/store';
 import moment from 'moment';
+
 export default () => {
+  const { colorMode } = useColorMode();
+
+  const [filters, setFilters] = useState({});
+  const [activePreset, setActivePreset] = useState('today');
   const [team, setTeam] = useState('');
   const [status, setStatus] = useState('');
   const [priority, setPriority] = useState('');
-  const { date, setDate } = useStore((state) => ({
-    date: state.ui.date,
-    setDate: state.setDate,
-  }));
-
-  let filters = [{ status: { _neq: 'completed' } }];
-  if (team !== '') {
-    filters.push({ team: { _eq: team } });
-  }
-  if (status !== '') {
-    let rest = filters.filter((f) => !Object.keys(f).includes('status'));
-    filters = [...rest, { status: { _eq: status } }];
-  }
-  if (priority !== '') {
-    filters.push({ priority: { _eq: priority } });
-  }
+  const [date, setDate] = useState(moment().toISOString(true));
+  const activateTodayFilter = () => {
+    setActivePreset('today');
+    setFilters({
+      _and: [
+        {
+          due_date: {
+            _gte: moment(date).startOf('day').toISOString(true),
+          },
+        },
+        {
+          due_date: {
+            _lte: moment(date).endOf('day').toISOString(true),
+          },
+        },
+        { status: { _neq: 'completed' } },
+      ],
+    });
+  };
+  const activateBacklogFilter = () => {
+    setActivePreset('backlog');
+    setFilters({
+      _and: [
+        {
+          due_date: {
+            _is_null: true,
+          },
+        },
+        { status: { _neq: 'completed' } },
+      ],
+    });
+  };
+  const activateOverdueFilter = () => {
+    setActivePreset('overdue');
+    setFilters({
+      _and: [
+        {
+          due_date: {
+            _lte: moment(date).startOf('day').toISOString(true),
+          },
+        },
+        { status: { _neq: 'completed' } },
+      ],
+    });
+  };
+  const activateNext7DaysFilter = () => {
+    setActivePreset('next7days');
+    setFilters({
+      _and: [
+        {
+          due_date: {
+            _gte: moment(date).endOf('day').toISOString(true),
+          },
+        },
+        {
+          due_date: {
+            _lte: moment(date).add(1, 'week').endOf('day').toISOString(true),
+          },
+        },
+        { status: { _neq: 'completed' } },
+      ],
+    });
+  };
+  useEffect(() => {
+    let result = {};
+    if (team !== '') {
+      result = { ...result, team: { _eq: team } };
+    }
+    if (status !== '') {
+      result = { ...result, status: { _eq: status } };
+    }
+    if (priority !== '') {
+      result = { ...result, priority: { _eq: priority } };
+    }
+    if (priority !== '') {
+      result = { ...result, priority: { _eq: priority } };
+    }
+    if (date !== '') {
+      result = {
+        ...result,
+        _and: [
+          { due_date: { _gte: moment(date).startOf('day').toISOString(true) } },
+          { due_date: { _lte: moment(date).endOf('day').toISOString(true) } },
+        ],
+      };
+    }
+    setFilters(result);
+  }, [team, status, priority, date]);
+  useEffect(activateTodayFilter, []);
   return (
     <Box>
       <Stack isInline>
         <Card m={0} borderRadius={0} p={0}>
-          <Stack spacing={5} h={'100vh'} px={2}>
+          <Stack h={'100vh'} px={2}>
             <Heading size={'md'}>Filters</Heading>
+
+            <Button
+              bg={
+                activePreset === 'today'
+                  ? colorMode === 'light'
+                    ? 'gray.300'
+                    : '#3e4242'
+                  : ''
+              }
+              onClick={activateTodayFilter}
+              justifyContent={'flex-start'}
+              w={'100%'}
+              variant={'ghost'}
+            >
+              Today
+            </Button>
+            <Button
+              bg={
+                activePreset === 'backlog'
+                  ? colorMode === 'light'
+                    ? 'gray.300'
+                    : '#3e4242'
+                  : ''
+              }
+              onClick={activateBacklogFilter}
+              justifyContent={'flex-start'}
+              w={'100%'}
+              variant={'ghost'}
+            >
+              Backlog
+            </Button>
+            <Button
+              bg={
+                activePreset === 'overdue'
+                  ? colorMode === 'light'
+                    ? 'gray.300'
+                    : '#3e4242'
+                  : ''
+              }
+              onClick={activateOverdueFilter}
+              justifyContent={'flex-start'}
+              w={'100%'}
+              variant={'ghost'}
+            >
+              Overdue
+            </Button>
+            <Button
+              bg={
+                activePreset === 'next7days'
+                  ? colorMode === 'light'
+                    ? 'gray.300'
+                    : '#3e4242'
+                  : ''
+              }
+              onClick={activateNext7DaysFilter}
+              justifyContent={'flex-start'}
+              w={'100%'}
+              variant={'ghost'}
+            >
+              Next 7 days
+            </Button>
+            <Divider />
             <FormControl mt={5}>
               <FormLabel>Team</FormLabel>
               <Select
@@ -58,7 +199,6 @@ export default () => {
                 name="team"
                 onChange={(e) => setTeam(e.target.value)}
                 value={team}
-                placeholder={'Select a Team'}
               >
                 <option value={''}>All</option>
                 <option value={'vndly'}>VNDLY</option>
@@ -79,7 +219,6 @@ export default () => {
                 onChange={(e) => setPriority(e.target.value)}
                 name="priority"
                 value={priority}
-                placeholder={'Select a Priority'}
               >
                 <option value={''}>All</option>
                 <option value={'very_high'}>Very High</option>
@@ -97,7 +236,6 @@ export default () => {
                 name="status"
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                placeholder={'Select a status'}
               >
                 <option value={''}>All</option>
                 <option value={'todo'}>To Do</option>
@@ -105,88 +243,29 @@ export default () => {
                 <option value={'completed'}>Completed</option>
               </Select>
             </FormControl>
-            <Divider />
             <FormControl display={'grid'}>
               <FormLabel>Due Date</FormLabel>
               <DatePicker
-                selected={date}
+                selected={moment(date)}
                 type={'input'}
                 includeTime={false}
-                onChange={setDate}
+                onChange={(e) => setDate(e.toISOString(true))}
               />
             </FormControl>
+            <Divider />
           </Stack>
         </Card>
         <Box w={'100%'}>
           <Stack spacing={10} w={'100%'}>
-            <Box w={'100%'}>
-              <Card title={"Today's Tasks"}>
-                <Tasks.List
-                  order_by={{
-                    team: 'asc',
-                    due_date: 'desc',
-                  }}
-                  where={{
-                    _and: [
-                      {
-                        due_date: {
-                          _gte: date.startOf('day').toISOString(true),
-                        },
-                      },
-                      {
-                        due_date: {
-                          _lte: date.endOf('day').toISOString(true),
-                        },
-                      },
-                      ...filters,
-                    ],
-                  }}
-                />
-              </Card>
+            <Box w={'100%'} p={5}>
+              <Tasks.List
+                order_by={{
+                  team: 'asc',
+                  due_date: 'desc',
+                }}
+                where={filters}
+              />
             </Box>
-            <Stack isInline spacing={10} w={'100%'}>
-              <Box>
-                <Card title={'Overdue Tasks'}>
-                  <Tasks.List
-                    where={{
-                      _and: [
-                        {
-                          due_date: {
-                            _lt: date.startOf('day').toISOString(true),
-                          },
-                        },
-                        { status: { _neq: 'completed' } },
-                        ...filters,
-                      ],
-                    }}
-                  />
-                </Card>
-              </Box>
-              <Box>
-                <Card title={'Next 7 Days'}>
-                  <Tasks.List
-                    where={{
-                      _and: [
-                        {
-                          due_date: {
-                            _gte: date.endOf('day').toISOString(true),
-                          },
-                        },
-                        {
-                          due_date: {
-                            _lte: moment(date.toISOString(false))
-                              .add(1, 'week')
-                              .endOf('day')
-                              .toISOString(true),
-                          },
-                        },
-                        ...filters,
-                      ],
-                    }}
-                  />
-                </Card>
-              </Box>
-            </Stack>
           </Stack>
         </Box>
       </Stack>

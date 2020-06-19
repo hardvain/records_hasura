@@ -19,7 +19,6 @@ export default ({ title, children, ...rest }) => {
       borderRadius={5}
       shadow={isHovered ? 'lg' : 'none'}
       my={4}
-      borderColor={colors.primary}
       h={'100%'}
       bg={colorMode === 'light' ? 'white' : '#232626'}
       {...rest}

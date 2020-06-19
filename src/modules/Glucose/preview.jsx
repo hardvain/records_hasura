@@ -4,7 +4,7 @@ import {
   IconButton,
   Stack,
   Collapse,
-  Divider,
+  Divider, useColorMode,
 } from '@chakra-ui/core';
 import { useState } from 'react';
 import Card from 'src/components/Card';
@@ -14,10 +14,12 @@ import Form from './form';
 import Mutation from 'src/graphql/mutation';
 export default ({ record }) => {
   const [show, setShow] = useState(false);
+  const { colorMode } = useColorMode();
 
   const handleToggle = () => setShow(!show);
   return (
     <Card
+      borderColor={colorMode === 'light' ? 'rgba(0,0,0,0.6)' : 'gray.500'}
       onClick={(e) => {
         e.stopPropagation();
         e.preventDefault();

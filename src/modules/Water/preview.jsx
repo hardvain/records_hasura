@@ -5,6 +5,7 @@ import {
   Stack,
   Collapse,
   Divider,
+  useColorMode,
 } from '@chakra-ui/core';
 import { useState } from 'react';
 import Card from 'src/components/Card';
@@ -14,6 +15,7 @@ import Form from './form';
 import Mutation from 'src/graphql/mutation';
 export default ({ record }) => {
   const [show, setShow] = useState(false);
+  const { colorMode } = useColorMode();
 
   const handleToggle = () => setShow(!show);
   return (
@@ -41,7 +43,7 @@ export default ({ record }) => {
           {(mutate) => (
             <IconButton
               ml={2}
-              size={"sm"}
+              size={'sm'}
               icon={'delete'}
               onClick={(e) => {
                 e.stopPropagation();

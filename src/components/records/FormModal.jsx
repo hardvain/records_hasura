@@ -51,31 +51,35 @@ export default () => {
         <ModalContent borderRadius={5} shadow={'md'}>
           <ModalHeader
             borderRadius={5}
-            bg={colorMode === 'light' ? 'grey.300' : '#232626'}
+            bg={colorMode === 'light' ? 'grey.100' : '#232626'}
           >
             Add new record
           </ModalHeader>
-          <Box bg={colorMode === 'light' ? 'grey.300' : '#232626'}>
+          <Box bg={colorMode === 'light' ? 'grey.100' : '#232626'}>
             <Divider />
           </Box>
           <ModalCloseButton />
           <ModalBody
             borderRadius={5}
             shadow={'md'}
-            bg={colorMode === 'light' ? 'grey.300' : '#232626'}
+            bg={colorMode === 'light' ? 'grey.100' : '#232626'}
           >
             <Stack isInline spacing={10}>
               <Box
+                borderColor={recordType === 'task' ? 'deeppurple.500' : ''}
+                bg={recordType === 'task' ? 'deeppurple.100' : 'none'}
                 onClick={() => setRecordType('task')}
                 cursor={'pointer'}
                 mr={2}
                 borderRadius={35}
-                borderWidth={1}
+                borderWidth={recordType === 'task' ? 2 : 1}
                 p={5}
               >
                 <Task width={30} height={30} />
               </Box>
               <Box
+                borderColor={recordType === 'transaction' ? 'deeppurple.500' : ''}
+                bg={recordType === 'transaction' ? 'deeppurple.100' : 'none'}
                 onClick={() => setRecordType('transaction')}
                 cursor={'pointer'}
                 mr={2}
@@ -86,6 +90,8 @@ export default () => {
                 <Money width={30} height={30} />
               </Box>
               <Box
+                borderColor={recordType === 'glucose' ? 'deeppurple.500' : ''}
+                bg={recordType === 'glucose' ? 'deeppurple.100' : 'none'}
                 onClick={() => setRecordType('glucose')}
                 cursor={'pointer'}
                 mr={2}
@@ -96,6 +102,8 @@ export default () => {
                 <Sugar width={30} height={30} />
               </Box>
               <Box
+                borderColor={recordType === 'water' ? 'deeppurple.500' : ''}
+                bg={recordType === 'water' ? 'deeppurple.100' : 'none'}
                 onClick={() => setRecordType('water')}
                 cursor={'pointer'}
                 mr={2}

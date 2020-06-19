@@ -63,7 +63,7 @@ export default ({ model }) => {
                     <ErrorMessage name="name" component="div" />
                   </FormControl>
                 </Box>
-                <Stack isInline>
+                <Stack isInline justifyContent={'space-between'}>
                   <Box>
                     <FormControl display={'grid'}>
                       <FormLabel htmlFor="due_date">Due Date</FormLabel>

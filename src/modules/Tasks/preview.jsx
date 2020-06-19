@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton, Stack, Collapse, Badge } from '@chakra-ui/core';
+import { Box, Flex, IconButton, Stack, Collapse, Badge, useColorMode } from '@chakra-ui/core';
 import { useState } from 'react';
 import Card from 'src/components/Card';
 import Task from 'src/assets/Task';
@@ -7,10 +7,13 @@ import Form from './form';
 import Mutation from 'src/graphql/mutation';
 export default ({ record }) => {
   const [show, setShow] = useState(false);
+  const { colorMode } = useColorMode();
 
   const handleToggle = () => setShow(!show);
   return (
-    <Card cursor="pointer">
+    <Card
+      cursor="pointer"
+    >
       <Flex
         textAlign={'center'}
         alignItems={'center'}
@@ -48,6 +51,8 @@ export default ({ record }) => {
         <Mutation resource={'tasks'} operation={'delete'}>
           {(mutate) => (
             <IconButton
+              variant={'ghost'}
+              variantColor={'red'}
               ml={2}
               size={'sm'}
               icon={'delete'}

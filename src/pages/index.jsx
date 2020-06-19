@@ -406,7 +406,6 @@ export default () => {
       </TabCard>
       <TabCard title={'Water Stats'}>
         <Stack>
-
           <Water.Aggregate
             where={{
               _and: [
@@ -418,7 +417,7 @@ export default () => {
             {(data) => (
               <Stack isInline>
                 <Box w={500}>
-                  <Progress value={(data.sum.quantity || 0) / 3000} />
+                  <Progress value={((data.sum.quantity || 0) * 100) / 3000} />
                 </Box>
                 <Text>{data.sum.quantity || 0} out of 3000 ML</Text>
               </Stack>

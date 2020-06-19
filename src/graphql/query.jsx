@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-import { Box, Skeleton, Stack, Text, Flex } from '@chakra-ui/core';
+import { Box, Skeleton, Stack, Text, Flex, Spinner } from '@chakra-ui/core';
 import Card from 'src/components/Card';
 import NotFound from 'src/assets/NotFound';
 export default ({
@@ -33,13 +33,21 @@ export default ({
       {({ loading, error, data, refetch }) => {
         if (loading)
           return (
-            <Box h={'100%'}>
-              {[...Array(isAggregate ? 1 : 10).keys()].map((k) => (
-                <Card my={5} height="60px" key={k}>
-                  <Skeleton key={k} colorStart="#333" colorEnd="#333" />
-                </Card>
-              ))}
-            </Box>
+            <Flex
+              w={'100%'}
+              height={'100%'}
+              direction={'column'}
+              alignItems={'center'}
+              py={4}
+            >
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="deeppurple.500"
+                size="xl"
+              />
+            </Flex>
           );
         if (error) return <Box>Something went wrong</Box>;
 
