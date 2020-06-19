@@ -4,7 +4,6 @@ import { Flex, Stack } from '@chakra-ui/core';
 import './app.css';
 import FormModal from 'src/components/records/FormModal';
 import { useStore } from 'src/store';
-import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import ApolloClient from 'apollo-boost';
 import {
@@ -12,9 +11,7 @@ import {
   CSSReset,
   Box,
   DarkMode,
-  LightMode,
   ColorModeProvider,
-  useColorMode,
 } from '@chakra-ui/core';
 import theme from '../theme';
 import NProgress from 'nprogress';
