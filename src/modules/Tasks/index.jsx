@@ -1,3 +1,4 @@
+import { Divider, Box } from '@chakra-ui/core';
 import Query from 'src/graphql/query';
 import Form from './form';
 import Preview from './preview';
@@ -66,8 +67,9 @@ const Aggregate = ({ where, order_by, limit, offset, aggregateObject, children, 
 const TablePreview = ({ record }) => {
   return (
     <>
-      <td>{record.name}</td>
-      <td>{record.due_date}</td>
+      <Box p={2}>{record.name}</Box>
+      <Divider orientation={'vertical'}/>
+      <Box p={2}>{record.due_date}</Box>
     </>
   );
 };

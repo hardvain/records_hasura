@@ -1,31 +1,19 @@
 import {
   Box,
   Stack,
-  Stat,
-  StatLabel,
   Button,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  Switch,
-  TabPanel,
   Divider,
-  Text,
   Heading,
   Select,
   FormControl,
   FormLabel,
-  Checkbox,
   useColorMode,
 } from '@chakra-ui/core';
-import { ErrorMessage } from 'formik';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'src/components/DatePicker';
 import Card from 'src/components/Card';
 import Tasks from 'src/modules/Tasks';
-import { useStore } from 'src/store';
 import moment from 'moment';
 
 export default () => {
