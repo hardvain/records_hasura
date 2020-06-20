@@ -24,7 +24,7 @@ NProgress.configure({ showSpinner: false });
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
-
+console.log(process.env.HASURA_KEY)
 const client = new ApolloClient({
   uri: 'https://records-app-graphql.herokuapp.com/v1/graphql',
 });

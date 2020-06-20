@@ -150,7 +150,7 @@ export default () => {
               onClick={() => setRecordType('projects')}
               cursor={'pointer'}
               mr={2}
-              borderRadius={35}
+              borderRadius={45}
               borderWidth={1}
               p={5}
             >
