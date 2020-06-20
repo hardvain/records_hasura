@@ -1,5 +1,15 @@
-import { Stack, Stat, StatLabel, StatNumber, Divider } from '@chakra-ui/core';
+import {
+  Stack,
+  Stat,
+  StatLabel,
+  StatNumber,
+  Divider,
+  Heading,
+  Text,
+  Progress,
+} from '@chakra-ui/core';
 import React from 'react';
+import Sugar from 'src/assets/Sugar';
 import useAggregate from 'src/graphql/hooks/useAggregate';
 import * as GlucoseFilters from 'src/modules/Glucose/filters';
 import { useStore } from 'src/store';
@@ -13,23 +23,30 @@ export default () => {
     aggregates: { avg: ['value'], max: ['value'], min: ['value'] },
   });
   return (
-    <Stack spacing={10} isInline h={'100%'} alignItems={'center'} justifyContent={'space-around'}>
-      <Stat>
-        <StatLabel>Average Glucose</StatLabel>
-        <StatNumber>{today ? Math.ceil(today.avg.value) : ''}</StatNumber>
-      </Stat>
-      <Divider borderWidth={2} orientation={'vertical'} h={'100%'} />
+    <>
+      <Stack w={'100%'} p={1} spacing={5} isInline alignItems={'center'}>
+        <Stack alignItems={'center'}>
+          <Sugar width={50} height={50} />
+          <Heading mt={2} size={'md'}>
+            Blood Glucose
+          </Heading>
+        </Stack>
+        <Stack w={'100%'}>
+          <Stack isInline>
+            <Text>Average Glucose:</Text>
+            <Text>{today ? Math.ceil(today.avg.value) : ''}</Text>
+          </Stack>
+          <Stack isInline>
+            <Text>Max Glucose:</Text>
+            <Text>{today?.max.value}</Text>
+          </Stack>
 
-      <Stat>
-        <StatLabel>Max Glucose</StatLabel>
-        <StatNumber>{today?.max.value}</StatNumber>
-      </Stat>
-      <Divider borderWidth={2} orientation={'vertical'} h={'100%'} />
-
-      <Stat>
-        <StatLabel>Min Glucose</StatLabel>
-        <StatNumber>{today?.min.value}</StatNumber>
-      </Stat>
-    </Stack>
+          <Stack isInline>
+            <Text>Min Glucose:</Text>
+            <Text>{today?.min.value}</Text>
+          </Stack>
+        </Stack>
+      </Stack>
+    </>
   );
 };

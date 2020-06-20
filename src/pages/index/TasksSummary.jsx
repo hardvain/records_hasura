@@ -44,7 +44,7 @@ export default () => {
     aggregates: { count: [] },
   });
   return (
-    <Stack spacing={10} isInline>
+    <Stack spacing={10} isInline >
       <Stat>
         <StatLabel>Total</StatLabel>
         <Heading size={'lg'}>

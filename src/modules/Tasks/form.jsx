@@ -159,10 +159,10 @@ export default ({ model, onSubmit = () => {} }) => {
                 <Button
                   type="submit"
                   variant={'default'}
-                  bg={'teal.50'}
-                  color={'teal.900'}
+                  bg={'brand.50'}
+                  color={'brand.900'}
                   borderWidth={1}
-                  borderColor={'teal.900'}
+                  borderColor={'brand.900'}
                 >
                   {currentModel?.id ? 'Update' : 'Submit'}
                 </Button>

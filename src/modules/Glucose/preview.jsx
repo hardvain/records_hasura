@@ -17,6 +17,7 @@ export default ({ record, onSubmit }) => {
   const handleToggle = () => setShow(!show);
   return (
     <Card
+      highlight
       onClick={(e) => {
         e.stopPropagation();
         e.preventDefault();

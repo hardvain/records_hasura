@@ -19,7 +19,7 @@ export default ({ record, onSubmit }) => {
 
   const handleToggle = () => setShow(!show);
   return (
-    <Card cursor={'pointer'}>
+    <Card cursor={'pointer'} highlight>
       <Flex
         textAlign={'center'}
         alignItems={'center'}

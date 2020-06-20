@@ -16,7 +16,7 @@ a:hover {
 }
 
 #nprogress .bar {
-  background: teal;
+  background: brand;
 
   position: fixed;
   z-index: 1031;

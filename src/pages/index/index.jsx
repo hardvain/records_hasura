@@ -15,56 +15,49 @@ import TasksSummary from 'src/pages/index/TasksSummary';
 import GlucoseSummary from 'src/pages/index/GlucoseSummary';
 import WaterSummary from 'src/pages/index/WaterSummary';
 import TransactionSummary from 'src/pages/index/TransactionSummary';
-
 export default () => {
   const { date } = useStore((state) => ({
     date: state.ui.date,
   }));
   return (
     <Box p={10}>
-      <Tabs variant="soft-rounded" variantColor={'teal'}>
+      <Tabs variant="soft-rounded" variantColor={'brand'}>
         <TabList borderWidth={0}>
-          <Tab>Today</Tab>
-          <Tab>This Week</Tab>
-          <Tab>This Month</Tab>
+          <Tab>Tasks</Tab>
+          <Tab>Health</Tab>
+          <Tab>Finance</Tab>
+          <Tab>Knowledge</Tab>
         </TabList>
 
         <TabPanels>
           <TabPanel>
-            <Stack spacing={10} mt={8}>
-              <Stack>
-                <Heading size={'md'}>Tasks</Heading>
-                <Card animate>
-                  <TasksSummary />
+            <Stack my={5}>
+              <Card animate highlight>
+                <TasksSummary />
+              </Card>
+            </Stack>
+          </TabPanel>
+          <TabPanel>
+            <Stack isInline spacing={10}>
+              <Stack flex={1}>
+                <Card animate highlight>
+                  <GlucoseSummary />
                 </Card>
               </Stack>
-              <Stack isInline spacing={10}>
-                <Stack flex={1}>
-                  <Heading size={'md'}>Glucose</Heading>
-                  <Card animate>
-                    <GlucoseSummary />
-                  </Card>
-                </Stack>
-                <Stack flex={1}>
-                  <Heading size={'md'}>Water</Heading>
-                  <Card animate>
-                    <WaterSummary />
-                  </Card>
-                </Stack>
-              </Stack>
-              <Stack>
-                <Heading size={'md'}>Transactions</Heading>
-                <Card animate>
-                  <TransactionSummary />
+              <Stack flex={1}>
+                <Card animate highlight>
+                  <WaterSummary />
                 </Card>
               </Stack>
             </Stack>
           </TabPanel>
           <TabPanel>
-            <p>two!</p>
-          </TabPanel>
-          <TabPanel>
-            <p>three!</p>
+            <Stack>
+              <Heading size={'md'}>Transactions</Heading>
+              <Card animate highlight>
+                <TransactionSummary />
+              </Card>
+            </Stack>
           </TabPanel>
         </TabPanels>
       </Tabs>

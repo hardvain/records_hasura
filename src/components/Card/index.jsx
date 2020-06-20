@@ -1,9 +1,15 @@
 import { Box, Heading, useColorMode } from '@chakra-ui/core';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useStore } from 'src/store';
 import { motion } from 'framer-motion';
 const MotionBox = motion.custom(Box);
-export default ({ title, animate = false, children, ...rest }) => {
+export default ({
+  title,
+  animate = false,
+  highlight = false,
+  children,
+  ...rest
+}) => {
   const { colorMode } = useColorMode();
   const { colors } = useStore((state) => ({
     colors: state.ui.colors,
@@ -16,6 +22,7 @@ export default ({ title, animate = false, children, ...rest }) => {
       animate={animate ? { opacity: 1 } : {}}
       whileTap={animate ? { scale: 0.995 } : {}}
       whileHover={animate ? { scale: 1.005 } : {}}
+      borderColor={isHovered && highlight ? 'brand.500' : ''}
       onClick={() => setShowDetails(!showDetails)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -25,7 +32,15 @@ export default ({ title, animate = false, children, ...rest }) => {
       shadow={isHovered ? 'lg' : 'none'}
       my={4}
       h={'100%'}
-      bg={colorMode === 'light' ? 'white' : '#232626'}
+      bg={
+        isHovered && highlight
+          ? colorMode === 'light'
+            ? 'brand.50'
+            : '#232626'
+          : colorMode === 'light'
+          ? 'white'
+          : '#232626'
+      }
       {...rest}
     >
       {title && (

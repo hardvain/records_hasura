@@ -104,7 +104,7 @@ export default () => {
           onClick={toggleFormPopup}
           icon={'add'}
           borderRadius={25}
-          variantColor={'teal'}
+          variantColor={'brand'}
         />
       </Tooltip>
       <MenuItem
@@ -319,7 +319,7 @@ export default () => {
             as={GoProject}
             fontSize={30}
             alignSelf={'center'}
-            color={'teal.500'}
+            color={'brand.500'}
             mr={2}
           />
         </Stack>

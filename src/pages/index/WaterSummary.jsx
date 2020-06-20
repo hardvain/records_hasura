@@ -1,8 +1,9 @@
-import { Stack, Progress, Text } from '@chakra-ui/core';
+import { Stack, Progress, Text, Heading, Divider } from '@chakra-ui/core';
 import React from 'react';
 import useAggregate from 'src/graphql/hooks/useAggregate';
 import useView from 'src/graphql/hooks/useView';
 import * as WaterFilters from 'src/modules/Water/filters';
+import Water from 'src/assets/Water';
 
 import { useStore } from 'src/store';
 export default () => {
@@ -20,23 +21,35 @@ export default () => {
   const pastPercentage = Math.ceil((pastAvg * 100) / 3000);
   const isTodayAhead = percentage > pastPercentage;
   return (
-    <Stack spacing={10} isInline>
-      <Stack w={'100%'} m={2} spacing={5}>
+    <Stack w={'100%'} p={1} spacing={5} isInline alignItems={'center'}>
+      <Stack alignItems={'center'}>
+        <Water width={50} height={50} />
+        <Heading mt={2} size={'md'}>
+          Water
+        </Heading>
+      </Stack>
+      <Stack w={'100%'}>
         <Stack isInline>
           <Text>Today's Consumption:</Text>
           <Text>{todayAgg?.sum.quantity} / 3000 ML</Text>
         </Stack>
         <Progress
+          borderRadius={5}
           hasStripe
           isAnimated
           value={percentage}
           color={isTodayAhead ? 'green' : 'red'}
         />
         <Stack isInline>
-          <Text>Consumption on previous days till this time:</Text>
+          <Text>Yesterday till this time:</Text>
           <Text>{pastAvg} / 3000 ML</Text>
         </Stack>
-        <Progress hasStripe isAnimated value={pastPercentage} />
+        <Progress
+          borderRadius={5}
+          hasStripe
+          isAnimated
+          value={pastPercentage}
+        />
       </Stack>
     </Stack>
   );

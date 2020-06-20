@@ -84,8 +84,8 @@ export default () => {
         >
           <Stack isInline spacing={10}>
             <Box
-              borderColor={recordType === 'task' ? 'teal.500' : ''}
-              bg={recordType === 'task' ? 'teal.100' : 'none'}
+              borderColor={recordType === 'task' ? 'brand.500' : ''}
+              bg={recordType === 'task' ? 'brand.100' : 'none'}
               onClick={() => setRecordType('task')}
               cursor={'pointer'}
               mr={2}
@@ -96,8 +96,8 @@ export default () => {
               <Task width={30} height={30} />
             </Box>
             <Box
-              borderColor={recordType === 'transaction' ? 'teal.500' : ''}
-              bg={recordType === 'transaction' ? 'teal.100' : 'none'}
+              borderColor={recordType === 'transaction' ? 'brand.500' : ''}
+              bg={recordType === 'transaction' ? 'brand.100' : 'none'}
               onClick={() => setRecordType('transaction')}
               cursor={'pointer'}
               mr={2}
@@ -108,8 +108,8 @@ export default () => {
               <Money width={30} height={30} />
             </Box>
             <Box
-              borderColor={recordType === 'glucose' ? 'teal.500' : ''}
-              bg={recordType === 'glucose' ? 'teal.100' : 'none'}
+              borderColor={recordType === 'glucose' ? 'brand.500' : ''}
+              bg={recordType === 'glucose' ? 'brand.100' : 'none'}
               onClick={() => setRecordType('glucose')}
               cursor={'pointer'}
               mr={2}
@@ -120,8 +120,8 @@ export default () => {
               <Sugar width={30} height={30} />
             </Box>
             <Box
-              borderColor={recordType === 'water' ? 'teal.500' : ''}
-              bg={recordType === 'water' ? 'teal.100' : 'none'}
+              borderColor={recordType === 'water' ? 'brand.500' : ''}
+              bg={recordType === 'water' ? 'brand.100' : 'none'}
               onClick={() => setRecordType('water')}
               cursor={'pointer'}
               mr={2}

@@ -22,7 +22,7 @@ export default ({ record, onSubmit }) => {
   const handleToggle = () => setShow(!show);
 
   return (
-    <Card cursor="pointer" animate>
+    <Card cursor="pointer" animate highlight>
       <Flex
         textAlign={'center'}
         alignItems={'center'}
@@ -54,7 +54,7 @@ export default ({ record, onSubmit }) => {
           <Badge variantColor={'yellow'}>{record.status}</Badge>
         </Box>
         <Box>
-          <Badge variantColor={'teal'}>{record.team}</Badge>
+          <Badge variantColor={'brand'}>{record.team}</Badge>
         </Box>
 
         <Mutation resource={'tasks'} operation={'delete'}>

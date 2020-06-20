@@ -12,6 +12,7 @@ export default ({ record, onSubmit }) => {
   const handleToggle = () => setShow(!show);
   return (
     <Card
+      highlight
       cursor="pointer"
     >
       <Flex
@@ -45,10 +46,10 @@ export default ({ record, onSubmit }) => {
           <Badge variantColor={'yellow'}>{record.status}</Badge>
         </Box>
         <Box>
-          <Badge variantColor={'teal'}>{record.team}</Badge>
+          <Badge variantColor={'brand'}>{record.team}</Badge>
         </Box>
 
-        <Mutation resource={'tasks'} operation={'delete'}>
+        <Mutation resource={'transactions'} operation={'delete'}>
           {(mutate) => (
             <IconButton
               variant={'ghost'}
