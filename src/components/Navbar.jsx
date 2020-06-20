@@ -116,7 +116,7 @@ export default () => {
       <Box>
         <Menu>
           <ChakraMenuButton
-            variantColor={'deeppurple'}
+            variantColor={'teal'}
             size={'sm'}
             as={Button}
             mr={4}

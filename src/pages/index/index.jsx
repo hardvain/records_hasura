@@ -7,8 +7,15 @@ import {
   Progress,
   Text,
   Divider,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
   Heading,
+  Button,
 } from '@chakra-ui/core';
+import React from 'react';
 import Task from 'src/assets/Task';
 import Card from 'src/components/Card';
 import TabCard from 'src/components/TabCard';
@@ -25,34 +32,52 @@ export default () => {
   }));
   return (
     <Box p={10}>
-      <Stack spacing={10}>
-        <Stack>
-          <Heading size={'md'}>Tasks</Heading>
-          <Card>
-            <TasksSummary />
-          </Card>
-        </Stack>
-        <Stack isInline spacing={10}>
-          <Stack flex={1}>
-            <Heading size={'md'}>Glucose</Heading>
-            <Card>
-              <GlucoseSummary />
-            </Card>
-          </Stack>
-          <Stack flex={1}>
-            <Heading size={'md'}>Water</Heading>
-            <Card>
-              <WaterSummary />
-            </Card>
-          </Stack>
-        </Stack>
-        <Stack>
-          <Heading size={'md'}>Transactions</Heading>
-          <Card>
-            <TransactionSummary />
-          </Card>
-        </Stack>
-      </Stack>
+      <Tabs variant="soft-rounded" variantColor={'teal'}>
+        <TabList borderWidth={0}>
+          <Tab>Today</Tab>
+          <Tab>This Week</Tab>
+          <Tab>This Month</Tab>
+        </TabList>
+
+        <TabPanels>
+          <TabPanel>
+            <Stack spacing={10} mt={8}>
+              <Stack>
+                <Heading size={'md'}>Tasks</Heading>
+                <Card>
+                  <TasksSummary />
+                </Card>
+              </Stack>
+              <Stack isInline spacing={10}>
+                <Stack flex={1}>
+                  <Heading size={'md'}>Glucose</Heading>
+                  <Card>
+                    <GlucoseSummary />
+                  </Card>
+                </Stack>
+                <Stack flex={1}>
+                  <Heading size={'md'}>Water</Heading>
+                  <Card>
+                    <WaterSummary />
+                  </Card>
+                </Stack>
+              </Stack>
+              <Stack>
+                <Heading size={'md'}>Transactions</Heading>
+                <Card>
+                  <TransactionSummary />
+                </Card>
+              </Stack>
+            </Stack>
+          </TabPanel>
+          <TabPanel>
+            <p>two!</p>
+          </TabPanel>
+          <TabPanel>
+            <p>three!</p>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Box>
   );
 };

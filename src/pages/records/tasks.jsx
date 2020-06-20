@@ -251,7 +251,7 @@ export default () => {
         <Box w={'100%'}>
           <Stack spacing={10} w={'100%'}>
             <Box w={'100%'} p={5}>
-              <Tasks.List
+              <Tasks.Gallery
                 order_by={{
                   team: 'asc',
                   due_date: 'desc',

@@ -45,15 +45,20 @@ export default () => {
   return (
     <>
       <Modal
-        borderRadius={5}
+        borderRadius={10}
         isOpen={showFormPopup}
         onClose={toggleFormPopup}
         size={'2xl'}
+        shadow={"lg"}
       >
         <ModalOverlay />
-        <ModalContent borderRadius={5} shadow={'md'}>
+        <ModalContent
+          borderRadius={10}
+          shadow={'lg'}
+          bg={colorMode === 'light' ? 'grey.100' : '#232626'}
+        >
           <ModalHeader
-            borderRadius={5}
+            borderRadius={10}
             bg={colorMode === 'light' ? 'grey.100' : '#232626'}
           >
             Add new record
@@ -63,14 +68,14 @@ export default () => {
           </Box>
           <ModalCloseButton />
           <ModalBody
-            borderRadius={5}
+            borderRadius={10}
             shadow={'md'}
             bg={colorMode === 'light' ? 'grey.100' : '#232626'}
           >
             <Stack isInline spacing={10}>
               <Box
-                borderColor={recordType === 'task' ? 'deeppurple.500' : ''}
-                bg={recordType === 'task' ? 'deeppurple.100' : 'none'}
+                borderColor={recordType === 'task' ? 'teal.500' : ''}
+                bg={recordType === 'task' ? 'teal.100' : 'none'}
                 onClick={() => setRecordType('task')}
                 cursor={'pointer'}
                 mr={2}
@@ -81,8 +86,8 @@ export default () => {
                 <Task width={30} height={30} />
               </Box>
               <Box
-                borderColor={recordType === 'transaction' ? 'deeppurple.500' : ''}
-                bg={recordType === 'transaction' ? 'deeppurple.100' : 'none'}
+                borderColor={recordType === 'transaction' ? 'teal.500' : ''}
+                bg={recordType === 'transaction' ? 'teal.100' : 'none'}
                 onClick={() => setRecordType('transaction')}
                 cursor={'pointer'}
                 mr={2}
@@ -93,8 +98,8 @@ export default () => {
                 <Money width={30} height={30} />
               </Box>
               <Box
-                borderColor={recordType === 'glucose' ? 'deeppurple.500' : ''}
-                bg={recordType === 'glucose' ? 'deeppurple.100' : 'none'}
+                borderColor={recordType === 'glucose' ? 'teal.500' : ''}
+                bg={recordType === 'glucose' ? 'teal.100' : 'none'}
                 onClick={() => setRecordType('glucose')}
                 cursor={'pointer'}
                 mr={2}
@@ -105,8 +110,8 @@ export default () => {
                 <Sugar width={30} height={30} />
               </Box>
               <Box
-                borderColor={recordType === 'water' ? 'deeppurple.500' : ''}
-                bg={recordType === 'water' ? 'deeppurple.100' : 'none'}
+                borderColor={recordType === 'water' ? 'teal.500' : ''}
+                bg={recordType === 'water' ? 'teal.100' : 'none'}
                 onClick={() => setRecordType('water')}
                 cursor={'pointer'}
                 mr={2}

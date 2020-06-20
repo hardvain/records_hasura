@@ -55,58 +55,23 @@ export default () => {
             <Divider />
           </Stack>
         </Card>
-        <Box w={'100%'}>
-          <Box p={10}>
-            <Water.Aggregate
-              where={{
-                _and: [
-                  {
-                    timestamp: {
-                      _gte: moment(date).startOf('day').toISOString(true),
-                    },
+        <Box w={'100%'} p={10}>
+          <Water.List
+            where={{
+              _and: [
+                {
+                  timestamp: {
+                    _gte: moment(date).startOf('day').toISOString(true),
                   },
-                  {
-                    timestamp: {
-                      _lte: moment(date).endOf('day').toISOString(true),
-                    },
+                },
+                {
+                  timestamp: {
+                    _lte: moment(date).endOf('day').toISOString(true),
                   },
-                ],
-              }}
-            >
-              {(data) => (
-                <Card title={'Stats'}>
-                  <Stack spacing={10} isInline>
-                    <Stat>
-                      <StatLabel>Total Water Consumed Today</StatLabel>
-                      <StatNumber>
-                        {data.sum.quantity} ML out of 3000 ML
-                      </StatNumber>
-                    </Stat>
-                    <Stat>
-                      <StatLabel>Number of Intakes</StatLabel>
-                      <StatNumber>{data.count}</StatNumber>
-                    </Stat>
-                  </Stack>
-                </Card>
-              )}
-            </Water.Aggregate>
-            <Water.List
-              where={{
-                _and: [
-                  {
-                    timestamp: {
-                      _gte: moment(date).startOf('day').toISOString(true),
-                    },
-                  },
-                  {
-                    timestamp: {
-                      _lte: moment(date).endOf('day').toISOString(true),
-                    },
-                  },
-                ],
-              }}
-            />
-          </Box>
+                },
+              ],
+            }}
+          />
         </Box>
       </Stack>
     </Box>

@@ -3,11 +3,13 @@ import { Box, Skeleton } from '@chakra-ui/core';
 import { createElement } from 'react';
 import Table from './Table';
 import List from './List';
+import Gallery from './Gallery';
 import Query from 'src/graphql/query';
 
 const DisplayMap = {
   list: List,
   table: Table,
+  gallery: Gallery,
 };
 export default ({
   resource,

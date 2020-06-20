@@ -160,7 +160,14 @@ export default ({ model }) => {
                     Clear
                   </Button>
                 )}
-                <Button type="submit" >
+                <Button
+                  type="submit"
+                  variant={'default'}
+                  bg={'teal.50'}
+                  color={'teal.900'}
+                  borderWidth={1}
+                  borderColor={'teal.900'}
+                >
                   {currentModel?.id ? 'Update' : 'Submit'}
                 </Button>
               </Stack>

@@ -2,7 +2,7 @@
 import Query from 'src/graphql/query';
 import Form from './form';
 import Preview from './preview';
-import Collection from 'src/collection';
+import Collection from 'src/components/collection';
 const fields = `{
     id
     value

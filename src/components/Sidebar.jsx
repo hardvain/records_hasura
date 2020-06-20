@@ -87,21 +87,26 @@ export default () => {
       left={0}
       overflowX={'hidden'}
     >
-      <Box alignItems={'center'} mx={2} mb={10} cursor={'pointer'}>
+      <Box alignItems={'center'} mx={3} mb={10} cursor={'pointer'}>
         <NextLink href="/" as={`/`}>
           <Box alignSelf={'center'} mr={4}>
             <Logo width={30} height={30} />
           </Box>
         </NextLink>
       </Box>
-      <Tooltip label={"Add new record"}><IconButton
-        ml={1}
-        onClick={toggleFormPopup}
-        icon={'add'}
-        mb={8}
-        borderRadius={20}
-        variantColor={'deeppurple'}
-      /></Tooltip>
+      <Tooltip label={'Add new record'}>
+        <IconButton
+          ml={1}
+          size={'lg'}
+          position={'fixed'}
+          right={10}
+          bottom={10}
+          onClick={toggleFormPopup}
+          icon={'add'}
+          borderRadius={25}
+          variantColor={'teal'}
+        />
+      </Tooltip>
       <MenuItem
         href="/records/tasks"
         as={`/records/tasks`}
@@ -258,11 +263,13 @@ export default () => {
           {show ? 'Show Less' : 'Show More'}
         </Button>
       ) : (
-        <IconButton
-          onClick={handleToggle}
-          variant={'solid'}
-          icon={show ? 'chevron-up' : 'chevron-down'}
-        />
+        <Tooltip label={show ? 'Show Less' : 'Show More'}>
+          <IconButton
+            onClick={handleToggle}
+            variant={'solid'}
+            icon={show ? 'chevron-up' : 'chevron-down'}
+          />
+        </Tooltip>
       )}
       <Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />
       {/*<MenuItem*/}
@@ -347,7 +354,6 @@ export default () => {
         size={'lg'}
         variant="default"
         icon={colorMode === 'light' ? 'moon' : 'sun'}
-        mr={4}
         onClick={toggleColorMode}
       />
     </Box>

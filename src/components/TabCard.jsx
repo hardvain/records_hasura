@@ -34,7 +34,7 @@ export default ({ title, children, ...rest }) => {
       bg={colorMode === 'light' ? 'white' : '#232626'}
       {...rest}
     >
-      <Tabs variantColor={"deeppurple"} size={"sm"} align="end" >
+      <Tabs variantColor={"teal"} size={"sm"} align="end" >
         {title && (
           <Box px={1} pt={1} borderBottomWidth={1}>
             <Flex direction={'row'}>
