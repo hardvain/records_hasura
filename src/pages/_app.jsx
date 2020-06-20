@@ -16,6 +16,7 @@ import {
 import theme from '../theme';
 import NProgress from 'nprogress';
 import 'react-datepicker/dist/react-datepicker.css';
+import 'react-circular-progressbar/dist/styles.css';
 import { ApolloProvider } from '@apollo/react-hooks';
 import Router from 'next/router';
 NProgress.configure({ showSpinner: false });
@@ -34,7 +35,7 @@ export function reportWebVitals(metric) {
 const config = (theme) => ({
   light: {
     color: theme.colors.gray[800],
-    bg: theme.colors.gray[100],
+    bg: theme.colors.gray[50],
     borderColor: theme.colors.gray[200],
     placeholderColor: theme.colors.gray[400],
   },

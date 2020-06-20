@@ -13,18 +13,18 @@ export default () => {
     aggregates: { avg: ['value'], max: ['value'], min: ['value'] },
   });
   return (
-    <Stack spacing={10} isInline>
+    <Stack spacing={10} isInline h={'100%'} alignItems={'center'} justifyContent={'space-around'}>
       <Stat>
         <StatLabel>Average Glucose</StatLabel>
         <StatNumber>{today ? Math.ceil(today.avg.value) : ''}</StatNumber>
       </Stat>
-      <Divider borderWidth={2} orientation={'vertical'} />
+      <Divider borderWidth={2} orientation={'vertical'} h={'100%'} />
 
       <Stat>
         <StatLabel>Max Glucose</StatLabel>
         <StatNumber>{today?.max.value}</StatNumber>
       </Stat>
-      <Divider borderWidth={2} orientation={'vertical'} />
+      <Divider borderWidth={2} orientation={'vertical'} h={'100%'} />
 
       <Stat>
         <StatLabel>Min Glucose</StatLabel>

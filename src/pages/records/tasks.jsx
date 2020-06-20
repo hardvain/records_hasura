@@ -74,7 +74,6 @@ export default () => {
         <Card m={0} borderRadius={0} p={0}>
           <Stack h={'100vh'} px={2}>
             <Heading size={'md'}>Filters</Heading>
-
             <Button
               bg={
                 activePreset === 'today'
