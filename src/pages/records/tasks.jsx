@@ -14,7 +14,7 @@ import DatePicker from 'src/components/DatePicker';
 import Card from 'src/components/Card';
 import Tasks from 'src/modules/Tasks';
 import moment from 'moment';
-
+import * as TaskFilters from 'src/modules/Tasks/filters';
 export default () => {
   const { colorMode } = useColorMode();
   const [filters, setFilters] = useState(undefined);
@@ -25,65 +25,19 @@ export default () => {
   const [date, setDate] = useState(moment().toISOString(true));
   const activateTodayFilter = () => {
     setActivePreset('today');
-    setFilters({
-      _and: [
-        {
-          due_date: {
-            _gte: moment(date).startOf('day').toISOString(true),
-          },
-        },
-        {
-          due_date: {
-            _lte: moment(date).endOf('day').toISOString(true),
-          },
-        },
-        { status: { _neq: 'completed' } },
-      ],
-    });
+    setFilters(TaskFilters.activeToday(date));
   };
   const activateBacklogFilter = () => {
     setActivePreset('backlog');
-    setFilters({
-      _and: [
-        {
-          due_date: {
-            _is_null: true,
-          },
-        },
-        { status: { _neq: 'completed' } },
-      ],
-    });
+    setFilters(TaskFilters.backlog());
   };
   const activateOverdueFilter = () => {
     setActivePreset('overdue');
-    setFilters({
-      _and: [
-        {
-          due_date: {
-            _lt: moment(date).startOf('day').toISOString(true),
-          },
-        },
-        { status: { _neq: 'completed' } },
-      ],
-    });
+    setFilters(TaskFilters.overDue(date));
   };
   const activateNext7DaysFilter = () => {
     setActivePreset('next7days');
-    setFilters({
-      _and: [
-        {
-          due_date: {
-            _gte: moment(date).endOf('day').toISOString(true),
-          },
-        },
-        {
-          due_date: {
-            _lte: moment(date).add(1, 'week').endOf('day').toISOString(true),
-          },
-        },
-        { status: { _neq: 'completed' } },
-      ],
-    });
+    setFilters(TaskFilters.activeNext7Days(date));
   };
   useEffect(() => {
     let result = {};
