@@ -9,8 +9,8 @@ export default ({ data, preview, onItemSelect }) => {
       duration: 2000,
       status: 'success',
       isClosable: true,
-      position:'top',
-      variant:'solid'
+      position: 'top',
+      variant: 'solid',
     });
   };
   return (
@@ -18,7 +18,7 @@ export default ({ data, preview, onItemSelect }) => {
       <table>
         <tbody>
           {data.map((record) => (
-            <Stack borderWidth={1} isInline key={record.id} onClick={() => onItemSelect(record)}>
+            <Stack borderWidth={1} isInline key={record.id}>
               {createElement(preview, { record, onSubmit })}
             </Stack>
           ))}

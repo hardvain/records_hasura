@@ -83,7 +83,7 @@ export default () => {
       position={'fixed'}
       zIndex={1000}
       height={'100%'}
-      borderRightWidth={0}
+      borderRightWidth={1}
       left={0}
       overflowX={'hidden'}
     >

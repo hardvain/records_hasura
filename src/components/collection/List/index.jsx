@@ -16,7 +16,7 @@ export default ({ data, preview, onItemSelect }) => {
   return (
     <Box>
       {data.map((record) => (
-        <div onClick={() => onItemSelect(record)} key={record.id}>
+        <div key={record.id}>
           {createElement(preview, { record, onSubmit })}
         </div>
       ))}

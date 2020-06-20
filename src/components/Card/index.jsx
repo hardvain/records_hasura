@@ -7,6 +7,7 @@ export default ({
   title,
   animate = false,
   highlight = false,
+  shadow = true,
   children,
   ...rest
 }) => {
@@ -29,7 +30,7 @@ export default ({
       minWidth={300}
       borderWidth={1}
       borderRadius={5}
-      shadow={isHovered ? 'lg' : 'none'}
+      shadow={isHovered && shadow ? 'lg' : 'none'}
       my={4}
       h={'100%'}
       bg={

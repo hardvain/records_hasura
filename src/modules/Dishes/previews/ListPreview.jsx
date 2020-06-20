@@ -4,22 +4,23 @@ import {
   IconButton,
   Stack,
   Collapse,
+  Badge,
+  Text,
   Divider,
-  useColorMode,
 } from '@chakra-ui/core';
 import { useState } from 'react';
 import Card from 'src/components/Card';
-import Water from 'src/assets/Water';
+import Task from 'src/assets/Task';
 import moment from 'moment';
-import Form from './form';
+import Form from '../form';
 import Mutation from 'src/graphql/mutation';
+
 export default ({ record, onSubmit }) => {
   const [show, setShow] = useState(false);
-  const { colorMode } = useColorMode();
-
   const handleToggle = () => setShow(!show);
+
   return (
-    <Card cursor={'pointer'} highlight>
+    <Card cursor="pointer" animate highlight>
       <Flex
         textAlign={'center'}
         alignItems={'center'}
@@ -31,19 +32,32 @@ export default ({ record, onSubmit }) => {
         }}
       >
         <Box mx={3}>
-          <Water width={20} height={20} />
+          <Task width={20} height={20} />
         </Box>
-        <Stack alignItems={'baseline'} flexGrow={1}>
-          <Stack isInline spacing={10}>
-            <Box>{record.quantity}</Box>
-            <Box>{record.description}</Box>
+        <Stack alignItems={'flex-start'} flexGrow={1}>
+          <Stack isInline spacing={10} w={'100%'}>
+            <Box>{record.name}</Box>
+            <Box flexGrow={1}></Box>
           </Stack>
-          <Box>{moment(record.timestamp).format('Do, MMMM YYYY, H:mm')}</Box>
+          <Box>
+            <Stack isInline>
+              <Text>Carbs:</Text>
+              <Text>{record.carbs}</Text>
+              <Divider orientation={'vertical'} />
+              <Text>Fat:</Text>
+              <Text>{record.fat}</Text>
+              <Divider orientation={'vertical'} />
+              <Text>Protein:</Text>
+              <Text>{record.protein}</Text>
+            </Stack>
+          </Box>
         </Stack>
 
-        <Mutation resource={'water'} operation={'delete'}>
+        <Mutation resource={'dishes'} operation={'delete'}>
           {(mutate) => (
             <IconButton
+              variant={'ghost'}
+              variantColor={'red'}
               ml={2}
               size={'sm'}
               icon={'delete'}
@@ -57,7 +71,6 @@ export default ({ record, onSubmit }) => {
         </Mutation>
       </Flex>
       <Collapse isOpen={show}>
-        <Divider />
         <Form model={record} onSubmit={onSubmit} />
       </Collapse>
     </Card>

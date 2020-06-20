@@ -71,7 +71,7 @@ export default () => {
   return (
     <Box>
       <Stack isInline>
-        <Card m={0} borderRadius={0} p={0}>
+        <Card m={0} borderRadius={0} p={0} shadow={false}>
           <Stack h={'100vh'} px={2}>
             <Heading size={'md'}>Filters</Heading>
             <Button

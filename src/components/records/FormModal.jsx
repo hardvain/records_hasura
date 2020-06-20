@@ -12,10 +12,12 @@ import {
   useToast,
 } from '@chakra-ui/core';
 import { useState } from 'react';
+import Recipes from 'src/assets/Recipes';
 import { useStore } from 'src/store';
 import Tasks from 'src/modules/Tasks';
 import Glucose from 'src/modules/Glucose';
 import Water from 'src/modules/Water';
+import Dishes from 'src/modules/Dishes';
 import Transactions from 'src/modules/Transactions';
 import Task from 'src/assets/Task';
 import Sugar from 'src/assets/Sugar';
@@ -37,8 +39,8 @@ export default () => {
       duration: 2000,
       status: 'success',
       isClosable: true,
-      position:'top',
-      variant:'solid'
+      position: 'top',
+      variant: 'solid',
     });
   };
   let Form;
@@ -50,6 +52,8 @@ export default () => {
     Form = Transactions.Form;
   } else if (recordType === 'glucose') {
     Form = Glucose.Form;
+  } else if (recordType === 'dishes') {
+    Form = Dishes.Form;
   } else {
     Form = Tasks.Form;
   }
@@ -130,6 +134,18 @@ export default () => {
               p={5}
             >
               <WaterIcon width={30} height={30} />
+            </Box>
+            <Box
+              borderColor={recordType === 'dishes' ? 'brand.500' : ''}
+              bg={recordType === 'dishes' ? 'brand.100' : 'none'}
+              onClick={() => setRecordType('dishes')}
+              cursor={'pointer'}
+              mr={2}
+              borderRadius={35}
+              borderWidth={1}
+              p={5}
+            >
+              <Recipes width={30} height={30} />
             </Box>
           </Stack>
           <Form onSubmit={onSubmit} />

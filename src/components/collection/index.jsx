@@ -1,5 +1,6 @@
 import { Box, Flex, Spinner } from '@chakra-ui/core';
 import { createElement } from 'react';
+import NotFound from 'src/assets/NotFound';
 import Table from './Table';
 import List from './List';
 import Gallery from './Gallery';
@@ -47,7 +48,13 @@ export default ({
       </Flex>
     );
   if (error) return <Box>Something went wrong</Box>;
-  console.log(previews, type);
+  if (data.length === 0) {
+    return (
+      <Flex w={'100%'} alignItems={'center'} h={'100%'}  justifyContent={'center'}>
+        <NotFound w={200} height={200} />
+      </Flex>
+    );
+  }
   return createElement(DisplayMap[type], {
     data: data,
     preview: previews[type],
