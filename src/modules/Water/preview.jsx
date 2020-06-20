@@ -13,21 +13,23 @@ import Water from 'src/assets/Water';
 import moment from 'moment';
 import Form from './form';
 import Mutation from 'src/graphql/mutation';
-export default ({ record }) => {
+export default ({ record, onSubmit }) => {
   const [show, setShow] = useState(false);
   const { colorMode } = useColorMode();
 
   const handleToggle = () => setShow(!show);
   return (
-    <Card
-      onClick={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        handleToggle();
-      }}
-      cursor={'pointer'}
-    >
-      <Flex textAlign={'center'} alignItems={'center'} pr={4}>
+    <Card cursor={'pointer'}>
+      <Flex
+        textAlign={'center'}
+        alignItems={'center'}
+        pr={4}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          handleToggle();
+        }}
+      >
         <Box mx={3}>
           <Water width={20} height={20} />
         </Box>
@@ -56,7 +58,7 @@ export default ({ record }) => {
       </Flex>
       <Collapse isOpen={show}>
         <Divider />
-        <Form model={record} />
+        <Form model={record} onSubmit={onSubmit} />
       </Collapse>
     </Card>
   );

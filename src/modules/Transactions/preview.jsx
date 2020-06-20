@@ -5,7 +5,7 @@ import Money from 'src/assets/Money';
 import moment from 'moment';
 import Form from './form';
 import Mutation from 'src/graphql/mutation';
-export default ({ record }) => {
+export default ({ record, onSubmit }) => {
   const [show, setShow] = useState(false);
   const { colorMode } = useColorMode();
 
@@ -66,7 +66,7 @@ export default ({ record }) => {
         </Mutation>
       </Flex>
       <Collapse isOpen={show}>
-        <Form model={record} />
+        <Form model={record} onSubmit={onSubmit}/>
       </Collapse>
     </Card>
   );

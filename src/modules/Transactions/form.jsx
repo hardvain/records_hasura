@@ -48,7 +48,7 @@ export default ({ model, onSubmit }) => {
                 where: { id: { _eq: currentModel?.id } },
               },
             });
-            if (currentModel) {
+            if (!currentModel) {
               setCurrentModel();
             }
             onSubmit()
@@ -74,7 +74,7 @@ export default ({ model, onSubmit }) => {
                 <Stack isInline justifyContent={'space-between'}>
                   <Box>
                     <FormControl display={'grid'}>
-                      <FormLabel htmlFor="timestamp">Due Date</FormLabel>
+                      <FormLabel htmlFor="timestamp">Timestamp</FormLabel>
                       <FormikDatePicker
                         placeholderText="Select a due date"
                         name={'timestamp'}
@@ -144,11 +144,6 @@ export default ({ model, onSubmit }) => {
 
               <Stack isInline>
                 <Box flexGrow={1}></Box>
-                {!currentModel && (
-                  <Button type="submit" onClick={() => setCurrentModel()}>
-                    Clear
-                  </Button>
-                )}
                 <Button type="submit" >
                   {currentModel?.id ? 'Update' : 'Submit'}
                 </Button>

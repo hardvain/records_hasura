@@ -1,20 +1,28 @@
-import { Box, Flex, IconButton, Stack, Collapse, Badge, useColorMode } from '@chakra-ui/core';
+import {
+  Box,
+  Flex,
+  IconButton,
+  Stack,
+  Collapse,
+  Badge,
+  useColorMode,
+  useToast
+} from '@chakra-ui/core';
 import { useState } from 'react';
 import Card from 'src/components/Card';
 import Task from 'src/assets/Task';
 import moment from 'moment';
 import Form from './form';
 import Mutation from 'src/graphql/mutation';
-export default ({ record }) => {
+export default ({ record, onSubmit }) => {
+
   const [show, setShow] = useState(false);
   const { colorMode } = useColorMode();
 
   const handleToggle = () => setShow(!show);
+
   return (
-    <Card
-      cursor="pointer"
-      animate
-    >
+    <Card cursor="pointer" animate>
       <Flex
         textAlign={'center'}
         alignItems={'center'}
@@ -67,7 +75,7 @@ export default ({ record }) => {
         </Mutation>
       </Flex>
       <Collapse isOpen={show}>
-        <Form model={record} />
+        <Form model={record} onSubmit={onSubmit}/>
       </Collapse>
     </Card>
   );

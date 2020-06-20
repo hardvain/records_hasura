@@ -12,7 +12,7 @@ import Sugar from 'src/assets/Sugar';
 import moment from 'moment';
 import Form from './form';
 import Mutation from 'src/graphql/mutation';
-export default ({ record }) => {
+export default ({ record, onSubmit }) => {
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
   return (
@@ -53,7 +53,7 @@ export default ({ record }) => {
       </Flex>
       <Collapse isOpen={show}>
         <Divider />
-        <Form model={record} />
+        <Form model={record} onSubmit={onSubmit}/>
       </Collapse>
     </Card>
   );

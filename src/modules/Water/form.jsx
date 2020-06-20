@@ -48,8 +48,10 @@ export default ({ model, onSubmit }) => {
                 where: { id: { _eq: currentModel?.id } },
               },
             });
-            setCurrentModel();
-            onSubmit()
+            if (!currentModel) {
+              setCurrentModel();
+            }
+            onSubmit();
           }}
         >
           {({ isSubmitting }) => (
@@ -74,7 +76,11 @@ export default ({ model, onSubmit }) => {
                       <FormLabel htmlFor="timestamp">Timestamp</FormLabel>
 
                       <Box>
-                        <FormikDatePicker name={'timestamp'} type={'input'} includeTime/>
+                        <FormikDatePicker
+                          name={'timestamp'}
+                          type={'input'}
+                          includeTime
+                        />
                         <ErrorMessage name="timestamp" component="div" />
                       </Box>
                     </FormControl>
@@ -96,12 +102,7 @@ export default ({ model, onSubmit }) => {
 
               <Stack isInline>
                 <Box flexGrow={1}></Box>
-                {!currentModel && (
-                  <Button type="submit" onClick={() => setCurrentModel()}>
-                    Clear
-                  </Button>
-                )}
-                <Button type="submit" >
+                <Button type="submit">
                   {currentModel?.id ? 'Update' : 'Submit'}
                 </Button>
               </Stack>

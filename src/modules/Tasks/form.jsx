@@ -48,7 +48,7 @@ export default ({ model, onSubmit = () => {} }) => {
                 where: { id: { _eq: currentModel?.id } },
               },
             });
-            if (currentModel) {
+            if (!currentModel) {
               setCurrentModel();
             }
             onSubmit()
@@ -156,11 +156,6 @@ export default ({ model, onSubmit = () => {} }) => {
 
               <Stack isInline>
                 <Box flexGrow={1}></Box>
-                {!currentModel && (
-                  <Button type="submit" onClick={() => setCurrentModel()}>
-                    Clear
-                  </Button>
-                )}
                 <Button
                   type="submit"
                   variant={'default'}
