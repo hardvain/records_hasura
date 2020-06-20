@@ -1,17 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  Box,
-  Flex,
-  SimpleGrid,
-  Stack,
-  Menu,
-  MenuButton,
-  MenuList,
-  Button,
-  MenuItem,
-  Text,
-  Grid,
-} from '@chakra-ui/core';
+import { Box, Flex, Text, Grid } from '@chakra-ui/core';
 import moment from 'moment';
 import Filter from './Filter';
 import Card from 'src/components/Card';
@@ -27,7 +15,7 @@ const Hour = ({ date }) => {
       borderWidth={1}
       cursor={'pointer'}
       bg={isHovering ? '#232626' : ''}
-    ></Box>
+    />
   );
 };
 const Heading = ({ day }) => {

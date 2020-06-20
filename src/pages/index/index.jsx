@@ -1,25 +1,15 @@
 import {
   Box,
   Stack,
-  Stat,
-  StatLabel,
-  StatNumber,
-  Progress,
-  Text,
-  Divider,
   Tabs,
   TabList,
   TabPanels,
   Tab,
   TabPanel,
   Heading,
-  Button,
 } from '@chakra-ui/core';
 import React from 'react';
-import Task from 'src/assets/Task';
 import Card from 'src/components/Card';
-import Tasks from 'src/modules/Tasks';
-import Water from 'src/modules/Water';
 import { useStore } from 'src/store';
 import TasksSummary from 'src/pages/index/TasksSummary';
 import GlucoseSummary from 'src/pages/index/GlucoseSummary';
@@ -30,7 +20,7 @@ export default () => {
   const { date } = useStore((state) => ({
     date: state.ui.date,
   }));
-    return (
+  return (
     <Box p={10}>
       <Tabs variant="soft-rounded" variantColor={'teal'}>
         <TabList borderWidth={0}>

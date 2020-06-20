@@ -1,6 +1,5 @@
-import { Flex, Box, Heading, useColorMode } from '@chakra-ui/core';
+import { Box, Heading, useColorMode } from '@chakra-ui/core';
 import { useState } from 'react';
-import Div from 'src/components/core/Div';
 import { useStore } from 'src/store';
 import { motion } from 'framer-motion';
 const MotionBox = motion.custom(Box);

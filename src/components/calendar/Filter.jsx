@@ -1,17 +1,9 @@
-import { useState, createElement } from 'react';
 import {
   Box,
   Flex,
-  SimpleGrid,
-  Stack,
-  Menu,
   Select,
-  MenuButton,
-  MenuList,
   Button,
-  MenuItem,
   IconButton,
-  Text,
   Heading,
 } from '@chakra-ui/core';
 import DatePicker from 'src/components/DatePicker';

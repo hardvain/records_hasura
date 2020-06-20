@@ -9,7 +9,6 @@ import {
   FormLabel,
   useColorMode,
 } from '@chakra-ui/core';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'src/components/DatePicker';
 import Card from 'src/components/Card';
@@ -18,8 +17,6 @@ import moment from 'moment';
 
 export default () => {
   const { colorMode } = useColorMode();
-  const router = useRouter();
-  const { filter } = router.query;
   const [filters, setFilters] = useState(undefined);
   const [activePreset, setActivePreset] = useState('today');
   const [team, setTeam] = useState('');

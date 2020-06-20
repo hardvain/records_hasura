@@ -1,5 +1,4 @@
-import gql from 'graphql-tag';
-import { Box, Skeleton } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/core';
 import { createElement } from 'react';
 import Table from './Table';
 import List from './List';

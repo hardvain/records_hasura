@@ -2,38 +2,17 @@ import Card from 'src/components/Card';
 import Glucose from 'src/modules/Glucose';
 import moment from 'moment';
 import DatePicker from 'src/components/DatePicker';
-import { useStore } from 'src/store';
 import {
   Box,
   Stack,
-  Stat,
-  StatLabel,
-  StatNumber,
-  Button,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  Switch,
-  TabPanel,
   Divider,
-  Text,
   Heading,
-  Select,
   FormControl,
   FormLabel,
-  Checkbox,
-  useColorMode,
 } from '@chakra-ui/core';
-import { ErrorMessage } from 'formik';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import Tasks from 'src/modules/Tasks';
+import React, { useState } from 'react';
 
 export default () => {
-  const { colorMode } = useColorMode();
-  const router = useRouter();
-
   const [date, setDate] = useState(moment().toISOString(true));
 
   return (

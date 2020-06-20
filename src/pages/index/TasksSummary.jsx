@@ -13,32 +13,32 @@ export default () => {
   const { date } = useStore((state) => ({
     date: state.ui.date,
   }));
-  const [totalAgg] = useAggregate({
+  const [total] = useAggregate({
     name: 'tasks',
     where: TaskFilters.today(date),
     aggregates: { count: [] },
   });
-  const [completedAgg] = useAggregate({
+  const [completed] = useAggregate({
     name: 'tasks',
     where: TaskFilters.todayCompleted(date),
     aggregates: { count: [] },
   });
-  const [overdueAgg] = useAggregate({
+  const [overdue] = useAggregate({
     name: 'tasks',
     where: TaskFilters.overDue(date),
     aggregates: { count: [] },
   });
-  const [backlogAgg] = useAggregate({
+  const [backlog] = useAggregate({
     name: 'tasks',
     where: TaskFilters.backlog(),
     aggregates: { count: [] },
   });
-  const [highPrioCompletedAgg] = useAggregate({
+  const [highPrioCompleted] = useAggregate({
     name: 'tasks',
     where: TaskFilters.highPrioCompleted(date),
     aggregates: { count: [] },
   });
-  const [highPrioTotalAgg] = useAggregate({
+  const [highPrioTotal] = useAggregate({
     name: 'tasks',
     where: TaskFilters.highPrio(date),
     aggregates: { count: [] },
@@ -48,25 +48,25 @@ export default () => {
       <Stat>
         <StatLabel>Total</StatLabel>
         <Heading size={'lg'}>
-          {completedAgg?.count} / {totalAgg?.count}{' '}
+          {completed?.count} / {total?.count}{' '}
         </Heading>
         tasks completed
       </Stat>
       <Divider borderWidth={2} orientation={'vertical'} />
       <Stat>
         <StatLabel>Backlog</StatLabel>
-        <StatNumber>{backlogAgg?.count}</StatNumber>
+        <StatNumber>{backlog?.count}</StatNumber>
       </Stat>
       <Divider borderWidth={2} orientation={'vertical'} />
       <Stat>
         <StatLabel>Overdue</StatLabel>
-        <StatNumber>{overdueAgg?.count}</StatNumber>
+        <StatNumber>{overdue?.count}</StatNumber>
       </Stat>
       <Divider borderWidth={2} orientation={'vertical'} />
       <Stat>
         <StatLabel>High Priority</StatLabel>
         <Heading size={'lg'}>
-          {highPrioCompletedAgg?.count} / {highPrioTotalAgg?.count}{' '}
+          {highPrioCompleted?.count} / {highPrioTotal?.count}{' '}
         </Heading>
         tasks completed
       </Stat>

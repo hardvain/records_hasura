@@ -1,38 +1,17 @@
 import {
   Flex,
   IconButton,
-  Stack,
-  Heading,
-  Text,
-  Icon,
-  InputGroup,
-  InputLeftElement,
   Menu,
   MenuButton as ChakraMenuButton,
   MenuList,
   MenuItem,
-  MenuGroup,
-  MenuDivider,
-  MenuOptionGroup,
-  MenuItemOption,
-  Input,
   Box,
   useColorMode,
   Button,
 } from '@chakra-ui/core';
-import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { FaHome, FaCalendar, FaPlus, FaFolder } from 'react-icons/fa';
-import { FiMenu } from 'react-icons/fi';
-import { IoIosApps } from 'react-icons/io';
-import Logo from 'src/assets/Logo';
-import Calendar from 'src/assets/Calendar';
-import NextLink from 'next/link';
-import Project from 'src/assets/Project';
 import DatePicker from 'src/components/DatePicker';
-import MenuButton from 'src/components/MenuButton';
-import SearchSelect from 'src/components/SearchSelect';
 import { useStore } from 'src/store';
 import _ from 'lodash';
 
@@ -83,7 +62,6 @@ export default () => {
       top={0}
       zIndex={1000}
     >
-
       {/*<MenuButton isActive={pathname === '/calendar'}>*/}
       {/*  <NextLink href="/calendar" as={`/calendar`}>*/}
       {/*    <IconButton size={'lg'} variant="default" icon={FaCalendar} />*/}

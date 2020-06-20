@@ -2,13 +2,6 @@ import { useEffect, useState } from 'react';
 import {
   Box,
   Flex,
-  SimpleGrid,
-  Stack,
-  Menu,
-  MenuButton,
-  MenuList,
-  Button,
-  MenuItem,
   Text,
   Grid,
 } from '@chakra-ui/core';

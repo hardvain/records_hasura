@@ -1,12 +1,9 @@
 import {
   Box,
-  Icon,
   Input,
   Stack,
-  Button,
   Checkbox,
   Text,
-  Divider,
   useColorMode,
 } from '@chakra-ui/core';
 import { useEffect, useRef, useState } from 'react';

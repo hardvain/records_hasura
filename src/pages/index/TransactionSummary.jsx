@@ -1,20 +1,6 @@
-import {
-  Box,
-  Stack,
-  Stat,
-  StatLabel,
-  StatNumber,
-  Progress,
-  Text,
-  Divider,
-  Heading,
-} from '@chakra-ui/core';
-import Task from 'src/assets/Task';
-import Card from 'src/components/Card';
+import { Stack, Stat, StatLabel, Divider, Heading } from '@chakra-ui/core';
 import useAggregate from 'src/graphql/hooks/useAggregate';
-import Tasks from 'src/modules/Tasks';
 import * as TransactionFilters from 'src/modules/Transactions/filters';
-import Water from 'src/modules/Water';
 import { useStore } from 'src/store';
 export default () => {
   const { date } = useStore((state) => ({
@@ -39,17 +25,17 @@ export default () => {
     <Stack spacing={10} isInline>
       <Stat>
         <StatLabel>Transactions</StatLabel>
-        <Heading size={'lg'}>{today?.sum.value}</Heading>
+        <Heading size={'lg'}>{today ? today?.sum.value : '-'}</Heading>
       </Stat>
       <Divider borderWidth={2} orientation={'vertical'} />
       <Stat>
         <StatLabel>Expenses</StatLabel>
-        <Heading size={'lg'}>{expenses?.sum.value}</Heading>
+        <Heading size={'lg'}>{expenses ? expenses?.sum.value : '-'}</Heading>
       </Stat>
       <Divider borderWidth={2} orientation={'vertical'} />
       <Stat>
         <StatLabel>Incomes</StatLabel>
-        <Heading size={'lg'}>{incomes?.sum.value}</Heading>
+        <Heading size={'lg'}>{incomes ? incomes?.sum.value : '-'}</Heading>
       </Stat>
     </Stack>
   );

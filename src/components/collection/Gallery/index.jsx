@@ -1,5 +1,5 @@
 import { createElement } from 'react';
-import { Box, SimpleGrid } from '@chakra-ui/core';
+import { SimpleGrid } from '@chakra-ui/core';
 export default ({ data, preview, onItemSelect }) => {
   return (
     <SimpleGrid columns={3} spacing={10}>

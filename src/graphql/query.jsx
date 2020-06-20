@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-import { Box, Skeleton, Stack, Text, Flex, Spinner } from '@chakra-ui/core';
-import Card from 'src/components/Card';
+import { Box, Text, Flex, Spinner } from '@chakra-ui/core';
 import NotFound from 'src/assets/NotFound';
 export default ({
   resource,

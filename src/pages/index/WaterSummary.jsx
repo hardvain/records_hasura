@@ -1,22 +1,13 @@
 import {
-  Box,
   Stack,
   Stat,
   StatLabel,
-  StatNumber,
-  Progress,
-  Text,
   Divider,
   Heading,
 } from '@chakra-ui/core';
-import moment from 'moment';
 import React from 'react';
-import Task from 'src/assets/Task';
-import Card from 'src/components/Card';
 import useAggregate from 'src/graphql/hooks/useAggregate';
-import Tasks from 'src/modules/Tasks';
 import * as WaterFilters from 'src/modules/Water/filters';
-import Water from 'src/modules/Water';
 import { useStore } from 'src/store';
 export default () => {
   const { date } = useStore((state) => ({
