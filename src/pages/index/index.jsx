@@ -25,11 +25,12 @@ import TasksSummary from 'src/pages/index/TasksSummary';
 import GlucoseSummary from 'src/pages/index/GlucoseSummary';
 import WaterSummary from 'src/pages/index/WaterSummary';
 import TransactionSummary from 'src/pages/index/TransactionSummary';
+
 export default () => {
   const { date } = useStore((state) => ({
     date: state.ui.date,
   }));
-  return (
+    return (
     <Box p={10}>
       <Tabs variant="soft-rounded" variantColor={'teal'}>
         <TabList borderWidth={0}>
@@ -43,27 +44,27 @@ export default () => {
             <Stack spacing={10} mt={8}>
               <Stack>
                 <Heading size={'md'}>Tasks</Heading>
-                <Card>
+                <Card animate>
                   <TasksSummary />
                 </Card>
               </Stack>
               <Stack isInline spacing={10}>
                 <Stack flex={1}>
                   <Heading size={'md'}>Glucose</Heading>
-                  <Card>
+                  <Card animate>
                     <GlucoseSummary />
                   </Card>
                 </Stack>
                 <Stack flex={1}>
                   <Heading size={'md'}>Water</Heading>
-                  <Card>
+                  <Card animate>
                     <WaterSummary />
                   </Card>
                 </Stack>
               </Stack>
               <Stack>
                 <Heading size={'md'}>Transactions</Heading>
-                <Card>
+                <Card animate>
                   <TransactionSummary />
                 </Card>
               </Stack>

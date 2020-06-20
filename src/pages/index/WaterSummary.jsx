@@ -13,44 +13,32 @@ import moment from 'moment';
 import React from 'react';
 import Task from 'src/assets/Task';
 import Card from 'src/components/Card';
+import useAggregate from 'src/graphql/hooks/useAggregate';
 import Tasks from 'src/modules/Tasks';
+import * as WaterFilters from 'src/modules/Water/filters';
 import Water from 'src/modules/Water';
 import { useStore } from 'src/store';
 export default () => {
   const { date } = useStore((state) => ({
     date: state.ui.date,
   }));
+  const [todayAgg] = useAggregate({
+    name: 'water',
+    where: WaterFilters.today(date),
+    aggregates: { count: [], sum:['quantity'] },
+  });
   return (
-    <Water.Aggregate
-      where={{
-        _and: [
-          {
-            timestamp: {
-              _gte: moment(date).startOf('day').toISOString(true),
-            },
-          },
-          {
-            timestamp: {
-              _lte: moment(date).endOf('day').toISOString(true),
-            },
-          },
-        ],
-      }}
-    >
-      {(data) => (
-        <Stack spacing={10} isInline>
-          <Stat>
-            <StatLabel>Water Consumption</StatLabel>
-            <Heading size={'lg'}>{data.sum.quantity} Ml</Heading>
-            out of 3000 ML
-          </Stat>
-          <Divider borderWidth={2} orientation={'vertical'} />
-          <Stat>
-            <StatLabel>Number of Intakes</StatLabel>
-            <Heading size={'lg'}>{data.count}</Heading>
-          </Stat>
-        </Stack>
-      )}
-    </Water.Aggregate>
+    <Stack spacing={10} isInline>
+      <Stat>
+        <StatLabel>Water Consumption</StatLabel>
+        <Heading size={'lg'}>{todayAgg?.sum.quantity} Ml</Heading>
+        out of 3000 ML
+      </Stat>
+      <Divider borderWidth={2} orientation={'vertical'} />
+      <Stat>
+        <StatLabel>Number of Intakes</StatLabel>
+        <Heading size={'lg'}>{todayAgg?.count}</Heading>
+      </Stat>
+    </Stack>
   );
 };

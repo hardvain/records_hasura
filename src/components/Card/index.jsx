@@ -4,7 +4,7 @@ import Div from 'src/components/core/Div';
 import { useStore } from 'src/store';
 import { motion } from 'framer-motion';
 const MotionBox = motion.custom(Box);
-export default ({ title, children, ...rest }) => {
+export default ({ title, animate = false, children, ...rest }) => {
   const { colorMode } = useColorMode();
   const { colors } = useStore((state) => ({
     colors: state.ui.colors,
@@ -13,10 +13,10 @@ export default ({ title, children, ...rest }) => {
   const [showDetails, setShowDetails] = useState(false);
   return (
     <MotionBox
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      whileTap={{ scale: 0.995 }}
-      whileHover={{ scale: 1.005 }}
+      initial={animate ? { opacity: 0 } : {}}
+      animate={animate ? { opacity: 1 } : {}}
+      whileTap={animate ? { scale: 0.995 } : {}}
+      whileHover={animate ? { scale: 1.005 } : {}}
       onClick={() => setShowDetails(!showDetails)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

@@ -11,140 +11,46 @@ import {
 } from '@chakra-ui/core';
 import Task from 'src/assets/Task';
 import Card from 'src/components/Card';
+import useAggregate from 'src/graphql/hooks/useAggregate';
 import Tasks from 'src/modules/Tasks';
+import * as TransactionFilters from 'src/modules/Transactions/filters';
 import Water from 'src/modules/Water';
 import { useStore } from 'src/store';
 export default () => {
   const { date } = useStore((state) => ({
     date: state.ui.date,
   }));
+  const [today] = useAggregate({
+    name: 'transactions',
+    where: TransactionFilters.today(date),
+    aggregates: { sum: ['value'] },
+  });
+  const [expenses] = useAggregate({
+    name: 'transactions',
+    where: TransactionFilters.expenses(date),
+    aggregates: { sum: ['value'] },
+  });
+  const [incomes] = useAggregate({
+    name: 'transactions',
+    where: TransactionFilters.incomes(date),
+    aggregates: { sum: ['value'] },
+  });
   return (
     <Stack spacing={10} isInline>
-      <Tasks.Aggregate
-        where={{
-          _and: [
-            {
-              due_date: { _gte: date.startOf('day').toISOString(true) },
-            },
-            { due_date: { _lte: date.endOf('day').toISOString(true) } },
-          ],
-        }}
-      >
-        {({ count: totalCount }) => (
-          <Tasks.Aggregate
-            where={{
-              _and: [
-                {
-                  due_date: {
-                    _gte: date.startOf('day').toISOString(true),
-                  },
-                },
-                {
-                  due_date: {
-                    _lte: date.endOf('day').toISOString(true),
-                  },
-                },
-                { status: { _eq: 'completed' } },
-              ],
-            }}
-          >
-            {({ count: completedCount }) => (
-              <Stat>
-                <StatLabel>Today</StatLabel>
-                <Heading size={'lg'}>
-                  {completedCount} / {totalCount}{' '}
-                </Heading>
-                tasks completed
-              </Stat>
-            )}
-          </Tasks.Aggregate>
-        )}
-      </Tasks.Aggregate>
+      <Stat>
+        <StatLabel>Transactions</StatLabel>
+        <Heading size={'lg'}>{today?.sum.value}</Heading>
+      </Stat>
       <Divider borderWidth={2} orientation={'vertical'} />
-      <Tasks.Aggregate
-        where={{
-          _and: [{ due_date: { _is_null: true } }],
-        }}
-      >
-        {(data) => (
-          <Stat>
-            <StatLabel>Backlog</StatLabel>
-            <StatNumber>{data.count}</StatNumber>
-          </Stat>
-        )}
-      </Tasks.Aggregate>
+      <Stat>
+        <StatLabel>Expenses</StatLabel>
+        <Heading size={'lg'}>{expenses?.sum.value}</Heading>
+      </Stat>
       <Divider borderWidth={2} orientation={'vertical'} />
-
-      <Tasks.Aggregate
-        where={{
-          _and: [
-            {
-              due_date: { _lte: date.startOf('day').toISOString(true) },
-            },
-          ],
-        }}
-      >
-        {(data) => (
-          <Stat>
-            <StatLabel>Overdue</StatLabel>
-            <StatNumber>{data.count}</StatNumber>
-          </Stat>
-        )}
-      </Tasks.Aggregate>
-      <Divider borderWidth={2} orientation={'vertical'} />
-
-      <Tasks.Aggregate
-        where={{
-          _and: [
-            {
-              due_date: { _gte: date.startOf('day').toISOString(true) },
-            },
-            { due_date: { _lte: date.endOf('day').toISOString(true) } },
-            {
-              _or: [
-                { priority: { _eq: 'very_high' } },
-                { priority: { _eq: 'high' } },
-              ],
-            },
-          ],
-        }}
-      >
-        {({ count: totalCount }) => (
-          <Tasks.Aggregate
-            where={{
-              _and: [
-                {
-                  due_date: {
-                    _gte: date.startOf('day').toISOString(true),
-                  },
-                },
-                {
-                  due_date: {
-                    _lte: date.endOf('day').toISOString(true),
-                  },
-                },
-                {
-                  _or: [
-                    { priority: { _eq: 'very_high' } },
-                    { priority: { _eq: 'high' } },
-                  ],
-                },
-                { status: { _eq: 'completed' } },
-              ],
-            }}
-          >
-            {({ count: completedCount }) => (
-              <Stat>
-                <StatLabel>High Priority</StatLabel>
-                <Heading size={'lg'}>
-                  {completedCount} / {totalCount}{' '}
-                </Heading>
-                tasks completed
-              </Stat>
-            )}
-          </Tasks.Aggregate>
-        )}
-      </Tasks.Aggregate>
+      <Stat>
+        <StatLabel>Incomes</StatLabel>
+        <Heading size={'lg'}>{incomes?.sum.value}</Heading>
+      </Stat>
     </Stack>
   );
 };

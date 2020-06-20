@@ -13,6 +13,7 @@ export default ({ record }) => {
   return (
     <Card
       cursor="pointer"
+      animate
     >
       <Flex
         textAlign={'center'}
