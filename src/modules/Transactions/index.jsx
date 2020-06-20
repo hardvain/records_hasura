@@ -1,47 +1,28 @@
 import Form from './form';
-import Preview from './preview';
 import Collection from 'src/components/collection';
-const fields = `{
-    id
-    name
-    timestamp
-    description
-    team
-    type
-    value
-}`;
+import Previews from './previews';
+const fields = [
+  'id',
+  'name',
+  'timestamp',
+  'description',
+  'team',
+  'team',
+  'type',
+  'value'
+];
 
-const List = (props) => (
+const ResourceCollection = (props) => (
   <Collection
     resource={'transactions'}
     fields={fields}
-    config={{
-      type: 'list',
-      preview: Preview,
-    }}
+    previews={Previews}
     {...props}
   />
 );
 
-const Table = (props) => (
-  <Collection
-    resource={'transactions'}
-    fields={fields}
-    config={{
-      type: 'table',
-      preview: TablePreview,
-    }}
-    {...props}
-  />
-);
+const List = (props) => <ResourceCollection type={'list'} {...props} />;
+const Table = (props) => <ResourceCollection type={'table'} {...props} />;
+const Gallery = (props) => <ResourceCollection type={'gallery'} {...props} />;
 
-const TablePreview = ({ record }) => {
-  return (
-    <>
-      <td>{record.name}</td>
-      <td>{record.due_date}</td>
-    </>
-  );
-};
-
-export default { Form, List, Table };
+export default { Form, List, Table, Gallery };

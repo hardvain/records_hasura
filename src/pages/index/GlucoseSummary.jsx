@@ -28,7 +28,7 @@ export default () => {
         <Stack alignItems={'center'}>
           <Sugar width={50} height={50} />
           <Heading mt={2} size={'md'}>
-            Blood Glucose
+            Sugar
           </Heading>
         </Stack>
         <Stack w={'100%'}>

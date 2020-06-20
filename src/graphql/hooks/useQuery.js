@@ -1,20 +1,22 @@
+import { useEffect, useState } from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
+
 export default ({
   name,
-  fields,
   where,
   order_by = { created_at: 'desc' },
   limit,
+  fields,
   offset,
-  pollInterval = undefined,
 }) => {
   const queryString = `query list_${name}($where:${name}_bool_exp, $order_by:${name}_order_by!, $limit:Int, $offset:Int){
-          ${name}(where:$where, order_by:[$order_by], limit:$limit,offset:$offset)${fields}
+          ${name}(where:$where, order_by:[$order_by], limit:$limit,offset:$offset){
+            ${fields.join(',')}
+          }
       }`;
   const { loading, error, data } = useQuery(gql(queryString), {
     variables: { where, order_by, limit, offset },
-    pollInterval: pollInterval,
   });
   if (data) {
     const resultData = data[name];

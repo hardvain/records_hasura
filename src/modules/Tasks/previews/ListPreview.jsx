@@ -1,20 +1,17 @@
-import { Box, Flex, IconButton, Stack, Collapse, Badge, useColorMode } from '@chakra-ui/core';
+import { Box, Flex, IconButton, Stack, Collapse, Badge } from '@chakra-ui/core';
 import { useState } from 'react';
 import Card from 'src/components/Card';
-import Money from 'src/assets/Money';
+import Task from 'src/assets/Task';
 import moment from 'moment';
-import Form from './form';
+import Form from '../form';
 import Mutation from 'src/graphql/mutation';
+
 export default ({ record, onSubmit }) => {
   const [show, setShow] = useState(false);
-  const { colorMode } = useColorMode();
-
   const handleToggle = () => setShow(!show);
+
   return (
-    <Card
-      highlight
-      cursor="pointer"
-    >
+    <Card cursor="pointer" animate highlight>
       <Flex
         textAlign={'center'}
         alignItems={'center'}
@@ -26,16 +23,16 @@ export default ({ record, onSubmit }) => {
         }}
       >
         <Box mx={3}>
-          <Money width={20} height={20} />
+          <Task width={20} height={20} />
         </Box>
         <Stack alignItems={'flex-start'} flexGrow={1}>
           <Stack isInline spacing={10} w={'100%'}>
-            <Box>{record.name} - {record.value}</Box>
+            <Box>{record.name}</Box>
             <Box flexGrow={1}></Box>
           </Stack>
           <Box>
-            {record.timestamp
-              ? moment(record.timestamp).format('Do, MMMM YYYY, H:mm')
+            {record.due_date
+              ? moment(record.due_date).format('Do, MMMM YYYY, H:mm')
               : '-'}
           </Box>
         </Stack>
@@ -49,7 +46,7 @@ export default ({ record, onSubmit }) => {
           <Badge variantColor={'brand'}>{record.team}</Badge>
         </Box>
 
-        <Mutation resource={'transactions'} operation={'delete'}>
+        <Mutation resource={'tasks'} operation={'delete'}>
           {(mutate) => (
             <IconButton
               variant={'ghost'}
@@ -67,7 +64,7 @@ export default ({ record, onSubmit }) => {
         </Mutation>
       </Flex>
       <Collapse isOpen={show}>
-        <Form model={record} onSubmit={onSubmit}/>
+        <Form model={record} onSubmit={onSubmit} />
       </Collapse>
     </Card>
   );

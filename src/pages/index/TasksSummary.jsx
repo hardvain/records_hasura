@@ -6,9 +6,11 @@ import {
   Divider,
   Heading,
 } from '@chakra-ui/core';
+import React from 'react';
 import  useAggregate  from 'src/graphql/hooks/useAggregate';
 import { useStore } from 'src/store';
 import * as TaskFilters from 'src/modules/Tasks/filters';
+import Task from 'src/assets/Task'
 export default () => {
   const { date } = useStore((state) => ({
     date: state.ui.date,
@@ -44,7 +46,13 @@ export default () => {
     aggregates: { count: [] },
   });
   return (
-    <Stack spacing={10} isInline >
+    <Stack spacing={10} isInline>
+      <Stack>
+        <Task width={40} height={40} />
+        <Heading mt={2} size={'md'}>
+          Tasks
+        </Heading>
+      </Stack>
       <Stat>
         <StatLabel>Total</StatLabel>
         <Heading size={'lg'}>

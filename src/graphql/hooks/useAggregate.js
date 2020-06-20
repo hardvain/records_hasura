@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -31,8 +31,8 @@ export default ({
 
   const { loading, error, data } = useQuery(gql(queryString), {
     variables: { where, order_by, limit, offset },
-    pollInterval: pollInterval,
   });
+
   if (data) {
     const resultData = data[`${name}_aggregate`].aggregate;
     return [resultData, loading, error];

@@ -1,10 +1,9 @@
-import { Box } from '@chakra-ui/core';
+import { Box, Flex, Spinner } from '@chakra-ui/core';
 import { createElement } from 'react';
 import Table from './Table';
 import List from './List';
 import Gallery from './Gallery';
-import Query from 'src/graphql/query';
-
+import useQuery from 'src/graphql/hooks/useQuery';
 const DisplayMap = {
   list: List,
   table: Table,
@@ -17,31 +16,40 @@ export default ({
   order_by,
   limit,
   offset,
-  children,
   config,
+  previews,
+  type,
 }) => {
-  return (
-    <Query
-      resource={resource}
-      fields={fields}
-      where={where}
-      order_by={order_by}
-      limit={limit}
-      offset={offset}
-    >
-      {(data) =>
-        config.type === 'raw' ? (
-          children(data)
-        ) : (
-          <Box>
-            {createElement(DisplayMap[config.type], {
-              data: data,
-              preview: config.preview,
-              onItemSelect: config.onItemSelect || (() => {}),
-            })}
-          </Box>
-        )
-      }
-    </Query>
-  );
+  const [data, loading, error] = useQuery({
+    name: resource,
+    where,
+    fields,
+    order_by,
+    limit,
+    offset,
+  });
+  if (loading)
+    return (
+      <Flex
+        w={'100%'}
+        height={'100%'}
+        direction={'column'}
+        alignItems={'center'}
+        py={4}
+      >
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="brand.500"
+          size="xl"
+        />
+      </Flex>
+    );
+  if (error) return <Box>Something went wrong</Box>;
+  console.log(previews, type);
+  return createElement(DisplayMap[type], {
+    data: data,
+    preview: previews[type],
+  });
 };
