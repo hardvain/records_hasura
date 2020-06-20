@@ -20,6 +20,7 @@ export default ({
   limit,
   offset,
   aggregates,
+  pollInterval = undefined,
 }) => {
   const aggregateString = constructAggregateString(aggregates);
   const queryString = `query aggregate_${name}($where:${name}_bool_exp, $order_by:${name}_order_by!, $limit:Int, $offset:Int){
@@ -30,6 +31,7 @@ export default ({
 
   const { loading, error, data } = useQuery(gql(queryString), {
     variables: { where, order_by, limit, offset },
+    pollInterval: pollInterval,
   });
   if (data) {
     const resultData = data[`${name}_aggregate`].aggregate;

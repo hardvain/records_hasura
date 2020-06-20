@@ -13,7 +13,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import DatePicker, { FormikDatePicker } from 'src/components/DatePicker';
 import Mutation from 'src/graphql/mutation';
 import moment from 'moment';
-export default ({ model }) => {
+export default ({ model, onSubmit }) => {
   const [currentModel, setCurrentModel] = useState(model);
   useEffect(() => {
     setCurrentModel(model);
@@ -49,6 +49,7 @@ export default ({ model }) => {
               },
             });
             setCurrentModel();
+            onSubmit()
           }}
         >
           {({ isSubmitting }) => (

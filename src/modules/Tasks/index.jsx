@@ -1,7 +1,7 @@
 import { Divider, Box, Stack, Text, Badge } from '@chakra-ui/core';
 import Query from 'src/graphql/query';
 import Form from './form';
-import Card from 'src/components/Card'
+import Card from 'src/components/Card';
 import moment from 'moment';
 import Preview from './preview';
 import Collection from 'src/components/collection';
@@ -39,7 +39,6 @@ const Table = (props) => (
   />
 );
 
-
 const Gallery = (props) => (
   <Collection
     resource={'tasks'}
@@ -52,24 +51,6 @@ const Gallery = (props) => (
   />
 );
 
-const Aggregate = ({ where, order_by, limit, offset, aggregateObject, children, ...rest }) => {
-  return (
-    <Query
-      resource={'tasks'}
-      fields={fields}
-      where={where}
-      order_by={order_by}
-      limit={limit}
-      offset={offset}
-      aggregateObject={`{
-          count
-        }`}
-      isAggregate={true}
-    >
-      {(data) => children(data)}
-    </Query>
-  );
-};
 const GalleryPreview = ({ record }) => {
   return (
     <Card title={record.name}>
@@ -103,10 +84,10 @@ const TablePreview = ({ record }) => {
   return (
     <>
       <Box p={2}>{record.name}</Box>
-      <Divider orientation={'vertical'}/>
+      <Divider orientation={'vertical'} />
       <Box p={2}>{record.due_date}</Box>
     </>
   );
 };
 
-export default { Form, Aggregate, List, Table, Gallery };
+export default { Form, List, Table, Gallery };

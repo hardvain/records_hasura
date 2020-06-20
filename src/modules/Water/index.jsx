@@ -1,5 +1,3 @@
-
-import Query from 'src/graphql/query';
 import Form from './form';
 import Preview from './preview';
 import Collection from 'src/components/collection';
@@ -9,22 +7,11 @@ const fields = `{
     description
     timestamp
 }`;
-const WaterCollection = (props) => {
-  return (
-    <Collection
-      resource={'water'}
-      fields={fields}
-      config={{
-        type: 'list',
-        preview: Preview,
-      }}
-      {...props}
-    />
-  );
-};
 
 const List = (props) => (
-  <WaterCollection
+  <Collection
+    resource={'water'}
+    fields={fields}
     config={{
       type: 'list',
       preview: Preview,
@@ -34,7 +21,9 @@ const List = (props) => (
 );
 
 const Table = (props) => (
-  <WaterCollection
+  <Collection
+    resource={'water'}
+    fields={fields}
     config={{
       type: 'table',
       preview: TablePreview,
@@ -43,25 +32,6 @@ const Table = (props) => (
   />
 );
 
-const Aggregate = ({ where, order_by, limit, offset, children, ...rest }) => {
-  return (
-    <Query
-      resource={'water'}
-      fields={fields}
-      where={where}
-      order_by={order_by}
-      limit={limit}
-      offset={offset}
-      aggregateObject={`{
-          sum{quantity}
-          count
-        }`}
-      isAggregate={true}
-    >
-      {(data) => children(data)}
-    </Query>
-  );
-};
 const TablePreview = ({ record }) => {
   return (
     <>
@@ -71,4 +41,4 @@ const TablePreview = ({ record }) => {
   );
 };
 
-export default { Form, Aggregate, List, Table };
+export default { Form, List, Table };
