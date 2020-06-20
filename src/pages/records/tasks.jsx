@@ -78,14 +78,16 @@ export default () => {
               bg={
                 activePreset === 'today'
                   ? colorMode === 'light'
-                    ? 'gray.300'
-                    : '#3e4242'
+                  ? 'brand.50'
+                  : '#232626'
                   : ''
               }
               onClick={activateTodayFilter}
               justifyContent={'flex-start'}
               w={'100%'}
               variant={'ghost'}
+              borderWidth={1}
+              borderColor={'brand.500'}
             >
               Today
             </Button>
@@ -97,6 +99,7 @@ export default () => {
                     : '#3e4242'
                   : ''
               }
+
               onClick={activateBacklogFilter}
               justifyContent={'flex-start'}
               w={'100%'}
