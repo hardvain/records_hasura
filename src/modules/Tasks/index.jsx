@@ -14,22 +14,11 @@ const fields = `{
     team
     status
 }`;
-const TasksCollection = (props) => {
-  return (
-    <Collection
-      resource={'tasks'}
-      fields={fields}
-      config={{
-        type: 'list',
-        preview: Preview,
-      }}
-      {...props}
-    />
-  );
-};
 
 const List = (props) => (
-  <TasksCollection
+  <Collection
+    resource={'tasks'}
+    fields={fields}
     config={{
       type: 'list',
       preview: Preview,
@@ -39,7 +28,9 @@ const List = (props) => (
 );
 
 const Table = (props) => (
-  <TasksCollection
+  <Collection
+    resource={'tasks'}
+    fields={fields}
     config={{
       type: 'table',
       preview: TablePreview,
@@ -50,7 +41,9 @@ const Table = (props) => (
 
 
 const Gallery = (props) => (
-  <TasksCollection
+  <Collection
+    resource={'tasks'}
+    fields={fields}
     config={{
       type: 'gallery',
       preview: GalleryPreview,

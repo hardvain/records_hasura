@@ -87,7 +87,7 @@ export default () => {
       left={0}
       overflowX={'hidden'}
     >
-      <Box alignItems={'center'} mx={3} mb={10} cursor={'pointer'}>
+      <Box alignItems={'center'} mx={2} mb={10} cursor={'pointer'}>
         <NextLink href="/" as={`/`}>
           <Box alignSelf={'center'} mr={4}>
             <Logo width={30} height={30} />

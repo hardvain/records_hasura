@@ -63,7 +63,7 @@ export default () => {
       _and: [
         {
           due_date: {
-            _lte: moment(date).startOf('day').toISOString(true),
+            _lt: moment(date).startOf('day').toISOString(true),
           },
         },
         { status: { _neq: 'completed' } },
@@ -251,10 +251,10 @@ export default () => {
         <Box w={'100%'}>
           <Stack spacing={10} w={'100%'}>
             <Box w={'100%'} p={5}>
-              <Tasks.Gallery
+              <Tasks.List
                 order_by={{
                   team: 'asc',
-                  due_date: 'desc',
+                  due_date: 'asc',
                 }}
                 where={filters}
               />

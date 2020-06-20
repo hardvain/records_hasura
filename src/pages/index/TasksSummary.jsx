@@ -11,7 +11,6 @@ import {
 } from '@chakra-ui/core';
 import Task from 'src/assets/Task';
 import Card from 'src/components/Card';
-import TabCard from 'src/components/TabCard';
 import Tasks from 'src/modules/Tasks';
 import Water from 'src/modules/Water';
 import { useStore } from 'src/store';

@@ -18,6 +18,7 @@ export default ({
   order_by,
   limit,
   offset,
+  children,
   config,
 }) => {
   return (
@@ -29,15 +30,19 @@ export default ({
       limit={limit}
       offset={offset}
     >
-      {(data) => (
-        <Box>
-          {createElement(DisplayMap[config.type], {
-            data: data,
-            preview: config.preview,
-            onItemSelect: config.onItemSelect || (() => {}),
-          })}
-        </Box>
-      )}
+      {(data) =>
+        config.type === 'raw' ? (
+          children(data)
+        ) : (
+          <Box>
+            {createElement(DisplayMap[config.type], {
+              data: data,
+              preview: config.preview,
+              onItemSelect: config.onItemSelect || (() => {}),
+            })}
+          </Box>
+        )
+      }
     </Query>
   );
 };

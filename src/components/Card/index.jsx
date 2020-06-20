@@ -1,7 +1,9 @@
 import { Flex, Box, Heading, useColorMode } from '@chakra-ui/core';
 import { useState } from 'react';
+import Div from 'src/components/core/Div';
 import { useStore } from 'src/store';
-
+import { motion } from 'framer-motion';
+const MotionBox = motion.custom(Box);
 export default ({ title, children, ...rest }) => {
   const { colorMode } = useColorMode();
   const { colors } = useStore((state) => ({
@@ -10,7 +12,11 @@ export default ({ title, children, ...rest }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   return (
-    <Box
+    <MotionBox
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      whileTap={{ scale: 0.995 }}
+      whileHover={{ scale: 1.005 }}
       onClick={() => setShowDetails(!showDetails)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -31,6 +37,6 @@ export default ({ title, children, ...rest }) => {
       <Box h={'100%'} p={3}>
         {children}
       </Box>
-    </Box>
+    </MotionBox>
   );
 };

@@ -13,7 +13,6 @@ import moment from 'moment';
 import React from 'react';
 import Task from 'src/assets/Task';
 import Card from 'src/components/Card';
-import TabCard from 'src/components/TabCard';
 import Glucose from 'src/modules/Glucose';
 import Tasks from 'src/modules/Tasks';
 import Water from 'src/modules/Water';
