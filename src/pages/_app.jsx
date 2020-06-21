@@ -3,9 +3,9 @@ import Head from 'next/head';
 import { Flex, Stack } from '@chakra-ui/core';
 import './app.css';
 import FormModal from 'src/components/records/FormModal';
+import Login from 'src/pages/Login';
 import { useStore } from 'src/store';
 import Sidebar from '../components/Sidebar';
-import ApolloClient from 'apollo-boost';
 import {
   ThemeProvider,
   CSSReset,
@@ -17,17 +17,16 @@ import theme from '../theme';
 import NProgress from 'nprogress';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-circular-progressbar/dist/styles.css';
-import { ApolloProvider } from '@apollo/react-hooks';
 import Router from 'next/router';
+import { useFetchUser } from '../lib/user';
+import { withApollo } from '../lib/withApollo';
+import { ApolloProvider } from '@apollo/react-hooks';
+
 NProgress.configure({ showSpinner: false });
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
-console.log(process.env.HASURA_KEY)
-const client = new ApolloClient({
-  uri: 'https://records-app-graphql.herokuapp.com/v1/graphql',
-});
 
 export function reportWebVitals(metric) {
   // console.log(metric);
@@ -46,38 +45,42 @@ const config = (theme) => ({
     placeholderColor: theme.colors.whiteAlpha[400],
   },
 });
-export default ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }) => {
   const showSidebar = useStore((state) => state.ui.showSidebar);
+  const { user, loading } = useFetchUser({ required: true });
+  if (loading || !user) {
+    return (
+      <ThemeProvider theme={theme}>
+        <ColorModeProvider>
+          <CSSReset config={config} />
+          <Login />
+        </ColorModeProvider>
+      </ThemeProvider>
+    );
+  }
   return (
     <Box height="100vh">
       <Head>
         <title>Records</title>
       </Head>
-      <ThemeProvider theme={theme}>
-        <ColorModeProvider>
-          <DarkMode>
-            <ApolloProvider client={client}>
-            <CSSReset config={config} />
-            <Flex direction={'row'}>
-              {<Sidebar />}
-              <Box ml={70}  mr={5} flexGrow={1}>
-                {/*<Navbar />*/}
-                <App Component={Component} pageProps={pageProps} />
-                <FormModal />
-              </Box>
-            </Flex>
-            </ApolloProvider>
-          </DarkMode>
-        </ColorModeProvider>
-      </ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <ColorModeProvider>
+            <DarkMode>
+              <CSSReset config={config} />
+              <Flex direction={'row'}>
+                {<Sidebar />}
+                <Box ml={70} mr={5} flexGrow={1}>
+                  <Box id="component-box" minHeight={'90vh'}>
+                    <Component {...pageProps} />
+                  </Box>
+                  <FormModal />
+                </Box>
+              </Flex>
+            </DarkMode>
+          </ColorModeProvider>
+        </ThemeProvider>
     </Box>
   );
 };
 
-const App = ({ Component, pageProps }) => {
-  return (
-    <Box id="component-box" minHeight={'90vh'}>
-      <Component {...pageProps} />
-    </Box>
-  );
-};
+export default withApollo({ ssr: false })(App);

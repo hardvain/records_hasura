@@ -30,18 +30,18 @@ export default () => {
         <Stack isInline spacing={10}>
           <Stack flex={1} my={5}>
             <Card animate highlight>
-              <GlucoseSummary />
+              {/*<GlucoseSummary />*/}
             </Card>
           </Stack>
           <Stack flex={1} my={5}>
             <Card animate highlight>
-              <WaterSummary />
+              {/*<WaterSummary />*/}
             </Card>
           </Stack>
         </Stack>
         <Stack my={5}>
           <Card animate highlight>
-            <TransactionSummary />
+            {/*<TransactionSummary />*/}
           </Card>
         </Stack>
       </Stack>

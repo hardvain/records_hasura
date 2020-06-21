@@ -29,9 +29,10 @@ export default ({
           }
       }`;
 
-  const { loading, error, data } = useQuery(gql(queryString), {
+  const { error, data, loading } = useQuery(gql(queryString), {
     variables: { where, order_by, limit, offset },
   });
+  console.log(data, loading, error);
 
   if (data) {
     const resultData = data[`${name}_aggregate`].aggregate;

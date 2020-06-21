@@ -1,5 +1,6 @@
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
+import Router from 'next/router';
 import { useState } from 'react';
 import {
   Box,
@@ -74,6 +75,9 @@ export default () => {
   const handleToggle = () => setShow(!show);
   const router = useRouter();
   const pathname = router.pathname;
+  const login = () => {
+
+  };
   return (
     <Box
       w={70}
@@ -356,6 +360,7 @@ export default () => {
         icon={colorMode === 'light' ? 'moon' : 'sun'}
         onClick={toggleColorMode}
       />
+      <IconButton size={'lg'} variant="default" icon={'user'} onClick={login} />
     </Box>
   );
 };
