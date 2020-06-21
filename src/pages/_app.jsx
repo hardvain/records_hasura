@@ -21,6 +21,7 @@ import { useFetchUser } from '../lib/user';
 import { withApollo } from '../lib/withApollo';
 import { ApolloProvider } from '@apollo/react-hooks';
 import Landing from './landing';
+import Shell from './shell';
 NProgress.configure({ showSpinner: false });
 
 Router.events.on('routeChangeStart', () => NProgress.start());
@@ -54,12 +55,24 @@ const App = ({ Component, pageProps }) => {
       setUserId(user['https://hasura.io/jwt/claims']['x-hasura-user-id']);
     }
   }, [user]);
-  if (loading || !user) {
+  if (loading) {
     return (
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
           <DarkMode>
-            <CSSReset config={config}/>
+            <CSSReset config={config} />
+            <Shell />
+          </DarkMode>
+        </ColorModeProvider>
+      </ThemeProvider>
+    );
+  }
+  if (!user) {
+    return (
+      <ThemeProvider theme={theme}>
+        <ColorModeProvider>
+          <DarkMode>
+            <CSSReset config={config} />
             <Landing />
           </DarkMode>
         </ColorModeProvider>

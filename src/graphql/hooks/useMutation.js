@@ -1,6 +1,7 @@
+import { useToast } from '@chakra-ui/core';
+import { useEffect, useState } from 'react';
 import gql from 'graphql-tag';
-import { Mutation } from 'react-apollo';
-import { useStore } from 'src/store';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 
 export default ({
   resource,
@@ -9,7 +10,7 @@ export default ({
   children,
   operation = 'insert',
 }) => {
-
+  const toast = useToast();
   const updateString = `
       mutation update_${resource}($where:${resource}_bool_exp!,$object:${resource}_set_input){
           update_${resource}(where:$where,_set:$object){affected_rows}
@@ -27,7 +28,6 @@ export default ({
           insert_${resource}(objects:[$object]){affected_rows}
       }
   `;
-
   const mutateWrapper = (mutate) => {
     if (operation === 'insert') {
       return (params) => {
@@ -44,13 +44,23 @@ export default ({
       : operation === 'delete'
       ? deleteString
       : insertString;
-  return (
-    <Mutation
-      mutation={gql`
-        ${mutationString}
-      `}
-    >
-      {(mutate, { data }) => children(mutateWrapper(mutate))}
-    </Mutation>
-  );
+
+  const [mutate, { data }] = useMutation(gql(mutationString), {
+    onCompleted: () => {
+      toast({
+        title:
+          operation === 'insert'
+            ? 'Record Added Successfully'
+            : operation === 'update'
+            ? 'Record Updated Successfully'
+            : 'Record Deleted Successfully',
+        duration: 2000,
+        status: 'success',
+        isClosable: true,
+        position: 'top',
+        variant: 'solid',
+      });
+    },
+  });
+  return mutate ? mutateWrapper(mutate) : undefined;
 };
