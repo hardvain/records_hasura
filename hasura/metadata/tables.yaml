@@ -1,0 +1,96 @@
+- table:
+    schema: public
+    name: dishes
+- table:
+    schema: public
+    name: glucose
+- table:
+    schema: public
+    name: projects
+  object_relationships:
+  - name: ref_team
+    using:
+      foreign_key_constraint_on: team_id
+- table:
+    schema: public
+    name: tasks
+  object_relationships:
+  - name: ref_project
+    using:
+      foreign_key_constraint_on: project_id
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
+      columns:
+      - description
+      - due_date
+      - name
+      - priority
+      - project_id
+      - status
+      - team
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - description
+      - name
+      - priority
+      - status
+      - team
+      - user_id
+      - created_at
+      - due_date
+      - updated_at
+      - id
+      - project_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - description
+      - name
+      - priority
+      - project_id
+      - status
+      - team
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+- table:
+    schema: public
+    name: teams
+- table:
+    schema: public
+    name: transactions
+- table:
+    schema: public
+    name: users
+- table:
+    schema: public
+    name: water
+- table:
+    schema: public
+    name: water_till_now

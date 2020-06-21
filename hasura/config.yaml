@@ -1,0 +1,6 @@
+version: 2
+endpoint: https://records-app-graphql.herokuapp.com
+metadata_directory: metadata
+actions:
+  kind: synchronous
+  handler_webhook_baseurl: https://records-app-graphql.herokuapp.com/
