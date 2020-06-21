@@ -6,6 +6,7 @@ const fields = [
   'name',
   'description',
   'is_archived',
+  "ref_tasks{id,name,status,due_date}"
 ];
 const ResourceCollection = (props) => (
   <Collection

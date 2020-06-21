@@ -31,11 +31,16 @@ export default ({ record, }) => {
             <Box>{record.name}</Box>
             <Box flexGrow={1}></Box>
           </Stack>
-          <Box>
-            {record.due_date
-              ? moment(record.due_date).format('Do, MMMM YYYY, H:mm')
-              : '-'}
-          </Box>
+         <Stack isInline>
+           <Box>
+             {record.due_date
+               ? moment(record.due_date).format('Do, MMMM YYYY, H:mm')
+               : '-'}
+           </Box>
+           <Box>
+             {record?.ref_project?.name}
+           </Box>
+         </Stack>
         </Stack>
         <Box mr={2}>
           <Badge>{record.priority}</Badge>

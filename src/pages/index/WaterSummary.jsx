@@ -46,7 +46,6 @@ export default () => {
           <Text>{todayAgg?.sum.quantity} / 3000 ML</Text>
         </Stack>
         <Progress
-          shadow={"lg"}
           borderRadius={5}
           value={percentage}
           color={isTodayAhead ? 'green' : 'red'}
@@ -56,7 +55,6 @@ export default () => {
           <Text>{yestAvg} / 3000 ML</Text>
         </Stack>
         <Progress
-          shadow={"lg"}
           borderRadius={5}
           value={yestPercentage}
         />
