@@ -5,6 +5,7 @@ import {
   TabList,
   TabPanels,
   Tab,
+  Flex,
   TabPanel,
   Heading,
 } from '@chakra-ui/core';
@@ -22,28 +23,20 @@ export default () => {
   return (
     <Box p={10}>
       <Stack spacing={10}>
-        <Stack my={5}>
-          <Card animate highlight>
-            <TasksSummary />
+        <Card animate highlight>
+          <TasksSummary />
+        </Card>
+        <Flex direction={['column', 'row']} justifyContent={'space-between'}>
+          <Card animate highlight w={'100%'}>
+            <GlucoseSummary />
           </Card>
-        </Stack>
-        <Stack isInline spacing={10}>
-          <Stack flex={1} my={5}>
-            <Card animate highlight>
-              <GlucoseSummary />
-            </Card>
-          </Stack>
-          <Stack flex={1} my={5}>
-            <Card animate highlight>
-              <WaterSummary />
-            </Card>
-          </Stack>
-        </Stack>
-        <Stack my={5}>
-          <Card animate highlight>
-            <TransactionSummary />
+          <Card animate highlight w={'100%'}>
+            <WaterSummary />
           </Card>
-        </Stack>
+        </Flex>
+        <Card animate highlight>
+          <TransactionSummary />
+        </Card>
       </Stack>
     </Box>
   );
