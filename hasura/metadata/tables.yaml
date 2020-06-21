@@ -1,9 +1,131 @@
 - table:
     schema: public
     name: dishes
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - name
+      - description
+      - carbs
+      - fat
+      - protein
+      - quantity
+      - unit
+      - user_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - carbs
+      - fat
+      - protein
+      - quantity
+      - description
+      - name
+      - unit
+      - user_id
+      - created_at
+      - updated_at
+      - id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - carbs
+      - fat
+      - protein
+      - quantity
+      - description
+      - name
+      - unit
+      - user_id
+      - created_at
+      - updated_at
+      - id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: glucose
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - value
+      - description
+      - timestamp
+      - user_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - value
+      - description
+      - user_id
+      - created_at
+      - timestamp
+      - updated_at
+      - id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - value
+      - description
+      - user_id
+      - created_at
+      - timestamp
+      - updated_at
+      - id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: projects
@@ -11,6 +133,64 @@
   - name: ref_team
     using:
       foreign_key_constraint_on: team_id
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - name
+      - description
+      - is_archived
+      - team_id
+      - user_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - name
+      - description
+      - is_archived
+      - team_id
+      - user_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - is_archived
+      - description
+      - name
+      - user_id
+      - created_at
+      - updated_at
+      - id
+      - team_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: tasks
@@ -82,15 +262,189 @@
 - table:
     schema: public
     name: teams
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - name
+      - description
+      - user_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - description
+      - name
+      - user_id
+      - created_at
+      - updated_at
+      - id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - description
+      - name
+      - user_id
+      - created_at
+      - updated_at
+      - id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: transactions
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - name
+      - description
+      - timestamp
+      - team
+      - type
+      - planned_at
+      - value
+      - user_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - value
+      - description
+      - name
+      - team
+      - type
+      - user_id
+      - created_at
+      - planned_at
+      - timestamp
+      - updated_at
+      - id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - value
+      - description
+      - name
+      - team
+      - type
+      - user_id
+      - created_at
+      - planned_at
+      - timestamp
+      - updated_at
+      - id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: users
 - table:
     schema: public
     name: water
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+      - id
+      - created_at
+      - updated_at
+      - quantity
+      - timestamp
+      - description
+      - user_id
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - quantity
+      - description
+      - user_id
+      - created_at
+      - timestamp
+      - updated_at
+      - id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - quantity
+      - description
+      - user_id
+      - created_at
+      - timestamp
+      - updated_at
+      - id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
+  delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
 - table:
     schema: public
     name: water_till_now
