@@ -49,7 +49,6 @@ export default ({
       mutation={gql`
         ${mutationString}
       `}
-      onError={console.log}
     >
       {(mutate, { data }) => children(mutateWrapper(mutate))}
     </Mutation>
