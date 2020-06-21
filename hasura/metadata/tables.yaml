@@ -214,6 +214,7 @@
       - project_id
       - status
       - team
+      - user_id
       backend_only: false
   select_permissions:
   - role: user

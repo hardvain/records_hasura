@@ -3,6 +3,7 @@ import moment from 'moment';
 export const [useStore] = create((set, get) => ({
   ui: {
     date: moment(),
+    user_id: undefined,
     showSidebar: false,
     currentTeam: 'all',
     showFormPopup: false,
@@ -34,6 +35,12 @@ export const [useStore] = create((set, get) => ({
     set((state) => ({
       ...state,
       ui: { ...state.ui, date: value },
+    }));
+  },
+  setUserId: (value) => {
+    set((state) => ({
+      ...state,
+      ui: { ...state.ui, user_id: value },
     }));
   },
   setColors: (colors) => {

@@ -29,13 +29,5 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-# Setting Up Db
-```bash
-psql -U postgres -c 'CREATE DATABASE assess';
-CREATE USER development WITH PASSWORD 'p@ssw0rd1';
-ALTER ROLE development SET client_encoding TO 'utf8';
-ALTER ROLE development SET default_transaction_isolation TO 'read committed';
-ALTER ROLE development SET timezone TO 'UTC';
-GRANT ALL PRIVILEGES ON DATABASE assess TO development;
-ALTER USER development CREATEDB;
-```
+# Migrations
+* https://hasura.io/docs/1.0/graphql/manual/migrations/migrations-setup.html

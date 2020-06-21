@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { Flex, Stack } from '@chakra-ui/core';
 import './app.css';
@@ -46,8 +46,15 @@ const config = (theme) => ({
   },
 });
 const App = ({ Component, pageProps }) => {
-  const showSidebar = useStore((state) => state.ui.showSidebar);
+  const { setUserId } = useStore((state) => ({
+    setUserId: state.setUserId,
+  }));
   const { user, loading } = useFetchUser({ required: true });
+  useEffect(() => {
+    if (user && user['https://hasura.io/jwt/claims']) {
+      setUserId(user['https://hasura.io/jwt/claims']['x-hasura-user-id']);
+    }
+  }, [user]);
   if (loading || !user) {
     return (
       <ThemeProvider theme={theme}>
@@ -63,22 +70,22 @@ const App = ({ Component, pageProps }) => {
       <Head>
         <title>Records</title>
       </Head>
-        <ThemeProvider theme={theme}>
-          <ColorModeProvider>
-            <DarkMode>
-              <CSSReset config={config} />
-              <Flex direction={'row'}>
-                {<Sidebar />}
-                <Box ml={70} mr={5} flexGrow={1}>
-                  <Box id="component-box" minHeight={'90vh'}>
-                    <Component {...pageProps} />
-                  </Box>
-                  <FormModal />
+      <ThemeProvider theme={theme}>
+        <ColorModeProvider>
+          <DarkMode>
+            <CSSReset config={config} />
+            <Flex direction={'row'}>
+              {<Sidebar />}
+              <Box ml={70} mr={5} flexGrow={1}>
+                <Box id="component-box" minHeight={'90vh'}>
+                  <Component {...pageProps} />
                 </Box>
-              </Flex>
-            </DarkMode>
-          </ColorModeProvider>
-        </ThemeProvider>
+                <FormModal />
+              </Box>
+            </Flex>
+          </DarkMode>
+        </ColorModeProvider>
+      </ThemeProvider>
     </Box>
   );
 };

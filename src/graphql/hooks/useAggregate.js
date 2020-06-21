@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
+import { useFetchUser } from 'src/lib/user';
+import { useStore } from 'src/store';
 
 const constructAggregateString = (aggregates) => {
   let result = 'aggregate{\n';
@@ -32,7 +34,6 @@ export default ({
   const { error, data, loading } = useQuery(gql(queryString), {
     variables: { where, order_by, limit, offset },
   });
-  console.log(data, loading, error);
 
   if (data) {
     const resultData = data[`${name}_aggregate`].aggregate;

@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
+import { useStore } from 'src/store';
 
 export default ({
   resource,
@@ -8,6 +9,7 @@ export default ({
   children,
   operation = 'insert',
 }) => {
+
   const updateString = `
       mutation update_${resource}($where:${resource}_bool_exp!,$object:${resource}_set_input){
           update_${resource}(where:$where,_set:$object){affected_rows}
@@ -47,6 +49,7 @@ export default ({
       mutation={gql`
         ${mutationString}
       `}
+      onError={console.log}
     >
       {(mutate, { data }) => children(mutateWrapper(mutate))}
     </Mutation>
