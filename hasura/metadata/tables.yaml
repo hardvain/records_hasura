@@ -7,18 +7,16 @@
       check:
         user_id:
           _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
       columns:
-      - id
-      - created_at
-      - updated_at
-      - name
-      - description
       - carbs
+      - description
       - fat
+      - name
       - protein
       - quantity
       - unit
-      - user_id
       backend_only: false
   select_permissions:
   - role: user
@@ -77,14 +75,12 @@
       check:
         user_id:
           _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
       columns:
-      - id
-      - created_at
-      - updated_at
-      - value
       - description
       - timestamp
-      - user_id
+      - value
       backend_only: false
   select_permissions:
   - role: user
@@ -139,15 +135,13 @@
       check:
         user_id:
           _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
       columns:
-      - id
-      - created_at
-      - updated_at
-      - name
       - description
       - is_archived
+      - name
       - team_id
-      - user_id
       backend_only: false
   select_permissions:
   - role: user
@@ -207,14 +201,16 @@
       set:
         user_id: x-hasura-User-Id
       columns:
+      - created_at
       - description
       - due_date
+      - id
       - name
       - priority
       - project_id
       - status
       - team
-      - user_id
+      - updated_at
       backend_only: false
   select_permissions:
   - role: user
@@ -241,6 +237,7 @@
       columns:
       - created_at
       - description
+      - due_date
       - name
       - priority
       - project_id
@@ -269,13 +266,11 @@
       check:
         user_id:
           _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
       columns:
-      - id
-      - created_at
-      - updated_at
-      - name
       - description
-      - user_id
+      - name
       backend_only: false
   select_permissions:
   - role: user
@@ -324,18 +319,16 @@
       check:
         user_id:
           _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
       columns:
-      - id
-      - created_at
-      - updated_at
-      - name
       - description
-      - timestamp
-      - team
-      - type
+      - name
       - planned_at
+      - team
+      - timestamp
+      - type
       - value
-      - user_id
       backend_only: false
   select_permissions:
   - role: user
@@ -397,14 +390,12 @@
       check:
         user_id:
           _eq: X-Hasura-User-Id
+      set:
+        user_id: x-hasura-User-Id
       columns:
-      - id
-      - created_at
-      - updated_at
+      - description
       - quantity
       - timestamp
-      - description
-      - user_id
       backend_only: false
   select_permissions:
   - role: user

@@ -10,11 +10,16 @@ import { useState } from 'react';
 import Card from 'src/components/Card';
 import Sugar from 'src/assets/Sugar';
 import moment from 'moment';
+import useMutation from 'src/graphql/hooks/useMutation';
 import Form from '../form';
-import Mutation from 'src/graphql/mutation';
+
 export default ({ record, onSubmit }) => {
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
+  const mutate = useMutation({
+    resource: 'projects',
+    operation: 'delete',
+  });
   return (
     <Card
       highlight
@@ -36,25 +41,20 @@ export default ({ record, onSubmit }) => {
           </Stack>
           <Box>{record.is_archived}</Box>
         </Stack>
-
-        <Mutation resource={'projects'} operation={'delete'}>
-          {(mutate) => (
-            <IconButton
-              ml={2}
-              size={"sm"}
-              icon={'delete'}
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                mutate({ variables: { where: { id: { _eq: record.id } } } });
-              }}
-            />
-          )}
-        </Mutation>
+        <IconButton
+          ml={2}
+          size={'sm'}
+          icon={'delete'}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            mutate({ variables: { where: { id: { _eq: record.id } } } });
+          }}
+        />
       </Flex>
       <Collapse isOpen={show}>
         <Divider />
-        <Form model={record} onSubmit={onSubmit}/>
+        <Form model={record} onSubmit={onSubmit} />
       </Collapse>
     </Card>
   );

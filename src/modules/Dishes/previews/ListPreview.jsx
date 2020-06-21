@@ -10,13 +10,17 @@ import {
 import { useState } from 'react';
 import Card from 'src/components/Card';
 import Task from 'src/assets/Task';
+import useMutation from 'src/graphql/hooks/useMutation';
 import Form from '../form';
-import Mutation from 'src/graphql/mutation';
+
 
 export default ({ record, onSubmit }) => {
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
-
+  const mutate = useMutation({
+    resource: 'dishes',
+    operation: 'delete',
+  });
   return (
     <Card cursor="pointer" animate highlight>
       <Flex
@@ -51,22 +55,18 @@ export default ({ record, onSubmit }) => {
           </Box>
         </Stack>
 
-        <Mutation resource={'dishes'} operation={'delete'}>
-          {(mutate) => (
-            <IconButton
-              variant={'ghost'}
-              variantColor={'red'}
-              ml={2}
-              size={'sm'}
-              icon={'delete'}
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                mutate({ variables: { where: { id: { _eq: record.id } } } });
-              }}
-            />
-          )}
-        </Mutation>
+        <IconButton
+          variant={'ghost'}
+          variantColor={'red'}
+          ml={2}
+          size={'sm'}
+          icon={'delete'}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            mutate({ variables: { where: { id: { _eq: record.id } } } });
+          }}
+        />
       </Flex>
       <Collapse isOpen={show}>
         <Form model={record} onSubmit={onSubmit} />

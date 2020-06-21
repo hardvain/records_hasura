@@ -26,7 +26,6 @@ import Sugar from 'src/assets/Sugar';
 import WaterIcon from 'src/assets/Water';
 import Money from 'src/assets/Money';
 export default () => {
-  const toast = useToast();
   const { colorMode } = useColorMode();
   const [recordType, setRecordType] = useState('task');
   const { showFormPopup, toggleFormPopup } = useStore((state) => ({
@@ -36,14 +35,6 @@ export default () => {
   }));
   const onSubmit = () => {
     toggleFormPopup();
-    toast({
-      title: 'Record added successfully',
-      duration: 2000,
-      status: 'success',
-      isClosable: true,
-      position: 'top',
-      variant: 'solid',
-    });
   };
   const formMap = {
     task: Tasks,

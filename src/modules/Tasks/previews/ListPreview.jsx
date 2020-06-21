@@ -3,13 +3,14 @@ import { useState } from 'react';
 import Card from 'src/components/Card';
 import Task from 'src/assets/Task';
 import moment from 'moment';
+import useMutation from 'src/graphql/hooks/useMutation';
 import Form from '../form';
-import Mutation from 'src/graphql/mutation';
+
 
 export default ({ record, onSubmit }) => {
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
-
+  const mutate = useMutation({ resource: 'tasks', operation: 'delete' });
   return (
     <Card cursor="pointer" animate highlight>
       <Flex
@@ -46,22 +47,18 @@ export default ({ record, onSubmit }) => {
           <Badge variantColor={'brand'}>{record.team}</Badge>
         </Box>
 
-        <Mutation resource={'tasks'} operation={'delete'}>
-          {(mutate) => (
-            <IconButton
-              variant={'ghost'}
-              variantColor={'red'}
-              ml={2}
-              size={'sm'}
-              icon={'delete'}
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                mutate({ variables: { where: { id: { _eq: record.id } } } });
-              }}
-            />
-          )}
-        </Mutation>
+        <IconButton
+          variant={'ghost'}
+          variantColor={'red'}
+          ml={2}
+          size={'sm'}
+          icon={'delete'}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            mutate({ variables: { where: { id: { _eq: record.id } } } });
+          }}
+        />
       </Flex>
       <Collapse isOpen={show}>
         <Form model={record} onSubmit={onSubmit} />

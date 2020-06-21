@@ -59,7 +59,7 @@ const App = ({ Component, pageProps }) => {
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
           <DarkMode>
-            <CSSReset />
+            <CSSReset config={config}/>
             <Landing />
           </DarkMode>
         </ColorModeProvider>

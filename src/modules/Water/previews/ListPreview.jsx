@@ -11,12 +11,16 @@ import { useState } from 'react';
 import Card from 'src/components/Card';
 import Water from 'src/assets/Water';
 import moment from 'moment';
+import useMutation from 'src/graphql/hooks/useMutation';
 import Form from '../form';
-import Mutation from 'src/graphql/mutation';
+
 export default ({ record, onSubmit }) => {
   const [show, setShow] = useState(false);
   const { colorMode } = useColorMode();
-
+  const mutate = useMutation({
+    resource: 'water',
+    operation: 'delete',
+  });
   const handleToggle = () => setShow(!show);
   return (
     <Card cursor={'pointer'} highlight>
@@ -41,20 +45,16 @@ export default ({ record, onSubmit }) => {
           <Box>{moment(record.timestamp).format('Do, MMMM YYYY, H:mm')}</Box>
         </Stack>
 
-        <Mutation resource={'water'} operation={'delete'}>
-          {(mutate) => (
-            <IconButton
-              ml={2}
-              size={'sm'}
-              icon={'delete'}
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                mutate({ variables: { where: { id: { _eq: record.id } } } });
-              }}
-            />
-          )}
-        </Mutation>
+        <IconButton
+          ml={2}
+          size={'sm'}
+          icon={'delete'}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            mutate({ variables: { where: { id: { _eq: record.id } } } });
+          }}
+        />
       </Flex>
       <Collapse isOpen={show}>
         <Divider />
