@@ -14,7 +14,7 @@ import moment from 'moment';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Form from '../form';
 
-export default ({ record, onSubmit }) => {
+export default ({ record, }) => {
   const [show, setShow] = useState(false);
   const { colorMode } = useColorMode();
   const mutate = useMutation({
@@ -73,7 +73,7 @@ export default ({ record, onSubmit }) => {
         />
       </Flex>
       <Collapse isOpen={show}>
-        <Form model={record} onSubmit={onSubmit} />
+        <Form model={record} />
       </Collapse>
     </Card>
   );

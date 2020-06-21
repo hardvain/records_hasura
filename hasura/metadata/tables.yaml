@@ -416,13 +416,9 @@
   - role: user
     permission:
       columns:
-      - quantity
       - description
-      - user_id
-      - created_at
+      - quantity
       - timestamp
-      - updated_at
-      - id
       filter:
         user_id:
           _eq: X-Hasura-User-Id

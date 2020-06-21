@@ -21,7 +21,7 @@ export default ({ model, onSubmit }) => {
     setCurrentModel(model);
   }, [model]);
   const mutate = useMutation({
-    resource: 'tasks',
+    resource: 'water',
     operation: currentModel ? 'update' : 'insert',
   });
   return (
