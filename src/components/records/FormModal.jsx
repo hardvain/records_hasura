@@ -49,7 +49,7 @@ export default () => {
     task: Tasks,
     glucose: Glucose,
     water: Water,
-    transactions: Transactions,
+    transaction: Transactions,
     dishes: Dishes,
     projects: Projects,
   };

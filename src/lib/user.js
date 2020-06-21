@@ -52,10 +52,10 @@ export function useFetchUser({ required } = {}) {
         // Only set the user if the component is still mounted
         if (isMounted) {
           // When the user is not logged in but login is required
-          if (required && !user) {
-            window.location.href = '/api/login'
-            return
-          }
+          // if (required && !user) {
+          //   window.location.href = '/api/login'
+          //   return
+          // }
           setUser(user)
           setLoading(false)
         }

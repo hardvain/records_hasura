@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { Flex, Stack } from '@chakra-ui/core';
 import './app.css';
 import FormModal from 'src/components/records/FormModal';
-import Login from 'src/pages/Login';
 import { useStore } from 'src/store';
 import Sidebar from '../components/Sidebar';
 import {
@@ -21,7 +20,7 @@ import Router from 'next/router';
 import { useFetchUser } from '../lib/user';
 import { withApollo } from '../lib/withApollo';
 import { ApolloProvider } from '@apollo/react-hooks';
-
+import Landing from './landing';
 NProgress.configure({ showSpinner: false });
 
 Router.events.on('routeChangeStart', () => NProgress.start());
@@ -59,8 +58,10 @@ const App = ({ Component, pageProps }) => {
     return (
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
-          <CSSReset config={config} />
-          <Login />
+          <DarkMode>
+            <CSSReset />
+            <Landing />
+          </DarkMode>
         </ColorModeProvider>
       </ThemeProvider>
     );

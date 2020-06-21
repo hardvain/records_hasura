@@ -31,6 +31,7 @@ import Sleep from 'src/assets/Sleep';
 import Water from 'src/assets/Water';
 import Time from 'src/assets/Time';
 import { useStore } from 'src/store';
+import { IoIosLogOut } from 'react-icons/io';
 const MenuItem = ({ children, isActive, title, href, as }) => {
   const { colorMode } = useColorMode();
   const showSidebar = useStore((state) => state.ui.showSidebar);
@@ -75,8 +76,8 @@ export default () => {
   const handleToggle = () => setShow(!show);
   const router = useRouter();
   const pathname = router.pathname;
-  const login = () => {
-
+  const logout = () => {
+    Router.push('/api/logout');
   };
   return (
     <Box
@@ -360,7 +361,11 @@ export default () => {
         icon={colorMode === 'light' ? 'moon' : 'sun'}
         onClick={toggleColorMode}
       />
-      <IconButton size={'lg'} variant="default" icon={'user'} onClick={login} />
+      <IconButton
+        size={'md'}
+        icon={IoIosLogOut}
+        onClick={logout}
+      />
     </Box>
   );
 };

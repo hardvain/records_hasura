@@ -28,7 +28,7 @@ export default () => {
         .map((i) => i.quantity)
     : [];
   const yestAvg =
-    yestItemsBeforeNow.reduce((p, c) => p + c, 0) / yestItemsBeforeNow.length;
+    yestItemsBeforeNow.reduce((p, c) => p + c, 0) / yestItemsBeforeNow.length || 0;
   const yestPercentage = (yestAvg * 100) / 3000;
 
   const isTodayAhead = percentage > yestPercentage;
