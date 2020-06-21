@@ -15,6 +15,7 @@ import Card from 'src/components/Card';
 import Tasks from 'src/modules/Tasks';
 import moment from 'moment';
 import * as TaskFilters from 'src/modules/Tasks/filters';
+import ResourceSelector from 'src/components/collection/Selector';
 export default () => {
   const { colorMode } = useColorMode();
   const [filters, setFilters] = useState(undefined);
@@ -138,12 +139,13 @@ export default () => {
             <FormControl mt={5}>
               <FormLabel>Team</FormLabel>
               <Select
+                variant={'outline'}
                 size={'sm'}
                 name="team"
                 onChange={(e) => setTeam(e.target.value)}
                 value={team}
+                placeholder={'Select a Team'}
               >
-                <option value={''}>All</option>
                 <option value={'vndly'}>VNDLY</option>
                 <option value={'family'}>Family</option>
                 <option value={'relationships'}>Relationships</option>
@@ -156,14 +158,19 @@ export default () => {
               </Select>
             </FormControl>
             <FormControl>
+              <FormLabel>Project</FormLabel>
+              <ResourceSelector />
+            </FormControl>
+            <FormControl>
               <FormLabel>Priority</FormLabel>
               <Select
+                variant={'outline'}
                 size={'sm'}
                 onChange={(e) => setPriority(e.target.value)}
                 name="priority"
                 value={priority}
+                placeholder={'Select Priority'}
               >
-                <option value={''}>All</option>
                 <option value={'very_high'}>Very High</option>
                 <option value={'high'}>High</option>
                 <option value={'medium'}>Medium</option>
@@ -175,12 +182,13 @@ export default () => {
             <FormControl>
               <FormLabel>Status</FormLabel>
               <Select
+                variant={'outline'}
                 size={'sm'}
                 name="status"
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
+                placeholder={'Select Status'}
               >
-                <option value={''}>All</option>
                 <option value={'todo'}>To Do</option>
                 <option value={'in_progress'}>In Progress</option>
                 <option value={'completed'}>Completed</option>

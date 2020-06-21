@@ -278,42 +278,6 @@ export default () => {
         </Tooltip>
       )}
       <Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />
-      {/*<MenuItem*/}
-      {/*  href="/teams"*/}
-      {/*  as={`/teams`}*/}
-      {/*  title={'Teams'}*/}
-      {/*  isActive={pathname === '/teams'}*/}
-      {/*>*/}
-      {/*  <Stack isInline alignItems={'center'}>*/}
-      {/*    <Box alignSelf={'center'} mr={4}>*/}
-      {/*      <Company width={30} height={30} />*/}
-      {/*    </Box>*/}
-      {/*  </Stack>*/}
-      {/*</MenuItem>*/}
-      {/*<MenuItem*/}
-      {/*  href="/goals"*/}
-      {/*  as={`/goals`}*/}
-      {/*  title={'Goals'}*/}
-      {/*  isActive={pathname === '/goals'}*/}
-      {/*>*/}
-      {/*  <Stack isInline alignItems={'center'}>*/}
-      {/*    <Box alignSelf={'center'} mr={4}>*/}
-      {/*      <Goal width={30} height={30} />*/}
-      {/*    </Box>*/}
-      {/*  </Stack>*/}
-      {/*</MenuItem>*/}
-      {/*<MenuItem*/}
-      {/*  href="/initiatives"*/}
-      {/*  as={`/initiatives`}*/}
-      {/*  title={'Objectives'}*/}
-      {/*  isActive={pathname === '/initiatives'}*/}
-      {/*>*/}
-      {/*  <Stack isInline alignItems={'center'}>*/}
-      {/*    <Box alignSelf={'center'} mr={4}>*/}
-      {/*      <Target width={30} height={30} />*/}
-      {/*    </Box>*/}
-      {/*  </Stack>*/}
-      {/*</MenuItem>*/}
       <MenuItem
         href="/projects"
         as={`/projects`}

@@ -13,8 +13,8 @@ import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { FormikDatePicker } from 'src/components/DatePicker';
 import useMutation from 'src/graphql/hooks/useMutation';
-
 import moment from 'moment';
+import { FormikResourceSelector } from 'src/components/collection/Selector';
 export default ({ model, onSubmit = () => {} }) => {
   const [currentModel, setCurrentModel] = useState(model);
   useEffect(() => {
@@ -32,6 +32,7 @@ export default ({ model, onSubmit = () => {} }) => {
         description: currentModel?.description || '',
         priority: currentModel?.priority || '',
         team: currentModel?.team || '',
+        project_id: currentModel?.project_id || '',
         status: currentModel?.status || 'todo',
         due_date: currentModel?.due_date
           ? moment(currentModel.due_date).toISOString(true)
@@ -96,6 +97,17 @@ export default ({ model, onSubmit = () => {} }) => {
                     <option value={'completed'}>Completed</option>
                   </Select>
                   <ErrorMessage name="status" component="div" />
+                </FormControl>
+              </Box>
+              <Box>
+                <FormControl>
+                  <FormLabel htmlFor="team">Project</FormLabel>
+                  <FormikResourceSelector
+                    fieldName="project_id"
+                    name={'projects'}
+                    value={values.project_id}
+                  />
+                  <ErrorMessage name="project_id" component="div" />
                 </FormControl>
               </Box>
               <Box>
