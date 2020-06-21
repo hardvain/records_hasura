@@ -9,6 +9,7 @@
       "POST_LOGOUT_REDIRECT_URI": "https://recordz.app/",
       "SESSION_COOKIE_SECRET": "@session-cookie-secret",
       "HASURA_GRAPHQL_URL": "@hasura-graphql-url",
+      "HASURA_GRAPHQL_URL_WSS": "@hasura-graphql-url-wss",
       "SECURE_COOKIE": "true"
     }
   }
