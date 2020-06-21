@@ -80,7 +80,8 @@ export default () => {
     Router.push('/api/logout');
   };
   return (
-    <Box
+    <Flex
+      direction={'column'}
       w={70}
       px={3}
       pt={3}
@@ -355,17 +356,18 @@ export default () => {
           </Box>
         </Stack>
       </MenuItem>
-      <IconButton
-        size={'lg'}
-        variant="default"
-        icon={colorMode === 'light' ? 'moon' : 'sun'}
-        onClick={toggleColorMode}
-      />
-      <IconButton
-        size={'md'}
-        icon={IoIosLogOut}
-        onClick={logout}
-      />
-    </Box>
+      <Tooltip label={colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}>
+        <IconButton
+          size={'lg'}
+          variant="default"
+          icon={colorMode === 'light' ? 'moon' : 'sun'}
+          onClick={toggleColorMode}
+        />
+      </Tooltip>
+      <Box flexGrow={1}></Box>
+      <Tooltip label={'Logout'}>
+        <IconButton mb={5} size={'md'} variant={"ghost"} icon={IoIosLogOut} onClick={logout} />
+      </Tooltip>
+    </Flex>
   );
 };
