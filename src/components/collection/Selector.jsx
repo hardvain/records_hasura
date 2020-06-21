@@ -29,7 +29,6 @@ const ProjectSelector = ({
   }
   return (
     <Select
-      placeholder={'Select a project'}
       size={'sm'}
       value={value}
       onChange={(e) => onChange(e.target.value)}

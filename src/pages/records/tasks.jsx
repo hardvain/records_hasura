@@ -21,6 +21,7 @@ export default () => {
   const [filters, setFilters] = useState(undefined);
   const [activePreset, setActivePreset] = useState('today');
   const [team, setTeam] = useState('');
+  const [project, setProject] = useState('');
   const [status, setStatus] = useState('');
   const [priority, setPriority] = useState('');
   const [date, setDate] = useState(moment().toISOString(true));
@@ -31,6 +32,10 @@ export default () => {
   const activateBacklogFilter = () => {
     setActivePreset('backlog');
     setFilters(TaskFilters.backlog());
+  };
+  const activateAllFilter = () => {
+    setActivePreset('all');
+    setFilters({});
   };
   const activateOverdueFilter = () => {
     setActivePreset('overdue');
@@ -54,6 +59,9 @@ export default () => {
     if (priority !== '') {
       result = { ...result, priority: { _eq: priority } };
     }
+    if (project !== '') {
+      result = { ...result, project_id: { _eq: project } };
+    }
     if (date !== '') {
       result = {
         ...result,
@@ -64,11 +72,10 @@ export default () => {
       };
     }
     setFilters(result);
-  }, [team, status, priority, date]);
+  }, [team, status, priority, date, project]);
   useEffect(() => {
     activateTodayFilter();
   }, []);
-
   return (
     <Box>
       <Stack isInline>
@@ -90,6 +97,7 @@ export default () => {
             >
               Today
             </Button>
+
             <Button
               bg={
                 activePreset === 'backlog'
@@ -135,6 +143,21 @@ export default () => {
             >
               Next 7 days
             </Button>
+            <Button
+              bg={
+                activePreset === 'all'
+                  ? colorMode === 'light'
+                  ? 'gray.300'
+                  : '#3e4242'
+                  : ''
+              }
+              onClick={activateAllFilter}
+              justifyContent={'flex-start'}
+              w={'100%'}
+              variant={'ghost'}
+            >
+              All
+            </Button>
             <Divider />
             <FormControl mt={5}>
               <FormLabel>Team</FormLabel>
@@ -159,7 +182,12 @@ export default () => {
             </FormControl>
             <FormControl>
               <FormLabel>Project</FormLabel>
-              <ResourceSelector />
+              <ResourceSelector
+                placeholder={'Select a project'}
+                name={'projects'}
+                onChange={setProject}
+                value={project}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>Priority</FormLabel>
