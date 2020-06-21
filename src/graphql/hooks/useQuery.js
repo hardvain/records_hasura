@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useSubscription } from '@apollo/react-hooks';
 
 export default ({
   name,
@@ -10,12 +10,12 @@ export default ({
   fields,
   offset,
 }) => {
-  const queryString = `query list_${name}($where:${name}_bool_exp, $order_by:${name}_order_by!, $limit:Int, $offset:Int){
+  const queryString = `subscription list_${name}($where:${name}_bool_exp, $order_by:${name}_order_by!, $limit:Int, $offset:Int){
           ${name}(where:$where, order_by:[$order_by], limit:$limit,offset:$offset){
             ${fields.join(',')}
           }
       }`;
-  const { error, data, loading } = useQuery(gql(queryString), {
+  const { error, data, loading } = useSubscription(gql(queryString), {
     variables: { where, order_by, limit, offset },
   });
   if (data) {

@@ -32,7 +32,7 @@ export default ({ model, onSubmit = () => {} }) => {
         description: currentModel?.description || '',
         priority: currentModel?.priority || '',
         team: currentModel?.team || '',
-        project_id: currentModel?.project_id || '',
+        project_id: currentModel?.project_id || undefined,
         status: currentModel?.status || 'todo',
         due_date: currentModel?.due_date
           ? moment(currentModel.due_date).toISOString(true)
