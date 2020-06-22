@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import gql from 'graphql-tag';
-import { useQuery, useSubscription } from '@apollo/react-hooks';
+import {  useSubscription } from '@apollo/react-hooks';
 
 export default ({
   name,

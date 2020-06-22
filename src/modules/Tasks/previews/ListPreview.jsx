@@ -1,4 +1,5 @@
 import { Box, Flex, IconButton, Stack, Collapse, Badge } from '@chakra-ui/core';
+import Link from 'next/link';
 import { useState } from 'react';
 import Card from 'src/components/Card';
 import Task from 'src/assets/Task';
@@ -6,8 +7,7 @@ import moment from 'moment';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Form from '../form';
 
-
-export default ({ record, }) => {
+export default ({ record }) => {
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
   const mutate = useMutation({ resource: 'tasks', operation: 'delete' });
@@ -31,16 +31,14 @@ export default ({ record, }) => {
             <Box>{record.name}</Box>
             <Box flexGrow={1}></Box>
           </Stack>
-         <Stack isInline>
-           <Box>
-             {record.due_date
-               ? moment(record.due_date).format('Do, MMMM YYYY, H:mm')
-               : '-'}
-           </Box>
-           <Box>
-             {record?.ref_project?.name}
-           </Box>
-         </Stack>
+          <Stack isInline>
+            <Box>
+              {record.due_date
+                ? moment(record.due_date).format('Do, MMMM YYYY, H:mm')
+                : '-'}
+            </Box>
+            <Box>{record?.ref_project?.name}</Box>
+          </Stack>
         </Stack>
         <Box mr={2}>
           <Badge>{record.priority}</Badge>
@@ -64,6 +62,16 @@ export default ({ record, }) => {
             mutate({ variables: { where: { id: { _eq: record.id } } } });
           }}
         />
+
+        <Link as={`/tasks/${record.id}`} href={'/tasks/[id]'}>
+          <IconButton
+            variant={'ghost'}
+            variantColor={'red'}
+            ml={2}
+            size={'sm'}
+            icon={'eye'}
+          />
+        </Link>
       </Flex>
       <Collapse isOpen={show}>
         <Form model={record} />

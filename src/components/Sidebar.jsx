@@ -111,10 +111,10 @@ export default () => {
         />
       </Tooltip>
       <MenuItem
-        href="/records/tasks"
-        as={`/records/tasks`}
+        href="/tasks"
+        as={`/tasks`}
         title={'Tasks'}
-        isActive={pathname === '/records/tasks'}
+        isActive={pathname === '/tasks'}
       >
         <Stack isInline alignItems={'center'}>
           <Box mr={5}>

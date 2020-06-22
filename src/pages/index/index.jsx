@@ -26,14 +26,14 @@ export default () => {
         <Card animate highlight>
           <TasksSummary />
         </Card>
-        <Flex direction={['column', 'row']} justifyContent={'space-between'}>
+        <Stack isInline spacing={10}>
           <Card animate highlight w={'100%'}>
             <GlucoseSummary />
           </Card>
           <Card animate highlight w={'100%'}>
             <WaterSummary />
           </Card>
-        </Flex>
+        </Stack>
         <Card animate highlight>
           <TransactionSummary />
         </Card>

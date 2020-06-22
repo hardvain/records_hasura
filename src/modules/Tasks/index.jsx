@@ -9,9 +9,10 @@ const fields = [
   'priority',
   'team',
   'status',
-  "project_id",
-  "ref_project{name}"
+  'project_id',
+  'ref_project{name}',
 ];
+
 const ResourceCollection = (props) => (
   <Collection
     resource={'tasks'}

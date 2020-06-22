@@ -1,16 +1,22 @@
 import { Box, Flex, Spinner } from '@chakra-ui/core';
 import { createElement } from 'react';
 import NotFound from 'src/assets/NotFound';
+import Filter from 'src/components/calendar/Filter';
 import Table from './Table';
 import List from './List';
 import Gallery from './Gallery';
 import useQuery from 'src/graphql/hooks/useQuery';
+import { useQuery as useApolloQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+
+import Filters from './filters';
 const DisplayMap = {
   list: List,
   table: Table,
   gallery: Gallery,
 };
-export default ({
+
+const FilteredCollection = ({
   resource,
   fields,
   where,
@@ -50,7 +56,12 @@ export default ({
   if (error) return <Box>Something went wrong</Box>;
   if (data.length === 0) {
     return (
-      <Flex w={'100%'} alignItems={'center'} h={'100%'}  justifyContent={'center'}>
+      <Flex
+        w={'100%'}
+        alignItems={'center'}
+        h={'100%'}
+        justifyContent={'center'}
+      >
         <NotFound w={200} height={200} />
       </Flex>
     );
@@ -59,4 +70,26 @@ export default ({
     data: data,
     preview: previews[type],
   });
+};
+
+export default ({ resource, ...rest }) => {
+  const { error, data, loading } = useApolloQuery(gql`query{
+__type(name:"${resource}"){
+    name
+    fields{
+      name
+      type{
+        name
+          ofType {
+              name
+          }
+      }
+    }
+  }
+}`);
+  return (
+    <Filters schema={data ? data['__type'] : {}}>
+      {(filters) => <FilteredCollection resource={resource} {...rest} />}
+    </Filters>
+  );
 };

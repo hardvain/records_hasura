@@ -1,4 +1,4 @@
-import { Divider, Progress, Stack, Text } from '@chakra-ui/core';
+import { Divider, Progress, Skeleton, Stack, Text } from '@chakra-ui/core';
 import Link from 'next/link';
 import Card from 'src/components/Card';
 import moment from 'moment';
@@ -74,16 +74,25 @@ export default ({ record }) => {
     <Link href={`/projects/${record.id}`}>
       <Card title={record.name} highlight>
         <Stack>
-          <Stack p={3}>
+          <Stack p={3} spacing={10}>
             <Text>Progress:</Text>
-            <Progress
-              w={'100%'}
-              borderRadius={5}
-              value={completedPercentage || 0}
-            />
-            <Text>
-              {pendingTasks?.count} out {totalTasks?.count} tasks remaining
-            </Text>
+            {completedPercentage ? (
+              <>
+                <Progress
+                  w={'100%'}
+                  borderRadius={5}
+                  value={completedPercentage || 0}
+                />
+                <Text>
+                  {pendingTasks?.count} out {totalTasks?.count} tasks remaining
+                </Text>
+              </>
+            ) : (
+              <>
+                <Skeleton width={'100%'} h={10} />
+                <Skeleton width={'100%'} h={5} />
+              </>
+            )}
           </Stack>
           <Divider />
           <Stack isInline justifyContent={'space-evenly'} w={'100%'} p={3}>
