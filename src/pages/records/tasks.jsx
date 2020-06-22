@@ -13,13 +13,11 @@ import {
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'src/components/DatePicker';
 import Card from 'src/components/Card';
-import useFilter from 'src/hooks/useFilter';
 import Tasks from 'src/modules/Tasks';
 import moment from 'moment';
 import * as TaskFilters from 'src/modules/Tasks/filters';
 import ResourceSelector from 'src/components/collection/Selector';
 export default () => {
-  const { filters: f, and, or, not } = useFilter();
   const { colorMode } = useColorMode();
   const [filters, setFilters] = useState(undefined);
   const [activePreset, setActivePreset] = useState('today');
@@ -82,7 +80,14 @@ export default () => {
   return (
     <Box>
       <Flex direction={['column', 'row']}>
-        <Card m={0} borderRadius={0} p={0} shadow={false}>
+        <Card
+          m={0}
+          borderRadius={0}
+          p={0}
+          shadow={false}
+          borderWidth={0}
+          borderRightWidth={1}
+        >
           <Flex h={'100vh'} px={2} direction={'column'}>
             <Heading size={'md'}>Filters</Heading>
             <Button
@@ -162,36 +167,6 @@ export default () => {
               All
             </Button>
             <Divider />
-            <FormControl mt={5}>
-              <FormLabel>Team</FormLabel>
-              <Select
-                variant={'outline'}
-                size={'sm'}
-                name="team"
-                onChange={(e) => setTeam(e.target.value)}
-                value={team}
-                placeholder={'Select a Team'}
-              >
-                <option value={'vndly'}>VNDLY</option>
-                <option value={'family'}>Family</option>
-                <option value={'relationships'}>Relationships</option>
-                <option value={'knowledge'}>Knowledge</option>
-                <option value={'health'}>Health</option>
-                <option value={'nutrition'}>Nutrition</option>
-                <option value={'home'}>Home</option>
-                <option value={'personal'}>Personal</option>
-                <option value={'finance'}>Finance</option>
-              </Select>
-            </FormControl>
-            <FormControl>
-              <FormLabel>Project</FormLabel>
-              <ResourceSelector
-                placeholder={'Select a project'}
-                name={'projects'}
-                onChange={setProject}
-                value={project}
-              />
-            </FormControl>
             <FormControl>
               <FormLabel>Priority</FormLabel>
               <Select
