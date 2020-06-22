@@ -105,7 +105,7 @@ export default () => {
           size={'md'}
           onClick={toggleFormPopup}
           icon={'add'}
-          borderRadius={30}
+          isRound
           variantColor={'brand'}
           mb={5}
         />
@@ -327,7 +327,13 @@ export default () => {
       </Tooltip>
       <Box flexGrow={1}></Box>
       <Tooltip label={'Logout'}>
-        <IconButton mb={5} size={'md'} variant={"ghost"} icon={IoIosLogOut} onClick={logout} />
+        <IconButton
+          mb={5}
+          size={'md'}
+          variant={'ghost'}
+          icon={IoIosLogOut}
+          onClick={logout}
+        />
       </Tooltip>
     </Flex>
   );

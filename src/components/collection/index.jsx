@@ -9,7 +9,7 @@ import useQuery from 'src/graphql/hooks/useQuery';
 import { useQuery as useApolloQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
-import Filters from './filters';
+import Filters from './Filters';
 const DisplayMap = {
   list: List,
   table: Table,

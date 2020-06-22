@@ -79,153 +79,19 @@ export default () => {
   }, []);
   return (
     <Box>
-      <Flex direction={['column', 'row']}>
-        <Card
-          m={0}
-          borderRadius={0}
-          p={0}
-          shadow={false}
-          borderWidth={0}
-          borderRightWidth={1}
-        >
-          <Flex h={'100vh'} px={2} direction={'column'}>
-            <Heading size={'md'}>Filters</Heading>
-            <Button
-              bg={
-                activePreset === 'today'
-                  ? colorMode === 'light'
-                    ? 'gray.300'
-                    : '#3e4242'
-                  : ''
-              }
-              onClick={activateTodayFilter}
-              justifyContent={'flex-start'}
-              w={'100%'}
-              variant={'ghost'}
-            >
-              Today
-            </Button>
-
-            <Button
-              bg={
-                activePreset === 'backlog'
-                  ? colorMode === 'light'
-                    ? 'gray.300'
-                    : '#3e4242'
-                  : ''
-              }
-              onClick={activateBacklogFilter}
-              justifyContent={'flex-start'}
-              w={'100%'}
-              variant={'ghost'}
-            >
-              Backlog
-            </Button>
-            <Button
-              bg={
-                activePreset === 'overdue'
-                  ? colorMode === 'light'
-                    ? 'gray.300'
-                    : '#3e4242'
-                  : ''
-              }
-              onClick={activateOverdueFilter}
-              justifyContent={'flex-start'}
-              w={'100%'}
-              variant={'ghost'}
-            >
-              Overdue
-            </Button>
-            <Button
-              bg={
-                activePreset === 'next7days'
-                  ? colorMode === 'light'
-                    ? 'gray.300'
-                    : '#3e4242'
-                  : ''
-              }
-              onClick={activateNext7DaysFilter}
-              justifyContent={'flex-start'}
-              w={'100%'}
-              variant={'ghost'}
-            >
-              Next 7 days
-            </Button>
-            <Button
-              bg={
-                activePreset === 'all'
-                  ? colorMode === 'light'
-                    ? 'gray.300'
-                    : '#3e4242'
-                  : ''
-              }
-              onClick={activateAllFilter}
-              justifyContent={'flex-start'}
-              w={'100%'}
-              variant={'ghost'}
-            >
-              All
-            </Button>
-            <Divider />
-            <FormControl>
-              <FormLabel>Priority</FormLabel>
-              <Select
-                variant={'outline'}
-                size={'sm'}
-                onChange={(e) => setPriority(e.target.value)}
-                name="priority"
-                value={priority}
-                placeholder={'Select Priority'}
-              >
-                <option value={'very_high'}>Very High</option>
-                <option value={'high'}>High</option>
-                <option value={'medium'}>Medium</option>
-                <option value={'low'}>Low</option>
-                <option value={'very_low'}>Very Low</option>
-              </Select>
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>Status</FormLabel>
-              <Select
-                variant={'outline'}
-                size={'sm'}
-                name="status"
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                placeholder={'Select Status'}
-              >
-                <option value={'todo'}>To Do</option>
-                <option value={'in_progress'}>In Progress</option>
-                <option value={'completed'}>Completed</option>
-              </Select>
-            </FormControl>
-            <FormControl display={'grid'}>
-              <FormLabel>Due Date</FormLabel>
-              <DatePicker
-                selected={moment(date)}
-                type={'input'}
-                includeTime={false}
-                onChange={(e) => setDate(e.toISOString(true))}
-              />
-            </FormControl>
-            <Divider />
-          </Flex>
-        </Card>
-        <Box w={'100%'}>
-          <Stack spacing={10} w={'100%'}>
-            <Box w={'100%'} p={5}>
-              <Tasks.List
-                order_by={{
-                  team: 'asc',
-                  due_date: 'asc',
-                }}
-                where={filters}
-              />
-            </Box>
-          </Stack>
-        </Box>
-      </Flex>
+      <Box w={'100%'}>
+        <Stack spacing={10} w={'100%'}>
+          <Box w={'100%'} p={5}>
+            <Tasks.List
+              order_by={{
+                team: 'asc',
+                due_date: 'asc',
+              }}
+              where={filters}
+            />
+          </Box>
+        </Stack>
+      </Box>
     </Box>
   );
 };

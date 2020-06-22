@@ -18,8 +18,8 @@ export default ({
     <MotionBox
       borderColor={isHovered && highlight ? 'brand.300' : ''}
       onClick={() => setShowDetails(!showDetails)}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={(e) => setIsHovered(true)}
+      onMouseLeave={(e) => setIsHovered(false)}
       minWidth={300}
       borderWidth={1}
       borderRadius={5}
