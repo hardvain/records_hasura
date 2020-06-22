@@ -1,8 +1,8 @@
 import { Divider, Progress, Stack, Text } from '@chakra-ui/core';
+import Link from 'next/link';
 import Card from 'src/components/Card';
 import moment from 'moment';
 import useAggregate from 'src/graphql/hooks/useAggregate';
-import * as TaskFilters from 'src/modules/Tasks/filters';
 export default ({ record }) => {
   const [totalTasks] = useAggregate({
     name: 'tasks',
@@ -71,37 +71,39 @@ export default ({ record }) => {
   });
 
   return (
-    <Card title={record.name} highlight>
-      <Stack>
-        <Stack p={3}>
-          <Text>Progress:</Text>
-          <Progress
-            w={'100%'}
-            borderRadius={5}
-            value={completedPercentage || 0}
-          />
-          <Text>
-            {pendingTasks?.count} out {totalTasks?.count} tasks remaining
-          </Text>
+    <Link href={`/projects/${record.id}`}>
+      <Card title={record.name} highlight>
+        <Stack>
+          <Stack p={3}>
+            <Text>Progress:</Text>
+            <Progress
+              w={'100%'}
+              borderRadius={5}
+              value={completedPercentage || 0}
+            />
+            <Text>
+              {pendingTasks?.count} out {totalTasks?.count} tasks remaining
+            </Text>
+          </Stack>
+          <Divider />
+          <Stack isInline justifyContent={'space-evenly'} w={'100%'} p={3}>
+            <Stack alignItems={'center'}>
+              <Text>High Priority</Text>
+              <Text>{highPriorityTasks?.count}</Text>
+            </Stack>
+            <Divider orientation={'vertical'} />
+            <Stack alignItems={'center'}>
+              <Text>Backlog</Text>
+              <Text>{backlogTasks?.count}</Text>
+            </Stack>
+            <Divider orientation={'vertical'} />
+            <Stack alignItems={'center'}>
+              <Text>Overdue</Text>
+              <Text>{overDueTasks?.count}</Text>
+            </Stack>
+          </Stack>
         </Stack>
-        <Divider />
-        <Stack isInline justifyContent={'space-evenly'} w={'100%'} p={3}>
-          <Stack alignItems={'center'}>
-            <Text>High Priority</Text>
-            <Text>{highPriorityTasks?.count}</Text>
-          </Stack>
-          <Divider orientation={'vertical'} />
-          <Stack alignItems={'center'}>
-            <Text>Backlog</Text>
-            <Text>{backlogTasks?.count}</Text>
-          </Stack>
-          <Divider orientation={'vertical'} />
-          <Stack alignItems={'center'}>
-            <Text>Overdue</Text>
-            <Text>{overDueTasks?.count}</Text>
-          </Stack>
-        </Stack>
-      </Stack>
-    </Card>
+      </Card>
+    </Link>
   );
 };
