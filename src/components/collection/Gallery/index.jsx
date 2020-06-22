@@ -1,6 +1,6 @@
 import { createElement } from 'react';
 import { SimpleGrid, useToast } from '@chakra-ui/core';
-export default ({ data, preview, onItemSelect }) => {
+export default ({ data, preview }) => {
   return (
     <SimpleGrid columns={3} spacing={10}>
       {data.map((record) => (

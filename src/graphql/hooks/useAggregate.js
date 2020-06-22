@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useSubscription } from '@apollo/react-hooks';
 import { useFetchUser } from 'src/lib/user';
 import { useStore } from 'src/store';
 
@@ -22,16 +22,15 @@ export default ({
   limit,
   offset,
   aggregates,
-  pollInterval = undefined,
 }) => {
   const aggregateString = constructAggregateString(aggregates);
-  const queryString = `query aggregate_${name}($where:${name}_bool_exp, $order_by:${name}_order_by!, $limit:Int, $offset:Int){
+  const queryString = `subscription aggregate_${name}($where:${name}_bool_exp, $order_by:${name}_order_by!, $limit:Int, $offset:Int){
           ${name}_aggregate(where:$where, order_by:[$order_by], limit:$limit,offset:$offset){
             ${aggregateString}
           }
       }`;
 
-  const { error, data, loading } = useQuery(gql(queryString), {
+  const { error, data, loading } = useSubscription(gql(queryString), {
     variables: { where, order_by, limit, offset },
   });
 

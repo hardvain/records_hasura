@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { Flex, Stack } from '@chakra-ui/core';
 import './app.css';
-import FormModal from 'src/components/records/FormModal';
+import FormModal from 'src/components/FormModal';
 import { useStore } from 'src/store';
 import Sidebar from '../components/Sidebar';
 import {

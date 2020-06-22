@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
-export default ({ name, fields, pollInterval = undefined }) => {
+export default ({ name, fields }) => {
   const queryString = `query {${name}${fields}}`;
   const { loading, error, data } = useQuery(gql(queryString), {});
   if (data) {

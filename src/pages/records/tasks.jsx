@@ -7,16 +7,19 @@ import {
   Select,
   FormControl,
   FormLabel,
-  useColorMode, Flex,
+  useColorMode,
+  Flex,
 } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'src/components/DatePicker';
 import Card from 'src/components/Card';
+import useFilter from 'src/hooks/useFilter';
 import Tasks from 'src/modules/Tasks';
 import moment from 'moment';
 import * as TaskFilters from 'src/modules/Tasks/filters';
 import ResourceSelector from 'src/components/collection/Selector';
 export default () => {
+  const { filters: f, and, or, not } = useFilter();
   const { colorMode } = useColorMode();
   const [filters, setFilters] = useState(undefined);
   const [activePreset, setActivePreset] = useState('today');
@@ -78,7 +81,7 @@ export default () => {
   }, []);
   return (
     <Box>
-      <Flex direction={['column','row']}>
+      <Flex direction={['column', 'row']}>
         <Card m={0} borderRadius={0} p={0} shadow={false}>
           <Flex h={'100vh'} px={2} direction={'column'}>
             <Heading size={'md'}>Filters</Heading>
@@ -147,8 +150,8 @@ export default () => {
               bg={
                 activePreset === 'all'
                   ? colorMode === 'light'
-                  ? 'gray.300'
-                  : '#3e4242'
+                    ? 'gray.300'
+                    : '#3e4242'
                   : ''
               }
               onClick={activateAllFilter}

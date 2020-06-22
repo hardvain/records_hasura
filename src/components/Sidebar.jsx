@@ -102,15 +102,12 @@ export default () => {
       </Box>
       <Tooltip label={'Add new record'}>
         <IconButton
-          ml={1}
-          size={'lg'}
-          position={'fixed'}
-          right={10}
-          bottom={10}
+          size={'md'}
           onClick={toggleFormPopup}
           icon={'add'}
-          borderRadius={25}
+          borderRadius={30}
           variantColor={'brand'}
+          mb={5}
         />
       </Tooltip>
       <MenuItem

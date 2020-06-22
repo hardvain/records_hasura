@@ -2,7 +2,6 @@ import { Stack, Progress, Text, Heading, Divider } from '@chakra-ui/core';
 import React from 'react';
 import useAggregate from 'src/graphql/hooks/useAggregate';
 import useQuery from 'src/graphql/hooks/useQuery';
-import useView from 'src/graphql/hooks/useView';
 import * as WaterFilters from 'src/modules/Water/filters';
 import Water from 'src/assets/Water';
 import moment from 'moment';

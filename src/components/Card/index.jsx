@@ -12,17 +12,10 @@ export default ({
   ...rest
 }) => {
   const { colorMode } = useColorMode();
-  const { colors } = useStore((state) => ({
-    colors: state.ui.colors,
-  }));
   const [isHovered, setIsHovered] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   return (
     <MotionBox
-      // initial={animate ? { opacity: 0 } : {}}
-      // animate={animate ? { opacity: 1 } : {}}
-      // whileTap={animate ? { scale: 0.995 } : {}}
-      // whileHover={animate ? { scale: 1.005 } : {}}
       borderColor={isHovered && highlight ? 'brand.300' : ''}
       onClick={() => setShowDetails(!showDetails)}
       onMouseEnter={() => setIsHovered(true)}
