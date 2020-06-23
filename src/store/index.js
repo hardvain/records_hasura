@@ -5,7 +5,7 @@ export const [useStore] = create((set, get) => ({
     date: moment(),
     user_id: undefined,
     recordType: 'task',
-    showSidebar: false,
+    showSidebar: true,
     currentTeam: 'all',
     showFormPopup: false,
     refreshedAt: moment().toISOString(),

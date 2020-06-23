@@ -1,7 +1,7 @@
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import Router from 'next/router';
-import { useState } from 'react';
+import { createElement, useState } from 'react';
 import {
   Box,
   Button,
@@ -31,7 +31,22 @@ import Sleep from 'src/assets/Sleep';
 import Water from 'src/assets/Water';
 import Time from 'src/assets/Time';
 import { useStore } from 'src/store';
-import { IoIosLogOut } from 'react-icons/io';
+import { MdTimer } from 'react-icons/md';
+import { IoIosLogOut, IoIosPeople } from 'react-icons/io';
+import {
+  GiSugarCane,
+  GiWaterDrop,
+  GiFruitBowl,
+  GiMoneyStack,
+  GiBed,
+  GiBrain,
+} from 'react-icons/gi';
+import {
+  FaTasks,
+  FaHeartbeat,
+  FaBriefcaseMedical,
+  FaPizzaSlice,
+} from 'react-icons/fa';
 const MenuItem = ({ children, isActive, title, href, as }) => {
   const { colorMode } = useColorMode();
   const showSidebar = useStore((state) => state.ui.showSidebar);
@@ -56,13 +71,33 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
     >
       <NextLink href={href} as={as}>
         <Stack isInline alignItems={'center'}>
-          {children}
-          {showSidebar && <Text ml={3}>{title}</Text>}
+          {createElement(children, { fontSize: 25 })}
+          {showSidebar && <Text ml={5}>{title}</Text>}
         </Stack>
       </NextLink>
     </Box>
   );
-  return showSidebar ? content : <Tooltip label={title}>{content}</Tooltip>;
+  return showSidebar ? (
+    content
+  ) : (
+    <Tooltip label={title}>
+      <NextLink href={href} as={as}>
+        <IconButton
+          bg={
+            isActive || isHovering
+              ? colorMode === 'light'
+                ? 'gray.300'
+                : '#3e4242'
+              : ''
+          }
+          mb={5}
+          variant={'ghost'}
+          fontSize={25}
+          icon={children}
+        />
+      </NextLink>
+    </Tooltip>
+  );
 };
 
 export default () => {
@@ -82,35 +117,24 @@ export default () => {
   return (
     <Flex
       direction={'column'}
-      w={70}
+      w={showSidebar ? 275 : 70}
       px={3}
       pt={3}
       bg={colorMode === 'light' ? 'white' : '#232626'}
       position={'fixed'}
-      zIndex={1000}
-      height={'100%'}
+      height={'95%'}
       borderRightWidth={1}
       left={0}
       overflowX={'hidden'}
     >
-      <Box alignItems={'center'} mx={2} mb={10} cursor={'pointer'}>
-        <NextLink href="/" as={`/`}>
-          <Box alignSelf={'center'} mr={4}>
-            <Logo width={30} height={30} />
-          </Box>
-        </NextLink>
-      </Box>
+
       <MenuItem
         href="/tasks"
         as={`/tasks`}
         title={'Tasks'}
         isActive={pathname === '/tasks'}
       >
-        <Stack isInline alignItems={'center'}>
-          <Box mr={5}>
-            <Task width={25} height={25} />
-          </Box>
-        </Stack>
+        {FaTasks}
       </MenuItem>
       <MenuItem
         href="/records/glucose"
@@ -118,11 +142,7 @@ export default () => {
         title={'Glucose'}
         isActive={pathname === '/records/glucose'}
       >
-        <Stack isInline alignItems={'center'}>
-          <Box alignSelf={'center'} mr={5}>
-            <Sugar width={30} height={30} />
-          </Box>
-        </Stack>
+        {GiSugarCane}
       </MenuItem>
       <MenuItem
         href="/records/water"
@@ -130,11 +150,7 @@ export default () => {
         title={'Water'}
         isActive={pathname === '/records/water'}
       >
-        <Stack isInline alignItems={'center'}>
-          <Box alignSelf={'center'} mr={4}>
-            <Water width={30} height={30} />
-          </Box>
-        </Stack>
+        {GiWaterDrop}
       </MenuItem>
       <MenuItem
         href="/records/food"
@@ -142,11 +158,7 @@ export default () => {
         title={'Food'}
         isActive={pathname === '/records/food'}
       >
-        <Stack isInline alignItems={'center'}>
-          <Box alignSelf={'center'} mr={4}>
-            <Fruit width={30} height={30} />
-          </Box>
-        </Stack>
+        {GiFruitBowl}
       </MenuItem>
       <MenuItem
         title={'Transactions'}
@@ -154,11 +166,7 @@ export default () => {
         href="/records/transactions"
         as={`/records/transactions`}
       >
-        <Stack isInline alignItems={'center'}>
-          <Box alignSelf={'center'} mr={4}>
-            <Money width={30} height={30} />
-          </Box>
-        </Stack>
+        {GiMoneyStack}
       </MenuItem>
       <MenuItem
         href="/people"
@@ -166,11 +174,7 @@ export default () => {
         title={'People'}
         isActive={pathname === '/people'}
       >
-        <Stack isInline alignItems={'center'}>
-          <Box alignSelf={'center'} mr={5}>
-            <Team width={30} height={30} />
-          </Box>
-        </Stack>
+        {IoIosPeople}
       </MenuItem>
       <MenuItem
         href="/records/dishes"
@@ -178,11 +182,7 @@ export default () => {
         title={'Dishes'}
         isActive={pathname === '/records/dishes'}
       >
-        <Stack isInline alignItems={'center'}>
-          <Box mr={5}>
-            <Recipes width={25} height={25} />
-          </Box>
-        </Stack>
+        {FaPizzaSlice}
       </MenuItem>
       <MenuItem
         href="/records/sleep"
@@ -190,11 +190,7 @@ export default () => {
         title={'Sleep'}
         isActive={pathname === '/records/sleep'}
       >
-        <Stack isInline alignItems={'center'}>
-          <Box alignSelf={'center'} mr={5}>
-            <Sleep width={30} height={30} />
-          </Box>
-        </Stack>
+        {GiBed}
       </MenuItem>
       <MenuItem
         title={'Timesheet'}
@@ -202,11 +198,7 @@ export default () => {
         href="/records/timesheet"
         as={`/records/timesheet`}
       >
-        <Stack isInline alignItems={'center'}>
-          <Box alignSelf={'center'} mr={4}>
-            <Time width={30} height={30} />
-          </Box>
-        </Stack>
+        {MdTimer}
       </MenuItem>
       <MenuItem
         title={'Knowledge'}
@@ -214,11 +206,7 @@ export default () => {
         href="/records/knowledge"
         as={`/records/knowledge`}
       >
-        <Stack isInline alignItems={'center'}>
-          <Box alignSelf={'center'} mr={4}>
-            <Brain width={30} height={30} />
-          </Box>
-        </Stack>
+        {GiBrain}
       </MenuItem>
       <MenuItem
         href="/records/heart"
@@ -226,11 +214,7 @@ export default () => {
         title={'Heart'}
         isActive={pathname === '/records/heart'}
       >
-        <Stack isInline alignItems={'center'}>
-          <Box alignSelf={'center'} mr={4}>
-            <Heart width={30} height={30} />
-          </Box>
-        </Stack>
+        {FaHeartbeat}
       </MenuItem>
       <MenuItem
         title={'Medications'}
@@ -238,11 +222,7 @@ export default () => {
         href="/records/medications"
         as={`/records/medications`}
       >
-        <Stack isInline alignItems={'center'}>
-          <Box alignSelf={'center'} mr={4}>
-            <Medicine width={30} height={30} />
-          </Box>
-        </Stack>
+        {FaBriefcaseMedical}
       </MenuItem>
 
       <Box flexGrow={1}></Box>

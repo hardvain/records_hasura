@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { Flex, Stack } from '@chakra-ui/core';
 import './app.css';
+
 import FormModal from 'src/components/FormModal';
 import Navbar from 'src/components/Navbar';
 import { useStore } from 'src/store';
@@ -47,8 +48,9 @@ const config = (theme) => ({
   },
 });
 const App = ({ Component, pageProps }) => {
-  const { setUserId } = useStore((state) => ({
+  const { setUserId, showSidebar } = useStore((state) => ({
     setUserId: state.setUserId,
+    showSidebar: state.ui.showSidebar,
   }));
   const { user, loading } = useFetchUser({ required: true });
   useEffect(() => {
@@ -89,12 +91,11 @@ const App = ({ Component, pageProps }) => {
         <ColorModeProvider>
           <DarkMode>
             <CSSReset config={config} />
-            <Box></Box>
+            <Navbar />
             <Flex direction={'row'}>
               {<Sidebar />}
-              <Box ml={70} flexGrow={1}>
-                <Navbar />
-                <Box id="component-box" minHeight={'90vh'} >
+              <Box ml={showSidebar ? 285 : 70} flexGrow={1}>
+                <Box id="component-box" minHeight={'90vh'}>
                   <Component {...pageProps} />
                 </Box>
                 <FormModal />

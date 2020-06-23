@@ -18,7 +18,7 @@ export default () => {
   return (
     <Box>
       <Stack isInline>
-        <Box w={'100%'} p={10}>
+        <Box w={'100%'} px={2} py={5}>
           <Water.List
             where={{
               _and: [

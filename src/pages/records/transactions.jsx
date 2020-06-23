@@ -59,9 +59,8 @@ export default () => {
   return (
     <Box>
       <Stack isInline>
-        <Card m={0} borderRadius={0} p={0} shadow={false}>
-          <Stack h={'100vh'} px={2}>
-            <Heading size={'md'}>Filters</Heading>
+        <Box m={0} borderRadius={0} px={2} py={5} borderRightWidth={1} width={300}>
+          <Stack h={'100vh'}>
 
             <Button
               bg={
@@ -140,7 +139,7 @@ export default () => {
             </Button>
 
           </Stack>
-        </Card>
+        </Box>
         <Box w={'100%'}>
           <Stack spacing={10} w={'100%'}>
             <Box w={'100%'} p={5}>
