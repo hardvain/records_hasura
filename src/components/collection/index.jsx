@@ -88,8 +88,8 @@ __type(name:"${resource}"){
   }
 }`);
   return (
-    <Filters schema={data ? data['__type'] : {}}>
-      {(filters) => <FilteredCollection resource={resource} {...rest} />}
+    <Filters schema={data ? data['__type'] : {}} where={rest.where}>
+      {(filters) => <FilteredCollection resource={resource} {...rest} where={filters} />}
     </Filters>
   );
 };

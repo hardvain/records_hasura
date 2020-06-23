@@ -80,7 +80,88 @@ export default () => {
   return (
     <Box>
       <Box w={'100%'}>
-        <Stack spacing={10} w={'100%'}>
+        <Stack spacing={10} isInline w={'100%'}>
+          <Card m={0} borderRadius={0} p={0} shadow={false}>
+            <Flex h={'100vh'} px={2} direction={'column'}>
+              <Heading size={'md'}>Filters</Heading>
+              <Button
+                bg={
+                  activePreset === 'today'
+                    ? colorMode === 'light'
+                      ? 'gray.300'
+                      : '#3e4242'
+                    : ''
+                }
+                onClick={activateTodayFilter}
+                justifyContent={'flex-start'}
+                w={'100%'}
+                variant={'ghost'}
+              >
+                Today
+              </Button>
+
+              <Button
+                bg={
+                  activePreset === 'backlog'
+                    ? colorMode === 'light'
+                      ? 'gray.300'
+                      : '#3e4242'
+                    : ''
+                }
+                onClick={activateBacklogFilter}
+                justifyContent={'flex-start'}
+                w={'100%'}
+                variant={'ghost'}
+              >
+                Backlog
+              </Button>
+              <Button
+                bg={
+                  activePreset === 'overdue'
+                    ? colorMode === 'light'
+                      ? 'gray.300'
+                      : '#3e4242'
+                    : ''
+                }
+                onClick={activateOverdueFilter}
+                justifyContent={'flex-start'}
+                w={'100%'}
+                variant={'ghost'}
+              >
+                Overdue
+              </Button>
+              <Button
+                bg={
+                  activePreset === 'next7days'
+                    ? colorMode === 'light'
+                      ? 'gray.300'
+                      : '#3e4242'
+                    : ''
+                }
+                onClick={activateNext7DaysFilter}
+                justifyContent={'flex-start'}
+                w={'100%'}
+                variant={'ghost'}
+              >
+                Next 7 days
+              </Button>
+              <Button
+                bg={
+                  activePreset === 'all'
+                    ? colorMode === 'light'
+                      ? 'gray.300'
+                      : '#3e4242'
+                    : ''
+                }
+                onClick={activateAllFilter}
+                justifyContent={'flex-start'}
+                w={'100%'}
+                variant={'ghost'}
+              >
+                All
+              </Button>
+            </Flex>
+          </Card>
           <Box w={'100%'} p={5}>
             <Tasks.List
               order_by={{

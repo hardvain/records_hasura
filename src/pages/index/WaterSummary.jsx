@@ -26,7 +26,6 @@ export default () => {
         .filter((i) => moment(i.timestamp).unix() < date.unix())
         .map((i) => i.quantity)
     : [];
-  console.log(yestItemsBeforeNow)
   const yestSum =
     yestItemsBeforeNow.reduce((p, c) => p + c, 0) || 0;
   const yestPercentage = (yestSum * 100) / 3000;

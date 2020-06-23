@@ -1,17 +1,7 @@
-import {
-  Box,
-  Button,
-  Input,
-  Select,
-  Checkbox,
-  Stack,
-  RadioButtonGroup,
-  IconButton,
-} from '@chakra-ui/core';
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import FieldFilter from './FieldFilter';
+import { Box, Button, Checkbox, IconButton, RadioButtonGroup, Stack } from '@chakra-ui/core';
+import React, { useEffect, useState } from 'react';
 import Card from 'src/components/Card';
+import FieldFilter from './FieldFilter';
 // Step 1: Create a component that accepts `isChecked` and `isDisabled` prop
 const CustomRadio = React.forwardRef((props, ref) => {
   const { isChecked, isDisabled, value, ...rest } = props;
@@ -35,18 +25,16 @@ const FilterGroup = ({
   isRoot = false,
 }) => {
   const [isNot, setIsNot] = useState(filter.isNot);
-  const [groupType, setGroupType] = useState(filter.groupType);
 
   useEffect(() => {
     setFilter({ ...filter, isNot });
   }, [isNot]);
 
-  useEffect(() => {
-    setFilter({ ...filter, groupType });
-  }, [groupType]);
-
   const addFilter = () => {
-    setFilter({ ...filter, filters: [...filter.filters, { type: 'field' }] });
+    setFilter({
+      ...filter,
+      filters: [...filter.filters, { type: 'field' }],
+    });
   };
   const addGroup = () => {
     setFilter({
@@ -60,15 +48,16 @@ const FilterGroup = ({
   const deleteFilter = (index) => {
     setFilter({
       ...filter,
-      filters: [filter.filters.filter((f, i) => i !== index)],
+      filters: [...filter.filters.filter((f, i) => i !== index)],
     });
   };
 
   const deleteFilterGroup = (index) => {
-    setFilter({
+    const result = {
       ...filter,
-      filters: [filter.filters.filter((f, i) => i !== index)],
-    });
+      filters: [...filter.filters.filter((f, i) => i !== index)],
+    };
+    setFilter(result);
   };
 
   const setFilterField = (index) => (f) => {
@@ -99,8 +88,8 @@ const FilterGroup = ({
           Not
         </Checkbox>
         <RadioButtonGroup
-          value={groupType}
-          onChange={(v) => setGroupType(v)}
+          value={filter.groupType}
+          onChange={(v) => setFilter({ ...filter, groupType: v })}
           isInline
         >
           <CustomRadio value="_and">And</CustomRadio>
@@ -192,22 +181,15 @@ const constructInitialFilters = (filter) => {
 
 export default ({
   schema = { fields: [] },
-  where = {
-    _and: [
-      { status: { _eq: 'completed' } },
-      { status: { _eq: 'todo' } },
-      { priority: { _eq: 'high' } },
-      {
-        _not: {
-          _or: [{ status: { _eq: 'In Progress' } }, { name: { _eq: 'Task' } }],
-        },
-      },
-    ],
-  },
+  where = { _and: [] },
   children,
 }) => {
   const initialFilters = constructInitialFilters(where);
   const [rootFilter, setRootFilter] = useState(initialFilters);
+
+  useEffect(() => {
+    setRootFilter(constructInitialFilters(where));
+  }, [where]);
   const fields = schema?.fields
     ? schema.fields
         .filter((f) => f?.type?.name || f?.type?.ofType?.name)
@@ -228,7 +210,6 @@ export default ({
             filter={rootFilter}
             setFilter={setRootFilter}
           />
-          <Box></Box>
           <Box>{children(graphqlFilters)}</Box>
         </Stack>
       )}

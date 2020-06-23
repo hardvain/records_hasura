@@ -23,6 +23,7 @@ const options = {
     '_neq',
     '_nin',
   ],
+  Int: ['_eq', '_gt', '_gte', '_in', '_is_null', '_lt', '_lte', '_neq', '_nin'],
   timestampz: [
     '_eq',
     '_gt',
@@ -93,7 +94,7 @@ export default ({ fields, filter, setFilter, onDelete }) => {
           onChange={(e) => setFilter({ ...filter, value: e.target.value })}
         />
       )}
-      <IconButton icon={'delete'} isRound size={'sm'} onClick={onDelete}/>
+      <IconButton icon={'delete'} isRound size={'sm'} onClick={onDelete} />
     </Stack>
   );
 };
