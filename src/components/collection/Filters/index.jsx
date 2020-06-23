@@ -1,4 +1,11 @@
-import { Box, Button, Checkbox, IconButton, RadioButtonGroup, Stack } from '@chakra-ui/core';
+import {
+  Box,
+  Button,
+  Checkbox,
+  IconButton,
+  RadioButtonGroup,
+  Stack,
+} from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import Card from 'src/components/Card';
 import FieldFilter from './FieldFilter';
@@ -25,6 +32,10 @@ const FilterGroup = ({
   isRoot = false,
 }) => {
   const [isNot, setIsNot] = useState(filter.isNot);
+
+  useEffect(() => {
+    setFilter({ ...filter, isNot: filter.isNot });
+  }, [filter?.isNot]);
 
   useEffect(() => {
     setFilter({ ...filter, isNot });
@@ -186,10 +197,9 @@ export default ({
 }) => {
   const initialFilters = constructInitialFilters(where);
   const [rootFilter, setRootFilter] = useState(initialFilters);
-
   useEffect(() => {
     setRootFilter(constructInitialFilters(where));
-  }, [where]);
+  }, [JSON.stringify(where)]);
   const fields = schema?.fields
     ? schema.fields
         .filter((f) => f?.type?.name || f?.type?.ofType?.name)
