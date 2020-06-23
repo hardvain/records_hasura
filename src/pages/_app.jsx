@@ -12,6 +12,7 @@ import {
   CSSReset,
   Box,
   DarkMode,
+  LightMode,
   ColorModeProvider,
 } from '@chakra-ui/core';
 import theme from '../theme';
@@ -89,19 +90,19 @@ const App = ({ Component, pageProps }) => {
       </Head>
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
-          <DarkMode>
+          <LightMode>
             <CSSReset config={config} />
             <Navbar />
             <Flex direction={'row'}>
               {<Sidebar />}
-              <Box ml={showSidebar ? 285 : 70} flexGrow={1}>
+              <Box ml={showSidebar ? 260 : 70} flexGrow={1}>
                 <Box id="component-box" minHeight={'90vh'}>
                   <Component {...pageProps} />
                 </Box>
                 <FormModal />
               </Box>
             </Flex>
-          </DarkMode>
+          </LightMode>
         </ColorModeProvider>
       </ThemeProvider>
     </Box>

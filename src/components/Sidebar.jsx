@@ -53,29 +53,32 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
 
   const [isHovering, setIsHovering] = useState(false);
   const content = (
-    <Box
+    <Button
       w={showSidebar ? '100%' : 45}
       cursor={'pointer'}
       borderRadius={6}
-      p={2}
+      p={3}
       mb={2}
       bg={
         isActive || isHovering
           ? colorMode === 'light'
-            ? 'gray.300'
-            : '#3e4242'
+          ? 'brand.50'
+          : '#3e4242'
           : ''
       }
+      justifyContent={'flex-start'}
+      variant={'ghost'}
+      leftIcon={children}
+      variantColor={isActive || isHovering ? 'brand' : '#3e4242'}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
       <NextLink href={href} as={as}>
         <Stack isInline alignItems={'center'}>
-          {createElement(children, { fontSize: 25 })}
           {showSidebar && <Text ml={5}>{title}</Text>}
         </Stack>
       </NextLink>
-    </Box>
+    </Button>
   );
   return showSidebar ? (
     content
@@ -117,7 +120,7 @@ export default () => {
   return (
     <Flex
       direction={'column'}
-      w={showSidebar ? 275 : 70}
+      w={showSidebar ? 250 : 70}
       px={3}
       pt={3}
       bg={colorMode === 'light' ? 'white' : '#232626'}
@@ -127,7 +130,6 @@ export default () => {
       left={0}
       overflowX={'hidden'}
     >
-
       <MenuItem
         href="/tasks"
         as={`/tasks`}
@@ -161,7 +163,7 @@ export default () => {
         {GiFruitBowl}
       </MenuItem>
       <MenuItem
-        title={'Transactions'}
+        title={'Finance'}
         isActive={pathname === '/records/transactions'}
         href="/records/transactions"
         as={`/records/transactions`}

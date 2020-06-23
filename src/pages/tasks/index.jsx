@@ -94,7 +94,7 @@ export default () => {
                 bg={
                   activePreset === 'today'
                     ? colorMode === 'light'
-                      ? 'gray.300'
+                      ? 'brand.50'
                       : '#3e4242'
                     : ''
                 }
@@ -110,7 +110,7 @@ export default () => {
                 bg={
                   activePreset === 'backlog'
                     ? colorMode === 'light'
-                      ? 'gray.300'
+                      ? 'brand.50'
                       : '#3e4242'
                     : ''
                 }
@@ -125,7 +125,7 @@ export default () => {
                 bg={
                   activePreset === 'overdue'
                     ? colorMode === 'light'
-                      ? 'gray.300'
+                      ? 'brand.50'
                       : '#3e4242'
                     : ''
                 }
@@ -140,7 +140,7 @@ export default () => {
                 bg={
                   activePreset === 'next7days'
                     ? colorMode === 'light'
-                      ? 'gray.300'
+                      ? 'brand.50'
                       : '#3e4242'
                     : ''
                 }
@@ -155,7 +155,7 @@ export default () => {
                 bg={
                   activePreset === 'all'
                     ? colorMode === 'light'
-                      ? 'gray.300'
+                      ? 'brand.50'
                       : '#3e4242'
                     : ''
                 }
