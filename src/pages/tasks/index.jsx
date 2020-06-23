@@ -36,7 +36,7 @@ export default () => {
   };
   const activateAllFilter = () => {
     setActivePreset('all');
-    setFilters({});
+    setFilters();
   };
   const activateOverdueFilter = () => {
     setActivePreset('overdue');

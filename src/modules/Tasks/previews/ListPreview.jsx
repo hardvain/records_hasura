@@ -69,7 +69,7 @@ export default ({ record }) => {
             variantColor={'red'}
             ml={2}
             size={'sm'}
-            icon={'eye'}
+            icon={'view'}
           />
         </Link>
       </Flex>

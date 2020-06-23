@@ -185,7 +185,9 @@ const constructInitialFilters = (filter) => {
     result.field = Object.keys(actualFilter)[0];
     const details = actualFilter[result.field];
     result.operator = Object.keys(details)[0];
-    result.value = details[result.operator];
+    if (result.operator === '_is_null') {
+      result.value = details[result.operator] === true;
+    }
   }
   return result;
 };
@@ -207,7 +209,7 @@ export default ({
           const type = field.type.name || field.type.ofType.name;
           return { name: field.name, type };
         })
-        .filter((f) => f.type && !f.name.startsWith('ref_'))
+        // .filter((f) => f.type && !f.name.startsWith('ref_'))
     : [];
   const graphqlFilters = constructFilters(rootFilter);
   return (
