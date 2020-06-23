@@ -55,7 +55,7 @@ export default () => {
   return (
     <Flex
       boxShadow={'none'}
-      bg={colorMode === 'light' ? 'white' : '#232626'}
+      bg={colorMode === 'light' ? 'brand.100' : '#232626'}
       direction="row"
       borderBottomWidth={1}
       borderBottom="gray.200"
