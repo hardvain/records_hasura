@@ -80,10 +80,9 @@ export default () => {
   return (
     <Box>
       <Box w={'100%'}>
-        <Stack spacing={10} isInline w={'100%'}>
-          <Card m={0} borderRadius={0} p={0} shadow={false}>
+        <Stack  isInline w={'100%'}>
+          <Box m={0} borderRadius={0} px={2} py={5} borderRightWidth={1} width={300}>
             <Flex h={'100vh'} px={2} direction={'column'}>
-              <Heading size={'md'}>Filters</Heading>
               <Button
                 bg={
                   activePreset === 'today'
@@ -161,8 +160,8 @@ export default () => {
                 All
               </Button>
             </Flex>
-          </Card>
-          <Box w={'100%'} p={5}>
+          </Box>
+          <Box w={'100%'} p={2}>
             <Tasks.List
               order_by={{
                 team: 'asc',

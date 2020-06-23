@@ -59,10 +59,7 @@ export default () => {
       alignItems={'center'}
       py={1}
       pl={4}
-      position={'fixed'}
-      width="96%"
-      top={0}
-      zIndex={1000}
+      width="100%"
     >
       <Box>
         <Link href="/projects" as={`/projects`}>
@@ -80,7 +77,7 @@ export default () => {
             as={Button}
             mr={4}
           >
-            Add
+            Create
           </ChakraMenuButton>
           <MenuList bg={colorMode === 'light' ? 'grey.300' : '#3e4242'}>
             <MenuItem onClick={() => toggleFormPopup('task')}>Task</MenuItem>

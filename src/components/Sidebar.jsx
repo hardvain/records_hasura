@@ -245,28 +245,6 @@ export default () => {
         </Stack>
       </MenuItem>
 
-      <Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />
-
-      <MenuItem
-        href="/settings"
-        as={`/settings`}
-        title={'Settings'}
-        isActive={pathname === '/settings'}
-      >
-        <Stack isInline alignItems={'center'}>
-          <Box alignSelf={'center'} mr={4}>
-            <Settings width={30} height={30} />
-          </Box>
-        </Stack>
-      </MenuItem>
-      <Tooltip label={colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}>
-        <IconButton
-          size={'lg'}
-          variant="default"
-          icon={colorMode === 'light' ? 'moon' : 'sun'}
-          onClick={toggleColorMode}
-        />
-      </Tooltip>
       <Box flexGrow={1}></Box>
       <Tooltip label={'Logout'}>
         <IconButton

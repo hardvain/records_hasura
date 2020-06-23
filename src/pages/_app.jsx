@@ -92,9 +92,9 @@ const App = ({ Component, pageProps }) => {
             <Box></Box>
             <Flex direction={'row'}>
               {<Sidebar />}
-              <Box ml={70} mr={5} flexGrow={1}>
+              <Box ml={70} flexGrow={1}>
                 <Navbar />
-                <Box id="component-box" minHeight={'90vh'} mt={10}>
+                <Box id="component-box" minHeight={'90vh'} >
                   <Component {...pageProps} />
                 </Box>
                 <FormModal />

@@ -18,22 +18,6 @@ export default () => {
   return (
     <Box>
       <Stack isInline>
-        {/*<Card m={0} borderRadius={0} p={0}>*/}
-        {/*  <Stack h={'100vh'} px={2}>*/}
-        {/*    <Heading size={'md'}>Filters</Heading>*/}
-
-        {/*    <FormControl display={'grid'}>*/}
-        {/*      <FormLabel>Due Date</FormLabel>*/}
-        {/*      <DatePicker*/}
-        {/*        selected={moment(date)}*/}
-        {/*        type={'input'}*/}
-        {/*        includeTime={false}*/}
-        {/*        onChange={(e) => setDate(e.toISOString(true))}*/}
-        {/*      />*/}
-        {/*    </FormControl>*/}
-        {/*    <Divider />*/}
-        {/*  </Stack>*/}
-        {/*</Card>*/}
         <Box w={'100%'} p={10}>
           <Water.List
             where={{

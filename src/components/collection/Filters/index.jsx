@@ -187,6 +187,8 @@ const constructInitialFilters = (filter) => {
     result.operator = Object.keys(details)[0];
     if (result.operator === '_is_null') {
       result.value = details[result.operator] === true;
+    } else {
+      result.value = details[result.operator];
     }
   }
   return result;
@@ -212,6 +214,7 @@ export default ({
         .filter((f) => f.type && !f.name.startsWith('ref_'))
     : [];
   const graphqlFilters = constructFilters(rootFilter);
+  console.log(graphqlFilters, rootFilter);
   return (
     <Box>
       {fields.length > 0 && (
