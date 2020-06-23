@@ -27,9 +27,15 @@ import WaterIcon from 'src/assets/Water';
 import Money from 'src/assets/Money';
 export default () => {
   const { colorMode } = useColorMode();
-  const [recordType, setRecordType] = useState('task');
-  const { showFormPopup, toggleFormPopup } = useStore((state) => ({
+  const {
+    showFormPopup,
+    toggleFormPopup,
+    recordType,
+    setRecordType,
+  } = useStore((state) => ({
     date: state.ui.date,
+    recordType: state.ui.recordType,
+    setRecordType: state.setRecordType,
     showFormPopup: state.ui.showFormPopup,
     toggleFormPopup: state.toggleFormPopup,
   }));
@@ -49,7 +55,7 @@ export default () => {
     <Modal
       borderRadius={10}
       isOpen={showFormPopup}
-      onClose={toggleFormPopup}
+      onClose={() => toggleFormPopup()}
       size={'6xl'}
       shadow={'lg'}
     >

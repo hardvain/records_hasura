@@ -209,7 +209,7 @@ export default ({
           const type = field.type.name || field.type.ofType.name;
           return { name: field.name, type };
         })
-        // .filter((f) => f.type && !f.name.startsWith('ref_'))
+        .filter((f) => f.type && !f.name.startsWith('ref_'))
     : [];
   const graphqlFilters = constructFilters(rootFilter);
   return (

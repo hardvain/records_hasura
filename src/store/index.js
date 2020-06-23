@@ -4,6 +4,7 @@ export const [useStore] = create((set, get) => ({
   ui: {
     date: moment(),
     user_id: undefined,
+    recordType: 'task',
     showSidebar: false,
     currentTeam: 'all',
     showFormPopup: false,
@@ -13,7 +14,7 @@ export const [useStore] = create((set, get) => ({
       secondary: 'grey',
     },
   },
-  toggleFormPopup: (recordType) => {
+  toggleFormPopup: (recordType = 'task') => {
     set((state) => ({
       ...state,
       ui: { ...state.ui, showFormPopup: !get().ui.showFormPopup, recordType },
@@ -25,10 +26,10 @@ export const [useStore] = create((set, get) => ({
       ui: { ...state.ui, showSidebar: !get().ui.showSidebar },
     }));
   },
-  setCurrentTeam: (value) => {
+  setRecordType: (value) => {
     set((state) => ({
       ...state,
-      ui: { ...state.ui, currentTeam: value },
+      ui: { ...state.ui, recordType: value },
     }));
   },
   setDate: (value) => {

@@ -136,70 +136,9 @@ export default () => {
               w={'100%'}
               variant={'ghost'}
             >
-              Upcoming Expnses
+              Upcoming Expenses
             </Button>
-            <Divider />
-            <FormControl mt={5}>
-              <FormLabel>Team</FormLabel>
-              <Select
-                size={'sm'}
-                name="team"
-                onChange={(e) => setTeam(e.target.value)}
-                value={team}
-              >
-                <option value={''}>All</option>
-                <option value={'vndly'}>VNDLY</option>
-                <option value={'family'}>Family</option>
-                <option value={'relationships'}>Relationships</option>
-                <option value={'knowledge'}>Knowledge</option>
-                <option value={'health'}>Health</option>
-                <option value={'nutrition'}>Nutrition</option>
-                <option value={'home'}>Home</option>
-                <option value={'personal'}>Personal</option>
-                <option value={'finance'}>Finance</option>
-              </Select>
-            </FormControl>
-            <FormControl>
-              <FormLabel>Priority</FormLabel>
-              <Select
-                size={'sm'}
-                onChange={(e) => setPriority(e.target.value)}
-                name="priority"
-                value={priority}
-              >
-                <option value={''}>All</option>
-                <option value={'very_high'}>Very High</option>
-                <option value={'high'}>High</option>
-                <option value={'medium'}>Medium</option>
-                <option value={'low'}>Low</option>
-                <option value={'very_low'}>Very Low</option>
-              </Select>
-            </FormControl>
 
-            <FormControl>
-              <FormLabel>Status</FormLabel>
-              <Select
-                size={'sm'}
-                name="status"
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                <option value={''}>All</option>
-                <option value={'todo'}>To Do</option>
-                <option value={'in_progress'}>In Progress</option>
-                <option value={'completed'}>Completed</option>
-              </Select>
-            </FormControl>
-            <FormControl display={'grid'}>
-              <FormLabel>Due Date</FormLabel>
-              <DatePicker
-                selected={moment(date)}
-                type={'input'}
-                includeTime={false}
-                onChange={(e) => setDate(e.toISOString(true))}
-              />
-            </FormControl>
-            <Divider />
           </Stack>
         </Card>
         <Box w={'100%'}>

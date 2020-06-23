@@ -7,8 +7,9 @@ import {
   MenuItem,
   Box,
   useColorMode,
-  Button,
+  Button, Divider, Tooltip,
 } from '@chakra-ui/core';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import DatePicker from 'src/components/DatePicker';
@@ -51,44 +52,24 @@ export default () => {
   return (
     <Flex
       boxShadow={'none'}
-      bg={'none'}
+      bg={colorMode === 'light' ? 'white' : '#232626'}
       direction="row"
+      borderBottomWidth={1}
       borderBottom="gray.200"
       alignItems={'center'}
-      py={'2px'}
-      px={2}
+      py={1}
+      pl={4}
       position={'fixed'}
-      width="100%"
+      width="96%"
       top={0}
       zIndex={1000}
     >
-      {/*<MenuButton isActive={pathname === '/calendar'}>*/}
-      {/*  <NextLink href="/calendar" as={`/calendar`}>*/}
-      {/*    <IconButton size={'lg'} variant="default" icon={FaCalendar} />*/}
-      {/*  </NextLink>*/}
-      {/*</MenuButton>*/}
       <Box>
-        <Menu>
-          <ChakraMenuButton
-            variant={'ghost'}
-            size={'sm'}
-            as={Button}
-            mr={4}
-            rightIcon={'chevron-down'}
-          >
-            Dashboards
-          </ChakraMenuButton>
-          <MenuList bg={colorMode === 'light' ? 'grey.300' : '#3e4242'}>
-            <MenuItem onClick={() => toggleFormPopup('task')}>Task</MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('water')}>Water</MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('glucose')}>
-              Glucose
-            </MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('transaction')}>
-              Transaction
-            </MenuItem>
-          </MenuList>
-        </Menu>
+        <Link href="/projects" as={`/projects`}>
+          <Button variant={'ghost'} size={'sm'} mr={4}>
+            Projects
+          </Button>
+        </Link>
       </Box>
 
       <Box>
@@ -99,7 +80,7 @@ export default () => {
             as={Button}
             mr={4}
           >
-            Create
+            Add
           </ChakraMenuButton>
           <MenuList bg={colorMode === 'light' ? 'grey.300' : '#3e4242'}>
             <MenuItem onClick={() => toggleFormPopup('task')}>Task</MenuItem>
@@ -110,30 +91,25 @@ export default () => {
             <MenuItem onClick={() => toggleFormPopup('transaction')}>
               Transaction
             </MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('dishes')}>
+              Dish
+            </MenuItem>
+            <Divider/>
+            <MenuItem onClick={() => toggleFormPopup('projects')}>
+              Project
+            </MenuItem>
           </MenuList>
         </Menu>
       </Box>
-      <Box mx={2}>
-        <DatePicker selected={date} type={'button'} onChange={setDate} />
-      </Box>
       <Box flexGrow={1}></Box>
-
-      {/*<InputGroup size={'sm'} w={300} mr={2}>*/}
-      {/*  <InputLeftElement children={<Icon name="search" color="gray.300" />} />*/}
-      {/*  <Input*/}
-      {/*    type="phone"*/}
-      {/*    placeholder="Search Records"*/}
-      {/*    value={searchText}*/}
-      {/*    onChange={search}*/}
-      {/*  />*/}
-      {/*</InputGroup>*/}
-      <IconButton
-        size={'lg'}
-        variant="default"
-        icon={colorMode === 'light' ? 'moon' : 'sun'}
-        mr={4}
-        onClick={toggleColorMode}
-      />
+      <Tooltip label={colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}>
+        <IconButton
+          size={'lg'}
+          variant="default"
+          icon={colorMode === 'light' ? 'moon' : 'sun'}
+          onClick={toggleColorMode}
+        />
+      </Tooltip>
     </Flex>
   );
 };

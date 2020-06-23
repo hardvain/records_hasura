@@ -19,7 +19,7 @@ export default () => {
           team: 'asc',
           due_date: 'asc',
         }}
-        where={{ project_id: { _eq: id } }}
+        where={{ _and: [{ project_id: { _eq: id } }] }}
       />
     </Box>
   );

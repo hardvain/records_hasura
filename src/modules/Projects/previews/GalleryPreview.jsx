@@ -75,7 +75,6 @@ export default ({ record }) => {
       <Card title={record.name} highlight>
         <Stack>
           <Stack p={3} spacing={10}>
-            <Text>Progress:</Text>
             {completedPercentage ? (
               <>
                 <Progress
@@ -88,28 +87,8 @@ export default ({ record }) => {
                 </Text>
               </>
             ) : (
-              <>
-                <Skeleton width={'100%'} h={10} />
-                <Skeleton width={'100%'} h={5} />
-              </>
+              <Skeleton width={'100%'} h={5} />
             )}
-          </Stack>
-          <Divider />
-          <Stack isInline justifyContent={'space-evenly'} w={'100%'} p={3}>
-            <Stack alignItems={'center'}>
-              <Text>High Priority</Text>
-              <Text>{highPriorityTasks?.count}</Text>
-            </Stack>
-            <Divider orientation={'vertical'} />
-            <Stack alignItems={'center'}>
-              <Text>Backlog</Text>
-              <Text>{backlogTasks?.count}</Text>
-            </Stack>
-            <Divider orientation={'vertical'} />
-            <Stack alignItems={'center'}>
-              <Text>Overdue</Text>
-              <Text>{overDueTasks?.count}</Text>
-            </Stack>
           </Stack>
         </Stack>
       </Card>

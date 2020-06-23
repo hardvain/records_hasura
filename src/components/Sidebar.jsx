@@ -100,16 +100,6 @@ export default () => {
           </Box>
         </NextLink>
       </Box>
-      <Tooltip label={'Add new record'}>
-        <IconButton
-          size={'md'}
-          onClick={toggleFormPopup}
-          icon={'add'}
-          isRound
-          variantColor={'brand'}
-          mb={5}
-        />
-      </Tooltip>
       <MenuItem
         href="/tasks"
         as={`/tasks`}
@@ -170,141 +160,93 @@ export default () => {
           </Box>
         </Stack>
       </MenuItem>
-      <Collapse isOpen={show}>
-        <MenuItem
-          href="/people"
-          as={`/people`}
-          title={'People'}
-          isActive={pathname === '/people'}
-        >
-          <Stack isInline alignItems={'center'}>
-            <Box alignSelf={'center'} mr={5}>
-              <Team width={30} height={30} />
-            </Box>
-          </Stack>
-        </MenuItem>
-        <MenuItem
-          href="/records/dishes"
-          as={`/records/dishes`}
-          title={'Dishes'}
-          isActive={pathname === '/records/dishes'}
-        >
-          <Stack isInline alignItems={'center'}>
-            <Box mr={5}>
-              <Recipes width={25} height={25} />
-            </Box>
-          </Stack>
-        </MenuItem>
-        <MenuItem
-          href="/records/sleep"
-          as={`/records/sleep`}
-          title={'Sleep'}
-          isActive={pathname === '/records/sleep'}
-        >
-          <Stack isInline alignItems={'center'}>
-            <Box alignSelf={'center'} mr={5}>
-              <Sleep width={30} height={30} />
-            </Box>
-          </Stack>
-        </MenuItem>
-        <MenuItem
-          title={'Timesheet'}
-          isActive={pathname === '/records/timesheet'}
-          href="/records/timesheet"
-          as={`/records/timesheet`}
-        >
-          <Stack isInline alignItems={'center'}>
-            <Box alignSelf={'center'} mr={4}>
-              <Time width={30} height={30} />
-            </Box>
-          </Stack>
-        </MenuItem>
-        <MenuItem
-          title={'Knowledge'}
-          isActive={pathname === '/records/knowledge'}
-          href="/records/knowledge"
-          as={`/records/knowledge`}
-        >
-          <Stack isInline alignItems={'center'}>
-            <Box alignSelf={'center'} mr={4}>
-              <Brain width={30} height={30} />
-            </Box>
-          </Stack>
-        </MenuItem>
-        <MenuItem
-          href="/records/heart"
-          as={`/records/heart`}
-          title={'Heart'}
-          isActive={pathname === '/records/heart'}
-        >
-          <Stack isInline alignItems={'center'}>
-            <Box alignSelf={'center'} mr={4}>
-              <Heart width={30} height={30} />
-            </Box>
-          </Stack>
-        </MenuItem>
-        <MenuItem
-          title={'Medications'}
-          isActive={pathname === '/records/medications'}
-          href="/records/medications"
-          as={`/records/medications`}
-        >
-          <Stack isInline alignItems={'center'}>
-            <Box alignSelf={'center'} mr={4}>
-              <Medicine width={30} height={30} />
-            </Box>
-          </Stack>
-        </MenuItem>
-      </Collapse>
-      {showSidebar ? (
-        <Button
-          variant={'solid'}
-          rightIcon={show ? 'chevron-up' : 'chevron-down'}
-          w={'100%'}
-          onClick={handleToggle}
-        >
-          {show ? 'Show Less' : 'Show More'}
-        </Button>
-      ) : (
-        <Tooltip label={show ? 'Show Less' : 'Show More'}>
-          <IconButton
-            onClick={handleToggle}
-            variant={'solid'}
-            icon={show ? 'chevron-up' : 'chevron-down'}
-          />
-        </Tooltip>
-      )}
-      <Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />
       <MenuItem
-        href="/projects"
-        as={`/projects`}
-        title={'Projects'}
-        isActive={pathname === '/projects'}
+        href="/people"
+        as={`/people`}
+        title={'People'}
+        isActive={pathname === '/people'}
       >
         <Stack isInline alignItems={'center'}>
-          <Box
-            as={GoProject}
-            fontSize={30}
-            alignSelf={'center'}
-            color={'brand.500'}
-            mr={2}
-          />
-        </Stack>
-      </MenuItem>
-      <Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />
-
-      <MenuItem
-        href="/reports"
-        as={`/reports`}
-        title={'Reports'}
-        isActive={pathname === '/reports'}
-      >
-        <Stack isInline alignItems={'center'}>
-          <Box alignSelf={'center'} mr={4}>
-            <Reports width={30} height={30} />
+          <Box alignSelf={'center'} mr={5}>
+            <Team width={30} height={30} />
           </Box>
         </Stack>
       </MenuItem>
+      <MenuItem
+        href="/records/dishes"
+        as={`/records/dishes`}
+        title={'Dishes'}
+        isActive={pathname === '/records/dishes'}
+      >
+        <Stack isInline alignItems={'center'}>
+          <Box mr={5}>
+            <Recipes width={25} height={25} />
+          </Box>
+        </Stack>
+      </MenuItem>
+      <MenuItem
+        href="/records/sleep"
+        as={`/records/sleep`}
+        title={'Sleep'}
+        isActive={pathname === '/records/sleep'}
+      >
+        <Stack isInline alignItems={'center'}>
+          <Box alignSelf={'center'} mr={5}>
+            <Sleep width={30} height={30} />
+          </Box>
+        </Stack>
+      </MenuItem>
+      <MenuItem
+        title={'Timesheet'}
+        isActive={pathname === '/records/timesheet'}
+        href="/records/timesheet"
+        as={`/records/timesheet`}
+      >
+        <Stack isInline alignItems={'center'}>
+          <Box alignSelf={'center'} mr={4}>
+            <Time width={30} height={30} />
+          </Box>
+        </Stack>
+      </MenuItem>
+      <MenuItem
+        title={'Knowledge'}
+        isActive={pathname === '/records/knowledge'}
+        href="/records/knowledge"
+        as={`/records/knowledge`}
+      >
+        <Stack isInline alignItems={'center'}>
+          <Box alignSelf={'center'} mr={4}>
+            <Brain width={30} height={30} />
+          </Box>
+        </Stack>
+      </MenuItem>
+      <MenuItem
+        href="/records/heart"
+        as={`/records/heart`}
+        title={'Heart'}
+        isActive={pathname === '/records/heart'}
+      >
+        <Stack isInline alignItems={'center'}>
+          <Box alignSelf={'center'} mr={4}>
+            <Heart width={30} height={30} />
+          </Box>
+        </Stack>
+      </MenuItem>
+      <MenuItem
+        title={'Medications'}
+        isActive={pathname === '/records/medications'}
+        href="/records/medications"
+        as={`/records/medications`}
+      >
+        <Stack isInline alignItems={'center'}>
+          <Box alignSelf={'center'} mr={4}>
+            <Medicine width={30} height={30} />
+          </Box>
+        </Stack>
+      </MenuItem>
+
+      <Divider borderWidth={2} my={5} w={showSidebar ? '100%' : 45} />
+
       <MenuItem
         href="/settings"
         as={`/settings`}

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { Flex, Stack } from '@chakra-ui/core';
 import './app.css';
 import FormModal from 'src/components/FormModal';
+import Navbar from 'src/components/Navbar';
 import { useStore } from 'src/store';
 import Sidebar from '../components/Sidebar';
 import {
@@ -88,10 +89,12 @@ const App = ({ Component, pageProps }) => {
         <ColorModeProvider>
           <DarkMode>
             <CSSReset config={config} />
+            <Box></Box>
             <Flex direction={'row'}>
               {<Sidebar />}
               <Box ml={70} mr={5} flexGrow={1}>
-                <Box id="component-box" minHeight={'90vh'}>
+                <Navbar />
+                <Box id="component-box" minHeight={'90vh'} mt={10}>
                   <Component {...pageProps} />
                 </Box>
                 <FormModal />
