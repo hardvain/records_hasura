@@ -56,25 +56,27 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
     <Button
       w={showSidebar ? '100%' : 45}
       cursor={'pointer'}
-      borderRadius={6}
-      p={3}
+      borderRadius={0}
+      borderRightColor={'brand.500'}
+      borderRightWidth={isActive ? 3 : 0}
       mb={2}
+      pl={5}
       bg={
         isActive || isHovering
           ? colorMode === 'light'
-          ? 'brand.50'
-          : '#3e4242'
+            ? 'brand.50'
+            : '#3e4242'
           : ''
       }
       justifyContent={'flex-start'}
       variant={'ghost'}
       leftIcon={children}
-      variantColor={isActive || isHovering ? 'brand' : '#3e4242'}
+      color={isActive ? 'brand.500':'gray.500'}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
       <NextLink href={href} as={as}>
-        <Stack isInline alignItems={'center'}>
+        <Stack isInline alignItems={'center'} >
           {showSidebar && <Text ml={5}>{title}</Text>}
         </Stack>
       </NextLink>
@@ -121,7 +123,6 @@ export default () => {
     <Flex
       direction={'column'}
       w={showSidebar ? 250 : 70}
-      px={3}
       pt={3}
       bg={colorMode === 'light' ? 'white' : '#232626'}
       position={'fixed'}

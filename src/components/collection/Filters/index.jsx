@@ -90,7 +90,7 @@ const FilterGroup = ({
   };
 
   return (
-    <Card highlight shadow>
+    <Card shadow={false}>
       <Stack isInline my={3}>
         <Checkbox
           isChecked={isNot}

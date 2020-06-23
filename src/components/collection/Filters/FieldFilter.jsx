@@ -235,6 +235,7 @@ export default ({ fields, filter, setFilter, onDelete }) => {
   return (
     <SimpleGrid columns={3} spacing={5} my={2}>
       <Select
+        variant={'outline'}
         size={'sm'}
         value={filter.field}
         onChange={(e) => setFilter({ ...filter, field: e.target.value })}
@@ -246,6 +247,7 @@ export default ({ fields, filter, setFilter, onDelete }) => {
       </Select>
       {filter?.field && fieldType && (
         <Select
+          variant={'outline'}
           size={'sm'}
           value={filter.operator}
           onChange={(e) => setFilter({ ...filter, operator: e.target.value })}

@@ -109,9 +109,15 @@ export default () => {
         </Menu>
       </Box>
       <Box flexGrow={1}></Box>
+      <Tooltip label={'Notifications'}>
+        <IconButton
+          variant="default"
+          icon={'bell'}
+          onClick={toggleColorMode}
+        />
+      </Tooltip>
       <Tooltip label={colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}>
         <IconButton
-          size={'lg'}
           variant="default"
           icon={colorMode === 'light' ? 'moon' : 'sun'}
           onClick={toggleColorMode}
