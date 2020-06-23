@@ -61,28 +61,25 @@ const options = {
     'similar',
   ],
 };
-export default ({ fields, filter, setFilter }) => {
-  const [field, setField] = useState();
-  const [operator, setOperator] = useState();
-  const [value, setValue] = useState();
-  const fieldType = field
-    ? fields.filter((f) => f.name === field)[0].type
+export default ({ fields, filter, setFilter, onDelete }) => {
+  const fieldType = filter?.field
+    ? fields.filter((f) => f.name === filter.field)[0].type
     : undefined;
   return (
     <Stack isInline spacing={10} my={2}>
       <Select
-        value={field}
-        onChange={(e) => setField(e.target.value)}
+        value={filter.field}
+        onChange={(e) => setFilter({ ...filter, field: e.target.value })}
         placeholder={'Select a field'}
       >
         {fields.map((f) => (
           <option key={f.name}>{f.name}</option>
         ))}
       </Select>
-      {field && fieldType && (
+      {filter?.field && fieldType && (
         <Select
-          value={operator}
-          onChange={(e) => setOperator(e.target.value)}
+          value={filter.operator}
+          onChange={(e) => setFilter({ ...filter, operator: e.target.value })}
           placeholder={'Select an operator'}
         >
           {options[fieldType].map((o) => (
@@ -90,10 +87,13 @@ export default ({ fields, filter, setFilter }) => {
           ))}
         </Select>
       )}
-      {field && operator && (
-        <Input value={value} onChange={(e) => setValue(e.target.value)} />
+      {filter?.field && filter?.operator && (
+        <Input
+          value={filter.value}
+          onChange={(e) => setFilter({ ...filter, value: e.target.value })}
+        />
       )}
-      <IconButton icon={'delete'} isRound size={"sm"}/>
+      <IconButton icon={'delete'} isRound size={'sm'} onClick={onDelete}/>
     </Stack>
   );
 };

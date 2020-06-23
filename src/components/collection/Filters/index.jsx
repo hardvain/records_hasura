@@ -27,13 +27,29 @@ const CustomRadio = React.forwardRef((props, ref) => {
     />
   );
 });
-const FilterGroup = ({ fields, filterGroup }) => {
-  const [filters, setFilters] = useState([{ type: 'field' }]);
+const FilterGroup = ({ fields, filterGroup, setFilterGroup, onDelete }) => {
+  const [filters, setFilters] = useState([]);
   const addFilter = () => {
     setFilters([...filters, { type: 'field' }]);
   };
   const addGroup = () => {
     setFilters([...filters, { type: 'group' }]);
+  };
+  const deleteFilter = (index) => {
+    setFilters(filters.filter((f, i) => i !== index));
+  };
+  const setFilter = (index) => (content) => {
+    const updatedFilters = [...filters];
+    updatedFilters[index] = content;
+    setFilters(updatedFilters);
+  };
+  const deleteFilterGroup = (index) => {
+    setFilters(filters.filter((f, i) => i !== index));
+  };
+  const setChildFilterGroup = (index) => (content) => {
+    const updatedFilters = [...filters];
+    updatedFilters[index] = content;
+    setFilters(updatedFilters);
   };
   return (
     <Card highlight shadow>
@@ -48,15 +64,30 @@ const FilterGroup = ({ fields, filterGroup }) => {
           <CustomRadio value="or">Or</CustomRadio>
         </RadioButtonGroup>
         <Box flexGrow={1}></Box>
-        <Button size={"sm"} onClick={addFilter}>Add Filter</Button>
-        <Button size={"sm"} onClick={addGroup}>Add Group</Button>
-        <IconButton isRound size={"sm"} icon={'delete'} />
+        <Button size={'sm'} onClick={addFilter}>
+          Add Filter
+        </Button>
+        <Button size={'sm'} onClick={addGroup}>
+          Add Group
+        </Button>
+        <IconButton isRound size={'sm'} icon={'delete'} onClick={onDelete} />
       </Stack>
       {filters.map((f, index) =>
         f.type === 'field' ? (
-          <FieldFilter fields={fields} filter={f} key={index} />
+          <FieldFilter
+            fields={fields}
+            filter={f}
+            setFilter={setFilter(index)}
+            key={index}
+            onDelete={() => deleteFilter(index)}
+          />
         ) : (
-          <FilterGroup fields={fields} />
+          <FilterGroup
+            fields={fields}
+            filterGroup={f}
+            setFilterGroup={setChildFilterGroup}
+            onDelete={() => deleteFilterGroup(index)}
+          />
         )
       )}
     </Card>
