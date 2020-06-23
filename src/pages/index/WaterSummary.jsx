@@ -26,9 +26,10 @@ export default () => {
         .filter((i) => moment(i.timestamp).unix() < date.unix())
         .map((i) => i.quantity)
     : [];
-  const yestAvg =
-    yestItemsBeforeNow.reduce((p, c) => p + c, 0) / yestItemsBeforeNow.length || 0;
-  const yestPercentage = (yestAvg * 100) / 3000;
+  console.log(yestItemsBeforeNow)
+  const yestSum =
+    yestItemsBeforeNow.reduce((p, c) => p + c, 0) || 0;
+  const yestPercentage = (yestSum * 100) / 3000;
 
   const isTodayAhead = percentage > yestPercentage;
   return (
@@ -51,7 +52,7 @@ export default () => {
         />
         <Stack isInline>
           <Text>Yesterday till this time:</Text>
-          <Text>{yestAvg} / 3000 ML</Text>
+          <Text>{yestSum} / 3000 ML</Text>
         </Stack>
         <Progress
           borderRadius={5}
