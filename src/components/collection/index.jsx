@@ -4,7 +4,7 @@ import List from './List';
 import useQuery from 'src/graphql/hooks/useQuery';
 import { useQuery as useApolloQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import Filters from './Filters'
+import Filters from './Filters';
 const FilteredCollection = ({
   resource,
   fields,
@@ -41,7 +41,10 @@ const FilteredCollection = ({
         />
       </Flex>
     );
-  if (error) return <Box>Something went wrong</Box>;
+  if (error) {
+    console.error(error);
+    return <Box>Something went wrong</Box>;
+  }
   if (data.length === 0) {
     return (
       <Flex
@@ -49,8 +52,11 @@ const FilteredCollection = ({
         alignItems={'center'}
         h={'100%'}
         justifyContent={'center'}
+        borderRadius={3}
+        borderWidth={1}
+        h={100}
       >
-        <NotFound w={200} height={200} />
+        No Results Found.
       </Flex>
     );
   }
@@ -79,7 +85,7 @@ __type(name:"${resource}"){
       where={rest.where}
     >
       {(filters) => (
-        <FilteredCollection resource={resource} {...rest} where={filters} />
+        <FilteredCollection resource={resource} {...rest} where={filters}/>
       )}
     </Filters>
   );

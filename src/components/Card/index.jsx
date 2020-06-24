@@ -28,7 +28,7 @@ export default ({
       shadow={isHovered && shadow ? 'lg' : 'none'}
       my={4}
       h={'100%'}
-      bg={colorMode === 'light' ? 'white' : '#232626'}
+      bg={colorMode === 'light' ? 'white' : '#333'}
       {...rest}
     >
       {title && (

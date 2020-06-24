@@ -28,7 +28,7 @@ export default () => {
       w={'100%'}
       zIndex={1000}
       boxShadow={'none'}
-      bg={colorMode === 'light' ? 'brand.100' : '#232626'}
+      bg={colorMode === 'light' ? 'brand.100' : '#333'}
       direction="row"
       borderBottomWidth={1}
       borderBottom="gray.200"

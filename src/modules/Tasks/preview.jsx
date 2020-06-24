@@ -7,6 +7,7 @@ import {
   Text,
   Divider,
   Button,
+  Progress,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -16,6 +17,12 @@ import Form from './form';
 import ListItem from 'src/components/collection/List/ListItem';
 
 export default ({ record }) => {
+  const subTasks = record.ref_sub_tasks;
+  const totalTasks = subTasks?.length;
+  const completedTasks = (subTasks || []).filter(
+    (t) => t.status === 'completed'
+  ).length;
+  const progress = (completedTasks * 100) / totalTasks;
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
   const mutate = useMutation({ resource: 'tasks', operation: 'delete' });
@@ -57,6 +64,19 @@ export default ({ record }) => {
             </Box>
           </Stack>
         </Stack>
+        {totalTasks > 0 && (
+          <Stack flex={1} spacing={1} alignItems={'baseline'}>
+            <Text fontSize={12}>
+              Completed {completedTasks} out of {totalTasks} Tasks
+            </Text>
+            <Progress
+              color={progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'}
+              value={totalTasks ? progress : 0}
+              w={200}
+              borderRadius={5}
+            />
+          </Stack>
+        )}
         <Box flexGrow={1}></Box>
         <Link as={`/tasks/${record.id}`} href={'/tasks/[id]'}>
           <Button variant={'outline'} size={'xs'} rightIcon={'chevron-right'}>

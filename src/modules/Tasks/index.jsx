@@ -11,6 +11,7 @@ const fields = [
   'status',
   'project_id',
   'ref_project{name}',
+  'ref_sub_tasks{status}'
 ];
 
 const List = (props) => (
