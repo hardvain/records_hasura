@@ -1,17 +1,13 @@
 import {
   Box,
-  Flex,
   IconButton,
   Stack,
   Collapse,
-  Divider,
   Text,
   Progress,
-  Button,
 } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import Card from 'src/components/Card';
-import moment from 'moment';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Form from './form';
 

@@ -7,51 +7,21 @@ import {
   MenuItem,
   Box,
   useColorMode,
-  Button, Divider, Tooltip,
+  Button,
+  Divider,
+  Tooltip,
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
-
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
 import Logo from 'src/assets/Logo';
-import DatePicker from 'src/components/DatePicker';
 import { useStore } from 'src/store';
-import _ from 'lodash';
 
 export default () => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const [searchText, setSearchText] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const {
-    date,
-    toggleFormPopup,
-    searchRecords,
-    setDate,
-    prevDate,
-    nextDate,
-  } = useStore((state) => ({
-    toggleSidebar: state.toggleSidebar,
-    setDate: state.setDate,
-    prevDate: state.prevDate,
-    nextDate: state.nextDate,
-    date: state.ui.date,
-    searchRecords: state.searchRecords,
+  const { toggleFormPopup } = useStore((state) => ({
     toggleFormPopup: state.toggleFormPopup,
   }));
-  const sendQuery = async (query) => {
-    const result = await searchRecords(query);
-    setSearchResults(result.items);
-  };
-  const delayedQuery = _.debounce((q) => sendQuery(q), 500);
 
-  const router = useRouter();
-  const pathname = router.pathname;
-
-  const search = async (e) => {
-    setSearchText(e.target.value);
-    delayedQuery(e.target.value);
-  };
   return (
     <Flex
       position={'fixed'}
@@ -67,7 +37,7 @@ export default () => {
       pl={4}
       width="100%"
     >
-      <Box alignItems={'center'}  cursor={'pointer'} >
+      <Box alignItems={'center'} cursor={'pointer'}>
         <NextLink href="/" as={`/`}>
           <Box alignSelf={'center'} mr={4}>
             <Logo width={30} height={30} />
@@ -107,13 +77,9 @@ export default () => {
             <MenuItem onClick={() => toggleFormPopup('transaction')}>
               Transaction
             </MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('dishes')}>
-              Dish
-            </MenuItem>
-            <Divider/>
-            <MenuItem onClick={() => toggleFormPopup('teams')}>
-              Team
-            </MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('dishes')}>Dish</MenuItem>
+            <Divider />
+            <MenuItem onClick={() => toggleFormPopup('teams')}>Team</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('projects')}>
               Project
             </MenuItem>
@@ -122,11 +88,7 @@ export default () => {
       </Box>
       <Box flexGrow={1}></Box>
       <Tooltip label={'Notifications'}>
-        <IconButton
-          variant="default"
-          icon={'bell'}
-          onClick={toggleColorMode}
-        />
+        <IconButton variant="default" icon={'bell'} onClick={toggleColorMode} />
       </Tooltip>
       <Tooltip label={colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}>
         <IconButton

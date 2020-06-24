@@ -1,4 +1,4 @@
-import { Stack, Progress, Text, Heading, Divider } from '@chakra-ui/core';
+import { Stack, Progress, Text, Heading } from '@chakra-ui/core';
 import React from 'react';
 import useAggregate from 'src/graphql/hooks/useAggregate';
 import useQuery from 'src/graphql/hooks/useQuery';

@@ -1,13 +1,9 @@
 import { useToast } from '@chakra-ui/core';
-import { useEffect, useState } from 'react';
 import gql from 'graphql-tag';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 
 export default ({
   resource,
-  fields,
-  filters,
-  children,
   operation = 'insert',
 }) => {
   const toast = useToast();

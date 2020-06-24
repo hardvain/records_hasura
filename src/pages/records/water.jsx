@@ -11,7 +11,6 @@ import {
   FormLabel,
 } from '@chakra-ui/core';
 import React, { useState } from 'react';
-import WaterSummary from 'src/pages/index/WaterSummary';
 
 export default () => {
   const [date, setDate] = useState(moment().toISOString(true));

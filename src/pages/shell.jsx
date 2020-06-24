@@ -1,4 +1,4 @@
-import { Box, Skeleton, Flex, useColorMode, Spinner } from '@chakra-ui/core';
+import { Flex, Spinner } from '@chakra-ui/core';
 
 export default () => {
   return (

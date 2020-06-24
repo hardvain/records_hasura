@@ -1,13 +1,4 @@
-import {
-  Stack,
-  Stat,
-  StatLabel,
-  StatNumber,
-  Divider,
-  Heading,
-  Text,
-  Progress,
-} from '@chakra-ui/core';
+import { Stack, Heading, Text } from '@chakra-ui/core';
 import React from 'react';
 import useAggregate from 'src/graphql/hooks/useAggregate';
 import * as GlucoseFilters from 'src/modules/Glucose/filters';

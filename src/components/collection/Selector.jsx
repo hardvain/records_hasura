@@ -1,4 +1,4 @@
-import { Box, Select } from '@chakra-ui/core';
+import { Select } from '@chakra-ui/core';
 import { useField } from 'formik';
 import useQuery from 'src/graphql/hooks/useQuery';
 

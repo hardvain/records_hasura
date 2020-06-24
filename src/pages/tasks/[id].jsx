@@ -3,7 +3,6 @@ import React from 'react';
 import useQuery from 'src/graphql/hooks/useQuery';
 import Tasks from 'src/modules/Tasks';
 import { useRouter } from 'next/router';
-import Card from 'src/components/Card';
 export default () => {
   const router = useRouter();
   const { id } = router.query;

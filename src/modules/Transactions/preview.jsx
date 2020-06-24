@@ -1,11 +1,9 @@
 import {
   Box,
-  Flex,
   IconButton,
   Stack,
   Collapse,
   Badge,
-  useColorMode,
 } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import Card from 'src/components/Card';
@@ -15,7 +13,6 @@ import Form from './form';
 
 export default ({ record }) => {
   const [show, setShow] = useState(false);
-  const { colorMode } = useColorMode();
   const mutate = useMutation({
     resource: 'transactions',
     operation: 'delete',

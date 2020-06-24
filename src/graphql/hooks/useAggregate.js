@@ -1,8 +1,5 @@
-import { useEffect, useState } from 'react';
 import gql from 'graphql-tag';
-import { useQuery, useSubscription } from '@apollo/react-hooks';
-import { useFetchUser } from 'src/lib/user';
-import { useStore } from 'src/store';
+import { useSubscription } from '@apollo/react-hooks';
 
 const constructAggregateString = (aggregates) => {
   let result = 'aggregate{\n';

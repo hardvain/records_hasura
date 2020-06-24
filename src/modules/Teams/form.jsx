@@ -10,10 +10,7 @@ import {
 } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import DatePicker, { FormikDatePicker } from 'src/components/DatePicker';
 import useMutation from 'src/graphql/hooks/useMutation';
-import Card from 'src/components/Card';
-import moment from 'moment';
 import Projects from 'src/modules/Projects';
 export default ({ model, onSubmit }) => {
   const [currentModel, setCurrentModel] = useState(model);

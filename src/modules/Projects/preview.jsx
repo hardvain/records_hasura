@@ -1,10 +1,8 @@
 import {
   Box,
-  Flex,
   IconButton,
   Stack,
   Collapse,
-  Divider,
   Progress,
   Text,
   Button,
@@ -12,8 +10,6 @@ import {
 import Link from 'next/link';
 import React, { useState } from 'react';
 import Card from 'src/components/Card';
-import moment from 'moment';
-import useAggregate from 'src/graphql/hooks/useAggregate';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Form from './form';
 

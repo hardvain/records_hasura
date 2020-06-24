@@ -7,7 +7,6 @@ import {
   SimpleGrid,
   Stack,
 } from '@chakra-ui/core';
-import { useState } from 'react';
 import Selector from 'src/components/collection/Selector';
 import DatePicker from 'src/components/DatePicker';
 import moment from 'moment';

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
-import { Flex, Stack } from '@chakra-ui/core';
+import { Flex } from '@chakra-ui/core';
 import './app.css';
 
 import FormModal from 'src/components/FormModal';
@@ -22,7 +22,6 @@ import 'react-circular-progressbar/dist/styles.css';
 import Router from 'next/router';
 import { useFetchUser } from '../lib/user';
 import { withApollo } from '../lib/withApollo';
-import { ApolloProvider } from '@apollo/react-hooks';
 import Landing from './landing';
 import Shell from './shell';
 NProgress.configure({ showSpinner: false });

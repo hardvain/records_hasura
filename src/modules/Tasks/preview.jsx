@@ -1,13 +1,11 @@
 import {
   Box,
-  Flex,
   IconButton,
   Stack,
   Collapse,
   Badge,
   Text,
   Divider,
-  Icon,
   Button,
 } from '@chakra-ui/core';
 import Link from 'next/link';

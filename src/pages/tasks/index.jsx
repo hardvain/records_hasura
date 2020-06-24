@@ -3,20 +3,13 @@ import {
   Stack,
   Button,
   Divider,
-  Heading,
-  Select,
-  FormControl,
-  FormLabel,
   useColorMode,
   Flex,
 } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
-import DatePicker from 'src/components/DatePicker';
-import Card from 'src/components/Card';
 import Tasks from 'src/modules/Tasks';
 import moment from 'moment';
 import * as TaskFilters from 'src/modules/Tasks/filters';
-import ResourceSelector from 'src/components/collection/Selector';
 
 const TaskButton = ({activePreset,filter,label}) => {
   const { colorMode } = useColorMode();
@@ -40,13 +33,8 @@ const TaskButton = ({activePreset,filter,label}) => {
 }
 
 export default () => {
-  const { colorMode } = useColorMode();
   const [filters, setFilters] = useState(undefined);
   const [activePreset, setActivePreset] = useState('today');
-  const [team, setTeam] = useState('');
-  const [project, setProject] = useState('');
-  const [status, setStatus] = useState('');
-  const [priority, setPriority] = useState('');
   const [date, setDate] = useState(moment().toISOString(true));
   const activateTodayFilter = () => {
     setActivePreset('today');
@@ -68,34 +56,7 @@ export default () => {
     setActivePreset('next7days');
     setFilters(TaskFilters.activeNext7Days(date));
   };
-  useEffect(() => {
-    let result = {};
-    if (team !== '') {
-      result = { ...result, team: { _eq: team } };
-    }
-    if (status !== '') {
-      result = { ...result, status: { _eq: status } };
-    }
-    if (priority !== '') {
-      result = { ...result, priority: { _eq: priority } };
-    }
-    if (priority !== '') {
-      result = { ...result, priority: { _eq: priority } };
-    }
-    if (project !== '') {
-      result = { ...result, project_id: { _eq: project } };
-    }
-    if (date !== '') {
-      result = {
-        ...result,
-        _and: [
-          { due_date: { _gte: moment(date).startOf('day').toISOString(true) } },
-          { due_date: { _lte: moment(date).endOf('day').toISOString(true) } },
-        ],
-      };
-    }
-    setFilters(result);
-  }, [team, status, priority, date, project]);
+
   useEffect(() => {
     activateTodayFilter();
   }, []);

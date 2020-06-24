@@ -1,4 +1,3 @@
-
 import { initAuth0 } from '@auth0/nextjs-auth0'
 import config from './auth0-config'
 export default initAuth0({

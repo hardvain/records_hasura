@@ -1,14 +1,8 @@
-import Card from 'src/components/Card';
 import Glucose from 'src/modules/Glucose';
 import moment from 'moment';
-import DatePicker from 'src/components/DatePicker';
 import {
   Box,
   Stack,
-  Divider,
-  Heading,
-  FormControl,
-  FormLabel,
 } from '@chakra-ui/core';
 import React, { useState } from 'react';
 

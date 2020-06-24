@@ -1,12 +1,4 @@
-import {
-  Box,
-  Flex,
-  IconButton,
-  Stack,
-  Collapse,
-  Divider,
-  useColorMode,
-} from '@chakra-ui/core';
+import { Box, IconButton, Stack, Collapse, Divider } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import Card from 'src/components/Card';
 import moment from 'moment';
@@ -15,7 +7,6 @@ import Form from './form';
 
 export default ({ record }) => {
   const [show, setShow] = useState(false);
-  const { colorMode } = useColorMode();
   const mutate = useMutation({
     resource: 'water',
     operation: 'delete',

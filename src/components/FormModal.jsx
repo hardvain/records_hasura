@@ -9,23 +9,14 @@ import {
   useColorMode,
   Divider,
   Stack,
-  useToast, IconButton,
 } from '@chakra-ui/core';
-import { useState } from 'react';
-import { MdTimer } from 'react-icons/md';
-import { IoIosLogOut, IoIosPeople } from 'react-icons/io';
 import {
   GiSugarCane,
   GiWaterDrop,
-  GiFruitBowl,
   GiMoneyStack,
-  GiBed,
-  GiBrain,
 } from 'react-icons/gi';
 import {
   FaTasks,
-  FaHeartbeat,
-  FaBriefcaseMedical,
   FaPizzaSlice,
 } from 'react-icons/fa';
 import { GoProject } from 'react-icons/go';
@@ -117,7 +108,7 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <Box as={FaTasks} w={30} h={30}/>
+              <Box as={GiMoneyStack} w={30} h={30}/>
             </Box>
             <Box
               borderColor={recordType === 'glucose' ? 'brand.500' : ''}
@@ -129,7 +120,7 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <Box as={FaTasks} w={30} h={30}/>
+              <Box as={GiSugarCane} w={30} h={30}/>
             </Box>
             <Box
               borderColor={recordType === 'water' ? 'brand.500' : ''}
@@ -141,7 +132,7 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <Box as={FaTasks} w={30} h={30}/>
+              <Box as={GiWaterDrop} w={30} h={30}/>
             </Box>
             <Box
               borderColor={recordType === 'dishes' ? 'brand.500' : ''}
