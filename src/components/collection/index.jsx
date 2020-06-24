@@ -1,21 +1,10 @@
 import { Box, Flex, Spinner } from '@chakra-ui/core';
-import { createElement } from 'react';
 import NotFound from 'src/assets/NotFound';
-import Filter from 'src/components/calendar/Filter';
-import Table from './Table';
-import List from './List';
-import Gallery from './Gallery';
+import List from './list';
 import useQuery from 'src/graphql/hooks/useQuery';
 import { useQuery as useApolloQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-
-import Filters from './Filters';
-const DisplayMap = {
-  list: List,
-  table: Table,
-  gallery: Gallery,
-};
-
+import Filters from './Filters'
 const FilteredCollection = ({
   resource,
   fields,
@@ -23,8 +12,7 @@ const FilteredCollection = ({
   order_by,
   limit,
   offset,
-  config,
-  previews,
+  preview,
   type,
 }) => {
   const [data, loading, error] = useQuery({
@@ -66,10 +54,7 @@ const FilteredCollection = ({
       </Flex>
     );
   }
-  return createElement(DisplayMap[type], {
-    data: data,
-    preview: previews[type],
-  });
+  return <List data={data} preview={preview} />;
 };
 
 export default ({ resource, showFilterBar = false, ...rest }) => {
@@ -88,7 +73,11 @@ __type(name:"${resource}"){
   }
 }`);
   return (
-    <Filters showFilterBar={showFilterBar} schema={data ? data['__type'] : {}} where={rest.where}>
+    <Filters
+      showFilterBar={showFilterBar}
+      schema={data ? data['__type'] : {}}
+      where={rest.where}
+    >
       {(filters) => (
         <FilteredCollection resource={resource} {...rest} where={filters} />
       )}

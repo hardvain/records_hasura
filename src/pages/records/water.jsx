@@ -20,6 +20,7 @@ export default () => {
       <Stack isInline>
         <Box w={'100%'} px={2} py={5}>
           <Water.List
+            showFilterBar
             where={{
               _and: [
                 {

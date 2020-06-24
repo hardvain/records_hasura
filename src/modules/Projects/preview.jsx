@@ -4,24 +4,32 @@ import {
   IconButton,
   Stack,
   Collapse,
-  Badge,
-  Text,
   Divider,
-  Icon,
+  Progress,
+  Text,
   Button,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import Card from 'src/components/Card';
-import Task from 'src/assets/Task';
+import Sugar from 'src/assets/Sugar';
 import moment from 'moment';
+import useAggregate from 'src/graphql/hooks/useAggregate';
 import useMutation from 'src/graphql/hooks/useMutation';
-import Form from '../form';
+import Form from './form';
 
 export default ({ record }) => {
+  const totalTasks = record.ref_tasks?.length;
+  const completedTasks = (record.ref_tasks || []).filter(
+    (t) => t.status === 'completed'
+  ).length;
+  const progress = (completedTasks * 100) / totalTasks;
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
-  const mutate = useMutation({ resource: 'tasks', operation: 'delete' });
+  const mutate = useMutation({
+    resource: 'projects',
+    operation: 'delete',
+  });
   return (
     <Card
       m={0}
@@ -41,41 +49,37 @@ export default ({ record }) => {
             e.preventDefault();
             handleToggle();
           }}
+          flex={1}
         />
-        <Stack alignItems={'baseline'}>
-          <Box>{record.name}</Box>
-          <Stack isInline>
-            <Text fontSize={12}>Team: {record?.team || '-'}</Text>
-            <Divider orientation={'vertical'} />
-            <Text fontSize={12}>Project: {record?.ref_project?.name}</Text>
-            <Divider orientation={'vertical'} />
-            <Text fontSize={12}>
-              Due Date:{' '}
-              {record.due_date
-                ? moment(record.due_date).format('Do, MMMM YYYY, H:mm')
-                : '-'}
-            </Text>
-            <Divider orientation={'vertical'} />
-
-            <Box mr={2}>
-              <Badge>{record.priority}</Badge>
-            </Box>
-            <Divider orientation={'vertical'} />
-
-            <Box mr={2}>
-              <Badge variantColor={'yellow'}>{record.status}</Badge>
-            </Box>
-          </Stack>
+        <Box flex={15} textAlign={'initial'}>
+          {record.name}
+        </Box>
+        <Stack flex={1} spacing={1} alignItems={'baseline'}>
+          <Text fontSize={12}>
+            Completed {completedTasks} out of {totalTasks} Tasks
+          </Text>
+          <Progress
+            color={progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'}
+            value={totalTasks ? progress : 0}
+            w={200}
+            borderRadius={5}
+          />
         </Stack>
-        <Box flexGrow={1}></Box>
-        <Link as={`/tasks/${record.id}`} href={'/tasks/[id]'}>
-          <Button variant={'outline'} size={'xs'} rightIcon={'chevron-right'}>
+        <Box flex={5} />
+        <Link as={`/projects/${record.id}`} href={'/projects/[id]'}>
+          <Button
+            flex={2}
+            variant={'outline'}
+            size={'xs'}
+            rightIcon={'chevron-right'}
+          >
             View Details
           </Button>
         </Link>
         <IconButton
-          variant={'ghost'}
+          flex={1}
           ml={2}
+          variant={'ghost'}
           size={'sm'}
           icon={'delete'}
           onClick={(e) => {

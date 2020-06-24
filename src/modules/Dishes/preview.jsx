@@ -11,7 +11,7 @@ import { useState } from 'react';
 import Card from 'src/components/Card';
 import Task from 'src/assets/Task';
 import useMutation from 'src/graphql/hooks/useMutation';
-import Form from '../form';
+import Form from './form';
 
 
 export default ({ record }) => {

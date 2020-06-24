@@ -300,6 +300,6 @@ export default {
   colors: {
     ...theme.colors,
     ...colors,
-    brand: colors.teal,
+    brand: colors.deeppurple,
   },
 };
