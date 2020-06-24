@@ -7,7 +7,7 @@ export default ({
   title,
   animate = false,
   highlight = false,
-  shadow = true,
+  shadow = false,
   children,
   ...rest
 }) => {

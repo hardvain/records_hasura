@@ -23,6 +23,7 @@
     "apollo-link-error": "^1.1.13",
     "apollo-link-http": "^1.5.17",
     "apollo-link-ws": "^1.0.20",
+    "chakra-cli": "^1.0.1",
     "dotenv": "^8.2.0",
     "emotion-theming": "^10.0.27",
     "faker": "^4.1.0",

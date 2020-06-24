@@ -10,11 +10,9 @@ export default () => {
   const [task] = useQuery({
     name: 'tasks',
     where: { id: { _eq: id } },
-    fields: ['id', 'name', 'due_date'],
+    fields: ['id', 'name', 'due_date','status','project_id','priority'],
   });
   return (
-    <Box p={3}>
-      <Card>{task ? <Tasks.Form model={task[0]} /> : <Skeleton />}</Card>
-    </Box>
+    <Box p={8}>{task ? <Tasks.Form model={task[0]} /> : <Skeleton />}</Box>
   );
 };

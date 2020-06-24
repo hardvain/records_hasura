@@ -72,7 +72,7 @@ const FilteredCollection = ({
   });
 };
 
-export default ({ resource, ...rest }) => {
+export default ({ resource, showFilterBar = false, ...rest }) => {
   const { error, data, loading } = useApolloQuery(gql`query{
 __type(name:"${resource}"){
     name
@@ -88,8 +88,10 @@ __type(name:"${resource}"){
   }
 }`);
   return (
-    <Filters schema={data ? data['__type'] : {}} where={rest.where}>
-      {(filters) => <FilteredCollection resource={resource} {...rest} where={filters} />}
+    <Filters showFilterBar={showFilterBar} schema={data ? data['__type'] : {}} where={rest.where}>
+      {(filters) => (
+        <FilteredCollection resource={resource} {...rest} where={filters} />
+      )}
     </Filters>
   );
 };

@@ -72,13 +72,19 @@ export default () => {
         </NextLink>
       </Box>
       <Box>
+        <Link href="/teams" as={`/teams`}>
+          <Button variant={'ghost'} size={'sm'} mr={4}>
+            Teams
+          </Button>
+        </Link>
+      </Box>
+      <Box>
         <Link href="/projects" as={`/projects`}>
           <Button variant={'ghost'} size={'sm'} mr={4}>
             Projects
           </Button>
         </Link>
       </Box>
-
       <Box>
         <Menu>
           <ChakraMenuButton
@@ -102,6 +108,9 @@ export default () => {
               Dish
             </MenuItem>
             <Divider/>
+            <MenuItem onClick={() => toggleFormPopup('teams')}>
+              Team
+            </MenuItem>
             <MenuItem onClick={() => toggleFormPopup('projects')}>
               Project
             </MenuItem>

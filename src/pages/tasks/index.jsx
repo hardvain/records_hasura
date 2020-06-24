@@ -17,6 +17,28 @@ import Tasks from 'src/modules/Tasks';
 import moment from 'moment';
 import * as TaskFilters from 'src/modules/Tasks/filters';
 import ResourceSelector from 'src/components/collection/Selector';
+
+const TaskButton = ({activePreset,filter,label}) => {
+  const { colorMode } = useColorMode();
+
+  return <Button
+    bg={
+      activePreset === 'today'
+        ? colorMode === 'light'
+        ? 'brand.50'
+        : '#3e4242'
+        : ''
+    }
+    onClick={filter}
+    justifyContent={'flex-start'}
+    w={'100%'}
+    variant={'ghost'}
+  >
+    {label}
+  </Button>
+
+}
+
 export default () => {
   const { colorMode } = useColorMode();
   const [filters, setFilters] = useState(undefined);
@@ -84,88 +106,20 @@ export default () => {
           <Box
             m={0}
             borderRadius={0}
-            px={2}
             py={5}
             borderRightWidth={1}
             width={300}
           >
             <Flex h={'100vh'} px={2} direction={'column'}>
-              <Button
-                bg={
-                  activePreset === 'today'
-                    ? colorMode === 'light'
-                      ? 'brand.50'
-                      : '#3e4242'
-                    : ''
-                }
-                onClick={activateTodayFilter}
-                justifyContent={'flex-start'}
-                w={'100%'}
-                variant={'ghost'}
-              >
-                Today
-              </Button>
-
-              <Button
-                bg={
-                  activePreset === 'backlog'
-                    ? colorMode === 'light'
-                      ? 'brand.50'
-                      : '#3e4242'
-                    : ''
-                }
-                onClick={activateBacklogFilter}
-                justifyContent={'flex-start'}
-                w={'100%'}
-                variant={'ghost'}
-              >
-                Backlog
-              </Button>
-              <Button
-                bg={
-                  activePreset === 'overdue'
-                    ? colorMode === 'light'
-                      ? 'brand.50'
-                      : '#3e4242'
-                    : ''
-                }
-                onClick={activateOverdueFilter}
-                justifyContent={'flex-start'}
-                w={'100%'}
-                variant={'ghost'}
-              >
-                Overdue
-              </Button>
-              <Button
-                bg={
-                  activePreset === 'next7days'
-                    ? colorMode === 'light'
-                      ? 'brand.50'
-                      : '#3e4242'
-                    : ''
-                }
-                onClick={activateNext7DaysFilter}
-                justifyContent={'flex-start'}
-                w={'100%'}
-                variant={'ghost'}
-              >
-                Next 7 days
-              </Button>
-              <Button
-                bg={
-                  activePreset === 'all'
-                    ? colorMode === 'light'
-                      ? 'brand.50'
-                      : '#3e4242'
-                    : ''
-                }
-                onClick={activateAllFilter}
-                justifyContent={'flex-start'}
-                w={'100%'}
-                variant={'ghost'}
-              >
-                All
-              </Button>
+              <TaskButton activePreset={'today'} filter={activateTodayFilter} label={'Today'}/>
+              <TaskButton activePreset={'backlog'} filter={activateBacklogFilter} label={'Backlog'}/>
+              <TaskButton activePreset={'overdue'} filter={activateOverdueFilter} label={'Overdue'}/>
+              <TaskButton activePreset={'next7days'} filter={activateNext7DaysFilter} label={'Next 7 days'}/>
+              <TaskButton activePreset={'all'} filter={activateAllFilter} label={'All'}/>
+              <Divider />
+              <TaskButton activePreset={''} filter={activateTodayFilter} label={'VNDLY'}/>
+              <TaskButton activePreset={''} filter={activateTodayFilter} label={'Tenure Policy'}/>
+              <TaskButton activePreset={''} filter={activateTodayFilter} label={'Next JS'}/>
             </Flex>
           </Box>
           <Box w={'100%'} p={2}>

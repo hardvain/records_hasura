@@ -1,5 +1,5 @@
 import Card from 'src/components/Card';
-import Projects from 'src/modules/Projects';
+import Teams from 'src/modules/Teams';
 import moment from 'moment';
 import DatePicker from 'src/components/DatePicker';
 import {
@@ -19,7 +19,7 @@ export default () => {
     <Box>
       <Stack isInline>
         <Box w={'100%'} p={10}>
-          <Projects.List />
+          <Teams.List />
         </Box>
       </Stack>
     </Box>

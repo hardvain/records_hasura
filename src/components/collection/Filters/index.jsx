@@ -195,6 +195,7 @@ const constructInitialFilters = (filter) => {
 };
 
 export default ({
+  showFilterBar,
   schema = { fields: [] },
   where = { _and: [] },
   children,
@@ -214,17 +215,18 @@ export default ({
         .filter((f) => f.type && !f.name.startsWith('ref_'))
     : [];
   const graphqlFilters = constructFilters(rootFilter);
-  console.log(graphqlFilters, rootFilter);
   return (
     <Box>
       {fields.length > 0 && (
         <Stack>
-          <FilterGroup
-            fields={fields}
-            isRoot={true}
-            filter={rootFilter}
-            setFilter={setRootFilter}
-          />
+          {showFilterBar && (
+            <FilterGroup
+              fields={fields}
+              isRoot={true}
+              filter={rootFilter}
+              setFilter={setRootFilter}
+            />
+          )}
           <Box>{children(graphqlFilters)}</Box>
         </Stack>
       )}

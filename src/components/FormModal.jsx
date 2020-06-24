@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/core';
 import { useState } from 'react';
 import { GoProject } from 'react-icons/go';
+import { FiUsers } from 'react-icons/fi';
 import Recipes from 'src/assets/Recipes';
 import { useStore } from 'src/store';
 import Tasks from 'src/modules/Tasks';
@@ -20,6 +21,7 @@ import Glucose from 'src/modules/Glucose';
 import Water from 'src/modules/Water';
 import Projects from 'src/modules/Projects';
 import Dishes from 'src/modules/Dishes';
+import Teams from 'src/modules/Teams';
 import Transactions from 'src/modules/Transactions';
 import Task from 'src/assets/Task';
 import Sugar from 'src/assets/Sugar';
@@ -49,6 +51,7 @@ export default () => {
     transaction: Transactions,
     dishes: Dishes,
     projects: Projects,
+    teams: Teams,
   };
   const Form = formMap[recordType]['Form'] || <div />;
   return (
@@ -153,6 +156,24 @@ export default () => {
             >
               <Box
                 as={GoProject}
+                fontSize={30}
+                alignSelf={'center'}
+                color={'brand.500'}
+                mr={2}
+              />
+            </Box>
+            <Box
+              borderColor={recordType === 'teams' ? 'brand.500' : ''}
+              bg={recordType === 'teams' ? 'brand.100' : 'none'}
+              onClick={() => setRecordType('teams')}
+              cursor={'pointer'}
+              mr={2}
+              borderRadius={45}
+              borderWidth={1}
+              p={5}
+            >
+              <Box
+                as={FiUsers}
                 fontSize={30}
                 alignSelf={'center'}
                 color={'brand.500'}

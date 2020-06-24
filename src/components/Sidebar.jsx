@@ -71,12 +71,20 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
       justifyContent={'flex-start'}
       variant={'ghost'}
       leftIcon={children}
-      color={isActive ? 'brand.500':'gray.500'}
+      color={
+        isActive
+          ? colorMode === 'light'
+            ? 'brand.500'
+            : 'brand.200'
+          : colorMode === 'light'
+          ? 'gray.700'
+          : 'white'
+      }
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
       <NextLink href={href} as={as}>
-        <Stack isInline alignItems={'center'} >
+        <Stack isInline alignItems={'center'}>
           {showSidebar && <Text ml={5}>{title}</Text>}
         </Stack>
       </NextLink>

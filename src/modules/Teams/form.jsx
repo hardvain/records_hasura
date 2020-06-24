@@ -12,16 +12,16 @@ import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import DatePicker, { FormikDatePicker } from 'src/components/DatePicker';
 import useMutation from 'src/graphql/hooks/useMutation';
-
+import Card from 'src/components/Card';
 import moment from 'moment';
-import Tasks from 'src/modules/Tasks/index';
+import Projects from 'src/modules/Projects';
 export default ({ model, onSubmit }) => {
   const [currentModel, setCurrentModel] = useState(model);
   useEffect(() => {
     setCurrentModel(model);
   }, [model]);
   const mutate = useMutation({
-    resource: 'projects',
+    resource: 'teams',
     operation: currentModel ? 'update' : 'insert',
   });
   return (
@@ -31,7 +31,6 @@ export default ({ model, onSubmit }) => {
         initialValues={{
           name: currentModel?.name || '',
           description: currentModel?.description || '',
-          is_archived: currentModel?.is_archived,
         }}
         validate={(values) => {
           return {};
@@ -87,11 +86,12 @@ export default ({ model, onSubmit }) => {
           </Form>
         )}
       </Formik>
+
       {currentModel && (
         <Box>
-          <Heading size={'sm'}>Tasks</Heading>
-          <Tasks.List
-            where={{ _and: [{ project_id: { _eq: currentModel.id } }] }}
+          <Heading size={'sm'}>Projects</Heading>
+          <Projects.List
+            where={{ _and: [{ team_id: { _eq: currentModel.id } }] }}
           />
         </Box>
       )}
