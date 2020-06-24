@@ -7,9 +7,9 @@ import {
   Progress,
 } from '@chakra-ui/core';
 import React, { useState } from 'react';
-import Card from 'src/components/Card';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Form from './form';
+import ListItem from 'src/components/collection/List/ListItem';
 
 export default ({ record }) => {
   const allTasks = record.ref_projects.map((proj) => proj.ref_tasks).flat();
@@ -25,14 +25,7 @@ export default ({ record }) => {
     operation: 'delete',
   });
   return (
-    <Card
-      m={0}
-      borderRadius={0}
-      borderBottomWidth={0}
-      condensed
-      highlight
-      thickLeftBorder={show}
-    >
+    <ListItem expand={show}>
       <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
         <IconButton
           variant={'ghost'}
@@ -76,6 +69,6 @@ export default ({ record }) => {
       <Collapse isOpen={show}>
         <Form model={record} />
       </Collapse>
-    </Card>
+    </ListItem>
   );
 };

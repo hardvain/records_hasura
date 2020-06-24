@@ -1,10 +1,9 @@
 import { Box, IconButton, Stack, Collapse, Divider } from '@chakra-ui/core';
 import React, { useState } from 'react';
-import Card from 'src/components/Card';
 import moment from 'moment';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Form from './form';
-
+import ListItem from 'src/components/collection/List/ListItem';
 export default ({ record }) => {
   const [show, setShow] = useState(false);
   const mutate = useMutation({
@@ -13,14 +12,7 @@ export default ({ record }) => {
   });
   const handleToggle = () => setShow(!show);
   return (
-    <Card
-      m={0}
-      borderRadius={0}
-      borderBottomWidth={0}
-      condensed
-      highlight
-      thickLeftBorder={show}
-    >
+    <ListItem expand={show}>
       <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
         <IconButton
           mr={0}
@@ -55,6 +47,6 @@ export default ({ record }) => {
         <Divider />
         <Form model={record} />
       </Collapse>
-    </Card>
+    </ListItem>
   );
 };

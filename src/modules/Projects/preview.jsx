@@ -9,9 +9,9 @@ import {
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import Card from 'src/components/Card';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Form from './form';
+import ListItem from 'src/components/collection/List/ListItem';
 
 export default ({ record }) => {
   const totalTasks = record.ref_tasks?.length;
@@ -26,14 +26,7 @@ export default ({ record }) => {
     operation: 'delete',
   });
   return (
-    <Card
-      m={0}
-      borderRadius={0}
-      borderBottomWidth={0}
-      condensed
-      highlight
-      thickLeftBorder={show}
-    >
+    <ListItem expand={show}>
       <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
         <IconButton
           mr={0}
@@ -87,6 +80,6 @@ export default ({ record }) => {
       <Collapse isOpen={show}>
         <Form model={record} />
       </Collapse>
-    </Card>
+    </ListItem>
   );
 };

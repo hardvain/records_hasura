@@ -1,6 +1,6 @@
 import { Box, Flex, Spinner } from '@chakra-ui/core';
 import NotFound from 'src/assets/NotFound';
-import List from './list';
+import List from './List';
 import useQuery from 'src/graphql/hooks/useQuery';
 import { useQuery as useApolloQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
