@@ -1,5 +1,5 @@
-import { Box, Flex, Spinner } from '@chakra-ui/core';
-import NotFound from 'src/assets/NotFound';
+import { Box, Button, Flex, Input, Spinner, Stack } from '@chakra-ui/core';
+import { useStore } from 'src/store';
 import List from './List';
 import useQuery from 'src/graphql/hooks/useQuery';
 import { useQuery as useApolloQuery } from '@apollo/react-hooks';
@@ -13,8 +13,12 @@ const FilteredCollection = ({
   limit,
   offset,
   preview,
-  type,
+  formContext = {},
 }) => {
+  const { toggleFormPopup, setNewFormContext } = useStore((state) => ({
+    toggleFormPopup: state.toggleFormPopup,
+    setNewFormContext: state.setNewFormContext,
+  }));
   const [data, loading, error] = useQuery({
     name: resource,
     where,
@@ -23,8 +27,15 @@ const FilteredCollection = ({
     limit,
     offset,
   });
-  if (loading)
-    return (
+
+  const addNew = () => {
+    setNewFormContext(formContext);
+    toggleFormPopup(resource);
+  };
+
+  let response;
+  if (loading) {
+    response = (
       <Flex
         w={'100%'}
         height={'100%'}
@@ -41,12 +52,11 @@ const FilteredCollection = ({
         />
       </Flex>
     );
-  if (error) {
+  } else if (error) {
     console.error(error);
-    return <Box>Something went wrong</Box>;
-  }
-  if (data.length === 0) {
-    return (
+    response = <Box>Something went wrong</Box>;
+  } else if (data.length === 0) {
+    response = (
       <Flex
         w={'100%'}
         alignItems={'center'}
@@ -54,13 +64,30 @@ const FilteredCollection = ({
         justifyContent={'center'}
         borderRadius={3}
         borderWidth={1}
-        h={100}
       >
         No Results Found.
       </Flex>
     );
+  } else {
+    response = <List data={data} preview={preview} />;
   }
-  return <List data={data} preview={preview} />;
+  return (
+    <Stack>
+      <Box>{response}</Box>
+      <Box>
+        <Button
+          mt={2}
+          pl={2}
+          leftIcon={'small-add'}
+          variant={'link'}
+          size={'sm'}
+          onClick={addNew}
+        >
+          Add New
+        </Button>
+      </Box>
+    </Stack>
+  );
 };
 
 export default ({ resource, showFilterBar = false, ...rest }) => {
@@ -85,7 +112,7 @@ __type(name:"${resource}"){
       where={rest.where}
     >
       {(filters) => (
-        <FilteredCollection resource={resource} {...rest} where={filters}/>
+        <FilteredCollection resource={resource} {...rest} where={filters} />
       )}
     </Filters>
   );

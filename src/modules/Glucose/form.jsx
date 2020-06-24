@@ -21,7 +21,7 @@ export default ({ model, onSubmit }) => {
   }, [model]);
   const mutate = useMutation({
     resource: 'glucose',
-    operation: currentModel ? 'update' : 'insert',
+    operation: currentModel && currentModel.id ? 'update' : 'insert',
   });
   return (
     <Formik

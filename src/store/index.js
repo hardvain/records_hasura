@@ -4,8 +4,9 @@ export const [useStore] = create((set, get) => ({
   ui: {
     date: moment(),
     user_id: undefined,
-    recordType: 'task',
+    recordType: 'tasks',
     showSidebar: true,
+    newFormContext:{},
     currentTeam: 'all',
     showFormPopup: false,
     refreshedAt: moment().toISOString(),
@@ -14,7 +15,7 @@ export const [useStore] = create((set, get) => ({
       secondary: 'grey',
     },
   },
-  toggleFormPopup: (recordType = 'task') => {
+  toggleFormPopup: (recordType = 'tasks') => {
     set((state) => ({
       ...state,
       ui: { ...state.ui, showFormPopup: !get().ui.showFormPopup, recordType },
@@ -30,6 +31,12 @@ export const [useStore] = create((set, get) => ({
     set((state) => ({
       ...state,
       ui: { ...state.ui, recordType: value },
+    }));
+  },
+  setNewFormContext: (value) => {
+    set((state) => ({
+      ...state,
+      ui: { ...state.ui, newFormContext: value },
     }));
   },
   setDate: (value) => {

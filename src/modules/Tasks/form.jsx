@@ -24,7 +24,7 @@ export default ({ model, onSubmit = () => {} }) => {
   }, [model]);
   const mutate = useMutation({
     resource: 'tasks',
-    operation: currentModel ? 'update' : 'insert',
+    operation: currentModel && currentModel.id ? 'update' : 'insert',
   });
   return (
     <Stack spacing={10}>
@@ -40,6 +40,7 @@ export default ({ model, onSubmit = () => {} }) => {
           due_date: currentModel?.due_date
             ? moment(currentModel.due_date).toISOString(true)
             : undefined,
+          ...currentModel,
         }}
         validate={(values) => {
           const errors = {};
@@ -188,12 +189,13 @@ export default ({ model, onSubmit = () => {} }) => {
           </Form>
         )}
       </Formik>
-      {currentModel && (
+      {currentModel && currentModel.id && (
         <Box pb={3}>
           <Heading size={'sm'} mb={3}>
             Sub Tasks
           </Heading>
           <Tasks.List
+            formContext={{ parent_id: currentModel.id }}
             where={{ _and: [{ parent_id: { _eq: currentModel.id } }] }}
           />
         </Box>

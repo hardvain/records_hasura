@@ -69,12 +69,12 @@ export default () => {
             Create
           </ChakraMenuButton>
           <MenuList bg={colorMode === 'light' ? 'white' : '#3e4242'}>
-            <MenuItem onClick={() => toggleFormPopup('task')}>Task</MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('tasks')}>Task</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('water')}>Water</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('glucose')}>
               Glucose
             </MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('transaction')}>
+            <MenuItem onClick={() => toggleFormPopup('transactions')}>
               Transaction
             </MenuItem>
             <MenuItem onClick={() => toggleFormPopup('dishes')}>Dish</MenuItem>

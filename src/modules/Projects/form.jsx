@@ -20,7 +20,7 @@ export default ({ model, onSubmit }) => {
   }, [model]);
   const mutate = useMutation({
     resource: 'projects',
-    operation: currentModel ? 'update' : 'insert',
+    operation: currentModel && currentModel.id ? 'update' : 'insert',
   });
   return (
     <Stack spacing={10}>
@@ -30,6 +30,7 @@ export default ({ model, onSubmit }) => {
           name: currentModel?.name || '',
           description: currentModel?.description || '',
           is_archived: currentModel?.is_archived,
+          ...currentModel
         }}
         validate={(values) => {
           return {};
@@ -85,10 +86,13 @@ export default ({ model, onSubmit }) => {
           </Form>
         )}
       </Formik>
-      {currentModel && (
+      {currentModel && currentModel.id && (
         <Box pb={3}>
-          <Heading size={'sm'} mb={3}>Tasks</Heading>
+          <Heading size={'sm'} mb={3}>
+            Tasks
+          </Heading>
           <Tasks.List
+            formContext={{ project_id: currentModel.id }}
             showFilterBar
             where={{ _and: [{ project_id: { _eq: currentModel.id } }] }}
           />

@@ -36,8 +36,10 @@ export default () => {
     toggleFormPopup,
     recordType,
     setRecordType,
+    newFormContext
   } = useStore((state) => ({
     date: state.ui.date,
+    newFormContext: state.ui.newFormContext,
     recordType: state.ui.recordType,
     setRecordType: state.setRecordType,
     showFormPopup: state.ui.showFormPopup,
@@ -47,10 +49,10 @@ export default () => {
     toggleFormPopup();
   };
   const formMap = {
-    task: Tasks,
+    tasks: Tasks,
     glucose: Glucose,
     water: Water,
-    transaction: Transactions,
+    transactions: Transactions,
     dishes: Dishes,
     projects: Projects,
     teams: Teams,
@@ -87,9 +89,9 @@ export default () => {
         >
           <Stack isInline spacing={10}>
             <Box
-              borderColor={recordType === 'task' ? 'brand.500' : ''}
-              bg={recordType === 'task' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('task')}
+              borderColor={recordType === 'tasks' ? 'brand.500' : ''}
+              bg={recordType === 'tasks' ? 'brand.100' : 'none'}
+              onClick={() => setRecordType('tasks')}
               cursor={'pointer'}
               mr={2}
               borderRadius={35}
@@ -99,9 +101,9 @@ export default () => {
               <Box as={FaTasks} w={30} h={30}/>
             </Box>
             <Box
-              borderColor={recordType === 'transaction' ? 'brand.500' : ''}
-              bg={recordType === 'transaction' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('transaction')}
+              borderColor={recordType === 'transactions' ? 'brand.500' : ''}
+              bg={recordType === 'transactions' ? 'brand.100' : 'none'}
+              onClick={() => setRecordType('transactions')}
               cursor={'pointer'}
               mr={2}
               borderRadius={35}
@@ -156,13 +158,7 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <Box
-                as={GoProject}
-                fontSize={30}
-                alignSelf={'center'}
-                color={'brand.500'}
-                mr={2}
-              />
+              <Box as={GoProject} w={30} h={30}/>
             </Box>
             <Box
               borderColor={recordType === 'teams' ? 'brand.500' : ''}
@@ -174,16 +170,10 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <Box
-                as={FiUsers}
-                fontSize={30}
-                alignSelf={'center'}
-                color={'brand.500'}
-                mr={2}
-              />
+              <Box as={FiUsers} w={30} h={30}/>
             </Box>
           </Stack>
-          <Form onSubmit={onSubmit} />
+          <Form onSubmit={onSubmit} model={newFormContext}/>
         </ModalBody>
       </ModalContent>
     </Modal>

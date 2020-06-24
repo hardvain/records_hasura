@@ -12,6 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Projects from 'src/modules/Projects';
+import Tasks from 'src/modules/Tasks';
 export default ({ model, onSubmit }) => {
   const [currentModel, setCurrentModel] = useState(model);
   useEffect(() => {
@@ -19,7 +20,7 @@ export default ({ model, onSubmit }) => {
   }, [model]);
   const mutate = useMutation({
     resource: 'teams',
-    operation: currentModel ? 'update' : 'insert',
+    operation: currentModel && currentModel.id ? 'update' : 'insert',
   });
   return (
     <Stack spacing={10}>
@@ -28,6 +29,7 @@ export default ({ model, onSubmit }) => {
         initialValues={{
           name: currentModel?.name || '',
           description: currentModel?.description || '',
+          ...currentModel
         }}
         validate={(values) => {
           return {};
@@ -84,10 +86,11 @@ export default ({ model, onSubmit }) => {
         )}
       </Formik>
 
-      {currentModel && (
+      {currentModel && currentModel.id && (
         <Box pb={3}>
           <Heading size={'sm'} mb={3}>Projects</Heading>
           <Projects.List
+            formContext={{ team_id: currentModel.id }}
             where={{ _and: [{ team_id: { _eq: currentModel.id } }] }}
           />
         </Box>

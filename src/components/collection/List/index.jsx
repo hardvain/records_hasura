@@ -1,11 +1,9 @@
 import { motion } from 'framer-motion';
 import { createElement } from 'react';
-import { Box, useToast } from '@chakra-ui/core';
+import { Box, Button, Input, Stack } from '@chakra-ui/core';
 const MotionBox = motion.custom(Box);
-
-export default ({ data, preview, onItemSelect }) => {
-  const toast = useToast();
-
+import Card from 'src/components/Card';
+export default ({ data, preview }) => {
   return (
     <MotionBox
       initial={{ opacity: 0 }}
