@@ -11,7 +11,6 @@ import React from 'react';
 import useAggregate from 'src/graphql/hooks/useAggregate';
 import { useStore } from 'src/store';
 import * as TaskFilters from 'src/modules/Tasks/filters';
-import Task from 'src/assets/Task';
 export default () => {
   const { date } = useStore((state) => ({
     date: state.ui.date,
@@ -49,7 +48,6 @@ export default () => {
   return (
     <Flex spacing={10} direction={['column', 'row']}>
       <Stack>
-        <Task width={40} height={40} />
         <Heading mt={2} size={'md'}>
           Tasks
         </Heading>

@@ -7,14 +7,13 @@ import {
   Badge,
   useColorMode,
 } from '@chakra-ui/core';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Card from 'src/components/Card';
-import Money from 'src/assets/Money';
 import moment from 'moment';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Form from './form';
 
-export default ({ record, }) => {
+export default ({ record }) => {
   const [show, setShow] = useState(false);
   const { colorMode } = useColorMode();
   const mutate = useMutation({
@@ -23,20 +22,25 @@ export default ({ record, }) => {
   });
   const handleToggle = () => setShow(!show);
   return (
-    <Card highlight cursor="pointer">
-      <Flex
-        textAlign={'center'}
-        alignItems={'center'}
-        pr={4}
-        onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          handleToggle();
-        }}
-      >
-        <Box mx={3}>
-          <Money width={20} height={20} />
-        </Box>
+    <Card
+      m={0}
+      borderRadius={0}
+      borderBottomWidth={0}
+      condensed
+      highlight
+      thickLeftBorder={show}
+    >
+      <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
+        <IconButton
+          mr={0}
+          variant={'ghost'}
+          icon={show ? 'chevron-down' : 'chevron-right'}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            handleToggle();
+          }}
+        />
         <Stack alignItems={'flex-start'} flexGrow={1}>
           <Stack isInline spacing={10} w={'100%'}>
             <Box>
@@ -71,7 +75,7 @@ export default ({ record, }) => {
             mutate({ variables: { where: { id: { _eq: record.id } } } });
           }}
         />
-      </Flex>
+      </Stack>
       <Collapse isOpen={show}>
         <Form model={record} />
       </Collapse>

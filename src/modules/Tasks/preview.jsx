@@ -13,7 +13,6 @@ import {
 import Link from 'next/link';
 import React, { useState } from 'react';
 import Card from 'src/components/Card';
-import Task from 'src/assets/Task';
 import moment from 'moment';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Form from './form';

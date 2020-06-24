@@ -3,7 +3,6 @@ import React from 'react';
 import useAggregate from 'src/graphql/hooks/useAggregate';
 import useQuery from 'src/graphql/hooks/useQuery';
 import * as WaterFilters from 'src/modules/Water/filters';
-import Water from 'src/assets/Water';
 import moment from 'moment';
 import { useStore } from 'src/store';
 export default () => {
@@ -34,7 +33,6 @@ export default () => {
   return (
     <Stack w={'100%'} p={1} spacing={5} isInline alignItems={'center'}>
       <Stack alignItems={'center'}>
-        <Water width={50} height={50} />
         <Heading mt={2} size={'md'}>
           Water
         </Heading>

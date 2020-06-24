@@ -9,7 +9,6 @@ import {
   Progress,
 } from '@chakra-ui/core';
 import React from 'react';
-import Sugar from 'src/assets/Sugar';
 import useAggregate from 'src/graphql/hooks/useAggregate';
 import * as GlucoseFilters from 'src/modules/Glucose/filters';
 import { useStore } from 'src/store';
@@ -26,7 +25,6 @@ export default () => {
     <>
       <Stack w={'100%'} p={1} spacing={5} isInline alignItems={'center'}>
         <Stack alignItems={'center'}>
-          <Sugar width={50} height={50} />
           <Heading mt={2} size={'md'}>
             Sugar
           </Heading>

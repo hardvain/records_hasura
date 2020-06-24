@@ -9,7 +9,6 @@ import {
 } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import Card from 'src/components/Card';
-import Water from 'src/assets/Water';
 import moment from 'moment';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Form from './form';
@@ -31,19 +30,17 @@ export default ({ record }) => {
       highlight
       thickLeftBorder={show}
     >
-      <Flex
-        textAlign={'center'}
-        alignItems={'center'}
-        pr={4}
-        onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          handleToggle();
-        }}
-      >
-        <Box mx={3}>
-          <Water width={20} height={20} />
-        </Box>
+      <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
+        <IconButton
+          mr={0}
+          variant={'ghost'}
+          icon={show ? 'chevron-down' : 'chevron-right'}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            handleToggle();
+          }}
+        />
         <Stack alignItems={'baseline'} flexGrow={1}>
           <Stack isInline spacing={10}>
             <Box>{record.quantity}</Box>
@@ -62,7 +59,7 @@ export default ({ record }) => {
             mutate({ variables: { where: { id: { _eq: record.id } } } });
           }}
         />
-      </Flex>
+      </Stack>
       <Collapse isOpen={show}>
         <Divider />
         <Form model={record} />

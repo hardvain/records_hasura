@@ -6,9 +6,8 @@ import {
   Collapse,
   Divider,
 } from '@chakra-ui/core';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Card from 'src/components/Card';
-import Sugar from 'src/assets/Sugar';
 import moment from 'moment';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Form from './form';
@@ -22,18 +21,24 @@ export default ({ record }) => {
   });
   return (
     <Card
+      m={0}
+      borderRadius={0}
+      borderBottomWidth={0}
+      condensed
       highlight
-      onClick={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        handleToggle();
-      }}
-      cursor={'pointer'}
+      thickLeftBorder={show}
     >
-      <Flex textAlign={'center'} alignItems={'center'} pr={4}>
-        <Box mx={3}>
-          <Sugar width={20} height={20} />
-        </Box>
+      <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
+        <IconButton
+          mr={0}
+          variant={'ghost'}
+          icon={show ? 'chevron-down' : 'chevron-right'}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            handleToggle();
+          }}
+        />
         <Stack alignItems={'baseline'} flexGrow={1}>
           <Stack isInline spacing={10}>
             <Box>{record.value}</Box>
@@ -52,7 +57,7 @@ export default ({ record }) => {
             mutate({ variables: { where: { id: { _eq: record.id } } } });
           }}
         />
-      </Flex>
+      </Stack>
       <Collapse isOpen={show}>
         <Divider />
         <Form model={record}  />

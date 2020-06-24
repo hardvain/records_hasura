@@ -9,12 +9,27 @@ import {
   useColorMode,
   Divider,
   Stack,
-  useToast,
+  useToast, IconButton,
 } from '@chakra-ui/core';
 import { useState } from 'react';
+import { MdTimer } from 'react-icons/md';
+import { IoIosLogOut, IoIosPeople } from 'react-icons/io';
+import {
+  GiSugarCane,
+  GiWaterDrop,
+  GiFruitBowl,
+  GiMoneyStack,
+  GiBed,
+  GiBrain,
+} from 'react-icons/gi';
+import {
+  FaTasks,
+  FaHeartbeat,
+  FaBriefcaseMedical,
+  FaPizzaSlice,
+} from 'react-icons/fa';
 import { GoProject } from 'react-icons/go';
 import { FiUsers } from 'react-icons/fi';
-import Recipes from 'src/assets/Recipes';
 import { useStore } from 'src/store';
 import Tasks from 'src/modules/Tasks';
 import Glucose from 'src/modules/Glucose';
@@ -23,10 +38,6 @@ import Projects from 'src/modules/Projects';
 import Dishes from 'src/modules/Dishes';
 import Teams from 'src/modules/Teams';
 import Transactions from 'src/modules/Transactions';
-import Task from 'src/assets/Task';
-import Sugar from 'src/assets/Sugar';
-import WaterIcon from 'src/assets/Water';
-import Money from 'src/assets/Money';
 export default () => {
   const { colorMode } = useColorMode();
   const {
@@ -94,7 +105,7 @@ export default () => {
               borderWidth={recordType === 'task' ? 2 : 1}
               p={5}
             >
-              <Task width={30} height={30} />
+              <Box as={FaTasks} w={30} h={30}/>
             </Box>
             <Box
               borderColor={recordType === 'transaction' ? 'brand.500' : ''}
@@ -106,7 +117,7 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <Money width={30} height={30} />
+              <Box as={FaTasks} w={30} h={30}/>
             </Box>
             <Box
               borderColor={recordType === 'glucose' ? 'brand.500' : ''}
@@ -118,7 +129,7 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <Sugar width={30} height={30} />
+              <Box as={FaTasks} w={30} h={30}/>
             </Box>
             <Box
               borderColor={recordType === 'water' ? 'brand.500' : ''}
@@ -130,7 +141,7 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <WaterIcon width={30} height={30} />
+              <Box as={FaTasks} w={30} h={30}/>
             </Box>
             <Box
               borderColor={recordType === 'dishes' ? 'brand.500' : ''}
@@ -142,7 +153,7 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <Recipes width={30} height={30} />
+              <Box as={FaPizzaSlice} w={30} h={30}/>
             </Box>
             <Box
               borderColor={recordType === 'projects' ? 'brand.500' : ''}

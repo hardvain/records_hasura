@@ -6,30 +6,12 @@ import {
   Box,
   Button,
   Tooltip,
-  Divider,
-  Collapse,
   Stack,
   Text,
   useColorMode,
   IconButton,
   Flex,
 } from '@chakra-ui/core';
-import { GoProject } from 'react-icons/go';
-import Logo from 'src/assets/Logo';
-import Task from 'src/assets/Task';
-import Recipes from 'src/assets/Recipes';
-import Sugar from 'src/assets/Sugar';
-import Fruit from 'src/assets/Fruit';
-import Money from 'src/assets/Money';
-import Reports from 'src/assets/Reports';
-import Medicine from 'src/assets/Medicine';
-import Brain from 'src/assets/Brain';
-import Team from 'src/assets/Team';
-import Settings from 'src/assets/Settings';
-import Heart from 'src/assets/Heart';
-import Sleep from 'src/assets/Sleep';
-import Water from 'src/assets/Water';
-import Time from 'src/assets/Time';
 import { useStore } from 'src/store';
 import { MdTimer } from 'react-icons/md';
 import { IoIosLogOut, IoIosPeople } from 'react-icons/io';

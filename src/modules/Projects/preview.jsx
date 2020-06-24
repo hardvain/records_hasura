@@ -12,7 +12,6 @@ import {
 import Link from 'next/link';
 import React, { useState } from 'react';
 import Card from 'src/components/Card';
-import Sugar from 'src/assets/Sugar';
 import moment from 'moment';
 import useAggregate from 'src/graphql/hooks/useAggregate';
 import useMutation from 'src/graphql/hooks/useMutation';

@@ -11,7 +11,6 @@ import {
 } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import Card from 'src/components/Card';
-import Sugar from 'src/assets/Sugar';
 import moment from 'moment';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Form from './form';
