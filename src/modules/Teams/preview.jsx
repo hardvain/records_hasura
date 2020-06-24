@@ -4,8 +4,9 @@ import {
   Stack,
   Collapse,
   Text,
-  Progress,
+  Progress, Button,
 } from '@chakra-ui/core';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Form from './form';
@@ -52,7 +53,11 @@ export default ({ record }) => {
           />
         </Stack>
         <Box flex={5} />
-
+        <Link as={`/teams/${record.id}`} href={'/teams/[id]'}>
+          <Button variant={'outline'} size={'xs'} rightIcon={'chevron-right'}>
+            View Details
+          </Button>
+        </Link>
         <IconButton
           flex={2}
           ml={2}
