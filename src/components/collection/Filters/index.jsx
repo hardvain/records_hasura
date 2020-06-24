@@ -16,7 +16,8 @@ const CustomRadio = React.forwardRef((props, ref) => {
     <Button
       size={'sm'}
       ref={ref}
-      variantColor={isChecked ? 'red' : 'gray'}
+      variant={'solid'}
+      variantColor={isChecked ? 'brand' : 'gray'}
       aria-checked={isChecked}
       role="radio"
       isDisabled={isDisabled}
@@ -107,10 +108,10 @@ const FilterGroup = ({
           <CustomRadio value="_or">Or</CustomRadio>
         </RadioButtonGroup>
         <Box flexGrow={1}></Box>
-        <Button size={'sm'} onClick={addFilter}>
+        <Button variant={'outline'} size={'sm'} onClick={addFilter}>
           Add Filter
         </Button>
-        <Button size={'sm'} onClick={addGroup}>
+        <Button variant={'outline'} size={'sm'} onClick={addGroup}>
           Add Group
         </Button>
         {!isRoot && (

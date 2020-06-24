@@ -88,8 +88,8 @@ export default ({ model, onSubmit }) => {
       </Formik>
 
       {currentModel && (
-        <Box>
-          <Heading size={'sm'}>Projects</Heading>
+        <Box pb={3}>
+          <Heading size={'sm'} mb={3}>Projects</Heading>
           <Projects.List
             where={{ _and: [{ team_id: { _eq: currentModel.id } }] }}
           />

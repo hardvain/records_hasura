@@ -129,12 +129,12 @@ export default () => {
   };
   return (
     <Flex
+      pt={60}
       direction={'column'}
       w={showSidebar ? 250 : 70}
-      pt={3}
       bg={colorMode === 'light' ? 'white' : '#232626'}
       position={'fixed'}
-      height={'95%'}
+      height={'100%'}
       borderRightWidth={1}
       left={0}
       overflowX={'hidden'}

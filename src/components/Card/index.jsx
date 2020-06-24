@@ -9,6 +9,8 @@ export default ({
   highlight = false,
   shadow = false,
   children,
+  thickLeftBorder = false,
+  condensed = false,
   ...rest
 }) => {
   const { colorMode } = useColorMode();
@@ -16,25 +18,18 @@ export default ({
   const [showDetails, setShowDetails] = useState(false);
   return (
     <MotionBox
-      borderColor={isHovered && highlight ? 'brand.300' : ''}
       onClick={() => setShowDetails(!showDetails)}
       onMouseEnter={(e) => setIsHovered(true)}
       onMouseLeave={(e) => setIsHovered(false)}
       minWidth={300}
       borderWidth={1}
+      borderLeftWidth={thickLeftBorder ? 5 : 1}
+      borderLeftColor={thickLeftBorder ? 'brand.300' : ''}
       borderRadius={5}
       shadow={isHovered && shadow ? 'lg' : 'none'}
       my={4}
       h={'100%'}
-      bg={
-        isHovered && highlight
-          ? colorMode === 'light'
-            ? 'brand.50'
-            : '#232626'
-          : colorMode === 'light'
-          ? 'white'
-          : '#232626'
-      }
+      bg={colorMode === 'light' ? 'white' : '#232626'}
       {...rest}
     >
       {title && (
@@ -42,7 +37,7 @@ export default ({
           <Heading size={'sm'}>{title}</Heading>
         </Box>
       )}
-      <Box h={'100%'} p={3}>
+      <Box h={'100%'} px={3} py={condensed ? 1 : 2}>
         {children}
       </Box>
     </MotionBox>

@@ -23,7 +23,14 @@ export default ({ record }) => {
   const handleToggle = () => setShow(!show);
   const mutate = useMutation({ resource: 'tasks', operation: 'delete' });
   return (
-    <Card>
+    <Card
+      m={0}
+      borderRadius={0}
+      borderBottomWidth={0}
+      condensed
+      highlight
+      thickLeftBorder={show}
+    >
       <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
         <IconButton
           mr={0}
@@ -62,11 +69,7 @@ export default ({ record }) => {
         </Stack>
         <Box flexGrow={1}></Box>
         <Link as={`/tasks/${record.id}`} href={'/tasks/[id]'}>
-          <Button
-            variant={'outline'}
-            size={'xs'}
-            rightIcon={'chevron-right'}
-          >
+          <Button variant={'outline'} size={'xs'} rightIcon={'chevron-right'}>
             View Details
           </Button>
         </Link>

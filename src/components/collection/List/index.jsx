@@ -15,6 +15,7 @@ export default ({ data, preview, onItemSelect }) => {
         duration: 0.3,
         ease: 'easeInOut',
       }}
+      borderBottomWidth={1}
     >
       {data.map((record) => (
         <div key={record.id}>{createElement(preview, { record })}</div>

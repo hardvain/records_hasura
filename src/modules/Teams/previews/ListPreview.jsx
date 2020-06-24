@@ -7,8 +7,9 @@ import {
   Divider,
   Text,
   Progress,
+  Button,
 } from '@chakra-ui/core';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Card from 'src/components/Card';
 import Sugar from 'src/assets/Sugar';
 import moment from 'moment';
@@ -29,7 +30,14 @@ export default ({ record }) => {
     operation: 'delete',
   });
   return (
-    <Card>
+    <Card
+      m={0}
+      borderRadius={0}
+      borderBottomWidth={0}
+      condensed
+      highlight
+      thickLeftBorder={show}
+    >
       <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
         <IconButton
           variant={'ghost'}
@@ -39,10 +47,12 @@ export default ({ record }) => {
             e.preventDefault();
             handleToggle();
           }}
+          flex={1}
         />
-        <Box>{record.name}</Box>
-        <Box flexGrow={1}></Box>
-        <Stack spacing={1} alignItems={'baseline'}>
+        <Box flex={10} textAlign={'initial'}>
+          <Text fontSize={'sm'}>{record.name}</Text>
+        </Box>
+        <Stack flex={4} spacing={1} alignItems={'baseline'}>
           <Text fontSize={12}>
             Completed {completedTasks} out of {totalTasks} Tasks
           </Text>
@@ -53,7 +63,10 @@ export default ({ record }) => {
             borderRadius={5}
           />
         </Stack>
+        <Box flex={5} />
+
         <IconButton
+          flex={2}
           ml={2}
           variant={'ghost'}
           size={'sm'}

@@ -16,12 +16,10 @@ export default () => {
   const [date, setDate] = useState(moment().toISOString(true));
 
   return (
-    <Box>
       <Stack isInline>
         <Box w={'100%'} p={10}>
           <Teams.List />
         </Box>
       </Stack>
-    </Box>
   );
 };

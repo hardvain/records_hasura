@@ -54,6 +54,9 @@ export default () => {
   };
   return (
     <Flex
+      position={'fixed'}
+      w={'100%'}
+      zIndex={1000}
       boxShadow={'none'}
       bg={colorMode === 'light' ? 'brand.100' : '#232626'}
       direction="row"

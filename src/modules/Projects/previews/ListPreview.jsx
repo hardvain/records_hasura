@@ -6,7 +6,8 @@ import {
   Collapse,
   Divider,
   Progress,
-  Text, Button,
+  Text,
+  Button,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -30,28 +31,33 @@ export default ({ record }) => {
     operation: 'delete',
   });
   return (
-    <Card>
-      <Stack
-        isInline
-        textAlign={'center'}
-        alignItems={'center'}
-        pr={4}
-      >
-          <IconButton
-            mr={0}
-            variant={'ghost'}
-            icon={show ? 'chevron-down' : 'chevron-right'}
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              handleToggle();
-            }}
-          />
-        <Box>{record.name}</Box>
-        <Box flexGrow={1}></Box>
-
-        <Stack spacing={1} alignItems={'baseline'}>
-          <Text fontSize={12}>Completed {completedTasks} out of {totalTasks}</Text>
+    <Card
+      m={0}
+      borderRadius={0}
+      borderBottomWidth={0}
+      condensed
+      highlight
+      thickLeftBorder={show}
+    >
+      <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
+        <IconButton
+          mr={0}
+          variant={'ghost'}
+          icon={show ? 'chevron-down' : 'chevron-right'}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            handleToggle();
+          }}
+          flex={1}
+        />
+        <Box flex={15} textAlign={'initial'}>
+          {record.name}
+        </Box>
+        <Stack flex={1} spacing={1} alignItems={'baseline'}>
+          <Text fontSize={12}>
+            Completed {completedTasks} out of {totalTasks} Tasks
+          </Text>
           <Progress
             color={'brand'}
             value={totalTasks ? progress : 0}
@@ -59,8 +65,10 @@ export default ({ record }) => {
             borderRadius={5}
           />
         </Stack>
+        <Box flex={5} />
         <Link as={`/projects/${record.id}`} href={'/projects/[id]'}>
           <Button
+            flex={2}
             variant={'outline'}
             size={'xs'}
             rightIcon={'chevron-right'}
@@ -69,8 +77,9 @@ export default ({ record }) => {
           </Button>
         </Link>
         <IconButton
+          flex={1}
           ml={2}
-          variant={"ghost"}
+          variant={'ghost'}
           size={'sm'}
           icon={'delete'}
           onClick={(e) => {

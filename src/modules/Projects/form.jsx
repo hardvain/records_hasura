@@ -6,7 +6,8 @@ import {
   Button,
   Textarea,
   FormControl,
-  FormLabel, Heading,
+  FormLabel,
+  Heading,
 } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -88,9 +89,10 @@ export default ({ model, onSubmit }) => {
         )}
       </Formik>
       {currentModel && (
-        <Box>
-          <Heading size={'sm'}>Tasks</Heading>
+        <Box pb={3}>
+          <Heading size={'sm'} mb={3}>Tasks</Heading>
           <Tasks.List
+            showFilterBar
             where={{ _and: [{ project_id: { _eq: currentModel.id } }] }}
           />
         </Box>
