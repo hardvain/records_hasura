@@ -114,7 +114,7 @@ export default () => {
       pt={60}
       direction={'column'}
       w={showSidebar ? 250 : 70}
-      bg={colorMode === 'light' ? 'white' : '#232626'}
+      bg={colorMode === 'light' ? '#f5f5f7' : '#232626'}
       position={'fixed'}
       height={'100%'}
       borderRightWidth={1}

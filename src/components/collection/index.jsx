@@ -60,7 +60,7 @@ const FilteredCollection = ({
       <Flex
         w={'100%'}
         alignItems={'center'}
-        h={'100%'}
+        h={100}
         justifyContent={'center'}
         borderRadius={3}
         borderWidth={1}

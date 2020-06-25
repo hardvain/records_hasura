@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
-import { Flex } from '@chakra-ui/core';
+import { Flex, useColorMode } from '@chakra-ui/core';
 import './app.css';
 
 import FormModal from 'src/components/FormModal';
@@ -36,7 +36,7 @@ export function reportWebVitals(metric) {
 const config = (theme) => ({
   light: {
     color: theme.colors.gray[800],
-    bg: 'white',
+    bg: '#f5f5f7',
     borderColor: theme.colors.gray[200],
     placeholderColor: theme.colors.gray[400],
   },
@@ -48,6 +48,7 @@ const config = (theme) => ({
   },
 });
 const App = ({ Component, pageProps }) => {
+  const { colorMode } = useColorMode();
   const { setUserId, showSidebar } = useStore((state) => ({
     setUserId: state.setUserId,
     showSidebar: state.ui.showSidebar,
@@ -92,12 +93,17 @@ const App = ({ Component, pageProps }) => {
           <LightMode>
             <CSSReset config={config} />
             <Navbar />
-            <Flex direction={'row'}>
+            <Flex
+              direction={'row'}
+            >
               {<Sidebar />}
-              <Box ml={showSidebar ? 260 : 70} flexGrow={1} pt={60}>
-                <Box minHeight={'100vh'}>
-                  <Component {...pageProps} />
-                </Box>
+              <Box
+                ml={showSidebar ? 260 : 70}
+                flexGrow={1}
+                pt={60}
+                minHeight={'100vh'}
+              >
+                <Component {...pageProps} />
                 <FormModal />
               </Box>
             </Flex>

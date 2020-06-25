@@ -5,7 +5,7 @@ import {
   Collapse,
   Progress,
   Text,
-  Button,
+  Button, Divider,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';

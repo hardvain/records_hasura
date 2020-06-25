@@ -6,7 +6,7 @@ import {
   Button,
   Textarea,
   FormControl,
-  FormLabel, Heading,
+  FormLabel, Heading, Divider, Collapse,
 } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -92,6 +92,8 @@ export default ({ model, formContext, onSubmit }) => {
 
       {currentModel && currentModel.id && (
         <Box pb={3}>
+          <Divider />
+
           <Heading size={'sm'} mb={3}>Projects</Heading>
           <Projects.List
             formContext={{ team_id: currentModel.id }}

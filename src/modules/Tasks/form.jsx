@@ -8,7 +8,7 @@ import {
   Select,
   FormControl,
   FormLabel,
-  Heading,
+  Heading, Divider, Collapse,
 } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -189,6 +189,8 @@ export default ({ model, formContext, onSubmit = () => {} }) => {
       </Formik>
       {currentModel && currentModel.id && (
         <Box pb={3}>
+          <Divider />
+
           <Heading size={'sm'} mb={3}>
             Sub Tasks
           </Heading>
