@@ -78,6 +78,7 @@ export default ({ record }) => {
         />
       </Stack>
       <Collapse isOpen={show}>
+        <Divider />
         <Form model={record} />
       </Collapse>
     </ListItem>

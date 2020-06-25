@@ -6,7 +6,6 @@ export default ({ expand, children }) => {
       borderRadius={0}
       highlight
       my={expand ? 30 : -1}
-      shadow={expand ? 'md' : 'none'}
     >
       {children}
     </Card>
