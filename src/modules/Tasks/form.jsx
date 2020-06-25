@@ -8,8 +8,13 @@ import {
   Select,
   FormControl,
   FormLabel,
-  Heading, Divider, Collapse,
+  Heading,
+  Divider,
+  SimpleGrid,
+  Checkbox,
+  Text,
 } from '@chakra-ui/core';
+import FormikEditableInput from 'src/components/FormikEditableInput';
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { FormikDatePicker } from 'src/components/DatePicker';
@@ -68,7 +73,7 @@ export default ({ model, formContext, onSubmit = () => {} }) => {
               <Box>
                 <FormControl>
                   <FormLabel htmlFor="name">Name</FormLabel>
-                  <Field name="name" as={Input} placeholder={'Name'} />
+                  <FormikEditableInput name={"name"} placeholder={'Name'}/>
                   <ErrorMessage name="name" component="div" />
                 </FormControl>
               </Box>
@@ -163,11 +168,7 @@ export default ({ model, formContext, onSubmit = () => {} }) => {
               <Box>
                 <FormControl>
                   <FormLabel htmlFor="description">Description</FormLabel>
-                  <Field
-                    name="description"
-                    as={Textarea}
-                    placeholder={'Description'}
-                  />
+                  <FormikEditableInput name={"description"} placeholder={'Description'}/>
                   <ErrorMessage name="description" component="div" />
                 </FormControl>
               </Box>
@@ -190,14 +191,43 @@ export default ({ model, formContext, onSubmit = () => {} }) => {
       {currentModel && currentModel.id && (
         <Box pb={3}>
           <Divider />
-
-          <Heading size={'sm'} mb={3}>
-            Sub Tasks
-          </Heading>
-          <Tasks.List
-            formContext={{ parent_id: currentModel.id }}
-            where={{ _and: [{ parent_id: { _eq: currentModel.id } }] }}
-          />
+          <SimpleGrid columns={1} spacing={10}>
+            <Box>
+              <Heading size={'sm'} mb={3}>
+                Sub Tasks
+              </Heading>
+              <Tasks.List
+                formContext={{ parent_id: currentModel.id }}
+                where={{ _and: [{ parent_id: { _eq: currentModel.id } }] }}
+              />
+            </Box>
+            {/*<Box>*/}
+            {/*  <Heading size={'sm'} mb={3}>*/}
+            {/*    Checklists*/}
+            {/*  </Heading>*/}
+            {/*  {checklists.map((i) => (*/}
+            {/*    <Stack isInline spacing={5}>*/}
+            {/*      <Checkbox size={'lg'} />*/}
+            {/*      <Text fontSize={14}>*/}
+            {/*        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab*/}
+            {/*        consequatur cumque delectus ducimus eos{' '}*/}
+            {/*      </Text>*/}
+            {/*      <Input />*/}
+            {/*    </Stack>*/}
+            {/*  ))}*/}
+            {/*  <Box>*/}
+            {/*    <Button*/}
+            {/*      mt={2}*/}
+            {/*      pl={2}*/}
+            {/*      leftIcon={'small-add'}*/}
+            {/*      variant={'link'}*/}
+            {/*      size={'sm'}*/}
+            {/*    >*/}
+            {/*      Add New*/}
+            {/*    </Button>*/}
+            {/*  </Box>*/}
+            {/*</Box>*/}
+          </SimpleGrid>
         </Box>
       )}
     </Stack>

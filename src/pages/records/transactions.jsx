@@ -1,148 +1,70 @@
-import { Box, Stack, Button, useColorMode } from '@chakra-ui/core';
+import {
+  Box,
+  Stack,
+  Button,
+  Divider,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  useColorMode,
+  Flex,
+} from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import Transactions from 'src/modules/Transactions';
 import moment from 'moment';
+import * as TaskFilters from 'src/modules/Tasks/filters';
 
 export default () => {
   const { colorMode } = useColorMode();
-  const [filters, setFilters] = useState(undefined);
-  const [activePreset, setActivePreset] = useState('today');
+
   const [date, setDate] = useState(moment().toISOString(true));
-  const activateTodayFilter = () => {
-    setActivePreset('today');
-    setFilters({
-      _and: [
-        {
-          timestamp: {
-            _gte: moment(date).startOf('day').toISOString(true),
-          },
-        },
-        {
-          timestamp: {
-            _lte: moment(date).endOf('day').toISOString(true),
-          },
-        },
-      ],
-    });
-  };
-  const activateBacklogFilter = () => {
-    setActivePreset('backlog');
-  };
-  const activateOverdueFilter = () => {
-    setActivePreset('overdue');
-  };
-  const activateNext7DaysFilter = () => {
-    setActivePreset('next7days');
-  };
-
-  useEffect(() => {
-    activateTodayFilter();
-  }, []);
-
   return (
-    <Box>
-      <Stack isInline>
-        <Box
-          m={0}
-          borderRadius={0}
-          px={2}
-          py={5}
-          borderRightWidth={1}
-          width={300}
-        >
-          <Stack h={'100vh'}>
-            <Button
-              bg={
-                activePreset === 'today'
-                  ? colorMode === 'light'
-                    ? 'brand.50'
-                    : '#3e4242'
-                  : ''
-              }
-              onClick={activateTodayFilter}
-              justifyContent={'flex-start'}
-              w={'100%'}
-              variant={'ghost'}
-            >
-              Today
-            </Button>
-            <Button
-              bg={
-                activePreset === 'backlog'
-                  ? colorMode === 'light'
-                    ? 'brand.50'
-                    : '#3e4242'
-                  : ''
-              }
-              onClick={activateBacklogFilter}
-              justifyContent={'flex-start'}
-              w={'100%'}
-              variant={'ghost'}
-            >
-              Expenses This Week
-            </Button>
-            <Button
-              bg={
-                activePreset === 'overdue'
-                  ? colorMode === 'light'
-                    ? 'brand.50'
-                    : '#3e4242'
-                  : ''
-              }
-              onClick={activateOverdueFilter}
-              justifyContent={'flex-start'}
-              w={'100%'}
-              variant={'ghost'}
-            >
-              Expenses This Month
-            </Button>
-            <Button
-              bg={
-                activePreset === 'next7days'
-                  ? colorMode === 'light'
-                    ? 'brand.50'
-                    : '#3e4242'
-                  : ''
-              }
-              onClick={activateNext7DaysFilter}
-              justifyContent={'flex-start'}
-              w={'100%'}
-              variant={'ghost'}
-            >
-              Income
-            </Button>
-            <Button
-              bg={
-                activePreset === 'next7days'
-                  ? colorMode === 'light'
-                    ? 'brand.50'
-                    : '#3e4242'
-                  : ''
-              }
-              onClick={activateNext7DaysFilter}
-              justifyContent={'flex-start'}
-              w={'100%'}
-              variant={'ghost'}
-            >
-              Upcoming Expenses
-            </Button>
-          </Stack>
-        </Box>
-        <Box w={'100%'}>
-          <Stack spacing={10} w={'100%'}>
-            <Box w={'100%'} p={5}>
-              <Transactions.List
-                showFilterBar
-                order_by={{
-                  team: 'asc',
-                  timestamp: 'desc',
-                }}
-                where={{ _and: [] }}
-              />
+    <Box w={'100%'} p={3}>
+      <Tabs variantColor={'brand'} variant="soft-rounded" size={'sm'}>
+        <TabList>
+          <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>Today</Tab>
+          <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>
+            Backlog
+          </Tab>
+          <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>
+            Overdue
+          </Tab>
+          <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>
+            Next 7 Days
+          </Tab>
+          <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>All</Tab>
+        </TabList>
+
+        <TabPanels>
+          <TabPanel>
+            <Box w={'100%'} p={2}>
+              <Transactions.List showFilterBar where={{ _and: [] }} />
             </Box>
-          </Stack>
-        </Box>
-      </Stack>
+          </TabPanel>
+          <TabPanel>
+            <Box w={'100%'} p={2}>
+              <Transactions.List showFilterBar where={{ _and: [] }} />
+            </Box>
+          </TabPanel>
+          <TabPanel>
+            <Box w={'100%'} p={2}>
+              <Transactions.List showFilterBar where={{ _and: [] }} />
+            </Box>
+          </TabPanel>
+          <TabPanel>
+            <Box w={'100%'} p={2}>
+              <Transactions.List showFilterBar where={{ _and: [] }} />
+            </Box>
+          </TabPanel>
+          <TabPanel>
+            <Box w={'100%'} p={2}>
+              <Transactions.List showFilterBar where={{ _and: [] }} />
+            </Box>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Box>
   );
 };

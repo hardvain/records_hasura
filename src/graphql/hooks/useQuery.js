@@ -4,7 +4,7 @@ import {  useSubscription } from '@apollo/react-hooks';
 export default ({
   name,
   where,
-  order_by = { created_at: 'desc' },
+  order_by = { created_at: 'asc' },
   limit,
   fields,
   offset,

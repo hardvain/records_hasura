@@ -14,6 +14,7 @@ export default () => {
       <Stack isInline>
         <Box w={'100%'} px={2} py={5}>
           <Glucose.List
+            showFilterBar
             where={{
               _and: [
                 {

@@ -87,18 +87,20 @@ const FilteredCollection = ({
   return (
     <Stack>
       <Box>{response}</Box>
-      <Box>
-        <Button
-          mt={2}
-          pl={2}
-          leftIcon={'small-add'}
-          variant={'link'}
-          size={'sm'}
-          onClick={addNew}
-        >
-          Add New
-        </Button>
-      </Box>
+      {!group_by_field && (
+        <Box>
+          <Button
+            mt={2}
+            pl={2}
+            leftIcon={'small-add'}
+            variant={'link'}
+            size={'sm'}
+            onClick={addNew}
+          >
+            Add New
+          </Button>
+        </Box>
+      )}
     </Stack>
   );
 };

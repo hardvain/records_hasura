@@ -46,7 +46,7 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
       bg={
         isActive || isHovering
           ? colorMode === 'light'
-            ? 'brand.50'
+            ? 'brand.100'
             : '#3e4242'
           : ''
       }

@@ -16,8 +16,7 @@ a:hover {
 }
 
 #nprogress .bar {
-  background: teal;
-
+  background: #2088E5;
   position: fixed;
   z-index: 1031;
   top: 0;
@@ -114,4 +113,7 @@ a:hover {
 #modal-1-header,
 #modal-1-body {
   background: #232626 !important;
+}
+.editable-input{
+  box-shadow: none;
 }
