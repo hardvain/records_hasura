@@ -4,7 +4,8 @@ import {
   Stack,
   Collapse,
   Text,
-  Progress, Button,
+  Progress,
+  Button,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -13,6 +14,7 @@ import Form from './form';
 import ListItem from 'src/components/collection/List/ListItem';
 
 export default ({ record }) => {
+  const projects = record.ref_projects;
   const allTasks = record.ref_projects.map((proj) => proj.ref_tasks).flat();
   const totalTasks = allTasks?.length;
   const completedTasks = (allTasks || []).filter(
@@ -38,9 +40,12 @@ export default ({ record }) => {
           }}
           flex={1}
         />
-        <Box flex={10} textAlign={'initial'}>
-          <Text fontSize={'sm'}>{record.name}</Text>
+        <Box flex={6} textAlign={'initial'}>
+          <Text fontSize={'md'}>{record.name}</Text>
         </Box>
+        <Text fontSize={14} flex={6}>
+          {projects.length} Active Project(s)
+        </Text>
         <Stack flex={4} spacing={1} alignItems={'baseline'}>
           <Text fontSize={12}>
             Completed {completedTasks} out of {totalTasks} Tasks

@@ -10,6 +10,7 @@ import {
   Divider,
   Stack,
 } from '@chakra-ui/core';
+import { useState } from 'react';
 import {
   GiSugarCane,
   GiWaterDrop,
@@ -30,13 +31,15 @@ import Dishes from 'src/modules/Dishes';
 import Teams from 'src/modules/Teams';
 import Transactions from 'src/modules/Transactions';
 export default () => {
+  const [addAnother, setAddAnother] = useState(false)
   const { colorMode } = useColorMode();
   const {
     showFormPopup,
     toggleFormPopup,
     recordType,
     setRecordType,
-    newFormContext
+    newFormContext,
+    setNewFormContext
   } = useStore((state) => ({
     date: state.ui.date,
     newFormContext: state.ui.newFormContext,
@@ -44,9 +47,12 @@ export default () => {
     setRecordType: state.setRecordType,
     showFormPopup: state.ui.showFormPopup,
     toggleFormPopup: state.toggleFormPopup,
+    setNewFormContext: state.setNewFormContext,
+
   }));
   const onSubmit = () => {
     toggleFormPopup();
+    setNewFormContext()
   };
   const formMap = {
     tasks: Tasks,
@@ -70,22 +76,22 @@ export default () => {
       <ModalContent
         borderRadius={10}
         shadow={'lg'}
-        bg={colorMode === 'light' ? 'white' : '#232626'}
+        bg={colorMode === 'light' ? 'white' : '#333'}
       >
         <ModalHeader
           borderRadius={10}
-          bg={colorMode === 'light' ? 'white' : '#232626'}
+          bg={colorMode === 'light' ? 'white' : '#333'}
         >
           Add new record
         </ModalHeader>
-        <Box bg={colorMode === 'light' ? 'white' : '#232626'}>
+        <Box bg={colorMode === 'light' ? 'white' : '#333'}>
           <Divider />
         </Box>
         <ModalCloseButton />
         <ModalBody
           borderRadius={10}
           shadow={'md'}
-          bg={colorMode === 'light' ? 'white' : '#232626'}
+          bg={colorMode === 'light' ? 'white' : '#333'}
         >
           <Stack isInline spacing={10}>
             <Box
@@ -173,7 +179,7 @@ export default () => {
               <Box as={FiUsers} w={30} h={30}/>
             </Box>
           </Stack>
-          <Form onSubmit={onSubmit} model={newFormContext}/>
+          <Form onSubmit={onSubmit} formContext={newFormContext}/>
         </ModalBody>
       </ModalContent>
     </Modal>

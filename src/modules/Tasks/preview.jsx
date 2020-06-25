@@ -26,6 +26,12 @@ export default ({ record }) => {
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
   const mutate = useMutation({ resource: 'tasks', operation: 'delete' });
+  const statusBadgeColor =
+    record.status === 'todo'
+      ? 'yellow'
+      : record.status === 'in_progress'
+      ? 'blue'
+      : 'green';
   return (
     <ListItem expand={show}>
       <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
@@ -60,14 +66,16 @@ export default ({ record }) => {
             <Divider orientation={'vertical'} />
 
             <Box mr={2}>
-              <Badge variantColor={'yellow'}>{record.status}</Badge>
+              <Badge variantColor={statusBadgeColor}>{record.status}</Badge>
             </Box>
           </Stack>
         </Stack>
+        <Box flexGrow={1}></Box>
+
         {totalTasks > 0 && (
           <Stack flex={1} spacing={1} alignItems={'baseline'}>
             <Text fontSize={12}>
-              Completed {completedTasks} out of {totalTasks} Tasks
+              Completed {completedTasks} out of {totalTasks} Sub Tasks
             </Text>
             <Progress
               color={progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'}
@@ -77,7 +85,6 @@ export default ({ record }) => {
             />
           </Stack>
         )}
-        <Box flexGrow={1}></Box>
         <Link as={`/tasks/${record.id}`} href={'/tasks/[id]'}>
           <Button variant={'outline'} size={'xs'} rightIcon={'chevron-right'}>
             View Details

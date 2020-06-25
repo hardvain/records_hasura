@@ -152,8 +152,13 @@ export default ({ model, onSubmit }) => {
 
           <Stack isInline>
             <Box flexGrow={1}></Box>
-            <Button type="submit">
-              {currentModel?.id ? 'Update' : 'Submit'}
+            <Button
+              type="submit"
+              variant={'solid'}
+              variantColor={'brand'}
+              size={'sm'}
+            >
+              {currentModel?.id ? 'Update' : 'Create'}
             </Button>
           </Stack>
         </Form>

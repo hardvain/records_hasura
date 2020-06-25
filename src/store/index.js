@@ -6,7 +6,7 @@ export const [useStore] = create((set, get) => ({
     user_id: undefined,
     recordType: 'tasks',
     showSidebar: true,
-    newFormContext:{},
+    newFormContext: undefined,
     currentTeam: 'all',
     showFormPopup: false,
     refreshedAt: moment().toISOString(),

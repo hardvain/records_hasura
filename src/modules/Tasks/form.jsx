@@ -17,7 +17,7 @@ import useMutation from 'src/graphql/hooks/useMutation';
 import moment from 'moment';
 import { FormikResourceSelector } from 'src/components/collection/Selector';
 import Tasks from 'src/modules/Tasks';
-export default ({ model, onSubmit = () => {} }) => {
+export default ({ model, formContext, onSubmit = () => {} }) => {
   const [currentModel, setCurrentModel] = useState(model);
   useEffect(() => {
     setCurrentModel(model);
@@ -40,7 +40,7 @@ export default ({ model, onSubmit = () => {} }) => {
           due_date: currentModel?.due_date
             ? moment(currentModel.due_date).toISOString(true)
             : undefined,
-          ...currentModel,
+          ...formContext,
         }}
         validate={(values) => {
           const errors = {};
@@ -177,13 +177,11 @@ export default ({ model, onSubmit = () => {} }) => {
               <Box flexGrow={1}></Box>
               <Button
                 type="submit"
-                variant={'default'}
-                bg={'brand.50'}
-                color={'brand.900'}
-                borderWidth={1}
-                borderColor={'brand.900'}
+                variant={'solid'}
+                variantColor={'brand'}
+                size={'sm'}
               >
-                {currentModel?.id ? 'Update' : 'Submit'}
+                {currentModel?.id ? 'Update' : 'Create'}
               </Button>
             </Stack>
           </Form>

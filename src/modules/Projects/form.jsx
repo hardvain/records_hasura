@@ -13,7 +13,7 @@ import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Tasks from 'src/modules/Tasks/index';
-export default ({ model, onSubmit }) => {
+export default ({ model, onSubmit, formContext }) => {
   const [currentModel, setCurrentModel] = useState(model);
   useEffect(() => {
     setCurrentModel(model);
@@ -30,7 +30,7 @@ export default ({ model, onSubmit }) => {
           name: currentModel?.name || '',
           description: currentModel?.description || '',
           is_archived: currentModel?.is_archived,
-          ...currentModel
+          ...formContext,
         }}
         validate={(values) => {
           return {};
@@ -79,8 +79,13 @@ export default ({ model, onSubmit }) => {
 
             <Stack isInline>
               <Box flexGrow={1}></Box>
-              <Button type="submit">
-                {currentModel?.id ? 'Update' : 'Submit'}
+              <Button
+                type="submit"
+                variant={'solid'}
+                variantColor={'brand'}
+                size={'sm'}
+              >
+                {currentModel?.id ? 'Update' : 'Create'}
               </Button>
             </Stack>
           </Form>

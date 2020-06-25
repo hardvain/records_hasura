@@ -115,13 +115,11 @@ export default ({ model, onSubmit = () => {} }) => {
             <Box flexGrow={1}></Box>
             <Button
               type="submit"
-              variant={'default'}
-              bg={'brand.50'}
-              color={'brand.900'}
-              borderWidth={1}
-              borderColor={'brand.900'}
+              variant={'solid'}
+              variantColor={'brand'}
+              size={'sm'}
             >
-              {currentModel?.id ? 'Update' : 'Submit'}
+              {currentModel?.id ? 'Update' : 'Create'}
             </Button>
           </Stack>
         </Form>
