@@ -110,12 +110,23 @@ export default () => {
         </Menu>
       </Box>
       <Box flexGrow={1}></Box>
-      <Stack flex={1} spacing={1} alignItems={'baseline'}>
-        <Text fontSize={12}>
+      <Stack
+        borderRadius={3}
+        spacing={1}
+        alignItems={'baseline'}
+        mr={2}
+        bg={colorMode === 'light' ? 'brand.50' : ''}
+        p={2}
+        borderColor={'brand.500'}
+        borderWidth={1}
+      >
+        <Text fontSize={10}>
           Completed {completedTasksCount} out of{' '}
           {todayTasksAgg ? todayTasksAgg.count : 0} Tasks for today
         </Text>
         <Progress
+          borderWidth={1}
+          borderColor={colorMode === 'light' ? 'gray.300' : ''}
           color={
             progressPercentage > 85
               ? 'green'
