@@ -59,7 +59,7 @@ export const highPrio = (date) => ({
 export const overDue = (date) => ({
   _and: [
     {
-      due_date: { _lte: moment(date).startOf('day').toISOString(true) },
+      due_date: { _lt: moment(date).startOf('day').toISOString(true) },
     },
     { status: { _neq: 'completed' } },
   ],

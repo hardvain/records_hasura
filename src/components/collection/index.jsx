@@ -4,6 +4,7 @@ import List from './List';
 import useQuery from 'src/graphql/hooks/useQuery';
 import { useQuery as useApolloQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import Card from 'src/components/Card';
 import Filters from './Filters';
 const FilteredCollection = ({
   resource,
@@ -13,6 +14,7 @@ const FilteredCollection = ({
   limit,
   offset,
   preview,
+  group_by_field,
   formContext = {},
 }) => {
   const { toggleFormPopup, setNewFormContext } = useStore((state) => ({
@@ -57,19 +59,30 @@ const FilteredCollection = ({
     response = <Box>Something went wrong</Box>;
   } else if (data.length === 0) {
     response = (
-      <Flex
-        w={'100%'}
-        alignItems={'center'}
-        h={100}
-        justifyContent={'center'}
-        borderRadius={3}
-        borderWidth={1}
-      >
-        No Results Found.
-      </Flex>
+      <Card>
+        <Stack
+          w={'100%'}
+          alignItems={'center'}
+          h={100}
+          justifyContent={'center'}
+        >
+          <Box>No Results Found.</Box>
+          <Button
+            leftIcon={'small-add'}
+            variant={'solid'}
+            variantColor={'brand'}
+            size={'sm'}
+            onClick={addNew}
+          >
+            Add New
+          </Button>
+        </Stack>
+      </Card>
     );
   } else {
-    response = <List data={data} preview={preview} />;
+    response = (
+      <List group_by_field={group_by_field} data={data} preview={preview} />
+    );
   }
   return (
     <Stack>

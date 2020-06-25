@@ -10,7 +10,7 @@ const fields = [
   'team',
   'status',
   'project_id',
-  'ref_project{name}',
+  'ref_project{name,ref_team{name}}',
   'ref_sub_tasks{status}'
 ];
 

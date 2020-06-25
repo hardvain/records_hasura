@@ -13,8 +13,8 @@ export default () => {
     fields: ['id', 'name', 'description'],
   });
   return (
-    <Box p={8}>
+    <Card m={3} h={'100%'} p={8}>
       {project ? <Projects.Form model={project[0]} /> : <Skeleton />}
-    </Box>
+    </Card>
   );
 };
