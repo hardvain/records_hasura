@@ -128,7 +128,7 @@ export default () => {
           borderWidth={1}
           borderColor={colorMode === 'light' ? 'gray.300' : ''}
           color={
-            progressPercentage > 85
+            progressPercentage > 75
               ? 'green'
               : progressPercentage < 25
               ? 'red'
