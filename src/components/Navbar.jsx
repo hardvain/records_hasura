@@ -10,18 +10,41 @@ import {
   Button,
   Divider,
   Tooltip,
+  Text,
+  Progress,
+  Stack,
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import Link from 'next/link';
+import React from 'react';
 import Logo from 'src/assets/Logo';
+import useAggregate from 'src/graphql/hooks/useAggregate';
+import * as TaskFilters from 'src/modules/Tasks/filters';
 import { useStore } from 'src/store';
 
 export default () => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode, toggleColorMode, date } = useColorMode();
   const { toggleFormPopup } = useStore((state) => ({
     toggleFormPopup: state.toggleFormPopup,
+    date: state.ui.date,
   }));
-
+  const [todayTasksAgg] = useAggregate({
+    name: 'tasks',
+    where: TaskFilters.today(date),
+    aggregates: { count: [] },
+  });
+  const [todayPendingTasksAgg] = useAggregate({
+    name: 'tasks',
+    where: TaskFilters.activeToday(date),
+    aggregates: { count: [] },
+  });
+  const completedTasksCount =
+    todayTasksAgg && todayPendingTasksAgg
+      ? todayTasksAgg.count - todayPendingTasksAgg.count
+      : 0;
+  const progressPercentage = todayTasksAgg
+    ? (completedTasksCount * 100) / todayTasksAgg.count
+    : 0;
   return (
     <Flex
       position={'fixed'}
@@ -87,6 +110,24 @@ export default () => {
         </Menu>
       </Box>
       <Box flexGrow={1}></Box>
+      <Stack flex={1} spacing={1} alignItems={'baseline'}>
+        <Text fontSize={12}>
+          Completed {completedTasksCount} out of{' '}
+          {todayTasksAgg ? todayTasksAgg.count : 0} Tasks for today
+        </Text>
+        <Progress
+          color={
+            progressPercentage > 85
+              ? 'green'
+              : progressPercentage < 25
+              ? 'red'
+              : 'yellow'
+          }
+          value={todayTasksAgg ? progressPercentage : 0}
+          w={200}
+          borderRadius={5}
+        />
+      </Stack>
       <Tooltip label={'Notifications'}>
         <IconButton variant="default" icon={'bell'} onClick={toggleColorMode} />
       </Tooltip>
