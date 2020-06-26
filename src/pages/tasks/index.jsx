@@ -61,6 +61,12 @@ export default () => {
           >
             Tenure Policy
           </Tab>
+          <Tab
+            onClick={() => setCurrentTab(6)}
+            color={colorMode === 'light' ? 'gray.800' : 'white'}
+          >
+            Records App
+          </Tab>
         </TabList>
 
         <TabPanels>
@@ -164,6 +170,27 @@ export default () => {
                       {
                         project_id: {
                           _eq: '3a0ec3a0-75cd-4642-bff4-6075a9aef177',
+                        },
+                      },
+                    ],
+                  }}
+                />
+              </Box>
+            )}
+          </TabPanel>
+          <TabPanel>
+            {currentTab === 6 && (
+              <Box w={'100%'} p={2}>
+                <Tasks.List
+                  order_by={{
+                    due_date: 'asc',
+                  }}
+                  showFilterBar
+                  where={{
+                    _and: [
+                      {
+                        project_id: {
+                          _eq: 'e4fa423c-9eda-48f8-a509-11e161675dab',
                         },
                       },
                     ],

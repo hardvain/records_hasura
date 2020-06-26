@@ -180,7 +180,7 @@ export default () => {
               <Box as={FiUsers} w={30} h={30}/>
             </Box>
           </Stack>
-          <Form onSubmit={onSubmit} formContext={newFormContext}/>
+          <Form onSubmitCallback={onSubmit} formContext={newFormContext}/>
         </ModalBody>
       </ModalContent>
     </Modal>

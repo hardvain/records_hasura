@@ -6,7 +6,7 @@ import { useForm, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import Field from 'src/forms/Field';
 import useMutation from 'src/graphql/hooks/useMutation';
-export default ({ model, formContext }) => {
+export default ({ model, onSubmitCallback = () => {} }) => {
   const [operation, setOperation] = useState('insert');
   const methods = useForm();
   const [showProjects, setShowProjects] = useState(false);
@@ -31,6 +31,7 @@ export default ({ model, formContext }) => {
         },
       })
     )();
+    onSubmitCallback();
   };
   return (
     <Stack spacing={10}>

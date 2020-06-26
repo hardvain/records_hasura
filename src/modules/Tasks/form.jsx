@@ -21,9 +21,7 @@ import React, { useEffect, useState } from 'react';
 import { CustomDatePicker } from 'src/components/DatePicker';
 import Field from 'src/forms/Field';
 import useMutation from 'src/graphql/hooks/useMutation';
-import moment from 'moment';
-import ResourceSelector from 'src/components/collection/Selector';
-export default ({ model, formContext }) => {
+export default ({ model, onSubmitCallback = () => {} }) => {
   const [operation, setOperation] = useState('insert');
   const methods = useForm();
   const [showTasks, setShowTasks] = useState(false);
@@ -48,6 +46,7 @@ export default ({ model, formContext }) => {
         },
       })
     )();
+    onSubmitCallback();
   };
   return (
     <Stack spacing={10}>

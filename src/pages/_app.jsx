@@ -6,6 +6,7 @@ import './app.css';
 import FormModal from 'src/components/FormModal';
 import Navbar from 'src/components/Navbar';
 import { useStore } from 'src/store';
+import Card from 'src/components/Card';
 import Sidebar from '../components/Sidebar';
 import {
   ThemeProvider,
@@ -48,7 +49,6 @@ const config = (theme) => ({
   },
 });
 const App = ({ Component, pageProps }) => {
-  const { colorMode } = useColorMode();
   const { setUserId, showSidebar } = useStore((state) => ({
     setUserId: state.setUserId,
     showSidebar: state.ui.showSidebar,
@@ -93,17 +93,17 @@ const App = ({ Component, pageProps }) => {
           <LightMode>
             <CSSReset config={config} />
             <Navbar />
-            <Flex
-              direction={'row'}
-            >
+            <Flex direction={'row'}>
               {<Sidebar />}
+
               <Box
-                ml={showSidebar ? 260 : 70}
+                ml={showSidebar ? 250 : 65}
                 flexGrow={1}
-                pt={60}
                 minHeight={'100vh'}
               >
-                <Component {...pageProps} />
+                <Card pt={30}>
+                  <Component {...pageProps} />
+                </Card>
                 <FormModal />
               </Box>
             </Flex>
