@@ -43,7 +43,7 @@ const schema = {
     options: [
       { value: 'todo', label: 'Todo' },
       { value: 'in_progress', label: 'In Progress' },
-      { value: 'done', label: 'Done' },
+      { value: 'completed', label: 'Completed' },
     ],
   },
   project_id: {

@@ -17,6 +17,18 @@ import Form from './form';
 import ListItem from 'src/components/collection/List/ListItem';
 
 export default ({ record }) => {
+  const mutate = useMutation({
+    resource: 'tasks',
+    operation: 'update',
+  });
+  const markAsDone = () => {
+    mutate({
+      variables: {
+        object: { ...record, status: 'completed' },
+        where: { id: { _eq: record?.id } },
+      },
+    });
+  };
   const subTasks = record.ref_sub_tasks;
   const totalTasks = subTasks?.length;
   const completedTasks = (subTasks || []).filter(
@@ -25,7 +37,7 @@ export default ({ record }) => {
   const progress = (completedTasks * 100) / totalTasks;
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
-  const mutate = useMutation({ resource: 'tasks', operation: 'delete' });
+  const deleteMutate = useMutation({ resource: 'tasks', operation: 'delete' });
   const statusBadgeColor =
     record.status === 'todo'
       ? 'yellow'
@@ -71,7 +83,14 @@ export default ({ record }) => {
           </Stack>
         </Stack>
         <Box flexGrow={1}></Box>
-
+        <Button
+          variant={'outline'}
+          variantColor={'brand'}
+          size={'xs'}
+          onClick={markAsDone}
+        >
+          Mark as Done
+        </Button>
         {totalTasks > 0 && (
           <Stack flex={1} spacing={1} alignItems={'baseline'}>
             <Text fontSize={12}>
@@ -100,7 +119,7 @@ export default ({ record }) => {
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();
-            mutate({ variables: { where: { id: { _eq: record.id } } } });
+            deleteMutate({ variables: { where: { id: { _eq: record.id } } } });
           }}
         />
       </Stack>
