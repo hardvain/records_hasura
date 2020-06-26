@@ -18,9 +18,14 @@ return <Button onClick={() => addWater(100)}>100 ML</Button>;
 
 ```javascript
 const {formContext, setFormContext} = useFormContext({name:"tasks",context:task})
-return <Select value={formContext.status} onChange={(e) => setFormContext('status',e.target.value)}>
+return <Select value={formContext.status} onChange={(e) => setFormContext('status',e.target.value)} resource={"tasks"} field={"project_id"} context={task}>
   <option value="todo">Todo</option>
   <option value="in_progress">In Progress</option>
   <option value="completed">Completed</option>
 </Select>
+```
+
+```javascript
+<FormField as={Select} config={{name:"tasks",field:"priority", schema:schema}}>
+</FormField>
 ```

@@ -10,7 +10,15 @@ export default () => {
   const [task] = useQuery({
     name: 'tasks',
     where: { id: { _eq: id } },
-    fields: ['id', 'name', 'due_date', 'status', 'project_id', 'priority'],
+    fields: [
+      'id',
+      'name',
+      'due_date',
+      'status',
+      'project_id',
+      'priority',
+      'description',
+    ],
   });
   return (
     <Card m={3} h={'100%'} p={8}>

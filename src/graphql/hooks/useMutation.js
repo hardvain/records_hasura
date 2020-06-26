@@ -2,10 +2,7 @@ import { useToast } from '@chakra-ui/core';
 import gql from 'graphql-tag';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 
-export default ({
-  resource,
-  operation = 'insert',
-}) => {
+export default ({ resource, operation = 'insert' }) => {
   const toast = useToast();
   const updateString = `
       mutation update_${resource}($where:${resource}_bool_exp!,$object:${resource}_set_input){
@@ -27,7 +24,19 @@ export default ({
   const mutateWrapper = (mutate) => {
     if (operation === 'insert') {
       return (params) => {
+        delete params.variables.object['__typename'];
         delete params.variables.where;
+        return mutate(params);
+      };
+    } else if (operation === 'update') {
+      return (params) => {
+        Object.keys(params.variables.object).forEach((k) => {
+          if (k.startsWith('ref')) {
+            delete params.variables.object[k];
+          }
+        });
+        delete params.variables.object['__typename'];
+        delete params.variables.object.id;
         return mutate(params);
       };
     } else {

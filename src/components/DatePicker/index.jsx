@@ -1,8 +1,9 @@
 import { Button, IconButton, Input, Text } from '@chakra-ui/core';
 import { useField } from 'formik';
-import { createElement, createRef, forwardRef } from 'react';
+import React, { createElement, createRef, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import { Controller, useFormContext } from 'react-hook-form';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { useStore } from 'src/store';
 
@@ -80,7 +81,7 @@ export const FormikDatePicker = ({
   );
 };
 
-export default ({ selected, onChange, type, includeTime, ...rest }) => {
+const Component = ({ selected, onChange, type, includeTime, ...rest }) => {
   const ref = createRef();
   return (
     <DatePicker
@@ -89,12 +90,34 @@ export default ({ selected, onChange, type, includeTime, ...rest }) => {
       timeFormat="HH:mm"
       timeIntervals={15}
       timeCaption="Time"
-      selected={selected?.toDate()}
+      selected={selected ? moment(selected)?.toDate() : undefined}
       showWeekNumbers
       todayButton="Today"
       onChange={(v) => onChange(moment(v))}
       dateFormat={includeTime ? 'MMMM d, yyyy - HH:mm' : 'MMMM d, yyyy'}
       customInput={createElement(ComponentMap[type || 'input'], { ref })}
+      {...rest}
+    />
+  );
+};
+
+export default Component;
+
+export const CustomDatePicker = ({
+  selected,
+  onChange,
+  type,
+  includeTime,
+  ...rest
+}) => {
+  const { control } = useFormContext();
+
+  return (
+    <Controller
+      as={Component}
+      control={control}
+      valueName={'selected'}
+      onChange={([selected]) => selected}
       {...rest}
     />
   );

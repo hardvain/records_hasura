@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   Textarea,
-  Select,
   FormControl,
   FormLabel,
   Heading,
@@ -14,222 +13,78 @@ import {
   Checkbox,
   Text,
 } from '@chakra-ui/core';
-import FormikEditableInput from 'src/components/FormikEditableInput';
+import Tasks from './index';
+import Select from 'src/forms/Select';
+import { useForm, Controller, FormContext } from 'react-hook-form';
+import EditableInput from 'src/components/FormikEditableInput';
 import React, { useEffect, useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { FormikDatePicker } from 'src/components/DatePicker';
+import { CustomDatePicker } from 'src/components/DatePicker';
+import Field from 'src/forms/Field';
 import useMutation from 'src/graphql/hooks/useMutation';
 import moment from 'moment';
-import { FormikResourceSelector } from 'src/components/collection/Selector';
-import Tasks from 'src/modules/Tasks';
-export default ({ model, formContext, onSubmit = () => {} }) => {
-  const [currentModel, setCurrentModel] = useState(model);
+import ResourceSelector from 'src/components/collection/Selector';
+export default ({ model, formContext }) => {
+  const [operation, setOperation] = useState('insert');
+  const methods = useForm();
+
   useEffect(() => {
-    setCurrentModel(model);
+    methods.reset(model);
+    if (model?.id) {
+      setOperation('update');
+    }
   }, [model]);
+
   const mutate = useMutation({
     resource: 'tasks',
-    operation: currentModel && currentModel.id ? 'update' : 'insert',
+    operation,
   });
+  const onSubmit = () => {
+    methods.handleSubmit((data) =>
+      mutate({
+        variables: {
+          object: { ...model, ...data },
+          where: { id: { _eq: model?.id } },
+        },
+      })
+    )();
+  };
+  console.log(model)
   return (
     <Stack spacing={10}>
-      <Formik
-        enableReinitialize={true}
-        initialValues={{
-          name: currentModel?.name || '',
-          description: currentModel?.description || '',
-          priority: currentModel?.priority || '',
-          team: currentModel?.team || '',
-          project_id: currentModel?.project_id || undefined,
-          status: currentModel?.status || 'todo',
-          due_date: currentModel?.due_date
-            ? moment(currentModel.due_date).toISOString(true)
-            : undefined,
-          ...formContext,
-        }}
-        validate={(values) => {
-          const errors = {};
-          if (!values.name) {
-            errors.name = 'Required';
-          }
-          return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          mutate({
-            variables: {
-              object: values,
-              where: { id: { _eq: currentModel?.id } },
-            },
-          });
-          if (!currentModel) {
-            setCurrentModel();
-          }
-          onSubmit();
-        }}
-      >
-        {({ isSubmitting, handleChange, handleBlur, values }) => (
-          <Form>
-            <Stack spacing={10} my={5}>
-              <Box>
-                <FormControl>
-                  <FormLabel htmlFor="name">Name</FormLabel>
-                  <FormikEditableInput name={"name"} placeholder={'Name'}/>
-                  <ErrorMessage name="name" component="div" />
-                </FormControl>
-              </Box>
-              <Stack isInline justifyContent={'space-between'}>
-                <Box>
-                  <FormControl display={'grid'}>
-                    <FormLabel htmlFor="due_date">Due Date</FormLabel>
-                    <FormikDatePicker
-                      placeholderText="Select a due date"
-                      name={'due_date'}
-                      type={'input'}
-                      includeTime
-                    />
-                    <ErrorMessage name="due_date" component="div" />
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl>
-                    <FormLabel htmlFor="team">Status</FormLabel>
-                    <Select
-                      size={'sm'}
-                      name="status"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.status}
-                      placeholder={'Select a status'}
-                    >
-                      <option value={'todo'}>To Do</option>
-                      <option value={'in_progress'}>In Progress</option>
-                      <option value={'completed'}>Completed</option>
-                    </Select>
-                    <ErrorMessage name="status" component="div" />
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl>
-                    <FormLabel htmlFor="team">Project</FormLabel>
-                    <FormikResourceSelector
-                      fieldName="project_id"
-                      name={'projects'}
-                      value={values.project_id}
-                    />
-                    <ErrorMessage name="project_id" component="div" />
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl>
-                    <FormLabel htmlFor="priority">Priority</FormLabel>
-                    <Select
-                      size={'sm'}
-                      name="priority"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.priority}
-                      placeholder={'Select a Priority'}
-                    >
-                      <option value={'very_high'}>Very High</option>
-                      <option value={'high'}>High</option>
-                      <option value={'medium'}>Medium</option>
-                      <option value={'low'}>Low</option>
-                      <option value={'very_low'}>Very Low</option>
-                    </Select>
-                    <ErrorMessage name="priority" component="div" />
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl>
-                    <FormLabel htmlFor="team">Team</FormLabel>
-                    <Select
-                      size={'sm'}
-                      name="team"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.team}
-                      placeholder={'Select a Team'}
-                    >
-                      <option value={'vndly'}>VNDLY</option>
-                      <option value={'family'}>Family</option>
-                      <option value={'relationships'}>Relationships</option>
-                      <option value={'knowledge'}>Knowledge</option>
-                      <option value={'health'}>Health</option>
-                      <option value={'nutrition'}>Nutrition</option>
-                      <option value={'home'}>Home</option>
-                      <option value={'personal'}>Personal</option>
-                      <option value={'finance'}>Finance</option>
-                    </Select>
-                    <ErrorMessage name="team" component="div" />
-                  </FormControl>
-                </Box>
-              </Stack>
-
-              <Box>
-                <FormControl>
-                  <FormLabel htmlFor="description">Description</FormLabel>
-                  <FormikEditableInput name={"description"} placeholder={'Description'}/>
-                  <ErrorMessage name="description" component="div" />
-                </FormControl>
-              </Box>
-            </Stack>
-
-            <Stack isInline>
-              <Box flexGrow={1}></Box>
-              <Button
-                type="submit"
-                variant={'solid'}
-                variantColor={'brand'}
-                size={'sm'}
-              >
-                {currentModel?.id ? 'Update' : 'Create'}
-              </Button>
-            </Stack>
-          </Form>
-        )}
-      </Formik>
-      {currentModel && currentModel.id && (
-        <Box pb={3}>
+      <Stack spacing={10}>
+        <FormContext {...methods} schema={Tasks.schema}>
+          <Field
+            name={'name'}
+            defaultValue={model?.name}
+            schema={Tasks.schema}
+          />
           <Divider />
-          <SimpleGrid columns={1} spacing={10}>
-            <Box>
-              <Heading size={'sm'} mb={3}>
-                Sub Tasks
-              </Heading>
-              <Tasks.List
-                formContext={{ parent_id: currentModel.id }}
-                where={{ _and: [{ parent_id: { _eq: currentModel.id } }] }}
-              />
-            </Box>
-            {/*<Box>*/}
-            {/*  <Heading size={'sm'} mb={3}>*/}
-            {/*    Checklists*/}
-            {/*  </Heading>*/}
-            {/*  {checklists.map((i) => (*/}
-            {/*    <Stack isInline spacing={5}>*/}
-            {/*      <Checkbox size={'lg'} />*/}
-            {/*      <Text fontSize={14}>*/}
-            {/*        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab*/}
-            {/*        consequatur cumque delectus ducimus eos{' '}*/}
-            {/*      </Text>*/}
-            {/*      <Input />*/}
-            {/*    </Stack>*/}
-            {/*  ))}*/}
-            {/*  <Box>*/}
-            {/*    <Button*/}
-            {/*      mt={2}*/}
-            {/*      pl={2}*/}
-            {/*      leftIcon={'small-add'}*/}
-            {/*      variant={'link'}*/}
-            {/*      size={'sm'}*/}
-            {/*    >*/}
-            {/*      Add New*/}
-            {/*    </Button>*/}
-            {/*  </Box>*/}
-            {/*</Box>*/}
-          </SimpleGrid>
-        </Box>
-      )}
+          <Stack isInline spacing={10} justifyContent={'space-between'}>
+            <Field name={'due_date'} />
+            <Field name={'priority'} />
+            <Field name={'status'} />
+            <Field name={'project_id'} />
+          </Stack>
+          <Divider />
+          <Field
+            name={'description'}
+            schema={Tasks.schema}
+          />
+        </FormContext>
+      </Stack>
+
+      <Stack isInline>
+        <Box flexGrow={1} />
+        <Button
+          type="submit"
+          variant={'solid'}
+          variantColor={'brand'}
+          size={'sm'}
+          onClick={onSubmit}
+        >
+          {model?.id ? 'Update' : 'Create'}
+        </Button>
+      </Stack>
     </Stack>
   );
 };

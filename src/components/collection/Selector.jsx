@@ -1,9 +1,11 @@
 import { Select } from '@chakra-ui/core';
 import { useField } from 'formik';
+import React from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 import useQuery from 'src/graphql/hooks/useQuery';
 
 const ResourceSelector = ({
-  name,
+  resource,
   where,
   order_by,
   fields = ['id', 'name'],
@@ -12,7 +14,7 @@ const ResourceSelector = ({
   ...rest
 }) => {
   const [projects] = useQuery({
-    name,
+    name: resource,
     where,
     order_by,
     fields,
@@ -43,13 +45,16 @@ const ResourceSelector = ({
     </Select>
   );
 };
-export default ResourceSelector;
-export const FormikResourceSelector = ({ fieldName, ...rest }) => {
-  let [field, meta, helpers] = useField({ name: fieldName });
+
+export default ({ name, ...rest }) => {
+  const { control } = useFormContext(); // methods contain all useForm functions
+
   return (
-    <ResourceSelector
-      onChange={helpers.setValue}
-      value={field.value}
+    <Controller
+      control={control}
+      as={ResourceSelector}
+      size={'sm'}
+      name={name}
       {...rest}
     />
   );
