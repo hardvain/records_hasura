@@ -96,11 +96,7 @@ const App = ({ Component, pageProps }) => {
             <Flex direction={'row'}>
               {<Sidebar />}
 
-              <Box
-                ml={showSidebar ? 250 : 65}
-                flexGrow={1}
-                minHeight={'100vh'}
-              >
+              <Box ml={250} flexGrow={1} minHeight={'100vh'}>
                 <Component {...pageProps} />
                 <FormModal />
               </Box>

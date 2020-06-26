@@ -17,6 +17,7 @@ import {
   DrawerCloseButton,
 } from '@chakra-ui/core';
 import Link from 'next/link';
+import Router from 'next/router';
 import React, { useState } from 'react';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Form from './form';
@@ -36,49 +37,42 @@ export default ({ record }) => {
   });
   return (
     <ListItem>
-      <Stack
-        isInline
-        textAlign={'center'}
-        alignItems={'center'}
-        pr={4}
-        onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          handleToggle();
-        }}
-      >
-        <Box flex={10} textAlign={'initial'}>
-          {record.name}
-        </Box>
+      <Link as={`/projects/${record.id}`} href={`/projects/[id]`}>
+        <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
+          <Box flex={10} textAlign={'initial'}>
+            {record.name}
+          </Box>
 
-        <Stack flex={1} spacing={1} alignItems={'baseline'}>
-          <Text fontSize={12}>
-            Completed {completedTasks} out of {totalTasks} Tasks
-          </Text>
+          <Stack flex={1} spacing={1} alignItems={'baseline'}>
+            <Text fontSize={12}>
+              Completed {completedTasks} out of {totalTasks} Tasks
+            </Text>
 
-          <Progress
-            color={progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'}
-            value={totalTasks ? progress : 0}
-            w={200}
-            borderRadius={5}
+            <Progress
+              color={progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'}
+              value={totalTasks ? progress : 0}
+              w={200}
+              borderRadius={5}
+            />
+          </Stack>
+
+          <Box flex={5} />
+
+          <IconButton
+            flex={1}
+            ml={2}
+            variant={'ghost'}
+            size={'sm'}
+            icon={'delete'}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              mutate({ variables: { where: { id: { _eq: record.id } } } });
+            }}
           />
         </Stack>
+      </Link>
 
-        <Box flex={5} />
-
-        <IconButton
-          flex={1}
-          ml={2}
-          variant={'ghost'}
-          size={'sm'}
-          icon={'delete'}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            mutate({ variables: { where: { id: { _eq: record.id } } } });
-          }}
-        />
-      </Stack>
       <Drawer
         size={'xl'}
         isOpen={show}

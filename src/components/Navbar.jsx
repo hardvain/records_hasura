@@ -58,7 +58,6 @@ export default () => {
       alignItems={'center'}
       py={1}
       pl={4}
-      width="100%"
     >
       <Box alignItems={'center'} cursor={'pointer'}>
         <NextLink href="/" as={`/`}>

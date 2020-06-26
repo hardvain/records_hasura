@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/core';
 import { useStore } from 'src/store';
 import { MdTimer } from 'react-icons/md';
-import { IoIosLogOut, IoIosPeople,IoIosMenu } from 'react-icons/io';
+import { IoIosLogOut, IoIosPeople, IoIosMenu } from 'react-icons/io';
 import {
   GiSugarCane,
   GiWaterDrop,
@@ -104,9 +104,8 @@ export default () => {
   };
   return (
     <Flex
-      pt={10}
       direction={'column'}
-      w={showSidebar ? 250 : 70}
+      w={250}
       bg={colorMode === 'light' ? 'white' : '#333'}
       position={'fixed'}
       height={'100%'}

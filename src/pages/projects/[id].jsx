@@ -28,102 +28,131 @@ export default () => {
     fields: ['id', 'name', 'description'],
   });
   return (
-    <Card m={3} h={'100%'} p={8}>
+    <Stack>
       {project ? (
         <Stack>
-          <Projects.Form model={project[0]} showForm={false} />
-          <Tabs variantColor={'brand'} variant="soft-rounded" size={'sm'} isManual>
-            <TabList>
-              <Tab
-                onClick={() => setCurrentTab(0)}
-                color={colorMode === 'light' ? 'gray.800' : 'white'}
-              >
-                Todo
-              </Tab>
-              <Tab
-                onClick={() => setCurrentTab(1)}
-                color={colorMode === 'light' ? 'gray.800' : 'white'}
-              >
-                In Progress
-              </Tab>
-              <Tab
-                onClick={() => setCurrentTab(2)}
-                color={colorMode === 'light' ? 'gray.800' : 'white'}
-              >
-                Completed
-              </Tab>
-              <Tab
-                onClick={() => setCurrentTab(3)}
-                color={colorMode === 'light' ? 'gray.800' : 'white'}
-              >
-                All
-              </Tab>
-            </TabList>
+          <Card
+            mt={0}
+            borderLeftWidth={0}
+            borderRadius={0}
+            h={'100%'}
+            p={8}
+            pb={0}
+          >
+            <Projects.Form model={project[0]} showForm={false} />
+            <Tabs variantColor={'brand'} isFitted>
+              <TabList borderWidth={0}>
+                <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>
+                  Tasks
+                </Tab>
+                <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>
+                  Resources
+                </Tab>
+                <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>
+                  Calendar
+                </Tab>
+              </TabList>
+            </Tabs>
+          </Card>
+          <Box m={5}>
+            <Tabs
+              variantColor={'brand'}
+              variant="soft-rounded"
+              size={'sm'}
+              isManual
+            >
+              <TabList>
+                <Tab
+                  onClick={() => setCurrentTab(0)}
+                  color={colorMode === 'light' ? 'gray.800' : 'white'}
+                >
+                  Todo
+                </Tab>
+                <Tab
+                  onClick={() => setCurrentTab(1)}
+                  color={colorMode === 'light' ? 'gray.800' : 'white'}
+                >
+                  In Progress
+                </Tab>
+                <Tab
+                  onClick={() => setCurrentTab(2)}
+                  color={colorMode === 'light' ? 'gray.800' : 'white'}
+                >
+                  Completed
+                </Tab>
+                <Tab
+                  onClick={() => setCurrentTab(3)}
+                  color={colorMode === 'light' ? 'gray.800' : 'white'}
+                >
+                  All
+                </Tab>
+              </TabList>
 
-            <TabPanels>
-              <TabPanel>
-                {currentTab === 0 && (
-                  <Box w={'100%'} p={2}>
-                    <Tasks.List
-                      showFilterBar
-                      where={{
-                        _and: [
-                          { project_id: { _eq: project[0].id } },
-                          { status: { _eq: 'todo' } },
-                        ],
-                      }}
-                    />
-                  </Box>
-                )}
-              </TabPanel>
-              <TabPanel>
-                {currentTab === 1 && (
-                  <Box w={'100%'} p={2}>
-                    <Tasks.List
-                      showFilterBar
-                      where={{
-                        _and: [
-                          { project_id: { _eq: project[0].id } },
-                          { status: { _eq: 'in_progress' } },
-                        ],
-                      }}
-                    />
-                  </Box>
-                )}
-              </TabPanel>
-              <TabPanel>
-                {currentTab === 2 && (
-                  <Box w={'100%'} p={2}>
-                    <Tasks.List
-                      showFilterBar
-                      where={{
-                        _and: [
-                          { project_id: { _eq: project[0].id } },
-                          { status: { _eq: 'completed' } },
-                        ],
-                      }}
-                    />
-                  </Box>
-                )}
-              </TabPanel>
-              <TabPanel>
-                {currentTab === 3 && (
-                  <Box w={'100%'} p={2}>
-                    <Tasks.List
-                      showFilterBar
-                      where={{
-                        _and: [{ project_id: { _eq: project[0].id } }],
-                      }}
-                    />
-                  </Box>
-                )}
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
+              <TabPanels>
+                <TabPanel>
+                  {currentTab === 0 && (
+                    <Box w={'100%'} p={2}>
+                      <Tasks.List
+                        showFilterBar
+                        where={{
+                          _and: [
+                            { project_id: { _eq: project[0].id } },
+                            { status: { _eq: 'todo' } },
+                          ],
+                        }}
+                      />
+                    </Box>
+                  )}
+                </TabPanel>
+                <TabPanel>
+                  {currentTab === 1 && (
+                    <Box w={'100%'} p={2}>
+                      <Tasks.List
+                        showFilterBar
+                        where={{
+                          _and: [
+                            { project_id: { _eq: project[0].id } },
+                            { status: { _eq: 'in_progress' } },
+                          ],
+                        }}
+                      />
+                    </Box>
+                  )}
+                </TabPanel>
+                <TabPanel>
+                  {currentTab === 2 && (
+                    <Box w={'100%'} p={2}>
+                      <Tasks.List
+                        showFilterBar
+                        where={{
+                          _and: [
+                            { project_id: { _eq: project[0].id } },
+                            { status: { _eq: 'completed' } },
+                          ],
+                        }}
+                      />
+                    </Box>
+                  )}
+                </TabPanel>
+                <TabPanel>
+                  {currentTab === 3 && (
+                    <Box w={'100%'} p={2}>
+                      <Tasks.List
+                        showFilterBar
+                        where={{
+                          _and: [{ project_id: { _eq: project[0].id } }],
+                        }}
+                      />
+                    </Box>
+                  )}
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </Box>
         </Stack>
       ) : (
         <Skeleton />
       )}
-    </Card>
+    </Stack>
   );
 };
