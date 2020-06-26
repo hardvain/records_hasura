@@ -15,5 +15,14 @@ const List = (props) => (
     {...props}
   />
 );
-
-export default { Form, List };
+const schema = {
+  name: {
+    type: 'string',
+    label: 'Name',
+  },
+  description: {
+    type: 'text',
+    label: 'Description',
+  },
+};
+export default { Form, List, schema };

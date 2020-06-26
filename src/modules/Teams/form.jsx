@@ -1,103 +1,60 @@
 // Render Prop
-import {
-  Input,
-  Stack,
-  Box,
-  Button,
-  Textarea,
-  FormControl,
-  FormLabel,
-  Heading,
-  Divider,
-  Collapse,
-} from '@chakra-ui/core';
-import React, { useEffect, useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import useMutation from 'src/graphql/hooks/useMutation';
+import { Stack, Box, Button } from '@chakra-ui/core';
+import Tasks from './index';
 import Projects from 'src/modules/Projects';
-import Tasks from 'src/modules/Tasks';
-export default ({ model, formContext, onSubmit }) => {
-  const [currentModel, setCurrentModel] = useState(model);
+import { useForm, FormContext } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import Field from 'src/forms/Field';
+import useMutation from 'src/graphql/hooks/useMutation';
+export default ({ model, formContext }) => {
+  const [operation, setOperation] = useState('insert');
+  const methods = useForm();
   const [showProjects, setShowProjects] = useState(false);
 
   useEffect(() => {
-    setCurrentModel(model);
+    methods.reset(model);
+    if (model?.id) {
+      setOperation('update');
+    }
   }, [model]);
+
   const mutate = useMutation({
     resource: 'teams',
-    operation: currentModel && currentModel.id ? 'update' : 'insert',
+    operation,
   });
+  const onSubmit = () => {
+    methods.handleSubmit((data) =>
+      mutate({
+        variables: {
+          object: { ...model, ...data },
+          where: { id: { _eq: model?.id } },
+        },
+      })
+    )();
+  };
   return (
     <Stack spacing={10}>
-      <Formik
-        enableReinitialize={true}
-        initialValues={{
-          name: currentModel?.name || '',
-          description: currentModel?.description || '',
-          ...formContext,
-        }}
-        validate={(values) => {
-          return {};
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          mutate({
-            variables: {
-              object: values,
-              where: { id: { _eq: currentModel?.id } },
-            },
-          });
-          if (!currentModel) {
-            setCurrentModel();
-          }
-          onSubmit();
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <Stack spacing={10} my={5}>
-              <Box>
-                <FormControl>
-                  <FormLabel htmlFor="name">Name</FormLabel>
-                  <Field
-                    name="name"
-                    size={'sm'}
-                    as={Input}
-                    placeholder={'Name'}
-                  />
-                  <ErrorMessage name="name" component="div" />
-                </FormControl>
-              </Box>
+      <Stack spacing={10}>
+        <FormContext {...methods} schema={Tasks.schema}>
+          <Field name={'name'} />
+          <Field name={'description'} />
+        </FormContext>
+      </Stack>
 
-              <Box>
-                <FormControl>
-                  <FormLabel htmlFor="description">Description</FormLabel>
-                  <Field
-                    name="description"
-                    as={Textarea}
-                    placeholder={'Description'}
-                  />
-                  <ErrorMessage name="description" component="div" />
-                </FormControl>
-              </Box>
-            </Stack>
-
-            <Stack isInline>
-              <Box flexGrow={1}></Box>
-              <Button
-                type="submit"
-                variant={'solid'}
-                variantColor={'brand'}
-                size={'sm'}
-              >
-                {currentModel?.id ? 'Update' : 'Create'}
-              </Button>
-            </Stack>
-          </Form>
-        )}
-      </Formik>
+      <Stack isInline>
+        <Box flexGrow={1} />
+        <Button
+          type="submit"
+          variant={'solid'}
+          variantColor={'brand'}
+          size={'sm'}
+          onClick={onSubmit}
+        >
+          {model?.id ? 'Update' : 'Create'}
+        </Button>
+      </Stack>
       {model && model.id && (
         <Box pb={3}>
-
           <>
             {!showProjects && (
               <Button
@@ -112,8 +69,8 @@ export default ({ model, formContext, onSubmit }) => {
             )}
             {showProjects && (
               <Projects.List
-                formContext={{ team_id: currentModel.id }}
-                where={{ _and: [{ team_id: { _eq: currentModel.id } }] }}
+                formContext={{ team_id: model.id }}
+                where={{ _and: [{ team_id: { _eq: model.id } }] }}
               />
             )}
           </>
