@@ -11,25 +11,25 @@ const fields = [
 ];
 const schema = {
   name: {
-    type: 'editable',
-    label:'Name',
+    type: 'string',
+    label: 'Name',
   },
   description: {
     type: 'text',
-    label:'Description',
+    label: 'Description',
   },
   is_archived: {
     type: 'checkbox',
   },
   parent_id: {
     type: 'ref',
-    label:'Parent Project',
-    resource: 'projects'
-  },
-  project_id: {
-    type: 'ref',
-    label:'Project',
+    label: 'Parent Project',
     resource: 'projects',
+  },
+  team_id: {
+    type: 'ref',
+    label: 'Team',
+    resource: 'teams',
   },
 };
 const List = (props) => (
@@ -38,6 +38,7 @@ const List = (props) => (
     fields={fields}
     order_by={{ ref_team: { created_at: 'desc' } }}
     preview={Preview}
+    {...props}
   />
 );
 

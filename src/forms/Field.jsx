@@ -2,6 +2,7 @@ import { Box, Heading, Stack, Text } from '@chakra-ui/core';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import Input from './Input';
+import Checkbox from './Checkbox';
 import TextArea from './TextArea';
 import Select from './Select';
 import EditableInput from 'src/components/FormikEditableInput';
@@ -10,6 +11,7 @@ import ResourceSelector from 'src/components/collection/Selector';
 
 const map = {
   string: Input,
+  checkbox: Checkbox,
   text: TextArea,
   select: Select,
   timestamp: CustomDatePicker,

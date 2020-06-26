@@ -53,11 +53,7 @@ export default ({ model, formContext }) => {
     <Stack spacing={10}>
       <Stack spacing={10}>
         <FormContext {...methods} schema={Tasks.schema}>
-          <Field
-            name={'name'}
-            defaultValue={model?.name}
-            schema={Tasks.schema}
-          />
+          <Field name={'name'} />
           <Divider />
           <Stack isInline spacing={10} justifyContent={'space-between'}>
             <Field name={'due_date'} />
@@ -89,7 +85,6 @@ export default ({ model, formContext }) => {
       </Stack>
       {model && model.id && (
         <Box pb={3}>
-
           <>
             {!showTasks && (
               <Button

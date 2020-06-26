@@ -18,7 +18,7 @@ const fields = [
 ];
 const schema = {
   name: {
-    type: 'editable',
+    type: 'string',
     label:'Name',
   },
   due_date: {
