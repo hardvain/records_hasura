@@ -50,9 +50,7 @@ export default ({ record }) => {
         <Box flex={10} textAlign={'initial'}>
           {record.name}
         </Box>
-        <Box flex={4} alignSelf={'baseline'}>
-          {record?.ref_team?.name && <Badge>{record.ref_team?.name}</Badge>}
-        </Box>
+
         <Stack flex={1} spacing={1} alignItems={'baseline'}>
           <Text fontSize={12}>
             Completed {completedTasks} out of {totalTasks} Tasks
@@ -67,18 +65,7 @@ export default ({ record }) => {
         </Stack>
 
         <Box flex={5} />
-        <Box>
-          <Link as={`/projects/${record.id}`} href={'/projects/[id]'}>
-            <Button
-              flex={2}
-              variant={'outline'}
-              size={'xs'}
-              rightIcon={'chevron-right'}
-            >
-              View Details
-            </Button>
-          </Link>
-        </Box>
+
         <IconButton
           flex={1}
           ml={2}

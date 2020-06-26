@@ -27,7 +27,12 @@ export default () => {
   const [date, setDate] = useState(moment().toISOString(true));
   return (
     <Box w={'100%'} p={3}>
-      <Tabs variantColor={'brand'} size={'sm'} variant={'soft-rounded'} isManual>
+      <Tabs
+        variantColor={'brand'}
+        size={'sm'}
+        variant={'soft-rounded'}
+        isManual
+      >
         <Stack isInline spacing={0}>
           <TabList borderWidth={0}>
             <Tab
@@ -78,12 +83,8 @@ export default () => {
             <InputLeftElement
               children={<Icon name="search" color="gray.300" />}
             />
-            <Input type="phone" placeholder="Search" w={400}/>
+            <Input type="phone" placeholder="Search" w={400} />
           </InputGroup>
-
-          <Button variant={'outline'} color={'#77808F'}>
-            Filters
-          </Button>
         </Stack>
         <Divider />
 

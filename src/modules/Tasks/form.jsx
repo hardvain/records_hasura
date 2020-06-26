@@ -13,6 +13,8 @@ import {
   Checkbox,
   Text,
 } from '@chakra-ui/core';
+import Link from 'next/link';
+import Card from 'src/components/Card';
 import Tasks from './index';
 import Select from 'src/forms/Select';
 import { useForm, Controller, FormContext } from 'react-hook-form';
@@ -47,8 +49,61 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
     )();
     onSubmitCallback();
   };
+  const deleteMutate = useMutation({ resource: 'tasks', operation: 'delete' });
+
   return (
     <Stack spacing={10}>
+      {model && model.id && (
+        <Stack isInline spacing={10}>
+          <Box flex={1}>
+            {model?.status !== 'completed' ? (
+              <Button
+                variant={'outline'}
+                variantColor={'green'}
+                size={'xs'}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+              >
+                Mark as Done
+              </Button>
+            ) : (
+              <Button
+                variant={'outline'}
+                variantColor={'orange'}
+                size={'xs'}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+              >
+                Reopen
+              </Button>
+            )}
+          </Box>
+          <Box flex={1}>
+            <Link as={`/tasks/${model.id}`} href={`/tasks/[id]`}>
+              <Button variant={'outline'} size={'xs'}>
+                View Details
+              </Button>
+            </Link>
+          </Box>
+          <Button
+            onClick={() => {
+              deleteMutate({ variables: { where: { id: { _eq: model.id } } } });
+            }}
+            flex={1}
+            ml={2}
+            variant={'outline'}
+            variantColor={'red'}
+            size={'xs'}
+            leftIcon={'delete'}
+          >
+            Delete
+          </Button>
+        </Stack>
+      )}
       <FormContext {...methods} schema={Tasks.schema}>
         <Stack spacing={10} flex={2}>
           <Field name={'name'} mb={5} />

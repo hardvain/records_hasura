@@ -135,7 +135,6 @@ export default ({ record }) => {
           <DrawerBody>
             <Form model={record} />
           </DrawerBody>
-
         </DrawerContent>
       </Drawer>
     </ListItem>
