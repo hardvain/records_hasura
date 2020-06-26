@@ -6,7 +6,7 @@ import { useForm, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import Field from 'src/forms/Field';
 import useMutation from 'src/graphql/hooks/useMutation';
-export default ({ model, formContext, onSubmitCallback = () => {} }) => {
+export default ({ model, showForm = true, onSubmitCallback = () => {} }) => {
   const [operation, setOperation] = useState('insert');
   const methods = useForm();
   const [showTasks, setShowTasks] = useState(false);
@@ -54,7 +54,7 @@ export default ({ model, formContext, onSubmitCallback = () => {} }) => {
           {model?.id ? 'Update' : 'Create'}
         </Button>
       </Stack>
-      {model && model.id && (
+      {model && model.id && showForm && (
         <Box pb={3}>
           <>
             {!showTasks && (

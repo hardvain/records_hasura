@@ -84,7 +84,6 @@ const FilteredCollection = ({
       <List group_by_field={group_by_field} data={data} preview={preview} />
     );
   }
-  console.log("Rendering Collection", data)
 
   return (
     <Stack>
