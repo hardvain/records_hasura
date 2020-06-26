@@ -126,13 +126,14 @@ export default () => {
         </Text>
         <Progress
           borderWidth={1}
-          borderColor={colorMode === 'light' ? 'gray.300' : ''}
           color={
-            progressPercentage > 75
+            progressPercentage >= 100
               ? 'green'
+              : progressPercentage > 75
+              ? 'yellow'
               : progressPercentage < 25
               ? 'red'
-              : 'yellow'
+              : 'orange'
           }
           value={todayTasksAgg ? progressPercentage : 0}
           w={200}

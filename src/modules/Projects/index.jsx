@@ -6,12 +6,14 @@ const fields = [
   'name',
   'description',
   'is_archived',
-  "ref_tasks{id,name,status,due_date}"
+  'ref_tasks{id,name,status,due_date}',
+  'ref_team{name}',
 ];
 const List = (props) => (
   <Collection
     resource={'projects'}
     fields={fields}
+    order_by={{ ref_team: { created_at: 'desc' } }}
     preview={Preview}
     {...props}
   />

@@ -5,7 +5,9 @@ import {
   Collapse,
   Progress,
   Text,
-  Button, Divider,
+  Button,
+  Divider,
+  Badge,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -53,6 +55,9 @@ export default ({ record }) => {
             borderRadius={5}
           />
         </Stack>
+        <Box flex={2} alignSelf={'baseline'}>
+          {record?.ref_team?.name && <Badge>{record.ref_team?.name}</Badge>}
+        </Box>
         <Box flex={5} />
         <Link as={`/projects/${record.id}`} href={'/projects/[id]'}>
           <Button

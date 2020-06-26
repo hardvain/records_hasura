@@ -38,19 +38,21 @@ const createHttpLink = (headers) => {
 }
 
 const createWSLink = () => {
+  let subscriptionClient = new SubscriptionClient(process.env.HASURA_GRAPHQL_URL_WSS, {
+    reconnect: true,
+    timeout: 30000,
+    connectionParams: async () => {
+      const token = await requestAccessToken()
+      return {
+        headers: {
+          authorization: accessToken ? `Bearer ${token}` : '',
+        },
+      }
+    },
+  });
+  subscriptionClient.maxConnectTimeGenerator.duration = () => subscriptionClient.maxConnectTimeGenerator.max
   return new WebSocketLink(
-    new SubscriptionClient(process.env.HASURA_GRAPHQL_URL_WSS, {
-      reconnect: true,
-      timeout: 30000,
-      connectionParams: async () => {
-        const token = await requestAccessToken()
-        return {
-          headers: {
-            authorization: accessToken ? `Bearer ${token}` : '',
-          },
-        }
-      },
-    })
+    subscriptionClient
   )
 }
 
