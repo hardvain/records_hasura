@@ -58,11 +58,13 @@ export default ({ record }) => {
           />
         </Stack>
         <Box flex={5} />
-        <Link as={`/teams/${record.id}`} href={'/teams/[id]'}>
-          <Button variant={'outline'} size={'xs'} rightIcon={'chevron-right'}>
-            View Details
-          </Button>
-        </Link>
+        <Box>
+          <Link as={`/teams/${record.id}`} href={'/teams/[id]'}>
+            <Button variant={'outline'} size={'xs'} rightIcon={'chevron-right'}>
+              View Details
+            </Button>
+          </Link>
+        </Box>
         <IconButton
           flex={2}
           ml={2}

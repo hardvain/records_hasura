@@ -85,11 +85,13 @@ export default ({ record }) => {
             />
           </Stack>
         )}
-        <Link as={`/tasks/${record.id}`} href={'/tasks/[id]'}>
-          <Button variant={'outline'} size={'xs'} rightIcon={'chevron-right'}>
-            View Details
-          </Button>
-        </Link>
+        <Box>
+          <Link as={`/tasks/${record.id}`} href={'/tasks/[id]'}>
+            <Button variant={'outline'} size={'xs'} rightIcon={'chevron-right'}>
+              View Details
+            </Button>
+          </Link>
+        </Box>
         <IconButton
           variant={'ghost'}
           ml={2}

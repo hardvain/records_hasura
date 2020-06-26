@@ -101,6 +101,9 @@ export const withApollo = ({ ssr = true } = {}) => (PageComponent) => {
       // Happens on: next.js csr
       // client = initApolloClient(apolloState, undefined);
       client = initApolloClient(apolloState, {});
+      if (typeof window !== 'undefined') {
+        window.__APOLLO_CLIENT__ = client;
+      }
     }
     return (
       <ApolloProvider client={client}>

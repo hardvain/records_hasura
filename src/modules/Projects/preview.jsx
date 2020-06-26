@@ -59,16 +59,18 @@ export default ({ record }) => {
           {record?.ref_team?.name && <Badge>{record.ref_team?.name}</Badge>}
         </Box>
         <Box flex={5} />
-        <Link as={`/projects/${record.id}`} href={'/projects/[id]'}>
-          <Button
-            flex={2}
-            variant={'outline'}
-            size={'xs'}
-            rightIcon={'chevron-right'}
-          >
-            View Details
-          </Button>
-        </Link>
+        <Box>
+          <Link as={`/projects/${record.id}`} href={'/projects/[id]'}>
+            <Button
+              flex={2}
+              variant={'outline'}
+              size={'xs'}
+              rightIcon={'chevron-right'}
+            >
+              View Details
+            </Button>
+          </Link>
+        </Box>
         <IconButton
           flex={1}
           ml={2}
