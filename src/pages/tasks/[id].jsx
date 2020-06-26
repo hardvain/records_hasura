@@ -1,4 +1,4 @@
-import { Box, Skeleton } from '@chakra-ui/core';
+import { Box, Button, Divider, Skeleton, Stack } from '@chakra-ui/core';
 import React from 'react';
 import useQuery from 'src/graphql/hooks/useQuery';
 import Tasks from 'src/modules/Tasks';
@@ -22,9 +22,11 @@ export default () => {
       'description',
     ],
   });
-  return (
-    <Card m={3} h={'100%'} p={8}>
-      {task ? <Tasks.Form model={task[0]} /> : <Skeleton />}
+  return task ? (
+    <Card m={3} shadow>
+      <Tasks.Form model={task[0]} />
     </Card>
+  ) : (
+    <Skeleton />
   );
 };

@@ -55,27 +55,10 @@ export default ({ model, onSubmitCallback = () => {} }) => {
         </Button>
       </Stack>
       {model && model.id && (
-        <Box pb={3}>
-          <>
-            {!showProjects && (
-              <Button
-                size={'sm'}
-                mb={3}
-                w={'100%'}
-                variant={'outline'}
-                onClick={() => setShowProjects(true)}
-              >
-                Load Projects
-              </Button>
-            )}
-            {showProjects && (
-              <Projects.List
-                formContext={{ team_id: model.id }}
-                where={{ _and: [{ team_id: { _eq: model.id } }] }}
-              />
-            )}
-          </>
-        </Box>
+        <Projects.List
+          formContext={{ team_id: model.id }}
+          where={{ _and: [{ team_id: { _eq: model.id } }] }}
+        />
       )}
     </Stack>
   );

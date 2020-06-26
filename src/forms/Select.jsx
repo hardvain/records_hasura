@@ -10,36 +10,19 @@ export default ({ name, options, ...rest }) => {
     ? options.filter((o) => o.value === value)[0].label
     : '-';
   return (
-    <Box
-      onMouseEnter={(e) => setIsHovered(true)}
-      onMouseLeave={(e) => setIsHovered(false)}
+    <Controller
+      name={name}
+      control={control}
+      as={Select}
+      size={'sm'}
+      placeholder={'Select a value'}
+      {...rest}
     >
-      {!isClicked ? (
-        <Box
-          w={'100%'}
-          px={2}
-          py={1}
-          bg={isHovered ? 'brand.50' : ''}
-          onClick={() => setIsClicked(true)}
-        >
-          <Text>{displayValue}</Text>
-        </Box>
-      ) : (
-        <Controller
-          name={name}
-          control={control}
-          as={Select}
-          size={'sm'}
-          placeholder={'Select a value'}
-          {...rest}
-        >
-          {options.map((o) => (
-            <option value={o.value} key={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </Controller>
-      )}
-    </Box>
+      {options.map((o) => (
+        <option value={o.value} key={o.value}>
+          {o.label}
+        </option>
+      ))}
+    </Controller>
   );
 };

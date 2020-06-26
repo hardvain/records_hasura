@@ -6,6 +6,10 @@ import {
   Tabs,
   TabList,
   TabPanels,
+  InputGroup,
+  InputLeftElement,
+  Input,
+  Icon,
   Tab,
   TabPanel,
   useColorMode,
@@ -23,51 +27,65 @@ export default () => {
   const [date, setDate] = useState(moment().toISOString(true));
   return (
     <Box w={'100%'} p={3}>
-      <Tabs variantColor={'brand'} variant="soft-rounded" size={'sm'} isManual>
-        <TabList>
-          <Tab
-            onClick={() => setCurrentTab(0)}
-            color={colorMode === 'light' ? 'gray.800' : 'white'}
-          >
-            Today
-          </Tab>
-          <Tab
-            onClick={() => setCurrentTab(1)}
-            color={colorMode === 'light' ? 'gray.800' : 'white'}
-          >
-            Backlog
-          </Tab>
-          <Tab
-            onClick={() => setCurrentTab(2)}
-            color={colorMode === 'light' ? 'gray.800' : 'white'}
-          >
-            Overdue
-          </Tab>
-          <Tab
-            onClick={() => setCurrentTab(3)}
-            color={colorMode === 'light' ? 'gray.800' : 'white'}
-          >
-            Next 7 Days
-          </Tab>
-          <Tab
-            onClick={() => setCurrentTab(4)}
-            color={colorMode === 'light' ? 'gray.800' : 'white'}
-          >
-            All
-          </Tab>
-          <Tab
-            onClick={() => setCurrentTab(5)}
-            color={colorMode === 'light' ? 'gray.800' : 'white'}
-          >
-            Tenure Policy
-          </Tab>
-          <Tab
-            onClick={() => setCurrentTab(6)}
-            color={colorMode === 'light' ? 'gray.800' : 'white'}
-          >
-            Records App
-          </Tab>
-        </TabList>
+      <Tabs variantColor={'brand'} size={'sm'} variant={'soft-rounded'} isManual>
+        <Stack isInline spacing={0}>
+          <TabList borderWidth={0}>
+            <Tab
+              onClick={() => setCurrentTab(0)}
+              color={colorMode === 'light' ? 'gray.800' : 'white'}
+            >
+              Today
+            </Tab>
+            <Tab
+              onClick={() => setCurrentTab(1)}
+              color={colorMode === 'light' ? 'gray.800' : 'white'}
+            >
+              Backlog
+            </Tab>
+            <Tab
+              onClick={() => setCurrentTab(2)}
+              color={colorMode === 'light' ? 'gray.800' : 'white'}
+            >
+              Overdue
+            </Tab>
+            <Tab
+              onClick={() => setCurrentTab(3)}
+              color={colorMode === 'light' ? 'gray.800' : 'white'}
+            >
+              Next 7 Days
+            </Tab>
+            <Tab
+              onClick={() => setCurrentTab(4)}
+              color={colorMode === 'light' ? 'gray.800' : 'white'}
+            >
+              All
+            </Tab>
+            <Tab
+              onClick={() => setCurrentTab(5)}
+              color={colorMode === 'light' ? 'gray.800' : 'white'}
+            >
+              Tenure Policy
+            </Tab>
+            <Tab
+              onClick={() => setCurrentTab(6)}
+              color={colorMode === 'light' ? 'gray.800' : 'white'}
+            >
+              Records App
+            </Tab>
+          </TabList>
+          <Box flexGrow={1} />
+          <InputGroup>
+            <InputLeftElement
+              children={<Icon name="search" color="gray.300" />}
+            />
+            <Input type="phone" placeholder="Search" w={400}/>
+          </InputGroup>
+
+          <Button variant={'outline'} color={'#77808F'}>
+            Filters
+          </Button>
+        </Stack>
+        <Divider />
 
         <TabPanels>
           <TabPanel>

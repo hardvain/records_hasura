@@ -21,10 +21,9 @@ import React, { useEffect, useState } from 'react';
 import { CustomDatePicker } from 'src/components/DatePicker';
 import Field from 'src/forms/Field';
 import useMutation from 'src/graphql/hooks/useMutation';
-export default ({ model, onSubmitCallback = () => {} }) => {
+export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
   const [operation, setOperation] = useState('insert');
   const methods = useForm();
-  const [showTasks, setShowTasks] = useState(false);
 
   useEffect(() => {
     methods.reset(model);
@@ -50,58 +49,39 @@ export default ({ model, onSubmitCallback = () => {} }) => {
   };
   return (
     <Stack spacing={10}>
-      <Stack spacing={10}>
-        <FormContext {...methods} schema={Tasks.schema}>
-          <Field name={'name'} />
-          <Divider />
-          <Stack isInline spacing={10} justifyContent={'space-between'}>
-            <Field name={'due_date'} />
-            <Field name={'priority'} />
-            <Field name={'status'} />
-          </Stack>
-          <Divider />
+      <FormContext {...methods} schema={Tasks.schema}>
+        <Stack spacing={10} flex={2}>
+          <Field name={'name'} mb={5} />
+          <Field rows={10} name={'description'} schema={Tasks.schema} />
           <Stack isInline>
-            <Field name={'parent_id'} />
-            <Field name={'project_id'} />
-            {<Field name={'team_id'} disabled={model?.project_id} />}
+            <Field name={'due_date'} flex={1} />
+            <Field name={'priority'} flex={1} />
+            <Field name={'status'} flex={1} />
           </Stack>
-          <Divider />
-          <Field name={'description'} schema={Tasks.schema} />
-        </FormContext>
-      </Stack>
-
-      <Stack isInline>
-        <Box flexGrow={1} />
-        <Button
-          type="submit"
-          variant={'solid'}
-          variantColor={'brand'}
-          size={'sm'}
-          onClick={onSubmit}
-        >
-          {model?.id ? 'Update' : 'Create'}
-        </Button>
-      </Stack>
+          <Stack isInline>
+            <Field flex={1} name={'parent_id'} />
+            <Field flex={1} name={'project_id'} />
+            {<Field flex={1} name={'team_id'} disabled={model?.project_id} />}
+          </Stack>
+        </Stack>
+      </FormContext>
+      <Button
+        my={5}
+        type="submit"
+        variant={'solid'}
+        variantColor={'brand'}
+        size={'sm'}
+        onClick={onSubmit}
+      >
+        {model?.id ? 'Update' : 'Create'}
+      </Button>
       {model && model.id && (
         <Box pb={3}>
           <>
-            {!showTasks && (
-              <Button
-                size={'sm'}
-                mb={3}
-                w={'100%'}
-                variant={'outline'}
-                onClick={() => setShowTasks(true)}
-              >
-                Load Sub Tasks
-              </Button>
-            )}
-            {showTasks && (
-              <Tasks.List
-                formContext={{ parent_id: model.id }}
-                where={{ _and: [{ parent_id: { _eq: model.id } }] }}
-              />
-            )}
+            <Tasks.List
+              formContext={{ parent_id: model.id }}
+              where={{ _and: [{ parent_id: { _eq: model.id } }] }}
+            />
           </>
         </Box>
       )}

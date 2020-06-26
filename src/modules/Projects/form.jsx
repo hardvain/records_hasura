@@ -56,25 +56,10 @@ export default ({ model, showForm = true, onSubmitCallback = () => {} }) => {
       </Stack>
       {model && model.id && showForm && (
         <Box pb={3}>
-          <>
-            {!showTasks && (
-              <Button
-                size={'sm'}
-                mb={3}
-                w={'100%'}
-                variant={'outline'}
-                onClick={() => setShowTasks(true)}
-              >
-                Load Sub Tasks
-              </Button>
-            )}
-            {showTasks && (
-              <Tasks.List
-                formContext={{ project_id: model.id }}
-                where={{ _and: [{ project_id: { _eq: model.id } }] }}
-              />
-            )}
-          </>
+          <Tasks.List
+            formContext={{ project_id: model.id }}
+            where={{ _and: [{ project_id: { _eq: model.id } }] }}
+          />
         </Box>
       )}
     </Stack>

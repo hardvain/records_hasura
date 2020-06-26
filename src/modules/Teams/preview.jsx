@@ -6,6 +6,13 @@ import {
   Text,
   Progress,
   Button,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  DrawerFooter,
+  Drawer,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -28,18 +35,18 @@ export default ({ record }) => {
     operation: 'delete',
   });
   return (
-    <ListItem expand={show}>
-      <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
-        <IconButton
-          variant={'ghost'}
-          icon={show ? 'chevron-down' : 'chevron-right'}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            handleToggle();
-          }}
-          flex={1}
-        />
+    <ListItem>
+      <Stack
+        isInline
+        textAlign={'center'}
+        alignItems={'center'}
+        pr={4}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          handleToggle();
+        }}
+      >
         <Box flex={6} textAlign={'initial'}>
           <Text fontSize={'md'}>{record.name}</Text>
         </Box>
@@ -78,9 +85,23 @@ export default ({ record }) => {
           }}
         />
       </Stack>
-      <Collapse isOpen={show}>
-        <Form model={record} />
-      </Collapse>
+      <Drawer
+        size={'xl'}
+        isOpen={show}
+        placement="right"
+        onClose={() => setShow(false)}
+        finalFocusRef={show}
+      >
+        <DrawerOverlay />
+        <DrawerContent overflowY={'scroll'}>
+          <DrawerCloseButton />
+          <DrawerHeader>Create your account</DrawerHeader>
+
+          <DrawerBody>
+            <Form model={record} />
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </ListItem>
   );
 };

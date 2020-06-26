@@ -1,7 +1,7 @@
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import Router from 'next/router';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/core';
 import { useStore } from 'src/store';
 import { MdTimer } from 'react-icons/md';
-import { IoIosLogOut, IoIosPeople } from 'react-icons/io';
+import { IoIosLogOut, IoIosPeople,IoIosMenu } from 'react-icons/io';
 import {
   GiSugarCane,
   GiWaterDrop,
@@ -43,13 +43,6 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
       borderRightWidth={isActive ? 3 : 0}
       mb={2}
       pl={5}
-      bg={
-        isActive || isHovering
-          ? colorMode === 'light'
-            ? 'brand.100'
-            : '#3e4242'
-          : ''
-      }
       justifyContent={'flex-start'}
       variant={'ghost'}
       leftIcon={children}
@@ -59,7 +52,7 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
             ? 'brand.500'
             : 'brand.200'
           : colorMode === 'light'
-          ? 'gray.700'
+          ? '#77808F'
           : 'white'
       }
       onMouseEnter={() => setIsHovering(true)}
@@ -111,10 +104,10 @@ export default () => {
   };
   return (
     <Flex
-      pt={60}
+      pt={10}
       direction={'column'}
       w={showSidebar ? 250 : 70}
-      bg={colorMode === 'light' ? '#f5f5f7' : '#232626'}
+      bg={colorMode === 'light' ? 'white' : '#333'}
       position={'fixed'}
       height={'100%'}
       borderRightWidth={1}

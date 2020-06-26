@@ -25,15 +25,17 @@ export default ({
       borderLeftWidth={thickLeftBorder ? 5 : 1}
       borderLeftColor={thickLeftBorder ? 'brand.300' : ''}
       borderRadius={5}
-      shadow={isHovered && shadow ? 'lg' : 'none'}
       my={4}
       h={'100%'}
+      cursor={highlight ? 'pointer' : ''}
       bg={colorMode === 'light' ? 'white' : '#333'}
       {...rest}
     >
       {title && (
-        <Box p={3} borderBottomWidth={2}>
-          <Heading size={'sm'}>{title}</Heading>
+        <Box borderBottomWidth={1} py={4}>
+          <Heading size={'sm'} px={4}>
+            {title}
+          </Heading>
         </Box>
       )}
       <Box h={'100%'} px={3} py={condensed ? 1 : 2}>

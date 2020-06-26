@@ -38,7 +38,7 @@ export default ({ data, preview, group_by_field }) => {
         {Object.keys(groupedData).map((key) => {
           return (
             <Stack spacing={5} mt={3} key={key}>
-              <Text>{key}</Text>
+              <Text fontSize={14} textTransform={'capitalize'} color={'#77808F'}>{key}</Text>
               <Section data={groupedData[key]} preview={preview} />;
             </Stack>
           );
