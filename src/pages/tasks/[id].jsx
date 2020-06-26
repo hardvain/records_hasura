@@ -16,6 +16,8 @@ export default () => {
       'due_date',
       'status',
       'project_id',
+      'parent_id',
+      'team_id',
       'priority',
       'description',
     ],

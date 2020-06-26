@@ -7,7 +7,9 @@ import {
   Textarea,
   FormControl,
   FormLabel,
-  Heading, Divider, Collapse,
+  Heading,
+  Divider,
+  Collapse,
 } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -15,6 +17,7 @@ import useMutation from 'src/graphql/hooks/useMutation';
 import Tasks from 'src/modules/Tasks/index';
 export default ({ model, onSubmit, formContext }) => {
   const [currentModel, setCurrentModel] = useState(model);
+  const [showTasks, setShowTasks] = useState(false);
   useEffect(() => {
     setCurrentModel(model);
   }, [model]);
@@ -93,15 +96,26 @@ export default ({ model, onSubmit, formContext }) => {
       </Formik>
       {currentModel && currentModel.id && (
         <Box pb={3}>
-          <Divider />
 
-          <Heading size={'sm'} mb={3}>
-            Tasks
-          </Heading>
-          <Tasks.List
-            formContext={{ project_id: currentModel.id }}
-            where={{ _and: [{ project_id: { _eq: currentModel.id } }] }}
-          />
+          <>
+            {!showTasks && (
+              <Button
+                size={'sm'}
+                mb={3}
+                w={'100%'}
+                variant={'outline'}
+                onClick={() => setShowTasks(true)}
+              >
+                Load Sub Tasks
+              </Button>
+            )}
+            {showTasks && (
+              <Tasks.List
+                formContext={{ project_id: currentModel.id }}
+                where={{ _and: [{ project_id: { _eq: currentModel.id } }] }}
+              />
+            )}
+          </>
         </Box>
       )}
     </Stack>

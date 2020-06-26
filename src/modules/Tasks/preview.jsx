@@ -21,10 +21,10 @@ export default ({ record }) => {
     resource: 'tasks',
     operation: 'update',
   });
-  const markAsDone = () => {
+  const changeStatus = (value) => {
     mutate({
       variables: {
-        object: { ...record, status: 'completed' },
+        object: { ...record, status: value },
         where: { id: { _eq: record?.id } },
       },
     });
@@ -83,14 +83,7 @@ export default ({ record }) => {
           </Stack>
         </Stack>
         <Box flexGrow={1}></Box>
-        <Button
-          variant={'outline'}
-          variantColor={'brand'}
-          size={'xs'}
-          onClick={markAsDone}
-        >
-          Mark as Done
-        </Button>
+
         {totalTasks > 0 && (
           <Stack flex={1} spacing={1} alignItems={'baseline'}>
             <Text fontSize={12}>
@@ -103,6 +96,25 @@ export default ({ record }) => {
               borderRadius={5}
             />
           </Stack>
+        )}
+        {record?.status !== 'completed' ? (
+          <Button
+            variant={'outline'}
+            variantColor={'green'}
+            size={'xs'}
+            onClick={() => changeStatus('completed')}
+          >
+            Mark as Done
+          </Button>
+        ) : (
+          <Button
+            variant={'outline'}
+            variantColor={'orange'}
+            size={'xs'}
+            onClick={() => changeStatus('todo')}
+          >
+            Reopen
+          </Button>
         )}
         <Box>
           <Link as={`/tasks/${record.id}`} href={'/tasks/[id]'}>

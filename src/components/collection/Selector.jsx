@@ -13,13 +13,13 @@ const ResourceSelector = ({
   onChange = () => {},
   ...rest
 }) => {
-  const [projects] = useQuery({
+  const [data] = useQuery({
     name: resource,
     where,
     order_by,
     fields,
   });
-  if (!projects) {
+  if (!data) {
     return (
       <Select
         size={'sm'}
@@ -37,7 +37,7 @@ const ResourceSelector = ({
       {...rest}
       placeholder={'Select an entry'}
     >
-      {projects.map((p) => (
+      {data.map((p) => (
         <option key={p.id} value={p.id}>
           {p.name}
         </option>

@@ -6,14 +6,20 @@ import {
   Button,
   Textarea,
   FormControl,
-  FormLabel, Heading, Divider, Collapse,
+  FormLabel,
+  Heading,
+  Divider,
+  Collapse,
 } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import useMutation from 'src/graphql/hooks/useMutation';
 import Projects from 'src/modules/Projects';
+import Tasks from 'src/modules/Tasks';
 export default ({ model, formContext, onSubmit }) => {
   const [currentModel, setCurrentModel] = useState(model);
+  const [showProjects, setShowProjects] = useState(false);
+
   useEffect(() => {
     setCurrentModel(model);
   }, [model]);
@@ -28,7 +34,7 @@ export default ({ model, formContext, onSubmit }) => {
         initialValues={{
           name: currentModel?.name || '',
           description: currentModel?.description || '',
-          ...formContext
+          ...formContext,
         }}
         validate={(values) => {
           return {};
@@ -89,16 +95,28 @@ export default ({ model, formContext, onSubmit }) => {
           </Form>
         )}
       </Formik>
-
-      {currentModel && currentModel.id && (
+      {model && model.id && (
         <Box pb={3}>
-          <Divider />
 
-          <Heading size={'sm'} mb={3}>Projects</Heading>
-          <Projects.List
-            formContext={{ team_id: currentModel.id }}
-            where={{ _and: [{ team_id: { _eq: currentModel.id } }] }}
-          />
+          <>
+            {!showProjects && (
+              <Button
+                size={'sm'}
+                mb={3}
+                w={'100%'}
+                variant={'outline'}
+                onClick={() => setShowProjects(true)}
+              >
+                Load Projects
+              </Button>
+            )}
+            {showProjects && (
+              <Projects.List
+                formContext={{ team_id: currentModel.id }}
+                where={{ _and: [{ team_id: { _eq: currentModel.id } }] }}
+              />
+            )}
+          </>
         </Box>
       )}
     </Stack>

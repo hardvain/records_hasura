@@ -11,7 +11,10 @@ const fields = [
   'status',
   'project_id',
   'ref_project{name,ref_team{name}}',
+  'ref_team{id,name}',
   'ref_sub_tasks{status}',
+  'parent_id',
+  'ref_parent{id}'
 ];
 const schema = {
   name: {
@@ -50,6 +53,16 @@ const schema = {
     type: 'ref',
     label:'Project',
     resource: 'projects',
+  },
+  parent_id: {
+    type: 'ref',
+    label:'Parent task',
+    resource: 'tasks',
+  },
+  team_id: {
+    type: 'ref',
+    label:'Team',
+    resource: 'teams',
   },
 };
 

@@ -26,6 +26,7 @@ import ResourceSelector from 'src/components/collection/Selector';
 export default ({ model, formContext }) => {
   const [operation, setOperation] = useState('insert');
   const methods = useForm();
+  const [showTasks, setShowTasks] = useState(false);
 
   useEffect(() => {
     methods.reset(model);
@@ -48,7 +49,6 @@ export default ({ model, formContext }) => {
       })
     )();
   };
-  console.log(model)
   return (
     <Stack spacing={10}>
       <Stack spacing={10}>
@@ -63,13 +63,15 @@ export default ({ model, formContext }) => {
             <Field name={'due_date'} />
             <Field name={'priority'} />
             <Field name={'status'} />
-            <Field name={'project_id'} />
           </Stack>
           <Divider />
-          <Field
-            name={'description'}
-            schema={Tasks.schema}
-          />
+          <Stack isInline>
+            <Field name={'parent_id'} />
+            <Field name={'project_id'} />
+            {<Field name={'team_id'} disabled={model?.project_id} />}
+          </Stack>
+          <Divider />
+          <Field name={'description'} schema={Tasks.schema} />
         </FormContext>
       </Stack>
 
@@ -85,6 +87,30 @@ export default ({ model, formContext }) => {
           {model?.id ? 'Update' : 'Create'}
         </Button>
       </Stack>
+      {model && model.id && (
+        <Box pb={3}>
+
+          <>
+            {!showTasks && (
+              <Button
+                size={'sm'}
+                mb={3}
+                w={'100%'}
+                variant={'outline'}
+                onClick={() => setShowTasks(true)}
+              >
+                Load Sub Tasks
+              </Button>
+            )}
+            {showTasks && (
+              <Tasks.List
+                formContext={{ parent_id: model.id }}
+                where={{ _and: [{ parent_id: { _eq: model.id } }] }}
+              />
+            )}
+          </>
+        </Box>
+      )}
     </Stack>
   );
 };

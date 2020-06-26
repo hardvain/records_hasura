@@ -1,6 +1,6 @@
 import create from 'zustand';
 import moment from 'moment';
-export const [useStore] = create((set, get) => ({
+export const [useStore, api] = create((set, get) => ({
   ui: {
     date: moment(),
     user_id: undefined,

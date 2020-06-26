@@ -41,13 +41,17 @@ export default ({ record }) => {
           }}
           flex={1}
         />
-        <Box flex={15} textAlign={'initial'}>
+        <Box flex={10} textAlign={'initial'}>
           {record.name}
+        </Box>
+        <Box flex={4} alignSelf={'baseline'}>
+          {record?.ref_team?.name && <Badge>{record.ref_team?.name}</Badge>}
         </Box>
         <Stack flex={1} spacing={1} alignItems={'baseline'}>
           <Text fontSize={12}>
             Completed {completedTasks} out of {totalTasks} Tasks
           </Text>
+
           <Progress
             color={progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'}
             value={totalTasks ? progress : 0}
@@ -55,9 +59,7 @@ export default ({ record }) => {
             borderRadius={5}
           />
         </Stack>
-        <Box flex={2} alignSelf={'baseline'}>
-          {record?.ref_team?.name && <Badge>{record.ref_team?.name}</Badge>}
-        </Box>
+
         <Box flex={5} />
         <Box>
           <Link as={`/projects/${record.id}`} href={'/projects/[id]'}>

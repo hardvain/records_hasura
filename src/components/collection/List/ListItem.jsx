@@ -1,6 +1,7 @@
 import Card from 'src/components/Card';
 
 export default ({ expand, children }) => {
+
   return (
     <Card
       borderRadius={0}
