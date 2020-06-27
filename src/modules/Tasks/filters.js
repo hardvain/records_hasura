@@ -8,6 +8,22 @@ export const today = (date) => ({
     { due_date: { _lte: moment(date).endOf('day').toISOString(true) } },
   ],
 });
+export const month = (date) => ({
+  _and: [
+    {
+      due_date: { _gte: moment(date).startOf('month').toISOString(true) },
+    },
+    { due_date: { _lte: moment(date).endOf('month').toISOString(true) } },
+  ],
+});
+export const week = (date) => ({
+  _and: [
+    {
+      due_date: { _gte: moment(date).startOf('week').toISOString(true) },
+    },
+    { due_date: { _lte: moment(date).endOf('week').toISOString(true) } },
+  ],
+});
 export const activeToday = (date) => ({
   _and: [
     {

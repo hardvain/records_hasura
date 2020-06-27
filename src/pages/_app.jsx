@@ -93,7 +93,7 @@ const App = ({ Component, pageProps }) => {
           <DarkMode>
             <CSSReset config={config} />
             <Navbar />
-            <Flex direction={'row'} pt={60}>
+            <Flex direction={'row'} pt={58}>
               {<Sidebar />}
 
               <Box ml={250} flexGrow={1} minHeight={'100vh'} >

@@ -31,16 +31,7 @@ export default ({
       bg={colorMode === 'light' ? 'white' : '#333'}
       {...rest}
     >
-      {title && (
-        <Box borderBottomWidth={1} py={4}>
-          <Heading size={'sm'} px={4}>
-            {title}
-          </Heading>
-        </Box>
-      )}
-      <Box h={'100%'} px={3} py={condensed ? 1 : 2}>
-        {children}
-      </Box>
+      {children}
     </MotionBox>
   );
 };

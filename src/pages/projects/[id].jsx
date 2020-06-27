@@ -30,18 +30,16 @@ export default () => {
   return (
     <Stack>
       {project ? (
-        <Stack>
+        <Stack m={0}>
           <Card
             id={'card'}
             mt={0}
             borderLeftWidth={0}
             borderRadius={0}
-            h={'100%'}
-            p={8}
             pb={0}
             mb={0}
           >
-            <Box pb={10}>
+            <Box p={5}>
               <Heading size={'md'}>{project[0].name}</Heading>
             </Box>
             <Tabs variantColor={'brand'} isFitted>

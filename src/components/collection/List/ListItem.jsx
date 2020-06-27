@@ -7,6 +7,7 @@ export default ({ expand, children,...rest }) => {
       borderRadius={0}
       highlight
       my={expand ? 30 : -1}
+      p={3}
       {...rest}
     >
       {children}

@@ -91,7 +91,7 @@ const FilterGroup = ({
   };
 
   return (
-    <Card shadow={false}>
+    <Card shadow={false} p={2}>
       <Stack isInline my={3}>
         <Checkbox
           isChecked={isNot}
