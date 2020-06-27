@@ -30,7 +30,6 @@ export default () => {
       <Tabs
         variantColor={'brand'}
         size={'sm'}
-        variant={'soft-rounded'}
         isManual
       >
         <Stack isInline spacing={0}>

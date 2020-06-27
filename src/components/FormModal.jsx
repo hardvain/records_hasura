@@ -31,7 +31,6 @@ import Dishes from 'src/modules/Dishes';
 import Teams from 'src/modules/Teams';
 import Transactions from 'src/modules/Transactions';
 export default () => {
-
   const [addAnother, setAddAnother] = useState(false)
   const { colorMode } = useColorMode();
   const {
@@ -49,7 +48,6 @@ export default () => {
     showFormPopup: state.ui.showFormPopup,
     toggleFormPopup: state.toggleFormPopup,
     setNewFormContext: state.setNewFormContext,
-
   }));
   const onSubmit = () => {
     toggleFormPopup();
@@ -180,7 +178,7 @@ export default () => {
               <Box as={FiUsers} w={30} h={30}/>
             </Box>
           </Stack>
-          <Form onSubmitCallback={onSubmit} formContext={newFormContext}/>
+          <Form onSubmitCallback={onSubmit} model={newFormContext}/>
         </ModalBody>
       </ModalContent>
     </Modal>

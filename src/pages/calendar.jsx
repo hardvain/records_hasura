@@ -10,6 +10,7 @@ import {
   SimpleGrid,
   Tag,
 } from '@chakra-ui/core';
+import { useStore } from 'src/store';
 import { groupBy } from 'src/utils';
 
 import Link from 'next/link';
@@ -59,37 +60,35 @@ const PreviewCard = ({ record }) => {
   );
 };
 
-const MonthDay = ({ day }) => {
-  return (
-    <Box borderWidth={1} borderColor={'rgba(0,0,0,0.03)'} h={200}>
-      <Stack>
-        <Box textAlign={'center'}>
-          <Text>{day}</Text>
-        </Box>
-      </Stack>
-    </Box>
-  );
-};
-const MonthView = () => {
-  return (
-    <SimpleGrid columns={7}>
-      {[...Array(30).keys()].map((i) => (
-        <MonthDay key={i} day={i + 1} />
-      ))}
-    </SimpleGrid>
-  );
-};
-const HourView = ({ hour, groupedTasks }) => {
+const HourView = ({ hour, groupedTasks, date }) => {
+  const { setNewFormContext, toggleFormPopup } = useStore((state) => ({
+    setNewFormContext: state.setNewFormContext,
+    toggleFormPopup: state.toggleFormPopup,
+  }));
+  const addTask = () => {
+    const due_date = moment(date).hours(hour).minutes(0);
+    setNewFormContext({ due_date: due_date.toISOString(true) });
+    toggleFormPopup('tasks');
+  };
   const tasks = groupedTasks[hour];
   return (
-    <Box minHeight={100} key={hour} borderBottomWidth={1} py={1}>
+    <Box
+      minHeight={100}
+      key={hour}
+      borderBottomWidth={1}
+      py={1}
+      onClick={addTask}
+    >
       <Stack w={'100%'}>
         <Box px={2}>
           <Text fontSize={10}>{hour}:00</Text>
         </Box>
         {tasks &&
           tasks.map((t) => (
-            <Box px={2} w={'100%'}>
+            <Box px={2} w={'100%'} onClick={e => {
+              e.preventDefault();
+              e.stopPropagation()
+            }}>
               <Link href={`/tasks/[id]`} as={`/tasks/${t.id}`}>
                 <Button
                   size={'xs'}
@@ -109,7 +108,7 @@ const HourView = ({ hour, groupedTasks }) => {
     </Box>
   );
 };
-const DayView = ({ tasks }) => {
+const DayView = ({ tasks, date }) => {
   const groupedTasks = groupBy(tasks || [], (t) => {
     if (t.due_date) {
       const hour = moment(t.due_date).format('HH');
@@ -123,9 +122,9 @@ const DayView = ({ tasks }) => {
     }
   });
   return (
-    <Stack>
+    <Stack overflowY={'scroll'}>
       {[...Array(24).keys()].map((i) => (
-        <HourView hour={i} groupedTasks={groupedTasks} />
+        <HourView hour={i} groupedTasks={groupedTasks} date={date} />
       ))}
     </Stack>
   );
@@ -191,9 +190,15 @@ export default () => {
               <option value={'schedule'}>Schedule</option>
             </Select>
           </Stack>
-          <DayView tasks={tasks} />
+          <DayView tasks={tasks} date={date} />
         </Stack>
-        <Stack flex={1} borderLeftWidth={1} p={3} spacing={10}>
+        <Stack
+          flex={1}
+          borderLeftWidth={1}
+          p={3}
+          spacing={10}
+          overflowY={'scroll'}
+        >
           <Text>Tasks</Text>
           {tasks &&
             tasks.length > 0 &&
