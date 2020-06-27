@@ -86,7 +86,7 @@ const Component = ({ selected, onChange, type, includeTime, ...rest }) => {
   return (
     <DatePicker
       className="data-picker"
-      showTimeSelect={includeTime}
+      showTimeSelect={true}
       timeFormat="HH:mm"
       timeIntervals={15}
       timeCaption="Time"
@@ -94,7 +94,7 @@ const Component = ({ selected, onChange, type, includeTime, ...rest }) => {
       showWeekNumbers
       todayButton="Today"
       onChange={(v) => onChange(moment(v))}
-      dateFormat={includeTime ? 'MMMM d, yyyy - HH:mm' : 'MMMM d, yyyy'}
+      dateFormat={'MMMM d, yyyy - HH:mm'}
       customInput={createElement(ComponentMap[type || 'input'], { ref })}
       {...rest}
     />

@@ -104,6 +104,7 @@ export default () => {
   };
   return (
     <Flex
+      // pt={65}
       direction={'column'}
       w={250}
       bg={colorMode === 'light' ? 'white' : '#333'}
