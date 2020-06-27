@@ -67,7 +67,7 @@ export default () => {
   const Form = formMap[recordType]['Form'] || <div />;
   return (
     <Modal
-      borderRadius={10}
+      borderRadius={5}
       isOpen={showFormPopup}
       onClose={() => toggleFormPopup()}
       size={'6xl'}
@@ -75,7 +75,7 @@ export default () => {
     >
       <ModalOverlay />
       <ModalContent
-        borderRadius={10}
+        borderRadius={5}
         shadow={'lg'}
         bg={colorMode === 'light' ? 'white' : '#333'}
       >

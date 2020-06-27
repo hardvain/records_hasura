@@ -7,7 +7,7 @@ import {
   Tab,
   TabPanel,
   Stack,
-  useColorMode,
+  useColorMode, Heading,
 } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import useQuery from 'src/graphql/hooks/useQuery';
@@ -32,14 +32,18 @@ export default () => {
       {project ? (
         <Stack>
           <Card
+            id={'card'}
             mt={0}
             borderLeftWidth={0}
             borderRadius={0}
             h={'100%'}
             p={8}
             pb={0}
+            mb={0}
           >
-            <Projects.Form model={project[0]} showForm={false} />
+            <Box pb={10}>
+              <Heading size={'md'}>{project[0].name}</Heading>
+            </Box>
             <Tabs variantColor={'brand'} isFitted>
               <TabList borderWidth={0}>
                 <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>
@@ -49,7 +53,7 @@ export default () => {
                   Resources
                 </Tab>
                 <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>
-                  Calendar
+                  Conversations
                 </Tab>
               </TabList>
             </Tabs>

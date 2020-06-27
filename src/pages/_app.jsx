@@ -37,7 +37,7 @@ export function reportWebVitals(metric) {
 const config = (theme) => ({
   light: {
     color: theme.colors.gray[800],
-    bg: '#f5f5f7',
+    bg: '#fff',
     borderColor: theme.colors.gray[200],
     placeholderColor: theme.colors.gray[400],
   },

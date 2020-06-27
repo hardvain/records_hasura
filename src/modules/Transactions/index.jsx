@@ -20,5 +20,32 @@ const List = (props) => (
     {...props}
   />
 );
+const schema = {
+  name: {
+    type: 'string',
+    label:'Name',
+  },
+  timestamp: {
+    type: 'timestamp',
+    label:'Timestamp',
+  },
+  description: {
+    type: 'text',
+    label:'Description',
+  },
+  value: {
+    type: 'number',
+    label:'Amount',
+  },
+  type: {
+    type: 'select',
+    label:'Type',
+    options: [
+      { value: 'expense', label: 'Expense' },
+      { value: 'income', label: 'Income' },
+      { value: 'transfer', label: 'Transfer' },
+    ],
+  },
+};
 
-export default { Form, List };
+export default { Form, List, schema };

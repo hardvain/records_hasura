@@ -11,6 +11,7 @@ import ResourceSelector from 'src/components/collection/Selector';
 
 const map = {
   string: Input,
+  number: Input,
   checkbox: Checkbox,
   text: TextArea,
   select: Select,

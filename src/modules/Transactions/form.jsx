@@ -5,164 +5,76 @@ import {
   Box,
   Button,
   Textarea,
-  Select,
   FormControl,
   FormLabel,
+  Heading,
+  Divider,
+  SimpleGrid,
+  Checkbox,
+  Text,
 } from '@chakra-ui/core';
+import Link from 'next/link';
+import Card from 'src/components/Card';
+import Tasks from './index';
+import Select from 'src/forms/Select';
+import { useForm, Controller, FormContext } from 'react-hook-form';
+import EditableInput from 'src/components/FormikEditableInput';
 import React, { useEffect, useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { FormikDatePicker } from 'src/components/DatePicker';
+import { CustomDatePicker } from 'src/components/DatePicker';
+import Field from 'src/forms/Field';
 import useMutation from 'src/graphql/hooks/useMutation';
+export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
+  const [operation, setOperation] = useState('insert');
+  const methods = useForm();
 
-import moment from 'moment';
-export default ({ model, onSubmit }) => {
-  const [currentModel, setCurrentModel] = useState(model);
   useEffect(() => {
-    setCurrentModel(model);
+    methods.reset(model);
+    if (model?.id) {
+      setOperation('update');
+    }
   }, [model]);
+
   const mutate = useMutation({
     resource: 'transactions',
-    operation: currentModel && currentModel.id ? 'update' : 'insert',
+    operation,
   });
+  const onSubmit = () => {
+    methods.handleSubmit((data) =>
+      mutate({
+        variables: {
+          object: { ...model, ...data },
+          where: { id: { _eq: model?.id } },
+        },
+      })
+    )();
+    onSubmitCallback();
+  };
+  const deleteMutate = useMutation({
+    resource: 'transactions',
+    operation: 'delete',
+  });
+
   return (
-    <Formik
-      enableReinitialize={true}
-      initialValues={{
-        name: currentModel?.name || '',
-        value: currentModel?.value || 0,
-        description: currentModel?.description || '',
-        team: currentModel?.team || '',
-        type: currentModel?.type || 'expense',
-        timestamp: currentModel?.timestamp
-          ? moment(currentModel.timestamp).toISOString(true)
-          : undefined,
-      }}
-      validate={(values) => {
-        const errors = {};
-        if (!values.name) {
-          errors.name = 'Required';
-        }
-        return errors;
-      }}
-      onSubmit={(values, { setSubmitting }) => {
-        mutate({
-          variables: {
-            object: values,
-            where: { id: { _eq: currentModel?.id } },
-          },
-        });
-        if (!currentModel) {
-          setCurrentModel();
-        }
-        onSubmit();
-      }}
-    >
-      {({ isSubmitting, handleChange, handleBlur, values }) => (
-        <Form>
-          <Stack spacing={10} my={5}>
-            <Box>
-              <FormControl>
-                <FormLabel htmlFor="name">Name</FormLabel>
-                <Field name="name" as={Input} placeholder={'Name'} />
-                <ErrorMessage name="name" component="div" />
-              </FormControl>
-            </Box>
-            <Box>
-              <FormControl>
-                <FormLabel htmlFor="value">Value</FormLabel>
-                <Field
-                  name="value"
-                  as={Input}
-                  type={'number'}
-                  placeholder={'Value'}
-                />
-                <ErrorMessage name="value" component="div" />
-              </FormControl>
-            </Box>
-            <Stack isInline justifyContent={'space-between'}>
-              <Box>
-                <FormControl display={'grid'}>
-                  <FormLabel htmlFor="timestamp">Timestamp</FormLabel>
-                  <FormikDatePicker
-                    placeholderText="Select a due date"
-                    name={'timestamp'}
-                    type={'input'}
-                    includeTime
-                  />
-                  <ErrorMessage name="timestamp" component="div" />
-                </FormControl>
-              </Box>
-              <Box>
-                <FormControl>
-                  <FormLabel htmlFor="team">Type</FormLabel>
-                  <Select
-                    size={'sm'}
-                    name="type"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.type}
-                    placeholder={'Select a type'}
-                  >
-                    <option value={'expense'}>Expense</option>
-                    <option value={'income'}>Income</option>
-                    <option value={'transfer'}>Transfer</option>
-                  </Select>
-                  <ErrorMessage name="type" component="div" />
-                </FormControl>
-              </Box>
-
-              <Box>
-                <FormControl>
-                  <FormLabel htmlFor="team">Team</FormLabel>
-                  <Select
-                    size={'sm'}
-                    name="team"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.team}
-                    placeholder={'Select a Team'}
-                  >
-                    <option value={'vndly'}>VNDLY</option>
-                    <option value={'family'}>Family</option>
-                    <option value={'relationships'}>Relationships</option>
-                    <option value={'knowledge'}>Knowledge</option>
-                    <option value={'health'}>Health</option>
-                    <option value={'nutrition'}>Nutrition</option>
-                    <option value={'home'}>Home</option>
-                    <option value={'personal'}>Personal</option>
-                    <option value={'finance'}>Finance</option>
-                  </Select>
-                  <ErrorMessage name="team" component="div" />
-                </FormControl>
-              </Box>
-            </Stack>
-
-            <Box>
-              <FormControl>
-                <FormLabel htmlFor="description">Description</FormLabel>
-                <Field
-                  name="description"
-                  as={Textarea}
-                  placeholder={'Description'}
-                />
-                <ErrorMessage name="description" component="div" />
-              </FormControl>
-            </Box>
-          </Stack>
-
-          <Stack isInline>
-            <Box flexGrow={1}></Box>
-            <Button
-              type="submit"
-              variant={'solid'}
-              variantColor={'brand'}
-              size={'sm'}
-            >
-              {currentModel?.id ? 'Update' : 'Create'}
-            </Button>
-          </Stack>
-        </Form>
-      )}
-    </Formik>
+    <Stack spacing={10}>
+      <FormContext {...methods} schema={Tasks.schema}>
+        <Stack spacing={10}>
+          <Field name={'value'} />
+          <Field name={'name'} />
+          <Field rows={10} name={'description'} schema={Tasks.schema} />
+          <Field name={'timestamp'} />
+          <Field name={'type'} />
+        </Stack>
+      </FormContext>
+      <Button
+        my={5}
+        type="submit"
+        variant={'solid'}
+        variantColor={'brand'}
+        size={'sm'}
+        onClick={onSubmit}
+      >
+        {model?.id ? 'Update' : 'Create'}
+      </Button>
+    </Stack>
   );
 };

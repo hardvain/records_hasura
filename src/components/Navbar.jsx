@@ -81,6 +81,13 @@ export default () => {
         </Link>
       </Box>
       <Box>
+        <Link href="/calendar" as={`/calendar`}>
+          <Button variant={'ghost'} size={'sm'} mr={4}>
+            Calendar
+          </Button>
+        </Link>
+      </Box>
+      <Box>
         <Menu>
           <ChakraMenuButton
             variantColor={'brand'}

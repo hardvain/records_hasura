@@ -1,4 +1,4 @@
-import { Box, IconButton, Stack, Collapse, Badge } from '@chakra-ui/core';
+import { Box, IconButton, Stack, Collapse, Badge, Text } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import moment from 'moment';
 import useMutation from 'src/graphql/hooks/useMutation';
@@ -33,9 +33,11 @@ export default ({ record }) => {
             <Box flexGrow={1}></Box>
           </Stack>
           <Box>
-            {record.timestamp
-              ? moment(record.timestamp).format('Do, MMMM YYYY, H:mm')
-              : '-'}
+            <Text fontSize={12}>
+              {record.timestamp
+                ? moment(record.timestamp).format('Do, MMMM YYYY')
+                : '-'}
+            </Text>
           </Box>
         </Stack>
         <Box mr={2}>

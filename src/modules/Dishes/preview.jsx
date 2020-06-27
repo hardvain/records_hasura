@@ -38,14 +38,14 @@ export default ({ record }) => {
           </Stack>
           <Box>
             <Stack isInline>
-              <Text>Carbs:</Text>
-              <Text>{record.carbs}</Text>
+              <Text fontSize={12}>Carbs:</Text>
+              <Text fontSize={12}>{record.carbs}</Text>
               <Divider orientation={'vertical'} />
-              <Text>Fat:</Text>
-              <Text>{record.fat}</Text>
+              <Text fontSize={12}>Fat:</Text>
+              <Text fontSize={12}>{record.fat}</Text>
               <Divider orientation={'vertical'} />
-              <Text>Protein:</Text>
-              <Text>{record.protein}</Text>
+              <Text fontSize={12}>Protein:</Text>
+              <Text fontSize={12}>{record.protein}</Text>
             </Stack>
           </Box>
         </Stack>
