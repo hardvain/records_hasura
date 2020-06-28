@@ -12,13 +12,19 @@ import {
 } from '@chakra-ui/core';
 import { useState } from 'react';
 import { IoIosPeople } from 'react-icons/io';
-import { GiSugarCane, GiWaterDrop, GiMoneyStack } from 'react-icons/gi';
+import {
+  GiSugarCane,
+  GiWaterDrop,
+  GiMoneyStack,
+  GiFruitBowl,
+} from 'react-icons/gi';
 import { AiOutlineAppstore } from 'react-icons/ai';
 import { FaTasks, FaPizzaSlice } from 'react-icons/fa';
 import { GoProject } from 'react-icons/go';
 import { FiUsers, FiInbox } from 'react-icons/fi';
 import { useStore } from 'src/store';
 import Tasks from 'src/modules/Tasks';
+import Food from 'src/modules/Food';
 import Glucose from 'src/modules/Glucose';
 import Categories from 'src/modules/Categories';
 import Water from 'src/modules/Water';
@@ -59,6 +65,7 @@ export default () => {
     transactions: Transactions,
     dishes: Dishes,
     projects: Projects,
+    food: Food,
     teams: Teams,
     people: People,
     categories: Categories,
@@ -141,6 +148,18 @@ export default () => {
               p={5}
             >
               <Box as={GiSugarCane} w={30} h={30} />
+            </Box>
+            <Box
+              borderColor={recordType === 'food' ? 'brand.500' : ''}
+              bg={recordType === 'food' ? 'brand.100' : 'none'}
+              onClick={() => setRecordType('food')}
+              cursor={'pointer'}
+              mr={2}
+              borderRadius={35}
+              borderWidth={1}
+              p={5}
+            >
+              <Box as={GiFruitBowl} w={30} h={30} />
             </Box>
             <Box
               borderColor={recordType === 'water' ? 'brand.500' : ''}

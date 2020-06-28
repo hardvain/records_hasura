@@ -119,6 +119,7 @@ export default () => {
             <MenuItem onClick={() => toggleFormPopup('inbox')}>Inbox</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('tasks')}>Task</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('water')}>Water</MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('food')}>Food</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('glucose')}>
               Glucose
             </MenuItem>
@@ -177,9 +178,6 @@ export default () => {
           borderRadius={5}
         />
       </Stack>
-      <Tooltip label={'Notifications'}>
-        <IconButton variant="default" icon={'bell'} onClick={toggleColorMode} />
-      </Tooltip>
       <Tooltip label={colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}>
         <IconButton
           variant="default"

@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 export default () => {
   const [date, setDate] = useState(moment().toISOString(true));
   return (
-    <Box>
+    <Box p={5}>
       <Stack isInline>
         <Box w={'100%'} px={2} py={5}>
           <Water.List
