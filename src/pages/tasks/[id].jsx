@@ -20,6 +20,7 @@ export default () => {
       'team_id',
       'priority',
       'description',
+      'checklist'
     ],
   });
   return task ? (

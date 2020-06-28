@@ -18,6 +18,7 @@ const fields = [
   'ref_parent{id}',
   'people_id',
   'ref_person{id,name}',
+  'checklist'
 ];
 const schema = {
   name: {

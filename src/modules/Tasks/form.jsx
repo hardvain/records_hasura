@@ -1,5 +1,5 @@
 // Render Prop
-import { Stack, Box, Button } from '@chakra-ui/core';
+import { Stack, Box, Button, Text, Checkbox, Input } from '@chakra-ui/core';
 import Link from 'next/link';
 import Tasks from './index';
 import { useForm, Controller, FormContext } from 'react-hook-form';
@@ -9,11 +9,12 @@ import useMutation from 'src/hooks/graphql/useMutation';
 export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
   const [operation, setOperation] = useState('insert');
   const methods = useForm();
-
+  const [checklist, setChecklist] = useState([]);
   useEffect(() => {
     methods.reset(model);
     if (model?.id) {
       setOperation('update');
+      setChecklist(model.checklist || []);
     }
   }, [model]);
 
@@ -25,7 +26,7 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
     methods.handleSubmit((data) =>
       mutate({
         variables: {
-          object: { ...model, ...data },
+          object: { ...model, ...data, checklist },
           where: { id: { _eq: model?.id } },
         },
       })
@@ -33,7 +34,18 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
     onSubmitCallback();
   };
   const deleteMutate = useMutation({ resource: 'tasks', operation: 'delete' });
-
+  const addCheckListItem = () => {
+    setChecklist([...checklist, { checked: false }]);
+  };
+  const setChecklistItem = (value, property, index) => {
+    const list = [...checklist];
+    const item = list[index];
+    list[index] = {
+      ...item,
+      [property]: value,
+    };
+    setChecklist(list);
+  };
   return (
     <Stack spacing={10}>
       {model && model.id && (
@@ -115,14 +127,44 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
         {model?.id ? 'Update' : 'Create'}
       </Button>
       {model && model.id && (
-        <Box pb={3}>
-          <>
-            <Tasks.List
-              formContext={{ parent_id: model.id }}
-              where={{ _and: [{ parent_id: { _eq: model.id } }] }}
-            />
-          </>
-        </Box>
+        <Stack spacing={10}>
+          <Stack spacing={10}>
+            <Text fontSize={12}>Checklists</Text>
+
+            <Stack>
+              {checklist.map((item, index) => (
+                <Stack isInline key={index}>
+                  <Checkbox
+                    size={'lg'}
+                    isChecked={item.isChecked}
+                    onChange={(e) =>
+                      setChecklistItem(e.target.checked, 'isChecked', index)
+                    }
+                  />
+                  <Input
+                    variant={'unstyled'}
+                    textDecoration={item.isChecked ? 'line-through' : ''}
+                    value={item.value}
+                    onChange={(e) =>
+                      setChecklistItem(e.target.value, 'value', index)
+                    }
+                  />
+                </Stack>
+              ))}
+            </Stack>
+            <Button size={'xs'} onClick={addCheckListItem}>
+              Add New
+            </Button>
+          </Stack>
+          <Box pb={3}>
+            <>
+              <Tasks.List
+                formContext={{ parent_id: model.id }}
+                where={{ _and: [{ parent_id: { _eq: model.id } }] }}
+              />
+            </>
+          </Box>
+        </Stack>
       )}
     </Stack>
   );
