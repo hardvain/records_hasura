@@ -9,7 +9,10 @@ const fields = [
   'team',
   'team',
   'type',
-  'value'
+  'value',
+  'mode',
+  'category_id',
+  'ref_category{id,name}',
 ];
 
 const List = (props) => (
@@ -23,28 +26,41 @@ const List = (props) => (
 const schema = {
   name: {
     type: 'string',
-    label:'Name',
+    label: 'Name',
   },
   timestamp: {
     type: 'timestamp',
-    label:'Timestamp',
+    label: 'Timestamp',
   },
   description: {
     type: 'text',
-    label:'Description',
+    label: 'Description',
   },
   value: {
     type: 'number',
-    label:'Amount',
+    label: 'Amount',
   },
   type: {
     type: 'select',
-    label:'Type',
+    label: 'Type',
     options: [
       { value: 'expense', label: 'Expense' },
       { value: 'income', label: 'Income' },
       { value: 'transfer', label: 'Transfer' },
     ],
+  },
+  mode: {
+    type: 'select',
+    label: 'Mode',
+    options: [
+      { value: 'credit', label: 'Credit' },
+      { value: 'debit', label: 'Debit' },
+    ],
+  },
+  category_id: {
+    type: 'ref',
+    label: 'Category',
+    resource: 'categories',
   },
 };
 

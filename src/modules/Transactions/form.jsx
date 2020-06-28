@@ -62,6 +62,8 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
           <Field rows={10} name={'description'} schema={Tasks.schema} />
           <Field name={'timestamp'} />
           <Field name={'type'} />
+          <Field name={'mode'} />
+          <Field name={'category_id'} />
         </Stack>
       </FormContext>
       <Button
