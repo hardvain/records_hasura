@@ -15,12 +15,13 @@ import { IoIosPeople } from 'react-icons/io';
 import { GiSugarCane, GiWaterDrop, GiMoneyStack } from 'react-icons/gi';
 import { FaTasks, FaPizzaSlice } from 'react-icons/fa';
 import { GoProject } from 'react-icons/go';
-import { FiUsers } from 'react-icons/fi';
+import { FiUsers, FiInbox } from 'react-icons/fi';
 import { useStore } from 'src/store';
 import Tasks from 'src/modules/Tasks';
 import Glucose from 'src/modules/Glucose';
 import Water from 'src/modules/Water';
 import People from 'src/modules/People';
+import Inbox from 'src/modules/Inbox';
 import Projects from 'src/modules/Projects';
 import Dishes from 'src/modules/Dishes';
 import Teams from 'src/modules/Teams';
@@ -49,6 +50,7 @@ export default () => {
     setNewFormContext();
   };
   const formMap = {
+    inbox: Inbox,
     tasks: Tasks,
     glucose: Glucose,
     water: Water,
@@ -89,6 +91,18 @@ export default () => {
           bg={colorMode === 'light' ? 'white' : '#333'}
         >
           <Stack isInline spacing={10}>
+            <Box
+              borderColor={recordType === 'inbox' ? 'brand.500' : ''}
+              bg={recordType === 'inbox' ? 'brand.100' : 'none'}
+              onClick={() => setRecordType('inbox')}
+              cursor={'pointer'}
+              mr={2}
+              borderRadius={35}
+              borderWidth={recordType === 'inbox' ? 2 : 1}
+              p={5}
+            >
+              <Box as={FiInbox} w={30} h={30} />
+            </Box>
             <Box
               borderColor={recordType === 'tasks' ? 'brand.500' : ''}
               bg={recordType === 'tasks' ? 'brand.100' : 'none'}

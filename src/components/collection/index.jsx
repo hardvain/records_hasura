@@ -34,7 +34,6 @@ const FilteredCollection = ({
     setNewFormContext(formContext);
     toggleFormPopup(resource);
   };
-
   let response;
   if (loading) {
     response = (

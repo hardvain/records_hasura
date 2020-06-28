@@ -13,21 +13,28 @@ import {
   Text,
   Progress,
   Stack,
+  Input,
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import Logo from 'src/assets/Logo';
 import useAggregate from 'src/graphql/hooks/useAggregate';
+import useMutation from 'src/graphql/hooks/useMutation';
 import * as TaskFilters from 'src/modules/Tasks/filters';
 import { useStore } from 'src/store';
 
 export default () => {
+  const [inboxItem, setInboxItem] = useState('');
   const { colorMode, toggleColorMode, date } = useColorMode();
   const { toggleFormPopup } = useStore((state) => ({
     toggleFormPopup: state.toggleFormPopup,
     date: state.ui.date,
   }));
+  const inboxInsertMutation = useMutation({
+    resource: 'inbox',
+    operation: 'insert',
+  });
   const [todayTasksAgg] = useAggregate({
     name: 'tasks',
     where: TaskFilters.today(date),
@@ -45,6 +52,16 @@ export default () => {
   const progressPercentage = todayTasksAgg
     ? (completedTasksCount * 100) / todayTasksAgg.count
     : 0;
+  const onKeyDown = (e) => {
+    if (e.keyCode === 13 && e.metaKey) {
+      inboxInsertMutation({
+        variables: {
+          object: { name: inboxItem },
+        },
+      });
+      setInboxItem('');
+    }
+  };
   return (
     <Flex
       position={'fixed'}
@@ -97,6 +114,7 @@ export default () => {
             Create
           </ChakraMenuButton>
           <MenuList bg={colorMode === 'light' ? 'white' : '#3e4242'}>
+            <MenuItem onClick={() => toggleFormPopup('inbox')}>Inbox</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('tasks')}>Task</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('water')}>Water</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('glucose')}>
@@ -106,7 +124,9 @@ export default () => {
               Transaction
             </MenuItem>
             <MenuItem onClick={() => toggleFormPopup('dishes')}>Dish</MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('people')}>People</MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('people')}>
+              People
+            </MenuItem>
             <Divider />
             <MenuItem onClick={() => toggleFormPopup('teams')}>Team</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('projects')}>
@@ -116,6 +136,15 @@ export default () => {
         </Menu>
       </Box>
       <Box flexGrow={1}></Box>
+      <Input
+        w={300}
+        size={'sm'}
+        mr={5}
+        value={inboxItem}
+        onChange={(e) => setInboxItem(e.target.value)}
+        onKeyDown={onKeyDown}
+        placeholder={"Quick add"}
+      />
       <Stack
         borderRadius={3}
         spacing={1}

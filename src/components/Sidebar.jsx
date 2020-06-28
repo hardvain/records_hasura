@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/core';
 import { useStore } from 'src/store';
 import { MdTimer } from 'react-icons/md';
+import { FiInbox } from 'react-icons/fi';
 import { IoIosLogOut, IoIosPeople, IoIosMenu } from 'react-icons/io';
 import {
   GiSugarCane,
@@ -114,6 +115,14 @@ export default () => {
       left={0}
       overflowX={'hidden'}
     >
+      <MenuItem
+        href="/inbox"
+        as={`/inbox`}
+        title={'Inbox'}
+        isActive={pathname === '/inbox'}
+      >
+        {FiInbox}
+      </MenuItem>
       <MenuItem
         href="/tasks"
         as={`/tasks`}
