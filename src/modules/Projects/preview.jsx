@@ -19,9 +19,9 @@ import {
 import Link from 'next/link';
 import Router from 'next/router';
 import React, { useState } from 'react';
-import useMutation from 'src/graphql/hooks/useMutation';
+import useMutation from 'src/hooks/graphql/useMutation';
 import Form from './form';
-import ListItem from 'src/components/collection/List/ListItem';
+import ListItem from 'src/containers/collection/list/ListItem';
 
 export default ({ record }) => {
   const totalTasks = record.ref_tasks?.length;

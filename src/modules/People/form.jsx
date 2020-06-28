@@ -14,15 +14,14 @@ import {
   Text,
 } from '@chakra-ui/core';
 import Link from 'next/link';
-import Card from 'src/components/Card';
+import Card from 'src/components/core/card';
 import People from './index';
-import Select from 'src/forms/Select';
+import Select from 'src/components/forms/Select';
 import { useForm, Controller, FormContext } from 'react-hook-form';
-import EditableInput from 'src/components/FormikEditableInput';
 import React, { useEffect, useState } from 'react';
 import { CustomDatePicker } from 'src/components/DatePicker';
-import Field from 'src/forms/Field';
-import useMutation from 'src/graphql/hooks/useMutation';
+import Field from 'src/components/forms/Field';
+import useMutation from 'src/hooks/graphql/useMutation';
 export default ({ model, onSubmitCallback = () => {} }) => {
   const [operation, setOperation] = useState('insert');
   const methods = useForm();

@@ -1,5 +1,5 @@
 import { Stack, Stat, StatLabel, Divider, Heading } from '@chakra-ui/core';
-import useAggregate from 'src/graphql/hooks/useAggregate';
+import useAggregate from 'src/hooks/graphql/useAggregate';
 import * as TransactionFilters from 'src/modules/Transactions/filters';
 import { useStore } from 'src/store';
 export default () => {

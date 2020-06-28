@@ -1,5 +1,5 @@
 import Form from './form';
-import Collection from 'src/components/collection';
+import Collection from 'src/containers/collection';
 import Preview from './preview';
 const fields = ['id', 'name'];
 

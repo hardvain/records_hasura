@@ -4,8 +4,8 @@ import Tasks from './index';
 import Projects from 'src/modules/Projects';
 import { useForm, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
-import Field from 'src/forms/Field';
-import useMutation from 'src/graphql/hooks/useMutation';
+import Field from 'src/components/forms/Field';
+import useMutation from 'src/hooks/graphql/useMutation';
 export default ({ model, onSubmitCallback = () => {} }) => {
   const [operation, setOperation] = useState('insert');
   const methods = useForm();

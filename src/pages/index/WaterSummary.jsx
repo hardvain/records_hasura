@@ -1,7 +1,7 @@
 import { Stack, Progress, Text, Heading } from '@chakra-ui/core';
 import React from 'react';
-import useAggregate from 'src/graphql/hooks/useAggregate';
-import useQuery from 'src/graphql/hooks/useQuery';
+import useAggregate from 'src/hooks/graphql/useAggregate';
+import useQuery from 'src/hooks/graphql/useQuery';
 import * as WaterFilters from 'src/modules/Water/filters';
 import moment from 'moment';
 import { useStore } from 'src/store';

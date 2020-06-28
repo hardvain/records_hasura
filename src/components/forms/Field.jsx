@@ -5,9 +5,8 @@ import Input from './Input';
 import Checkbox from './Checkbox';
 import TextArea from './TextArea';
 import Select from './Select';
-import EditableInput from 'src/components/FormikEditableInput';
 import { CustomDatePicker } from 'src/components/DatePicker';
-import ResourceSelector from 'src/components/collection/Selector';
+import ResourceSelector from 'src/containers/collection/Selector';
 
 const map = {
   string: Input,
@@ -17,7 +16,6 @@ const map = {
   select: Select,
   timestamp: CustomDatePicker,
   ref: ResourceSelector,
-  editable: EditableInput,
 };
 export default ({ name, ...rest }) => {
   const { schema } = useFormContext(); // methods contain all useForm functions

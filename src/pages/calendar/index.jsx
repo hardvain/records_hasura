@@ -10,9 +10,9 @@ import {
 
 import Link from 'next/link';
 import React, { useState } from 'react';
-import Card from 'src/components/Card';
+import Card from 'src/components/core/card';
 import DatePicker from 'src/components/DatePicker';
-import useQuery from 'src/graphql/hooks/useQuery';
+import useQuery from 'src/hooks/graphql/useQuery';
 import * as TaskFilters from 'src/modules/Tasks/filters';
 import moment from 'moment';
 import DayView from './Day';

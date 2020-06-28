@@ -1,9 +1,9 @@
 import { Box, IconButton, Stack, Collapse, Divider, Text } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import moment from 'moment';
-import useMutation from 'src/graphql/hooks/useMutation';
+import useMutation from 'src/hooks/graphql/useMutation';
 import Form from './form';
-import ListItem from 'src/components/collection/List/ListItem';
+import ListItem from 'src/containers/collection/list/ListItem';
 export default ({ record }) => {
   const [show, setShow] = useState(false);
   const mutate = useMutation({

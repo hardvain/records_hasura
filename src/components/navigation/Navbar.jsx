@@ -19,8 +19,8 @@ import NextLink from 'next/link';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import Logo from 'src/assets/Logo';
-import useAggregate from 'src/graphql/hooks/useAggregate';
-import useMutation from 'src/graphql/hooks/useMutation';
+import useAggregate from 'src/hooks/graphql/useAggregate';
+import useMutation from 'src/hooks/graphql/useMutation';
 import * as TaskFilters from 'src/modules/Tasks/filters';
 import { useStore } from 'src/store';
 

@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import useMutation from 'src/graphql/hooks/useMutation';
+import useMutation from 'src/hooks/graphql/useMutation';
 export default ({ model, onSubmit = () => {} }) => {
   const [currentModel, setCurrentModel] = useState(model);
   useEffect(() => {

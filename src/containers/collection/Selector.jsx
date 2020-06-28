@@ -2,7 +2,7 @@ import { Select } from '@chakra-ui/core';
 import { useField } from 'formik';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import useQuery from 'src/graphql/hooks/useQuery';
+import useQuery from 'src/hooks/graphql/useQuery';
 
 const ResourceSelector = ({
   resource,

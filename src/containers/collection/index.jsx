@@ -1,11 +1,11 @@
 import { Box, Button, Flex, Input, Spinner, Stack } from '@chakra-ui/core';
 import { useStore } from 'src/store';
-import List from './List';
-import useQuery from 'src/graphql/hooks/useQuery';
+import List from './list';
+import useQuery from 'src/hooks/graphql/useQuery';
 import { useQuery as useApolloQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import Card from 'src/components/Card';
-import Filters from './Filters';
+import Card from 'src/components/core/card';
+import Filters from 'src/containers/filters';
 const FilteredCollection = ({
   resource,
   fields,
@@ -106,7 +106,6 @@ const FilteredCollection = ({
 };
 
 export default ({ resource, showFilterBar = false, ...rest }) => {
-
   const { error, data, loading } = useApolloQuery(gql`query{
 __type(name:"${resource}"){
     name

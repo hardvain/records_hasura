@@ -1,6 +1,6 @@
 import { Stack, Heading, Text } from '@chakra-ui/core';
 import React from 'react';
-import useAggregate from 'src/graphql/hooks/useAggregate';
+import useAggregate from 'src/hooks/graphql/useAggregate';
 import * as GlucoseFilters from 'src/modules/Glucose/filters';
 import { useStore } from 'src/store';
 export default () => {

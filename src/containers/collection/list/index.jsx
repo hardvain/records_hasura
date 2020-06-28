@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { createElement } from 'react';
 import { Box, Button, Input, Stack, Text } from '@chakra-ui/core';
 const MotionBox = motion.custom(Box);
-import Card from 'src/components/Card';
+import Card from 'src/components/core/card';
 import { groupBy } from 'src/utils';
 
 const Section = ({ data, preview }) => {
@@ -24,7 +24,7 @@ export default ({ data, preview, group_by_field }) => {
             <Stack spacing={5} mt={3} key={key}>
               <Text
                 fontSize={14}
-                textTransform={'capitalize'}
+                textTransform={'uppercase'}
                 color={'#77808F'}
               >
                 {key}

@@ -16,15 +16,14 @@ import {
 } from '@chakra-ui/core';
 import { useForm, Controller } from 'react-hook-form';
 import DatePicker from 'src/components/DatePicker';
-import FormikEditableInput from 'src/components/FormikEditableInput';
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { FormikDatePicker } from 'src/components/DatePicker';
-import useMutation from 'src/graphql/hooks/useMutation';
+import useMutation from 'src/hooks/graphql/useMutation';
 import moment from 'moment';
 
 import Tasks from 'src/modules/Tasks';
-import ResourceSelector from 'src/components/collection/Selector';
+import ResourceSelector from 'src/containers/collection/Selector';
 const schema = {
   id: {
     type: 'uuid',

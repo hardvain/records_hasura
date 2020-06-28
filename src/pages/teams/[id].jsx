@@ -1,7 +1,7 @@
 import { Box, Skeleton } from '@chakra-ui/core';
 import React from 'react';
-import Card from 'src/components/Card';
-import useQuery from 'src/graphql/hooks/useQuery';
+import Card from 'src/components/core/card';
+import useQuery from 'src/hooks/graphql/useQuery';
 import Teams from 'src/modules/Teams';
 import { useRouter } from 'next/router';
 export default () => {

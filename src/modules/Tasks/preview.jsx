@@ -21,9 +21,9 @@ import {
 import Link from 'next/link';
 import React, { useState } from 'react';
 import moment from 'moment';
-import useMutation from 'src/graphql/hooks/useMutation';
+import useMutation from 'src/hooks/graphql/useMutation';
 import Form from './form';
-import ListItem from 'src/components/collection/List/ListItem';
+import ListItem from 'src/containers/collection/list/ListItem';
 import { BsArrowUp, BsArrowDown } from 'react-icons/bs';
 export default ({ record }) => {
   const mutate = useMutation({

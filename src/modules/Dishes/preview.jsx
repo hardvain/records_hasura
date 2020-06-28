@@ -7,9 +7,9 @@ import {
   Divider,
 } from '@chakra-ui/core';
 import React, { useState } from 'react';
-import useMutation from 'src/graphql/hooks/useMutation';
+import useMutation from 'src/hooks/graphql/useMutation';
 import Form from './form';
-import ListItem from 'src/components/collection/List/ListItem';
+import ListItem from 'src/containers/collection/list/ListItem';
 
 export default ({ record }) => {
   const [show, setShow] = useState(false);

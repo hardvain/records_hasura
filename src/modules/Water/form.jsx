@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { FormikDatePicker } from 'src/components/DatePicker';
-import useMutation from 'src/graphql/hooks/useMutation';
+import useMutation from 'src/hooks/graphql/useMutation';
 
 import moment from 'moment';
 export default ({ model, onSubmit }) => {

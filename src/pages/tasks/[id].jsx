@@ -1,9 +1,9 @@
 import { Box, Button, Divider, Skeleton, Stack } from '@chakra-ui/core';
 import React from 'react';
-import useQuery from 'src/graphql/hooks/useQuery';
+import useQuery from 'src/hooks/graphql/useQuery';
 import Tasks from 'src/modules/Tasks';
 import { useRouter } from 'next/router';
-import Card from 'src/components/Card';
+import Card from 'src/components/core/card';
 export default () => {
   const router = useRouter();
   const { id } = router.query;

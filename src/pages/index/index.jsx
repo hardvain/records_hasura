@@ -1,6 +1,6 @@
 import { Box, Stack } from '@chakra-ui/core';
 import React from 'react';
-import Card from 'src/components/Card';
+import Card from 'src/components/core/card';
 import TasksSummary from 'src/pages/index/TasksSummary';
 import GlucoseSummary from 'src/pages/index/GlucoseSummary';
 import WaterSummary from 'src/pages/index/WaterSummary';

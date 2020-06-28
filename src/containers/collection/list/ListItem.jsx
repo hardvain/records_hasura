@@ -1,4 +1,4 @@
-import Card from 'src/components/Card';
+import Card from 'src/components/core/card';
 
 export default ({ expand, children,...rest }) => {
 

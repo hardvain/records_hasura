@@ -16,13 +16,13 @@ import { groupBy } from 'src/utils';
 
 import Link from 'next/link';
 import React, { useState } from 'react';
-import Card from 'src/components/Card';
-import ListItem from 'src/components/collection/List/ListItem';
+import Card from 'src/components/core/card';
+import ListItem from 'src/containers/collection/list/ListItem';
 import DatePicker from 'src/components/DatePicker';
-import useQuery from 'src/graphql/hooks/useQuery';
+import useQuery from 'src/hooks/graphql/useQuery';
 import Tasks from 'src/modules/Tasks';
 import * as TaskFilters from 'src/modules/Tasks/filters';
-import Collection from 'src/components/collection';
+import Collection from 'src/containers/collection';
 import moment from 'moment';
 import Preview from 'src/modules/Tasks/preview';
 

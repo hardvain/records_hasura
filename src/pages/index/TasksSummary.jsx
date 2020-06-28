@@ -8,7 +8,7 @@ import {
   Flex,
 } from '@chakra-ui/core';
 import React from 'react';
-import useAggregate from 'src/graphql/hooks/useAggregate';
+import useAggregate from 'src/hooks/graphql/useAggregate';
 import { useStore } from 'src/store';
 import * as TaskFilters from 'src/modules/Tasks/filters';
 export default () => {

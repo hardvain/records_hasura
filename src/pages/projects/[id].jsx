@@ -11,10 +11,10 @@ import {
   Heading,
 } from '@chakra-ui/core';
 import React, { useState } from 'react';
-import useQuery from 'src/graphql/hooks/useQuery';
+import useQuery from 'src/hooks/graphql/useQuery';
 import Projects from 'src/modules/Projects';
 import { useRouter } from 'next/router';
-import Card from 'src/components/Card';
+import Card from 'src/components/core/card';
 import Tasks from 'src/modules/Tasks';
 import * as TaskFilters from 'src/modules/Tasks/filters';
 export default () => {

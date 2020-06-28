@@ -7,7 +7,7 @@ import {
   SimpleGrid,
   Stack,
 } from '@chakra-ui/core';
-import Selector from 'src/components/collection/Selector';
+import Selector from 'src/containers/collection/Selector';
 import DatePicker from 'src/components/DatePicker';
 import moment from 'moment';
 const options = {
