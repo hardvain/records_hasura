@@ -1,25 +1,9 @@
 // Render Prop
-import {
-  Input,
-  Stack,
-  Box,
-  Button,
-  Textarea,
-  FormControl,
-  FormLabel,
-  Heading,
-  Divider,
-  SimpleGrid,
-  Checkbox,
-  Text,
-} from '@chakra-ui/core';
+import { Stack, Box, Button } from '@chakra-ui/core';
 import Link from 'next/link';
-import Card from 'src/components/core/card';
 import Tasks from './index';
-import Select from 'src/components/forms/Select';
 import { useForm, Controller, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
-import { CustomDatePicker } from 'src/components/DatePicker';
 import Field from 'src/components/forms/Field';
 import useMutation from 'src/hooks/graphql/useMutation';
 export default ({ model, onSubmitCallback = () => {}, showTasks }) => {

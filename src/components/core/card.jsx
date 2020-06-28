@@ -1,5 +1,5 @@
-import { Box, Heading, useColorMode } from '@chakra-ui/core';
-import React, { useState } from 'react';
+import { Box, useColorMode } from '@chakra-ui/core';
+import React from 'react';
 import { motion } from 'framer-motion';
 const MotionBox = motion.custom(Box);
 export default ({
@@ -13,13 +13,8 @@ export default ({
   ...rest
 }) => {
   const { colorMode } = useColorMode();
-  const [isHovered, setIsHovered] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
   return (
     <MotionBox
-      onClick={() => setShowDetails(!showDetails)}
-      onMouseEnter={(e) => setIsHovered(true)}
-      onMouseLeave={(e) => setIsHovered(false)}
       minWidth={300}
       borderWidth={1}
       borderLeftWidth={thickLeftBorder ? 5 : 1}

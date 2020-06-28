@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import Link from 'next/link';
+import { FaInbox } from 'react-icons/fa';
 import React, { useState } from 'react';
 import Logo from 'src/assets/Logo';
 import useAggregate from 'src/hooks/graphql/useAggregate';
@@ -40,6 +41,7 @@ export default () => {
     where: TaskFilters.today(date),
     aggregates: { count: [] },
   });
+
   const [todayPendingTasksAgg] = useAggregate({
     name: 'tasks',
     where: TaskFilters.activeToday(date),
@@ -143,7 +145,7 @@ export default () => {
         value={inboxItem}
         onChange={(e) => setInboxItem(e.target.value)}
         onKeyDown={onKeyDown}
-        placeholder={"Quick add"}
+        placeholder={'Quick add'}
       />
       <Stack
         borderRadius={3}

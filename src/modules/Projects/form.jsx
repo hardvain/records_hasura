@@ -39,6 +39,7 @@ export default ({ model, showForm = true, onSubmitCallback = () => {} }) => {
         <FormContext {...methods} schema={Projects.schema}>
           <Field name={'name'} />
           <Field name={'description'} />
+          <Field name={'team_id'} />
         </FormContext>
       </Stack>
 

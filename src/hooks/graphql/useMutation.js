@@ -33,6 +33,8 @@ export default ({ resource, operation = 'insert' }) => {
         Object.keys(params.variables.object).forEach((k) => {
           if (k.startsWith('ref')) {
             delete params.variables.object[k];
+          } else if (['created_at', 'updated_at'].includes(k)) {
+            delete params.variables.object[k];
           }
         });
         delete params.variables.object['__typename'];

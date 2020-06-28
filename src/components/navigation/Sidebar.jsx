@@ -12,6 +12,7 @@ import {
   IconButton,
   Flex,
 } from '@chakra-ui/core';
+import useAggregate from 'src/hooks/graphql/useAggregate';
 import { useStore } from 'src/store';
 import { MdTimer } from 'react-icons/md';
 import { FiInbox } from 'react-icons/fi';
@@ -61,7 +62,7 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
     >
       <NextLink href={href} as={as}>
         <Stack isInline alignItems={'center'}>
-          {showSidebar && <Text ml={5}>{title}</Text>}
+          {showSidebar && <Text ml={5} fontSize={14}>{title}</Text>}
         </Stack>
       </NextLink>
     </Button>
@@ -90,14 +91,12 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
 };
 
 export default () => {
-  const { showSidebar, toggleFormPopup } = useStore((state) => ({
-    showSidebar: state.ui.showSidebar,
-    toggleFormPopup: state.toggleFormPopup,
-  }));
-  const { colorMode, toggleColorMode } = useColorMode();
-
+  const { colorMode } = useColorMode();
+  const [inboxAgg] = useAggregate({
+    name: 'inbox',
+    aggregates: { count: [] },
+  });
   const [show, setShow] = useState(false);
-  const handleToggle = () => setShow(!show);
   const router = useRouter();
   const pathname = router.pathname;
   const logout = () => {
@@ -105,7 +104,7 @@ export default () => {
   };
   return (
     <Flex
-      // pt={65}
+      pt={5}
       direction={'column'}
       w={250}
       bg={colorMode === 'light' ? 'white' : '#333'}
@@ -118,7 +117,7 @@ export default () => {
       <MenuItem
         href="/inbox"
         as={`/inbox`}
-        title={'Inbox'}
+        title={`Inbox ${inboxAgg ? `(${inboxAgg?.count})` : ''}`}
         isActive={pathname === '/inbox'}
       >
         {FiInbox}
@@ -132,34 +131,34 @@ export default () => {
         {FaTasks}
       </MenuItem>
       <MenuItem
-        href="/records/glucose"
-        as={`/records/glucose`}
+        href="/glucose"
+        as={`/glucose`}
         title={'Glucose'}
-        isActive={pathname === '/records/glucose'}
+        isActive={pathname === '/glucose'}
       >
         {GiSugarCane}
       </MenuItem>
       <MenuItem
-        href="/records/water"
-        as={`/records/water`}
+        href="/water"
+        as={`/water`}
         title={'Water'}
-        isActive={pathname === '/records/water'}
+        isActive={pathname === '/water'}
       >
         {GiWaterDrop}
       </MenuItem>
       <MenuItem
-        href="/records/food"
-        as={`/records/food`}
+        href="/food"
+        as={`/food`}
         title={'Food'}
-        isActive={pathname === '/records/food'}
+        isActive={pathname === '/food'}
       >
         {GiFruitBowl}
       </MenuItem>
       <MenuItem
         title={'Finance'}
-        isActive={pathname === '/records/transactions'}
-        href="/records/transactions"
-        as={`/records/transactions`}
+        isActive={pathname === '/transactions'}
+        href="/transactions"
+        as={`/transactions`}
       >
         {GiMoneyStack}
       </MenuItem>
@@ -172,50 +171,50 @@ export default () => {
         {IoIosPeople}
       </MenuItem>
       <MenuItem
-        href="/records/dishes"
-        as={`/records/dishes`}
+        href="/dishes"
+        as={`/dishes`}
         title={'Dishes'}
-        isActive={pathname === '/records/dishes'}
+        isActive={pathname === '/dishes'}
       >
         {FaPizzaSlice}
       </MenuItem>
       <MenuItem
-        href="/records/sleep"
-        as={`/records/sleep`}
+        href="/sleep"
+        as={`/sleep`}
         title={'Sleep'}
-        isActive={pathname === '/records/sleep'}
+        isActive={pathname === '/sleep'}
       >
         {GiBed}
       </MenuItem>
       <MenuItem
         title={'Timesheet'}
-        isActive={pathname === '/records/timesheet'}
-        href="/records/timesheet"
-        as={`/records/timesheet`}
+        isActive={pathname === '/timesheet'}
+        href="/timesheet"
+        as={`/timesheet`}
       >
         {MdTimer}
       </MenuItem>
       <MenuItem
         title={'Knowledge'}
-        isActive={pathname === '/records/knowledge'}
-        href="/records/knowledge"
-        as={`/records/knowledge`}
+        isActive={pathname === '/knowledge'}
+        href="/knowledge"
+        as={`/knowledge`}
       >
         {GiBrain}
       </MenuItem>
       <MenuItem
-        href="/records/heart"
-        as={`/records/heart`}
+        href="/heart"
+        as={`/heart`}
         title={'Heart'}
-        isActive={pathname === '/records/heart'}
+        isActive={pathname === '/heart'}
       >
         {FaHeartbeat}
       </MenuItem>
       <MenuItem
         title={'Medications'}
-        isActive={pathname === '/records/medications'}
-        href="/records/medications"
-        as={`/records/medications`}
+        isActive={pathname === '/medications'}
+        href="/medications"
+        as={`/medications`}
       >
         {FaBriefcaseMedical}
       </MenuItem>
