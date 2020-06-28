@@ -17,6 +17,7 @@ import {
   GiWaterDrop,
   GiMoneyStack,
   GiFruitBowl,
+  GiBrain,
 } from 'react-icons/gi';
 import { AiOutlineAppstore } from 'react-icons/ai';
 import { FaTasks, FaPizzaSlice } from 'react-icons/fa';
@@ -28,6 +29,7 @@ import Food from 'src/modules/Food';
 import Glucose from 'src/modules/Glucose';
 import Categories from 'src/modules/Categories';
 import Water from 'src/modules/Water';
+import Snippets from 'src/modules/Snippets';
 import People from 'src/modules/People';
 import Inbox from 'src/modules/Inbox';
 import Projects from 'src/modules/Projects';
@@ -69,6 +71,7 @@ export default () => {
     teams: Teams,
     people: People,
     categories: Categories,
+    snippets: Snippets,
   };
   const Form = formMap[recordType]['Form'] || <div />;
   return (
@@ -172,6 +175,18 @@ export default () => {
               p={5}
             >
               <Box as={GiWaterDrop} w={30} h={30} />
+            </Box>
+            <Box
+              borderColor={recordType === 'snippets' ? 'brand.500' : ''}
+              bg={recordType === 'snippets' ? 'brand.100' : 'none'}
+              onClick={() => setRecordType('snippets')}
+              cursor={'pointer'}
+              mr={2}
+              borderRadius={35}
+              borderWidth={1}
+              p={5}
+            >
+              <Box as={GiBrain} w={30} h={30} />
             </Box>
             <Box
               borderColor={recordType === 'dishes' ? 'brand.500' : ''}

@@ -130,6 +130,10 @@ export default () => {
             <MenuItem onClick={() => toggleFormPopup('people')}>
               People
             </MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('snippets')}>
+              Snippets
+            </MenuItem>
+
             <Divider />
             <MenuItem onClick={() => toggleFormPopup('teams')}>Team</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('projects')}>
@@ -186,10 +190,7 @@ export default () => {
         />
       </Tooltip>
       <Link href={'/settings'}>
-        <IconButton
-          variant="default"
-          icon={'settings'}
-        />
+        <IconButton variant="default" icon={'settings'} />
       </Link>
     </Flex>
   );
