@@ -43,6 +43,9 @@ export default () => {
             <Box p={5} pb={10}>
               <Heading size={'md'}>{project[0].name}</Heading>
             </Box>
+            <Box p={5}>
+              <Projects.Form model={project[0]} showList={false}/>
+            </Box>
             <Tabs variantColor={'brand'} isFitted>
               <TabList borderWidth={0}>
                 <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>

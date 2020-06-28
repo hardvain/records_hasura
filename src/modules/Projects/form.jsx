@@ -6,7 +6,7 @@ import { useForm, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import Field from 'src/components/forms/Field';
 import useMutation from 'src/hooks/graphql/useMutation';
-export default ({ model, showForm = true, onSubmitCallback = () => {} }) => {
+export default ({ model, showList = true, onSubmitCallback = () => {} }) => {
   const [operation, setOperation] = useState('insert');
   const methods = useForm();
   const [showTasks, setShowTasks] = useState(false);
@@ -55,7 +55,7 @@ export default ({ model, showForm = true, onSubmitCallback = () => {} }) => {
           {model?.id ? 'Update' : 'Create'}
         </Button>
       </Stack>
-      {model && model.id && showForm && (
+      {model && model.id && showList && (
         <Box pb={3}>
           <Tasks.List
             formContext={{ project_id: model.id }}

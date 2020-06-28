@@ -13,12 +13,14 @@ import {
 import { useState } from 'react';
 import { IoIosPeople } from 'react-icons/io';
 import { GiSugarCane, GiWaterDrop, GiMoneyStack } from 'react-icons/gi';
+import { AiOutlineAppstore } from 'react-icons/ai';
 import { FaTasks, FaPizzaSlice } from 'react-icons/fa';
 import { GoProject } from 'react-icons/go';
 import { FiUsers, FiInbox } from 'react-icons/fi';
 import { useStore } from 'src/store';
 import Tasks from 'src/modules/Tasks';
 import Glucose from 'src/modules/Glucose';
+import Categories from 'src/modules/Categories';
 import Water from 'src/modules/Water';
 import People from 'src/modules/People';
 import Inbox from 'src/modules/Inbox';
@@ -59,6 +61,7 @@ export default () => {
     projects: Projects,
     teams: Teams,
     people: People,
+    categories: Categories,
   };
   const Form = formMap[recordType]['Form'] || <div />;
   return (
@@ -174,6 +177,18 @@ export default () => {
               p={5}
             >
               <Box as={IoIosPeople} w={30} h={30} />
+            </Box>
+            <Box
+              borderColor={recordType === 'categories' ? 'brand.500' : ''}
+              bg={recordType === 'categories' ? 'brand.100' : 'none'}
+              onClick={() => setRecordType('categories')}
+              cursor={'pointer'}
+              mr={2}
+              borderRadius={45}
+              borderWidth={1}
+              p={5}
+            >
+              <Box as={AiOutlineAppstore} w={30} h={30} />
             </Box>
             <Box
               borderColor={recordType === 'projects' ? 'brand.500' : ''}

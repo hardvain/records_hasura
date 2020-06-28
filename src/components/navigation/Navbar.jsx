@@ -187,6 +187,12 @@ export default () => {
           onClick={toggleColorMode}
         />
       </Tooltip>
+      <Link href={'/settings'}>
+        <IconButton
+          variant="default"
+          icon={'settings'}
+        />
+      </Link>
     </Flex>
   );
 };
