@@ -118,6 +118,7 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
             <Field flex={1} name={'project_id'} />
             {<Field flex={1} name={'team_id'} disabled={model?.project_id} />}
           </Stack>
+          <Field name={'people_id'} flex={1} />
         </Stack>
       </FormContext>
       <Button

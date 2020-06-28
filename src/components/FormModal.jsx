@@ -11,27 +11,22 @@ import {
   Stack,
 } from '@chakra-ui/core';
 import { useState } from 'react';
-import {
-  GiSugarCane,
-  GiWaterDrop,
-  GiMoneyStack,
-} from 'react-icons/gi';
-import {
-  FaTasks,
-  FaPizzaSlice,
-} from 'react-icons/fa';
+import { IoIosPeople } from 'react-icons/io';
+import { GiSugarCane, GiWaterDrop, GiMoneyStack } from 'react-icons/gi';
+import { FaTasks, FaPizzaSlice } from 'react-icons/fa';
 import { GoProject } from 'react-icons/go';
 import { FiUsers } from 'react-icons/fi';
 import { useStore } from 'src/store';
 import Tasks from 'src/modules/Tasks';
 import Glucose from 'src/modules/Glucose';
 import Water from 'src/modules/Water';
+import People from 'src/modules/People';
 import Projects from 'src/modules/Projects';
 import Dishes from 'src/modules/Dishes';
 import Teams from 'src/modules/Teams';
 import Transactions from 'src/modules/Transactions';
 export default () => {
-  const [addAnother, setAddAnother] = useState(false)
+  const [addAnother, setAddAnother] = useState(false);
   const { colorMode } = useColorMode();
   const {
     showFormPopup,
@@ -39,7 +34,7 @@ export default () => {
     recordType,
     setRecordType,
     newFormContext,
-    setNewFormContext
+    setNewFormContext,
   } = useStore((state) => ({
     date: state.ui.date,
     newFormContext: state.ui.newFormContext,
@@ -51,7 +46,7 @@ export default () => {
   }));
   const onSubmit = () => {
     toggleFormPopup();
-    setNewFormContext()
+    setNewFormContext();
   };
   const formMap = {
     tasks: Tasks,
@@ -61,6 +56,7 @@ export default () => {
     dishes: Dishes,
     projects: Projects,
     teams: Teams,
+    people: People,
   };
   const Form = formMap[recordType]['Form'] || <div />;
   return (
@@ -103,7 +99,7 @@ export default () => {
               borderWidth={recordType === 'task' ? 2 : 1}
               p={5}
             >
-              <Box as={FaTasks} w={30} h={30}/>
+              <Box as={FaTasks} w={30} h={30} />
             </Box>
             <Box
               borderColor={recordType === 'transactions' ? 'brand.500' : ''}
@@ -115,7 +111,7 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <Box as={GiMoneyStack} w={30} h={30}/>
+              <Box as={GiMoneyStack} w={30} h={30} />
             </Box>
             <Box
               borderColor={recordType === 'glucose' ? 'brand.500' : ''}
@@ -127,7 +123,7 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <Box as={GiSugarCane} w={30} h={30}/>
+              <Box as={GiSugarCane} w={30} h={30} />
             </Box>
             <Box
               borderColor={recordType === 'water' ? 'brand.500' : ''}
@@ -139,7 +135,7 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <Box as={GiWaterDrop} w={30} h={30}/>
+              <Box as={GiWaterDrop} w={30} h={30} />
             </Box>
             <Box
               borderColor={recordType === 'dishes' ? 'brand.500' : ''}
@@ -151,7 +147,19 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <Box as={FaPizzaSlice} w={30} h={30}/>
+              <Box as={FaPizzaSlice} w={30} h={30} />
+            </Box>
+            <Box
+              borderColor={recordType === 'people' ? 'brand.500' : ''}
+              bg={recordType === 'people' ? 'brand.100' : 'none'}
+              onClick={() => setRecordType('people')}
+              cursor={'pointer'}
+              mr={2}
+              borderRadius={35}
+              borderWidth={1}
+              p={5}
+            >
+              <Box as={IoIosPeople} w={30} h={30} />
             </Box>
             <Box
               borderColor={recordType === 'projects' ? 'brand.500' : ''}
@@ -163,7 +171,7 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <Box as={GoProject} w={30} h={30}/>
+              <Box as={GoProject} w={30} h={30} />
             </Box>
             <Box
               borderColor={recordType === 'teams' ? 'brand.500' : ''}
@@ -175,10 +183,10 @@ export default () => {
               borderWidth={1}
               p={5}
             >
-              <Box as={FiUsers} w={30} h={30}/>
+              <Box as={FiUsers} w={30} h={30} />
             </Box>
           </Stack>
-          <Form onSubmitCallback={onSubmit} model={newFormContext}/>
+          <Form onSubmitCallback={onSubmit} model={newFormContext} />
         </ModalBody>
       </ModalContent>
     </Modal>

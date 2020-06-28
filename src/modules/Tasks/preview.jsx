@@ -16,6 +16,7 @@ import {
   Button,
   Progress,
   Tag,
+  useColorMode,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -45,6 +46,7 @@ export default ({ record }) => {
   const progress = (completedTasks * 100) / totalTasks;
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
+  const { colorMode } = useColorMode();
 
   const statusColor =
     record.status === 'todo'
@@ -126,13 +128,17 @@ export default ({ record }) => {
         placement="right"
         onClose={() => setShow(false)}
         finalFocusRef={show}
+        bg={colorMode === 'light' ? 'white' : '#333'}
       >
         <DrawerOverlay />
-        <DrawerContent overflowY={'scroll'}>
+        <DrawerContent
+          overflowY={'scroll'}
+          bg={colorMode === 'light' ? 'white' : '#333'}
+        >
           <DrawerCloseButton />
           <DrawerHeader>{record.name}</DrawerHeader>
 
-          <DrawerBody>
+          <DrawerBody bg={colorMode === 'light' ? 'white' : '#333'}>
             <Form model={record} />
           </DrawerBody>
         </DrawerContent>

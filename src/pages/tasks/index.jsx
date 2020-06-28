@@ -27,11 +27,7 @@ export default () => {
   const [date, setDate] = useState(moment().toISOString(true));
   return (
     <Box w={'100%'} p={3}>
-      <Tabs
-        variantColor={'brand'}
-        size={'sm'}
-        isManual
-      >
+      <Tabs variantColor={'brand'} size={'sm'} isManual>
         <Stack isInline spacing={0}>
           <TabList borderWidth={0}>
             <Tab
@@ -190,6 +186,7 @@ export default () => {
                           _eq: '3a0ec3a0-75cd-4642-bff4-6075a9aef177',
                         },
                       },
+                      { status: { _neq: 'completed' } },
                     ],
                   }}
                 />
@@ -211,6 +208,7 @@ export default () => {
                           _eq: 'e4fa423c-9eda-48f8-a509-11e161675dab',
                         },
                       },
+                      { status: { _neq: 'completed' } },
                     ],
                   }}
                 />

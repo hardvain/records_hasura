@@ -14,24 +14,26 @@ const fields = [
   'ref_team{id,name}',
   'ref_sub_tasks{status}',
   'parent_id',
-  'ref_parent{id}'
+  'ref_parent{id}',
+  'people_id',
+  'ref_person{id,name}',
 ];
 const schema = {
   name: {
     type: 'string',
-    label:'Name',
+    label: 'Name',
   },
   due_date: {
     type: 'timestamp',
-    label:'Due Date',
+    label: 'Due Date',
   },
   description: {
     type: 'text',
-    label:'Description',
+    label: 'Description',
   },
   priority: {
     type: 'select',
-    label:'Priority',
+    label: 'Priority',
     options: [
       { value: 'very_high', label: 'Very High' },
       { value: 'high', label: 'High' },
@@ -42,7 +44,7 @@ const schema = {
   },
   status: {
     type: 'select',
-    label:'Status',
+    label: 'Status',
     options: [
       { value: 'todo', label: 'Todo' },
       { value: 'in_progress', label: 'In Progress' },
@@ -51,18 +53,23 @@ const schema = {
   },
   project_id: {
     type: 'ref',
-    label:'Project',
+    label: 'Project',
     resource: 'projects',
   },
   parent_id: {
     type: 'ref',
-    label:'Parent task',
+    label: 'Parent task',
     resource: 'tasks',
   },
   team_id: {
     type: 'ref',
-    label:'Team',
+    label: 'Team',
     resource: 'teams',
+  },
+  people_id: {
+    type: 'ref',
+    label: 'Person',
+    resource: 'people',
   },
 };
 

@@ -57,7 +57,7 @@ const PreviewCard = ({ record }) => {
 };
 
 export default () => {
-  const [view, setView] = useState('week');
+  const [view, setView] = useState('day');
   const [date, setDate] = useState(moment());
   const fields = [
     'id',

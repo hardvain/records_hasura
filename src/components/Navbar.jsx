@@ -106,6 +106,7 @@ export default () => {
               Transaction
             </MenuItem>
             <MenuItem onClick={() => toggleFormPopup('dishes')}>Dish</MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('people')}>People</MenuItem>
             <Divider />
             <MenuItem onClick={() => toggleFormPopup('teams')}>Team</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('projects')}>

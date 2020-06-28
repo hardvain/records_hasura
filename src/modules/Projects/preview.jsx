@@ -14,7 +14,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
+  DrawerCloseButton, useColorMode,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import Router from 'next/router';
@@ -31,6 +31,8 @@ export default ({ record }) => {
   const progress = (completedTasks * 100) / totalTasks;
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
+  const { colorMode } = useColorMode();
+
   const mutate = useMutation({
     resource: 'projects',
     operation: 'delete',
@@ -79,13 +81,14 @@ export default ({ record }) => {
         placement="right"
         onClose={() => setShow(false)}
         finalFocusRef={show}
+        bg={colorMode === 'light' ? 'white' : '#333'}
       >
         <DrawerOverlay />
-        <DrawerContent overflowY={'scroll'}>
+        <DrawerContent overflowY={'scroll'} bg={colorMode === 'light' ? 'white' : '#333'}>
           <DrawerCloseButton />
           <DrawerHeader>Create your account</DrawerHeader>
 
-          <DrawerBody>
+          <DrawerBody bg={colorMode === 'light' ? 'white' : '#333'}>
             <Form model={record} />
           </DrawerBody>
         </DrawerContent>

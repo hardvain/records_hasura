@@ -7,7 +7,8 @@ import {
   Tab,
   TabPanel,
   Stack,
-  useColorMode, Heading,
+  useColorMode,
+  Heading,
 } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import useQuery from 'src/graphql/hooks/useQuery';
@@ -39,7 +40,7 @@ export default () => {
             pb={0}
             mb={0}
           >
-            <Box p={5}>
+            <Box p={5} pb={10}>
               <Heading size={'md'}>{project[0].name}</Heading>
             </Box>
             <Tabs variantColor={'brand'} isFitted>
@@ -99,6 +100,7 @@ export default () => {
                         where={{
                           _and: [
                             { project_id: { _eq: project[0].id } },
+                            { parent_id: { _is_null: true } },
                             { status: { _eq: 'todo' } },
                           ],
                         }}
@@ -115,6 +117,7 @@ export default () => {
                           _and: [
                             { project_id: { _eq: project[0].id } },
                             { status: { _eq: 'in_progress' } },
+                            { parent_id: { _is_null: true } },
                           ],
                         }}
                       />
@@ -130,6 +133,7 @@ export default () => {
                           _and: [
                             { project_id: { _eq: project[0].id } },
                             { status: { _eq: 'completed' } },
+                            { parent_id: { _is_null: true } },
                           ],
                         }}
                       />
