@@ -1,18 +1,7 @@
 import {
   Box,
-  IconButton,
   Stack,
-  Collapse,
-  Badge,
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
   Text,
-  Divider,
   Button,
   Progress,
   Tag,
@@ -20,6 +9,7 @@ import {
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import Drawer from 'src/components/drawer';
 import moment from 'moment';
 import useMutation from 'src/hooks/graphql/useMutation';
 import Form from './form';
@@ -122,27 +112,10 @@ export default ({ record }) => {
           <Tag size={'sm'}>{record?.ref_project?.name}</Tag>
         )}
       </Stack>
-      <Drawer
-        size={'xl'}
-        isOpen={show}
-        placement="right"
-        onClose={() => setShow(false)}
-        finalFocusRef={show}
-        bg={colorMode === 'light' ? 'white' : '#333'}
-      >
-        <DrawerOverlay />
-        <DrawerContent
-          overflowY={'scroll'}
-          bg={colorMode === 'light' ? 'white' : '#333'}
-        >
-          <DrawerCloseButton />
-          <DrawerHeader>{record.name}</DrawerHeader>
-
-          <DrawerBody bg={colorMode === 'light' ? 'white' : '#333'}>
-            <Form model={record} />
-          </DrawerBody>
-        </DrawerContent>
+      <Drawer title={record.name} show={show} setShow={setShow}>
+        <Form model={record} />
       </Drawer>
+
     </ListItem>
   );
 };

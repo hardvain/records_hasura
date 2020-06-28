@@ -2,24 +2,16 @@ import {
   Box,
   IconButton,
   Stack,
-  Collapse,
   Text,
   Progress,
-  Button,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-  Drawer,
+  useColorMode,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import useMutation from 'src/hooks/graphql/useMutation';
 import Form from './form';
 import ListItem from 'src/containers/collection/list/ListItem';
-
+import Drawer from 'src/components/drawer';
 export default ({ record }) => {
   const projects = record.ref_projects;
   const allTasks = record.ref_projects.map((proj) => proj.ref_tasks).flat();
@@ -79,22 +71,8 @@ export default ({ record }) => {
           }}
         />
       </Stack>
-      <Drawer
-        size={'xl'}
-        isOpen={show}
-        placement="right"
-        onClose={() => setShow(false)}
-        finalFocusRef={show}
-      >
-        <DrawerOverlay />
-        <DrawerContent overflowY={'scroll'}>
-          <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
-
-          <DrawerBody>
-            <Form model={record} />
-          </DrawerBody>
-        </DrawerContent>
+      <Drawer title={record.name} show={show} setShow={setShow}>
+        <Form model={record} />
       </Drawer>
     </ListItem>
   );

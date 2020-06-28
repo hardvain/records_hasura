@@ -62,10 +62,10 @@ const App = ({ Component, pageProps }) => {
     return (
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
-          <DarkMode>
+          <LightMode>
             <CSSReset config={config} />
             <Shell />
-          </DarkMode>
+          </LightMode>
         </ColorModeProvider>
       </ThemeProvider>
     );
@@ -74,10 +74,10 @@ const App = ({ Component, pageProps }) => {
     return (
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
-          <DarkMode>
+          <LightMode>
             <CSSReset config={config} />
             <Landing />
-          </DarkMode>
+          </LightMode>
         </ColorModeProvider>
       </ThemeProvider>
     );
@@ -89,7 +89,7 @@ const App = ({ Component, pageProps }) => {
       </Head>
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
-          <DarkMode>
+          <LightMode>
             <CSSReset config={config} />
             <Navbar />
             <Flex direction={'row'} pt={58}>
@@ -100,7 +100,7 @@ const App = ({ Component, pageProps }) => {
                 <FormModal />
               </Box>
             </Flex>
-          </DarkMode>
+          </LightMode>
         </ColorModeProvider>
       </ThemeProvider>
     </Box>
