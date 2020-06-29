@@ -108,9 +108,9 @@ export default ({ record }) => {
             Reopen
           </Button>
         )}
-        {record?.ref_project && (
-          <Tag size={'sm'}>{record?.ref_project?.name}</Tag>
-        )}
+        {/*{record?.ref_project && (*/}
+        {/*  <Tag size={'sm'}>{record?.ref_project?.name}</Tag>*/}
+        {/*)}*/}
       </Stack>
       <Drawer title={record.name} show={show} setShow={setShow}>
         <Form model={record} />

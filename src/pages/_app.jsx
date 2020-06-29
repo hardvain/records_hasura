@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { Flex, useColorMode } from '@chakra-ui/core';
 import './app.css';
+import 'react-markdown-editor-lite/lib/index.css';
 
 import FormModal from 'src/components/forms//FormModal';
 import Navbar from 'src/components/navigation/Navbar';
@@ -108,3 +109,4 @@ const App = ({ Component, pageProps }) => {
 };
 
 export default withApollo({ ssr: false })(App);
+

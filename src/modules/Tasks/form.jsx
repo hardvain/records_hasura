@@ -118,61 +118,10 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
         </Stack>
       )}
       <FormContext {...methods} schema={Tasks.schema}>
-        <Stack isInline spacing={10}>
+        <Stack isInline spacing={10} mb={5}>
           <Stack flex={2}>
             <Field name={'name'} mb={5} />
-            <Field rows={10} name={'description'} schema={Tasks.schema} />
-            {model && model.id && (
-              <Stack spacing={2}>
-                <Text fontSize={12}>Checklists</Text>
-
-                {checklist.map((item, index) => (
-                  <PseudoBox
-                    px={2}
-                    py={1}
-                    _hover={
-                      colorMode === 'light'
-                        ? { bg: 'gray.50' }
-                        : { bg: '#232626' }
-                    }
-                  >
-                    <Stack isInline key={index}>
-                      <Checkbox
-                        size={'lg'}
-                        isChecked={item?.isChecked}
-                        onChange={(e) =>
-                          setChecklistItem(e.target.checked, 'isChecked', index)
-                        }
-                      />
-                      <Input
-                        flexGrow={1}
-                        variant={'unstyled'}
-                        textDecoration={item?.isChecked ? 'line-through' : ''}
-                        value={item?.value}
-                        onChange={(e) =>
-                          setChecklistItem(e.target.value, 'value', index)
-                        }
-                      />
-                      <IconButton
-                        size={'sm'}
-                        icon={'delete'}
-                        onClick={() => deleteChecklistItem(index)}
-                      />
-                    </Stack>
-                  </PseudoBox>
-                ))}
-                <Box>
-                  <Button
-                    size={'xs'}
-                    variant={'link'}
-                    leftIcon={'small-add'}
-                    onClick={addCheckListItem}
-                  >
-                    Add New
-                  </Button>
-                </Box>
-              </Stack>
-            )}
+            <Field rows={10} name={'description'} schema={Tasks.schema} height={300} />
           </Stack>
           <Stack flex={1}>
             <Field name={'due_date'} flex={1} />
@@ -184,30 +133,82 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
             <Field name={'people_id'} flex={1} />
           </Stack>
         </Stack>
-      </FormContext>
+        <Button
+          my={5}
+          type="submit"
+          variant={'solid'}
+          variantColor={'brand'}
+          size={'sm'}
+          onClick={onSubmit}
+        >
+          {model?.id ? 'Update' : 'Create'}
+        </Button>
+        {model && model.id && (
+          <Stack isInline spacing={10}>
+            <Stack spacing={2} flex={1}>
+              <Text fontSize={12}>Checklists</Text>
 
-      <Button
-        my={5}
-        type="submit"
-        variant={'solid'}
-        variantColor={'brand'}
-        size={'sm'}
-        onClick={onSubmit}
-      >
-        {model?.id ? 'Update' : 'Create'}
-      </Button>
-      {model && model.id && (
-        <Stack spacing={10}>
-          <Box pb={3}>
-            <>
-              <Tasks.List
-                formContext={{ parent_id: model.id }}
-                where={{ _and: [{ parent_id: { _eq: model.id } }] }}
-              />
-            </>
-          </Box>
-        </Stack>
-      )}
+              {checklist.map((item, index) => (
+                <PseudoBox
+                  px={2}
+                  py={1}
+                  _hover={
+                    colorMode === 'light'
+                      ? { bg: 'gray.50' }
+                      : { bg: '#232626' }
+                  }
+                >
+                  <Stack isInline key={index}>
+                    <Checkbox
+                      size={'lg'}
+                      isChecked={item?.isChecked}
+                      onChange={(e) =>
+                        setChecklistItem(e.target.checked, 'isChecked', index)
+                      }
+                    />
+                    <Input
+                      flexGrow={1}
+                      variant={'unstyled'}
+                      textDecoration={item?.isChecked ? 'line-through' : ''}
+                      value={item?.value}
+                      onChange={(e) =>
+                        setChecklistItem(e.target.value, 'value', index)
+                      }
+                    />
+                    <IconButton
+                      size={'sm'}
+                      icon={'delete'}
+                      onClick={() => deleteChecklistItem(index)}
+                    />
+                  </Stack>
+                </PseudoBox>
+              ))}
+              <Box>
+                <Button
+                  size={'xs'}
+                  variant={'link'}
+                  leftIcon={'small-add'}
+                  onClick={addCheckListItem}
+                >
+                  Add New
+                </Button>
+              </Box>
+            </Stack>
+            <Stack spacing={10} flex={1}>
+              <Text fontSize={12}>Sub Tasks</Text>
+
+              <Box pb={3}>
+                <>
+                  <Tasks.List
+                    formContext={{ parent_id: model.id }}
+                    where={{ _and: [{ parent_id: { _eq: model.id } }] }}
+                  />
+                </>
+              </Box>
+            </Stack>
+          </Stack>
+        )}
+      </FormContext>
     </Stack>
   );
 };
