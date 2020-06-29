@@ -1,5 +1,13 @@
 // Render Prop
-import { Stack, Box, Button, Text, Checkbox, Input } from '@chakra-ui/core';
+import {
+  Stack,
+  Box,
+  Button,
+  Text,
+  Checkbox,
+  Input,
+  Divider,
+} from '@chakra-ui/core';
 import Link from 'next/link';
 import Tasks from './index';
 import { useForm, Controller, FormContext } from 'react-hook-form';
@@ -103,6 +111,44 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
         <Stack spacing={10} flex={2}>
           <Field name={'name'} mb={5} />
           <Field rows={10} name={'description'} schema={Tasks.schema} />
+          {model && model.id && (
+            <Stack mt={2}>
+              <Text fontSize={12}>Checklists</Text>
+
+              <Stack spacing={2}>
+                {checklist.map((item, index) => (
+                  <Stack isInline key={index}>
+                    <Checkbox
+                      size={'lg'}
+                      isChecked={item.isChecked}
+                      onChange={(e) =>
+                        setChecklistItem(e.target.checked, 'isChecked', index)
+                      }
+                    />
+                    <Input
+                      variant={'unstyled'}
+                      textDecoration={item.isChecked ? 'line-through' : ''}
+                      value={item.value}
+                      onChange={(e) =>
+                        setChecklistItem(e.target.value, 'value', index)
+                      }
+                    />
+                  </Stack>
+                ))}
+              </Stack>
+              <Box>
+                <Button
+                  size={'xs'}
+                  variant={'link'}
+                  leftIcon={'small-add'}
+                  onClick={addCheckListItem}
+                >
+                  Add New
+                </Button>
+              </Box>
+            </Stack>
+          )}
+          <Divider />
           <Stack isInline>
             <Field name={'due_date'} flex={1} />
             <Field name={'priority'} flex={1} />
@@ -116,6 +162,7 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
           <Field name={'people_id'} flex={1} />
         </Stack>
       </FormContext>
+
       <Button
         my={5}
         type="submit"
@@ -128,34 +175,6 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
       </Button>
       {model && model.id && (
         <Stack spacing={10}>
-          <Stack spacing={10}>
-            <Text fontSize={12}>Checklists</Text>
-
-            <Stack>
-              {checklist.map((item, index) => (
-                <Stack isInline key={index}>
-                  <Checkbox
-                    size={'lg'}
-                    isChecked={item.isChecked}
-                    onChange={(e) =>
-                      setChecklistItem(e.target.checked, 'isChecked', index)
-                    }
-                  />
-                  <Input
-                    variant={'unstyled'}
-                    textDecoration={item.isChecked ? 'line-through' : ''}
-                    value={item.value}
-                    onChange={(e) =>
-                      setChecklistItem(e.target.value, 'value', index)
-                    }
-                  />
-                </Stack>
-              ))}
-            </Stack>
-            <Button size={'xs'} onClick={addCheckListItem}>
-              Add New
-            </Button>
-          </Stack>
           <Box pb={3}>
             <>
               <Tasks.List

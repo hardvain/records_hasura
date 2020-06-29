@@ -15,6 +15,8 @@ import {
 import useAggregate from 'src/hooks/graphql/useAggregate';
 import { useStore } from 'src/store';
 import { MdTimer } from 'react-icons/md';
+import { TiMessages } from 'react-icons/ti';
+
 import { FiInbox } from 'react-icons/fi';
 import { IoIosLogOut, IoIosPeople, IoIosMenu } from 'react-icons/io';
 import {
@@ -121,6 +123,14 @@ export default () => {
         isActive={pathname === '/inbox'}
       >
         {FiInbox}
+      </MenuItem>
+      <MenuItem
+        href="/thoughts"
+        title={"Thoughts"}
+        as={`/thoughts`}
+        isActive={pathname === '/thoughts'}
+      >
+        {TiMessages}
       </MenuItem>
       <MenuItem
         href="/tasks"

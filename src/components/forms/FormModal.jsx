@@ -23,10 +23,12 @@ import { AiOutlineAppstore } from 'react-icons/ai';
 import { FaTasks, FaPizzaSlice } from 'react-icons/fa';
 import { GoProject } from 'react-icons/go';
 import { FiUsers, FiInbox } from 'react-icons/fi';
+import { TiMessages } from 'react-icons/ti';
 import { useStore } from 'src/store';
 import Tasks from 'src/modules/Tasks';
 import Food from 'src/modules/Food';
 import Glucose from 'src/modules/Glucose';
+import Thoughts from 'src/modules/Thoughts';
 import Categories from 'src/modules/Categories';
 import Water from 'src/modules/Water';
 import Snippets from 'src/modules/Snippets';
@@ -72,6 +74,7 @@ export default () => {
     people: People,
     categories: Categories,
     snippets: Snippets,
+    thoughts: Thoughts,
   };
   const Form = formMap[recordType]['Form'] || <div />;
   return (
@@ -104,6 +107,18 @@ export default () => {
           bg={colorMode === 'light' ? 'white' : '#333'}
         >
           <Stack isInline spacing={10}>
+            <Box
+              borderColor={recordType === 'thoughts' ? 'brand.500' : ''}
+              bg={recordType === 'thoughts' ? 'brand.100' : 'none'}
+              onClick={() => setRecordType('thoughts')}
+              cursor={'pointer'}
+              mr={2}
+              borderRadius={35}
+              borderWidth={recordType === 'thoughts' ? 2 : 1}
+              p={5}
+            >
+              <Box as={TiMessages} w={30} h={30} />
+            </Box>
             <Box
               borderColor={recordType === 'inbox' ? 'brand.500' : ''}
               bg={recordType === 'inbox' ? 'brand.100' : 'none'}
