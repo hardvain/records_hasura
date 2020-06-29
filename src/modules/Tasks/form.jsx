@@ -7,6 +7,9 @@ import {
   Checkbox,
   Input,
   Divider,
+  IconButton,
+  PseudoBox,
+  useColorMode,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import Tasks from './index';
@@ -15,6 +18,8 @@ import React, { useEffect, useState } from 'react';
 import Field from 'src/components/forms/Field';
 import useMutation from 'src/hooks/graphql/useMutation';
 export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
+  const { colorMode } = useColorMode();
+
   const [operation, setOperation] = useState('insert');
   const methods = useForm();
   const [checklist, setChecklist] = useState([]);
@@ -52,6 +57,11 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
       ...item,
       [property]: value,
     };
+    setChecklist(list);
+  };
+  const deleteChecklistItem = (index) => {
+    const list = [...checklist];
+    list.splice(index, 1);
     setChecklist(list);
   };
   return (
@@ -108,58 +118,71 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
         </Stack>
       )}
       <FormContext {...methods} schema={Tasks.schema}>
-        <Stack spacing={10} flex={2}>
-          <Field name={'name'} mb={5} />
-          <Field rows={10} name={'description'} schema={Tasks.schema} />
-          {model && model.id && (
-            <Stack mt={2}>
-              <Text fontSize={12}>Checklists</Text>
-
+        <Stack isInline spacing={10}>
+          <Stack flex={2}>
+            <Field name={'name'} mb={5} />
+            <Field rows={10} name={'description'} schema={Tasks.schema} />
+            {model && model.id && (
               <Stack spacing={2}>
+                <Text fontSize={12}>Checklists</Text>
+
                 {checklist.map((item, index) => (
-                  <Stack isInline key={index}>
-                    <Checkbox
-                      size={'lg'}
-                      isChecked={item.isChecked}
-                      onChange={(e) =>
-                        setChecklistItem(e.target.checked, 'isChecked', index)
-                      }
-                    />
-                    <Input
-                      variant={'unstyled'}
-                      textDecoration={item.isChecked ? 'line-through' : ''}
-                      value={item.value}
-                      onChange={(e) =>
-                        setChecklistItem(e.target.value, 'value', index)
-                      }
-                    />
-                  </Stack>
+                  <PseudoBox
+                    px={2}
+                    py={1}
+                    _hover={
+                      colorMode === 'light'
+                        ? { bg: 'gray.50' }
+                        : { bg: '#232626' }
+                    }
+                  >
+                    <Stack isInline key={index}>
+                      <Checkbox
+                        size={'lg'}
+                        isChecked={item?.isChecked}
+                        onChange={(e) =>
+                          setChecklistItem(e.target.checked, 'isChecked', index)
+                        }
+                      />
+                      <Input
+                        flexGrow={1}
+                        variant={'unstyled'}
+                        textDecoration={item?.isChecked ? 'line-through' : ''}
+                        value={item?.value}
+                        onChange={(e) =>
+                          setChecklistItem(e.target.value, 'value', index)
+                        }
+                      />
+                      <IconButton
+                        size={'sm'}
+                        icon={'delete'}
+                        onClick={() => deleteChecklistItem(index)}
+                      />
+                    </Stack>
+                  </PseudoBox>
                 ))}
+                <Box>
+                  <Button
+                    size={'xs'}
+                    variant={'link'}
+                    leftIcon={'small-add'}
+                    onClick={addCheckListItem}
+                  >
+                    Add New
+                  </Button>
+                </Box>
               </Stack>
-              <Box>
-                <Button
-                  size={'xs'}
-                  variant={'link'}
-                  leftIcon={'small-add'}
-                  onClick={addCheckListItem}
-                >
-                  Add New
-                </Button>
-              </Box>
-            </Stack>
-          )}
-          <Divider />
-          <Stack isInline>
+            )}
+          </Stack>
+          <Stack flex={1}>
             <Field name={'due_date'} flex={1} />
             <Field name={'priority'} flex={1} />
             <Field name={'status'} flex={1} />
-          </Stack>
-          <Stack isInline>
             <Field flex={1} name={'parent_id'} />
             <Field flex={1} name={'project_id'} />
             {<Field flex={1} name={'team_id'} disabled={model?.project_id} />}
+            <Field name={'people_id'} flex={1} />
           </Stack>
-          <Field name={'people_id'} flex={1} />
         </Stack>
       </FormContext>
 

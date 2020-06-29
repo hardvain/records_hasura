@@ -52,7 +52,7 @@ export default () => {
                   Tasks
                 </Tab>
                 <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>
-                  Resources
+                  Daily Notes
                 </Tab>
                 <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>
                   Conversations
@@ -103,7 +103,6 @@ export default () => {
                         where={{
                           _and: [
                             { project_id: { _eq: project[0].id } },
-                            { parent_id: { _is_null: true } },
                             { status: { _eq: 'todo' } },
                           ],
                         }}
@@ -114,13 +113,12 @@ export default () => {
                 <TabPanel>
                   {currentTab === 1 && (
                     <Box w={'100%'} p={2}>
-                      <Tasks.List
+                      <Wo.List
                         showFilterBar
                         where={{
                           _and: [
                             { project_id: { _eq: project[0].id } },
                             { status: { _eq: 'in_progress' } },
-                            { parent_id: { _is_null: true } },
                           ],
                         }}
                       />
@@ -136,7 +134,6 @@ export default () => {
                           _and: [
                             { project_id: { _eq: project[0].id } },
                             { status: { _eq: 'completed' } },
-                            { parent_id: { _is_null: true } },
                           ],
                         }}
                       />

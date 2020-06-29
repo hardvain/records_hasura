@@ -23,7 +23,7 @@ import { AiOutlineAppstore } from 'react-icons/ai';
 import { FaTasks, FaPizzaSlice } from 'react-icons/fa';
 import { GoProject } from 'react-icons/go';
 import { FiUsers, FiInbox } from 'react-icons/fi';
-import { TiMessages } from 'react-icons/ti';
+import { RiLightbulbFlashLine } from 'react-icons/ri';
 import { useStore } from 'src/store';
 import Tasks from 'src/modules/Tasks';
 import Food from 'src/modules/Food';
@@ -117,7 +117,7 @@ export default () => {
               borderWidth={recordType === 'thoughts' ? 2 : 1}
               p={5}
             >
-              <Box as={TiMessages} w={30} h={30} />
+              <Box as={RiLightbulbFlashLine} w={30} h={30} />
             </Box>
             <Box
               borderColor={recordType === 'inbox' ? 'brand.500' : ''}

@@ -186,6 +186,11 @@ export default () => {
                           _eq: '3a0ec3a0-75cd-4642-bff4-6075a9aef177',
                         },
                       },
+                      {
+                        parent_id: {
+                          _is_null: true,
+                        },
+                      },
                       { status: { _neq: 'completed' } },
                     ],
                   }}

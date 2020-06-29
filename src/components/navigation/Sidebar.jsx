@@ -15,7 +15,7 @@ import {
 import useAggregate from 'src/hooks/graphql/useAggregate';
 import { useStore } from 'src/store';
 import { MdTimer } from 'react-icons/md';
-import { TiMessages } from 'react-icons/ti';
+import { RiLightbulbFlashLine } from 'react-icons/ri';
 
 import { FiInbox } from 'react-icons/fi';
 import { IoIosLogOut, IoIosPeople, IoIosMenu } from 'react-icons/io';
@@ -130,7 +130,7 @@ export default () => {
         as={`/thoughts`}
         isActive={pathname === '/thoughts'}
       >
-        {TiMessages}
+        {RiLightbulbFlashLine}
       </MenuItem>
       <MenuItem
         href="/tasks"
