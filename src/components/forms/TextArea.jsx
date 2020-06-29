@@ -25,15 +25,16 @@ export default ({ options, ...rest }) => {
             html: false,
             fullScreen: true,
             hideMenu: true,
+            ...rest?.config?.view
           },
           table: {
             maxRow: 5,
             maxCol: 6,
           },
-          imageUrl: 'https://octodex.github.com/images/minion.png',
           syncScrollMode: ['leftFollowRight', 'rightFollowLeft'],
+          ...rest?.config,
         }}
-        style={{ height: rest.height || 500, width: rest.width || '100%' }}
+        style={{ height: rest.height || 200, width: rest.width || '100%' }}
         renderHTML={(text) => mdParser.render(text)}
         onChange={([{ text }]) => text}
         {...rest}

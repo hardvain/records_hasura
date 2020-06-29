@@ -107,8 +107,10 @@ export default () => {
             {currentTab === 1 && (
               <Box w={'100%'} p={2}>
                 <Tasks.List
-                  group_by_field={(row) =>
-                    row['ref_project']['ref_team']['name']
+                   group_by_field={(row) =>
+                    row['ref_project']
+                      ? row['ref_project']['ref_team']['name']
+                      : row['ref_team']['name']
                   }
                   order_by={{
                     ref_project: { ref_team: { created_at: 'asc' } },
@@ -124,8 +126,10 @@ export default () => {
             {currentTab === 2 && (
               <Box w={'100%'} p={2}>
                 <Tasks.List
-                  group_by_field={(row) =>
-                    row['ref_project']['ref_team']['name']
+                   group_by_field={(row) =>
+                    row['ref_project']
+                      ? row['ref_project']['ref_team']['name']
+                      : row['ref_team']['name']
                   }
                   order_by={{
                     ref_project: { ref_team: { created_at: 'asc' } },
@@ -141,8 +145,10 @@ export default () => {
             {currentTab === 3 && (
               <Box w={'100%'} p={2}>
                 <Tasks.List
-                  group_by_field={(row) =>
-                    row['ref_project']['ref_team']['name']
+                   group_by_field={(row) =>
+                    row['ref_project']
+                      ? row['ref_project']['ref_team']['name']
+                      : row['ref_team']['name']
                   }
                   order_by={{
                     ref_project: { ref_team: { created_at: 'asc' } },
@@ -158,8 +164,10 @@ export default () => {
             {currentTab === 4 && (
               <Box w={'100%'} p={2}>
                 <Tasks.List
-                  group_by_field={(row) =>
-                    row['ref_project']['ref_team']['name']
+                   group_by_field={(row) =>
+                    row['ref_project']
+                      ? row['ref_project']['ref_team']['name']
+                      : row['ref_team']['name']
                   }
                   order_by={{
                     ref_project: { ref_team: { created_at: 'asc' } },

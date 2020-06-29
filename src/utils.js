@@ -12,6 +12,5 @@ export function groupBy(objectArray, property) {
     // Add object to list for given key's value
     acc[key].push(obj);
     return acc;
-
   }, {});
 }
