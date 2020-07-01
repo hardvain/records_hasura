@@ -37,7 +37,7 @@ export function reportWebVitals(metric) {
 const config = (theme) => ({
   light: {
     color: theme.colors.gray[800],
-    bg: '#fff',
+    bg: '#F5F6FC',
     borderColor: theme.colors.gray[200],
     placeholderColor: theme.colors.gray[400],
   },
@@ -63,10 +63,10 @@ const App = ({ Component, pageProps }) => {
     return (
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
-          <DarkMode>
+          <LightMode>
             <CSSReset config={config} />
             <Shell />
-          </DarkMode>
+          </LightMode>
         </ColorModeProvider>
       </ThemeProvider>
     );
@@ -75,10 +75,10 @@ const App = ({ Component, pageProps }) => {
     return (
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
-          <DarkMode>
+          <LightMode>
             <CSSReset config={config} />
             <Landing />
-          </DarkMode>
+          </LightMode>
         </ColorModeProvider>
       </ThemeProvider>
     );
@@ -90,18 +90,18 @@ const App = ({ Component, pageProps }) => {
       </Head>
       <ThemeProvider theme={theme}>
         <ColorModeProvider>
-          <DarkMode>
+          <LightMode>
             <CSSReset config={config} />
             <Navbar />
             <Flex direction={'row'} pt={58}>
               {<Sidebar />}
 
-              <Box ml={250} flexGrow={1} minHeight={'100vh'}>
+              <Box ml={showSidebar ? 250: 50} flexGrow={1} minHeight={'100vh'}>
                 <Component {...pageProps} />
                 <FormModal />
               </Box>
             </Flex>
-          </DarkMode>
+          </LightMode>
         </ColorModeProvider>
       </ThemeProvider>
     </Box>

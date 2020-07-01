@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default () => {
+export default (name, variables) => {
   const [filters, setFilters] = useState({});
   const [fields, setFields] = useState([]);
 

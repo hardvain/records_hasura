@@ -1,31 +1,17 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  Select,
-  Skeleton,
-  Stack,
-  Text,
-  Flex,
-  SimpleGrid,
-  Tag,
-  Grid,
-} from '@chakra-ui/core';
+import { Box, Button, Stack, Text } from '@chakra-ui/core';
 import { useStore } from 'src/store';
 import { groupBy } from 'src/utils';
-
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import Card from 'src/components/core/card';
-import ListItem from 'src/containers/collection/list/ListItem';
-import DatePicker from 'src/components/DatePicker';
-import useQuery from 'src/hooks/graphql/useQuery';
-import Tasks from 'src/modules/Tasks';
-import * as TaskFilters from 'src/modules/Tasks/filters';
-import Collection from 'src/containers/collection';
 import moment from 'moment';
-import Preview from 'src/modules/Tasks/preview';
-
+const getStatusColor = (status) => {
+  return status === 'todo'
+    ? 'yellow'
+    : status === 'in_progress'
+    ? 'blue'
+    : 'green';
+};
 const HourView = ({ hour, groupedTasks, date }) => {
   const { setNewFormContext, toggleFormPopup } = useStore((state) => ({
     setNewFormContext: state.setNewFormContext,
@@ -45,34 +31,41 @@ const HourView = ({ hour, groupedTasks, date }) => {
       py={1}
       onClick={addTask}
     >
-      <Stack w={'100%'}>
+      <Stack w={'100%'} px={2}>
         <Box px={2}>
           <Text fontSize={10}>{hour}:00</Text>
         </Box>
         {tasks &&
-        tasks.map((t) => (
-          <Box
-            px={2}
-            w={'100%'}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-          >
-            <Link href={`/tasks/[id]`} as={`/tasks/${t.id}`}>
-              <Button
-                size={'xs'}
-                variant={'outline'}
-                w={'100%'}
-                justifyContent={'flex-start'}
-              >
-                <Text fontSize={12} key={t.id}>
-                  {t.name}
-                </Text>
-              </Button>
-            </Link>
-          </Box>
-        ))}
+          tasks.map((t, index) => (
+            <Draggable key={t.id} draggableId={t.id} index={index}>
+              {(provided) => (
+                <div
+                  style={{ height: 30}}
+                  ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                >
+                  <Link href={'/tasks/[id]'} as={`/tasks/${t.id}`}>
+                    <Box
+                      maxHeight={30}
+                      minWidth={'100%'}
+                      px={2}
+                      borderWidth={1}
+                      borderColor={`${getStatusColor(t.status)}.900`}
+                      bg={`${getStatusColor(t.status)}.50`}
+                      size={'xs'}
+                      variant={'outline'}
+                      justifyContent={'flex-start'}
+                    >
+                      <Text fontSize={12} key={t.id}>
+                        {t.name}
+                      </Text>
+                    </Box>
+                  </Link>
+                </div>
+              )}
+            </Draggable>
+          ))}
       </Stack>
     </Box>
   );
@@ -90,11 +83,26 @@ export default ({ tasks, date }) => {
       return '-';
     }
   });
+  const onDragEnd = (result) => {};
   return (
-    <Stack overflowY={'scroll'}>
-      {[...Array(24).keys()].map((i) => (
-        <HourView hour={i} groupedTasks={groupedTasks} date={date} key={i} />
-      ))}
-    </Stack>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Stack overflowY={'scroll'}>
+        {[...Array(24).keys()].map((i) => (
+          <Droppable key={i} droppableId={i.toString()}>
+            {(provided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                <HourView
+                  key={i}
+                  hour={i}
+                  groupedTasks={groupedTasks}
+                  date={date}
+                />
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        ))}
+      </Stack>
+    </DragDropContext>
   );
 };

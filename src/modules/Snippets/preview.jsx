@@ -1,17 +1,10 @@
-import {
-  Box,
-  IconButton,
-  Stack,
-  Text,
-  Progress,
-  useColorMode,
-} from '@chakra-ui/core';
+import { Box, Collapse, IconButton, Stack, Text } from '@chakra-ui/core';
 import Link from 'next/link';
+
+import Snippets from './index';
 import React, { useState } from 'react';
 import useMutation from 'src/hooks/graphql/useMutation';
-import Form from './form';
 import ListItem from 'src/containers/collection/list/ListItem';
-import Drawer from 'src/components/drawer';
 export default ({ record }) => {
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
@@ -20,7 +13,7 @@ export default ({ record }) => {
     operation: 'delete',
   });
   return (
-    <ListItem>
+    <ListItem py={1}>
       <Stack
         py={2}
         isInline
@@ -33,13 +26,11 @@ export default ({ record }) => {
           handleToggle();
         }}
       >
-        <Box flex={6} textAlign={'initial'}>
+        <Box flexGrow={1} textAlign={'initial'}>
           <Text fontSize={'md'}>{record.name}</Text>
         </Box>
 
-        <Box flex={5} />
         <IconButton
-          flex={2}
           ml={2}
           variant={'ghost'}
           size={'sm'}
@@ -51,9 +42,9 @@ export default ({ record }) => {
           }}
         />
       </Stack>
-      <Drawer title={record.name} show={show} setShow={setShow}>
-        <Form model={record} />
-      </Drawer>
+      <Collapse isOpen={show}>
+        <Snippets.Form model={record} />
+      </Collapse>
     </ListItem>
   );
 };

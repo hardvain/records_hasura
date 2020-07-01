@@ -29,7 +29,6 @@ export default () => {
             <Text>Max Glucose:</Text>
             <Text>{today?.max.value}</Text>
           </Stack>
-
           <Stack isInline>
             <Text>Min Glucose:</Text>
             <Text>{today?.min.value}</Text>

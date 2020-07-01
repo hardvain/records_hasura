@@ -36,9 +36,11 @@ const PreviewCard = ({ record }) => {
         mb={4}
         w={350}
         cursor={'pointer'}
-        borderLeftWidth={5}
-        borderLeftColor={`${statusColor}.500`}
-        h={100}
+        borderLeftWidth={1}
+        borderColor={`${statusColor}.900`}
+        bg={`${statusColor}.50`}
+        minHeight={100}
+        maxHeight={150}
       >
         <Stack>
           <Text fontSize={14}>{record.name}</Text>

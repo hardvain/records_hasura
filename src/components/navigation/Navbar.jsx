@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import Link from 'next/link';
-import { FaInbox } from 'react-icons/fa';
+import { FaEdit } from 'react-icons/fa';
 import React, { useState } from 'react';
 import Logo from 'src/assets/Logo';
 import useAggregate from 'src/hooks/graphql/useAggregate';
@@ -121,6 +121,7 @@ export default () => {
             <MenuItem onClick={() => toggleFormPopup('tasks')}>Task</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('water')}>Water</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('food')}>Food</MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('notes')}>Notes</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('glucose')}>
               Glucose
             </MenuItem>

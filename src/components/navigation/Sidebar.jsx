@@ -64,7 +64,11 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
     >
       <NextLink href={href} as={as}>
         <Stack isInline alignItems={'center'}>
-          {showSidebar && <Text ml={5} fontSize={14}>{title}</Text>}
+          {showSidebar && (
+            <Text ml={5} fontSize={14}>
+              {title}
+            </Text>
+          )}
         </Stack>
       </NextLink>
     </Button>
@@ -78,13 +82,13 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
           bg={
             isActive || isHovering
               ? colorMode === 'light'
-                ? 'gray.300'
+                ? '#F5F6FC'
                 : '#3e4242'
               : ''
           }
           mb={5}
           variant={'ghost'}
-          fontSize={25}
+          fontSize={20}
           icon={children}
         />
       </NextLink>
@@ -93,6 +97,8 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
 };
 
 export default () => {
+  const showSidebar = useStore((state) => state.ui.showSidebar);
+
   const { colorMode } = useColorMode();
   const [inboxAgg] = useAggregate({
     name: 'inbox',
@@ -108,8 +114,8 @@ export default () => {
     <Flex
       pt={5}
       direction={'column'}
-      w={250}
-      bg={colorMode === 'light' ? 'white' : '#333'}
+      w={showSidebar ? 250 : 50}
+      bg={colorMode === 'light' ? '#F5F6FC' : '#232626'}
       position={'fixed'}
       height={'100%'}
       borderRightWidth={1}
@@ -126,7 +132,7 @@ export default () => {
       </MenuItem>
       <MenuItem
         href="/thoughts"
-        title={"Thoughts"}
+        title={'Thoughts'}
         as={`/thoughts`}
         isActive={pathname === '/thoughts'}
       >
@@ -205,10 +211,10 @@ export default () => {
         {MdTimer}
       </MenuItem>
       <MenuItem
-        title={'Knowledge'}
-        isActive={pathname === '/knowledge'}
-        href="/knowledge"
-        as={`/knowledge`}
+        title={'Notes'}
+        isActive={pathname === '/notes'}
+        href="/notes"
+        as={`/notes`}
       >
         {GiBrain}
       </MenuItem>

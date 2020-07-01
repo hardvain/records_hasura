@@ -4,7 +4,7 @@ import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import useQuery from 'src/hooks/graphql/useQuery';
 
-const ResourceSelector = ({
+export const ResourceSelector = ({
   resource,
   where,
   order_by,
@@ -45,7 +45,6 @@ const ResourceSelector = ({
     </Select>
   );
 };
-
 export default ({ name, ...rest }) => {
   const { control } = useFormContext(); // methods contain all useForm functions
 

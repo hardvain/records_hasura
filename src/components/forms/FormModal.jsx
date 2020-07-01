@@ -8,7 +8,7 @@ import {
   Box,
   useColorMode,
   Divider,
-  Stack,
+  Stack, SimpleGrid,
 } from '@chakra-ui/core';
 import { useState } from 'react';
 import { IoIosPeople } from 'react-icons/io';
@@ -20,7 +20,7 @@ import {
   GiBrain,
 } from 'react-icons/gi';
 import { AiOutlineAppstore } from 'react-icons/ai';
-import { FaTasks, FaPizzaSlice } from 'react-icons/fa';
+import { FaTasks, FaPizzaSlice, FaEdit } from 'react-icons/fa';
 import { GoProject } from 'react-icons/go';
 import { FiUsers, FiInbox } from 'react-icons/fi';
 import { RiLightbulbFlashLine } from 'react-icons/ri';
@@ -29,6 +29,7 @@ import Tasks from 'src/modules/Tasks';
 import Food from 'src/modules/Food';
 import Glucose from 'src/modules/Glucose';
 import Thoughts from 'src/modules/Thoughts';
+import Notes from 'src/modules/Notes';
 import Categories from 'src/modules/Categories';
 import Water from 'src/modules/Water';
 import Snippets from 'src/modules/Snippets';
@@ -75,6 +76,7 @@ export default () => {
     categories: Categories,
     snippets: Snippets,
     thoughts: Thoughts,
+    notes: Notes,
   };
   const Form = formMap[recordType]['Form'] || <div />;
   return (
@@ -106,7 +108,7 @@ export default () => {
           shadow={'md'}
           bg={colorMode === 'light' ? 'white' : '#333'}
         >
-          <Stack isInline spacing={10}>
+          <SimpleGrid columns={6} spacing={10}>
             <Box
               borderColor={recordType === 'thoughts' ? 'brand.500' : ''}
               bg={recordType === 'thoughts' ? 'brand.100' : 'none'}
@@ -263,7 +265,19 @@ export default () => {
             >
               <Box as={FiUsers} w={30} h={30} />
             </Box>
-          </Stack>
+            <Box
+              borderColor={recordType === 'notes' ? 'brand.500' : ''}
+              bg={recordType === 'notes' ? 'brand.100' : 'none'}
+              onClick={() => setRecordType('notes')}
+              cursor={'pointer'}
+              mr={2}
+              borderRadius={45}
+              borderWidth={1}
+              p={5}
+            >
+              <Box as={FaEdit} w={30} h={30} />
+            </Box>
+          </SimpleGrid>
           <Form onSubmitCallback={onSubmit} model={newFormContext} />
         </ModalBody>
       </ModalContent>
