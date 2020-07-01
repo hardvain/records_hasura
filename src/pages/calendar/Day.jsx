@@ -43,6 +43,10 @@ const HourView = ({ hour, groupedTasks, date }) => {
             <Draggable key={t.id} draggableId={t.id} index={index}>
               {(provided) => (
                 <div
+                  onClick={e => {
+                    e.stopPropagation()
+                    e.preventDefault()
+                  }}
                   style={{ height: 30 }}
                   ref={provided.innerRef}
                   {...provided.draggableProps}
