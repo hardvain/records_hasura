@@ -1,4 +1,5 @@
-import { Box, Button, Stack, Text } from '@chakra-ui/core';
+import { Box, Button, Stack, Text, useColorMode } from '@chakra-ui/core';
+import useMutation from 'src/hooks/graphql/useMutation';
 import { useStore } from 'src/store';
 import { groupBy } from 'src/utils';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -13,6 +14,8 @@ const getStatusColor = (status) => {
     : 'green';
 };
 const HourView = ({ hour, groupedTasks, date }) => {
+  const { colorMode } = useColorMode();
+
   const { setNewFormContext, toggleFormPopup } = useStore((state) => ({
     setNewFormContext: state.setNewFormContext,
     toggleFormPopup: state.toggleFormPopup,
@@ -40,19 +43,21 @@ const HourView = ({ hour, groupedTasks, date }) => {
             <Draggable key={t.id} draggableId={t.id} index={index}>
               {(provided) => (
                 <div
-                  style={{ height: 30}}
+                  style={{ height: 30 }}
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
                 >
                   <Link href={'/tasks/[id]'} as={`/tasks/${t.id}`}>
                     <Box
+                      borderRadius={2}
                       maxHeight={30}
                       minWidth={'100%'}
                       px={2}
                       borderWidth={1}
                       borderColor={`${getStatusColor(t.status)}.900`}
                       bg={`${getStatusColor(t.status)}.50`}
+                      color={'black'}
                       size={'xs'}
                       variant={'outline'}
                       justifyContent={'flex-start'}
@@ -71,6 +76,10 @@ const HourView = ({ hour, groupedTasks, date }) => {
   );
 };
 export default ({ tasks, date }) => {
+  const taskUpdateMutation = useMutation({
+    resource: 'tasks',
+    operation: 'update',
+  });
   const groupedTasks = groupBy(tasks || [], (t) => {
     if (t.due_date) {
       const hour = moment(t.due_date).format('HH');
@@ -83,7 +92,20 @@ export default ({ tasks, date }) => {
       return '-';
     }
   });
-  const onDragEnd = (result) => {};
+  const onDragEnd = (result) => {
+    const {
+      draggableId,
+      destination: { droppableId },
+    } = result;
+    const task = tasks.filter((t) => t.id === draggableId)[0];
+    const newDueDate = moment(task).hours(droppableId);
+    taskUpdateMutation({
+      variables: {
+        object: { ...task, due_date: newDueDate },
+        where: { id: { _eq: task?.id } },
+      },
+    });
+  };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Stack overflowY={'scroll'}>

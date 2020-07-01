@@ -34,7 +34,7 @@ const PreviewCard = ({ record }) => {
         px={5}
         py={1}
         mb={4}
-        w={350}
+        w={'100%'}
         cursor={'pointer'}
         borderLeftWidth={1}
         borderColor={`${statusColor}.900`}
