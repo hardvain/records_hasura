@@ -45,6 +45,7 @@ export default () => {
         id={'card'}
         mt={0}
         borderLeftWidth={0}
+        borderTopWidth={0}
         borderRadius={0}
         pb={0}
         mb={0}

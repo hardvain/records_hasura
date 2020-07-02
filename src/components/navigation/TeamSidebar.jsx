@@ -6,7 +6,7 @@ import {
   Text,
   Tooltip,
   Box,
-  useColorMode,
+  useColorMode, Skeleton,
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import React, { useState } from 'react';
@@ -27,7 +27,6 @@ const MenuItem = ({ id, name, resource, children = [] }) => {
       mb={1}
       justifyContent={'flex-start'}
       variant={'ghost'}
-      color={colorMode === 'light' ? 'gray.700' : 'white'}
     >
       <Stack>
         <Stack isInline alignItems={'center'}>
@@ -64,15 +63,28 @@ const MenuItem = ({ id, name, resource, children = [] }) => {
 };
 
 export default () => {
-  const [data] = useQuery({
+  const [data,loading] = useQuery({
     name: 'teams',
     fields: ['name', 'id', 'ref_projects{id,name}'],
   });
-  const showSidebar = useStore((state) => state.ui.showSidebar);
-
+  const { toggleFormPopup } = useStore((state) => ({
+    toggleFormPopup: state.toggleFormPopup,
+  }));
   const teams = data || [];
-  return (
-    <Box borderRightWidth={1} w={showSidebar ? 245 : 45} pt={2}>
+  if(loading){
+    return <Box w={245} p={2}>
+      <Skeleton h={5} my={3}/>
+      <Skeleton h={5} my={3}/>
+      <Skeleton h={5} my={3}/>
+      <Skeleton h={5} my={3}/>
+      <Skeleton h={5} my={3}/>
+      <Skeleton h={5} my={3}/>
+      <Skeleton h={5} my={3}/>
+      <Skeleton h={5} my={3}/>
+    </Box>
+  }
+  return teams.length > 0 ? (
+    <Box borderRightWidth={1} w={245} pt={2}>
       {teams.map((t) => (
         <MenuItem
           key={t.id}
@@ -82,6 +94,18 @@ export default () => {
           resource={'teams'}
         />
       ))}
+    </Box>
+  ) : (
+    <Box p={5} w={245} >
+      <Button
+        variant={'solid'}
+        variantColor={'brand'}
+        size={'xs'}
+        onClick={() => toggleFormPopup('teams')}
+        leftIcon={'small-add'}
+      >
+        Add New Team
+      </Button>
     </Box>
   );
 };

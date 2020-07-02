@@ -85,9 +85,9 @@ export default () => {
         </NextLink>
       </Box>
       <Box>
-        <Link href="/teams" as={`/teams`}>
+        <Link href="/tasks" as={`/tasks`}>
           <Button variant={'ghost'} size={'sm'} mr={4}>
-            Teams
+            Tasks
           </Button>
         </Link>
       </Box>
