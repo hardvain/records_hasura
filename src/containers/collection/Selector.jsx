@@ -2,6 +2,7 @@ import { Select } from '@chakra-ui/core';
 import { useField } from 'formik';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import useMutation from 'src/hooks/graphql/useMutation';
 import useQuery from 'src/hooks/graphql/useQuery';
 
 export const ResourceSelector = ({
@@ -46,15 +47,33 @@ export const ResourceSelector = ({
   );
 };
 export default ({ name, ...rest }) => {
-  const { control } = useFormContext(); // methods contain all useForm functions
-
+  const { control, resource, id } = useFormContext(); // methods contain all useForm functions
+  const mutate = useMutation({ resource, operation: 'update' });
+  const update = (value) => {
+    if (id) {
+      mutate({
+        variables: {
+          object: { [name]: value },
+          where: { id: { _eq: id } },
+        },
+      });
+    }
+  };
   return (
     <Controller
       control={control}
-      as={ResourceSelector}
-      size={'sm'}
+      as={({ onChange, value }) => (
+        <ResourceSelector
+          size={'sm'}
+          value={value || ''}
+          onChange={(value) => {
+            update(value);
+            onChange(value);
+          }}
+          {...rest}
+        />
+      )}
       name={name}
-      {...rest}
     />
   );
 };
