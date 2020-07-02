@@ -50,7 +50,7 @@ const FilteredCollection = ({
           speed="0.65s"
           emptyColor="gray.200"
           color="brand.500"
-          size="xl"
+          size="xs"
         />
       </Flex>
     );

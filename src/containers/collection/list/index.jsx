@@ -8,8 +8,8 @@ import { groupBy } from 'src/utils';
 const Section = ({ data, preview }) => {
   return (
     <MotionBox>
-      {data.map((record) => (
-        <div key={record.id}>{createElement(preview, { record })}</div>
+      {data.map((record,index) => (
+        <div key={record.id}>{createElement(preview, { record,index })}</div>
       ))}
     </MotionBox>
   );

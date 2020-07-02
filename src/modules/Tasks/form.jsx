@@ -13,13 +13,13 @@ import {
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import Tasks from './index';
+import Card from 'src/components/core/card'
 import { useForm, Controller, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import Field from 'src/components/forms/Field';
 import useMutation from 'src/hooks/graphql/useMutation';
 export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
   const { colorMode } = useColorMode();
-
   const [operation, setOperation] = useState('insert');
   const methods = useForm();
   const [checklist, setChecklist] = useState([]);
@@ -198,12 +198,12 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
               <Text fontSize={12}>Sub Tasks</Text>
 
               <Box pb={3}>
-                <>
+                <Card p={2}>
                   <Tasks.List
                     formContext={{ parent_id: model.id }}
                     where={{ _and: [{ parent_id: { _eq: model.id } }] }}
                   />
-                </>
+                </Card>
               </Box>
             </Stack>
           </Stack>

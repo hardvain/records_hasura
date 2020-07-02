@@ -17,6 +17,7 @@ import Tasks from './index';
 import { useForm, Controller, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import Field from 'src/components/forms/Field';
+import Card from 'src/components/core/card'
 import useMutation from 'src/hooks/graphql/useMutation';
 export default ({ model }) => {
   const { colorMode } = useColorMode();
@@ -129,12 +130,12 @@ export default ({ model }) => {
             <Text fontSize={12}>Sub Tasks</Text>
 
             <Box pb={3}>
-              <>
+              <Card p={2}>
                 <Tasks.List
                   formContext={{ parent_id: model.id }}
                   where={{ _and: [{ parent_id: { _eq: model.id } }] }}
                 />
-              </>
+              </Card>
             </Box>
           </Stack>
         </Stack>
