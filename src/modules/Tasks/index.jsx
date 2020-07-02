@@ -1,7 +1,7 @@
 import Form from './form';
 import Collection from 'src/containers/collection';
 import LineItem from './LineItem';
-import Preview from './Preview';
+import Preview from './preview';
 import Board from './Board';
 export const fields = [
   'id',
