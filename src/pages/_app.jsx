@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { Flex, useColorMode } from '@chakra-ui/core';
 import './app.css';
 import 'react-markdown-editor-lite/lib/index.css';
+import TeamSidebar from 'src/components/navigation/TeamSidebar';
 import StatsBar from 'src/components/stats/StatsBar';
 import FormModal from 'src/components/forms/FormModal';
 import Navbar from 'src/components/navigation/Navbar';
@@ -94,8 +95,8 @@ const App = ({ Component, pageProps }) => {
             <CSSReset config={config} />
             <Navbar />
             <Flex direction={'row'} pt={58}>
-              {<Sidebar />}
-              <Box ml={showSidebar ? 250: 50} flexGrow={1} minHeight={'100vh'}>
+              <TeamSidebar />
+              <Box flexGrow={1} minHeight={'100vh'}>
                 <Component {...pageProps} />
                 <FormModal />
               </Box>
@@ -108,4 +109,3 @@ const App = ({ Component, pageProps }) => {
 };
 
 export default withApollo({ ssr: false })(App);
-

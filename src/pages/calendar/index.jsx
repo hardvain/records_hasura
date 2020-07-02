@@ -153,7 +153,6 @@ export default () => {
             spacing={10}
             overflowY={'scroll'}
           >
-            <Text>Tasks</Text>
             {tasks &&
               tasks.length > 0 &&
               tasks.map((task) => <PreviewCard record={task} key={task.id} />)}

@@ -28,7 +28,7 @@ export default () => {
   const [date, setDate] = useState(moment().toISOString(true));
   return (
     <Box w={'100%'} px={10} py={5}>
-      <Tabs variantColor={'brand'} size={'sm'} isManual>
+      <Tabs variantColor={'brand'}  size={'sm'} isManual>
         <Stack isInline spacing={0}>
           <TabList borderWidth={0}>
             <Tab
@@ -70,7 +70,6 @@ export default () => {
             <Input type="phone" placeholder="Search" w={400} />
           </InputGroup>
         </Stack>
-        <Divider />
 
         <TabPanels>
           <TabPanel>

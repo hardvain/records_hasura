@@ -6,7 +6,7 @@ import { useQuery as useApolloQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Card from 'src/components/core/card';
 import Filters from 'src/containers/filters';
-const FilteredCollection = ({
+export default ({
   resource,
   fields,
   where,
@@ -107,31 +107,31 @@ const FilteredCollection = ({
     </Stack>
   );
 };
-
-export default ({ resource, showFilterBar = false, ...rest }) => {
-  const { error, data, loading } = useApolloQuery(gql`query{
-__type(name:"${resource}"){
-    name
-    fields{
-      name
-      type{
-        name
-          ofType {
-              name
-          }
-      }
-    }
-  }
-}`);
-  return (
-    <Filters
-      showFilterBar={showFilterBar}
-      schema={data ? data['__type'] : {}}
-      where={rest.where}
-    >
-      {(filters) => (
-        <FilteredCollection resource={resource} {...rest} where={filters} />
-      )}
-    </Filters>
-  );
-};
+//
+// export default ({ resource, showFilterBar = false, ...rest }) => {
+//   const { error, data, loading } = useApolloQuery(gql`query{
+// __type(name:"${resource}"){
+//     name
+//     fields{
+//       name
+//       type{
+//         name
+//           ofType {
+//               name
+//           }
+//       }
+//     }
+//   }
+// }`);
+//   return (
+//     <Filters
+//       showFilterBar={showFilterBar}
+//       schema={data ? data['__type'] : {}}
+//       where={rest.where}
+//     >
+//       {(filters) => (
+//         <FilteredCollection resource={resource} {...rest} where={filters} />
+//       )}
+//     </Filters>
+//   );
+// };

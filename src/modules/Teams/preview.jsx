@@ -4,7 +4,7 @@ import {
   Stack,
   Text,
   Progress,
-  useColorMode,
+  useColorMode, Tooltip,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -26,7 +26,6 @@ export default ({ record }) => {
     <ListItem>
       <Link href={`/teams/[id]`} as={`/teams/${record?.id}`}>
         <Stack
-          py={2}
           isInline
           textAlign={'center'}
           alignItems={'center'}
@@ -38,17 +37,14 @@ export default ({ record }) => {
           <Text fontSize={14} flex={6}>
             {projects.length} Active Project(s)
           </Text>
-          <Stack flex={4} spacing={1} alignItems={'baseline'}>
-            <Text fontSize={12}>
-              Completed {completedTasks} out of {totalTasks} Tasks
-            </Text>
+          <Tooltip label={`Completed ${completedTasks} out of ${totalTasks} Tasks`}>
             <Progress
               color={progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'}
               value={totalTasks ? progress : 0}
               w={200}
               borderRadius={5}
             />
-          </Stack>
+          </Tooltip>
           <Box flex={5} />
           <Delete resource={'teams'} id={record.id} />
         </Stack>

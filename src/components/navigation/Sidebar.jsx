@@ -39,7 +39,7 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
   const [isHovering, setIsHovering] = useState(false);
   const content = (
     <Button
-      w={showSidebar ? '100%' : 45}
+      w={showSidebar ? 245 : 45}
       cursor={'pointer'}
       borderRadius={0}
       borderRightColor={'brand.500'}
