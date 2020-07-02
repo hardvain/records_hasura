@@ -1,4 +1,5 @@
 import { Box, Button, Stack, Text, useColorMode } from '@chakra-ui/core';
+import useMutation from 'src/hooks/graphql/useMutation';
 import { useStore } from 'src/store';
 import { groupBy } from 'src/utils';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -86,6 +87,10 @@ export default ({ tasks, date }) => {
     } else {
       return '-';
     }
+  });
+  const taskUpdateMutation = useMutation({
+    resource: 'tasks',
+    operation: 'update',
   });
   const onDragEnd = (result) => {
     const {

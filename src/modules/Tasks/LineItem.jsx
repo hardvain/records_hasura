@@ -67,6 +67,8 @@ export default ({ record, index, expandAll }) => {
         borderLeftWidth={0}
         bg={background}
         cursor={'pointer'}
+        px={3}
+        py={2}
         onClick={(e) => {
           e.stopPropagation();
           e.preventDefault();
