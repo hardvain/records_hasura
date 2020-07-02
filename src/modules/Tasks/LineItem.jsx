@@ -33,6 +33,8 @@ export default ({ record, index }) => {
   const [showSubTasks, setShowSubTasks] = useState(true);
   const handleToggle = () => setShow(!show);
   const { colorMode } = useColorMode();
+  const deleteMutate = useMutation({ resource: 'tasks', operation: 'delete' });
+
   const { toggleFormPopup, setNewFormContext } = useStore((state) => ({
     toggleFormPopup: state.toggleFormPopup,
     setNewFormContext: state.setNewFormContext,
@@ -47,7 +49,9 @@ export default ({ record, index }) => {
       : record.status === 'in_progress'
       ? 'blue'
       : 'green';
-
+  const isToday = moment(record.due_date)
+    .startOf('day')
+    .isSame(moment().startOf('day'));
   const background =
     index % 2 !== 0 && !record?.parent_id
       ? colorMode === 'light'
@@ -87,6 +91,9 @@ export default ({ record, index }) => {
             </Box>
             <Box flexGrow={1}>{record.name}</Box>
             <Box>
+              {isToday && <Badge variantColor={'brand'}>Today</Badge>}
+            </Box>
+            <Box>
               {isHovered && (
                 <Button
                   leftIcon={'small-add'}
@@ -96,7 +103,7 @@ export default ({ record, index }) => {
                   onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    addSubTask(record)
+                    addSubTask(record);
                   }}
                 >
                   Add Sub Task
@@ -123,6 +130,20 @@ export default ({ record, index }) => {
           </Box>
           <Box flex={2} mx={2} textAlign={'right'}>
             <Badge variantColor={statusColor}>{record?.status}</Badge>
+          </Box>
+          <Box flex={1}>
+            <IconButton
+              size={'xs'}
+              variant={'link'}
+              icon={'delete'}
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                deleteMutate({
+                  variables: { where: { id: { _eq: record.id } } },
+                });
+              }}
+            />
           </Box>
         </Stack>
         <Drawer size={'xl'} title={record.name} show={show} setShow={setShow}>
