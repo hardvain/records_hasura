@@ -16,6 +16,7 @@ export default ({ record }) => {
         <IconButton
           mr={0}
           variant={'ghost'}
+          size="sm"
           icon={show ? 'chevron-down' : 'chevron-right'}
           onClick={(e) => {
             e.stopPropagation();

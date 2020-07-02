@@ -7,13 +7,13 @@ import { groupBy } from 'src/utils';
 
 const Section = ({ data, preview, ...rest }) => {
   return (
-    <MotionBox>
+    <Card>
       {data.map((record, index) => (
         <div key={record.id}>
           {createElement(preview, { record, index, ...rest })}
         </div>
       ))}
-    </MotionBox>
+    </Card>
   );
 };
 export default ({ data, preview, group_by_field, ...rest }) => {
@@ -27,7 +27,7 @@ export default ({ data, preview, group_by_field, ...rest }) => {
               <Text fontSize={14} textTransform={'uppercase'} color={'#77808F'}>
                 {key}
               </Text>
-              <Card>
+              <Card p={3}>
                 <Section data={groupedData[key]} preview={preview} {...rest} />
               </Card>
             </Stack>

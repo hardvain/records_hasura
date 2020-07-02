@@ -21,6 +21,7 @@ import Router from 'next/router';
 import React, { useState } from 'react';
 import Delete from 'src/containers/actions/delete';
 import useMutation from 'src/hooks/graphql/useMutation';
+import Checklists from 'src/modules/Tasks/Checklists';
 import Form from './form';
 import ListItem from 'src/containers/collection/list/ListItem';
 
