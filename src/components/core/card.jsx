@@ -14,19 +14,18 @@ export default ({
 }) => {
   const { colorMode } = useColorMode();
   return (
-    <MotionBox
+    <Box
       minWidth={300}
       borderWidth={1}
       borderLeftWidth={thickLeftBorder ? 5 : 1}
       borderLeftColor={thickLeftBorder ? 'brand.300' : ''}
       borderRadius={5}
-      my={4}
       h={'100%'}
       cursor={highlight ? 'pointer' : ''}
       bg={colorMode === 'light' ? 'white' : '#333'}
       {...rest}
     >
       {children}
-    </MotionBox>
+    </Box>
   );
 };

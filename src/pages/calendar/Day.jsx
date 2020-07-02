@@ -1,5 +1,4 @@
 import { Box, Button, Stack, Text, useColorMode } from '@chakra-ui/core';
-import useMutation from 'src/hooks/graphql/useMutation';
 import { useStore } from 'src/store';
 import { groupBy } from 'src/utils';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -43,10 +42,6 @@ const HourView = ({ hour, groupedTasks, date }) => {
             <Draggable key={t.id} draggableId={t.id} index={index}>
               {(provided) => (
                 <div
-                  onClick={e => {
-                    e.stopPropagation()
-                    e.preventDefault()
-                  }}
                   style={{ height: 30 }}
                   ref={provided.innerRef}
                   {...provided.draggableProps}
@@ -80,10 +75,6 @@ const HourView = ({ hour, groupedTasks, date }) => {
   );
 };
 export default ({ tasks, date }) => {
-  const taskUpdateMutation = useMutation({
-    resource: 'tasks',
-    operation: 'update',
-  });
   const groupedTasks = groupBy(tasks || [], (t) => {
     if (t.due_date) {
       const hour = moment(t.due_date).format('HH');

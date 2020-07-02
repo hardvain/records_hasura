@@ -15,6 +15,7 @@ const FilteredCollection = ({
   offset,
   preview,
   group_by_field,
+  showBanners = false,
   formContext = {},
 }) => {
   const { toggleFormPopup, setNewFormContext } = useStore((state) => ({
@@ -57,7 +58,7 @@ const FilteredCollection = ({
     console.error(error);
     response = <Box>Something went wrong</Box>;
   } else if (data.length === 0) {
-    response = (
+    response = showBanners ? (
       <Card>
         <Stack
           w={'100%'}
@@ -77,6 +78,8 @@ const FilteredCollection = ({
           </Button>
         </Stack>
       </Card>
+    ) : (
+      <div />
     );
   } else {
     response = (
@@ -86,7 +89,7 @@ const FilteredCollection = ({
   return (
     <Stack>
       <Box>{response}</Box>
-      {!group_by_field && (
+      {!group_by_field && showBanners && (
         <Box>
           <Button
             mt={2}

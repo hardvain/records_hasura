@@ -1,8 +1,9 @@
 import Form from './form';
 import Collection from 'src/containers/collection';
-import Preview from './preview';
+import LineItem from './LineItem';
+import Preview from './Preview';
 import Board from './Board';
-const fields = [
+export const fields = [
   'id',
   'name',
   'due_date',
@@ -18,7 +19,7 @@ const fields = [
   'ref_parent{id}',
   'people_id',
   'ref_person{id,name}',
-  'checklist'
+  'checklist',
 ];
 const schema = {
   name: {
@@ -75,8 +76,13 @@ const schema = {
   },
 };
 
-const List = (props) => (
-  <Collection resource={'tasks'} fields={fields} preview={Preview} {...props} />
-);
+const List = (props) => {
+  return <Collection
+    resource={'tasks'}
+    fields={fields}
+    preview={LineItem}
+    {...props}
+  />
+}
 
-export default { Form, List, schema, Board };
+export default { Form, List, schema, Board, Preview };

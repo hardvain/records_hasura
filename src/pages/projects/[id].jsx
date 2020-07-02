@@ -9,6 +9,7 @@ import {
   Stack,
   useColorMode,
   Heading,
+  Button,
 } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import useQuery from 'src/hooks/graphql/useQuery';
@@ -18,6 +19,7 @@ import Card from 'src/components/core/card';
 import Tasks from 'src/modules/Tasks';
 import * as TaskFilters from 'src/modules/Tasks/filters';
 export default () => {
+  const [showForm, setShowForm] = useState(false);
   const router = useRouter();
   const [currentTab, setCurrentTab] = useState(0);
   const { colorMode } = useColorMode();
@@ -40,120 +42,26 @@ export default () => {
             pb={0}
             mb={0}
           >
-            <Box p={5} pb={10}>
-              <Heading size={'md'}>{project[0].name}</Heading>
-            </Box>
-            <Box p={5}>
-              <Projects.Form model={project[0]} showList={false}/>
-            </Box>
-            <Tabs variantColor={'brand'} isFitted>
-              <TabList borderWidth={0}>
-                <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>
-                  Tasks
-                </Tab>
-                <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>
-                  Daily Notes
-                </Tab>
-                <Tab color={colorMode === 'light' ? 'gray.800' : 'white'}>
-                  Conversations
-                </Tab>
-              </TabList>
-            </Tabs>
+            <Stack isInline spacing={10} p={5}>
+              <Box p={5} pb={10} flexGrow={1}>
+                <Heading size={'md'}>{project[0].name}</Heading>
+              </Box>
+              <Button size={'sm'} onClick={() => setShowForm(!showForm)}>
+                Edit
+              </Button>
+            </Stack>
+            {showForm && (
+              <Box p={5}>
+                <Projects.Form model={project[0]} showList={false} />
+              </Box>
+            )}
           </Card>
           <Box m={5}>
-            <Tabs
-              variantColor={'brand'}
-              variant="soft-rounded"
-              size={'sm'}
-              isManual
-            >
-              <TabList>
-                <Tab
-                  onClick={() => setCurrentTab(0)}
-                  color={colorMode === 'light' ? 'gray.800' : 'white'}
-                >
-                  Todo
-                </Tab>
-                <Tab
-                  onClick={() => setCurrentTab(1)}
-                  color={colorMode === 'light' ? 'gray.800' : 'white'}
-                >
-                  In Progress
-                </Tab>
-                <Tab
-                  onClick={() => setCurrentTab(2)}
-                  color={colorMode === 'light' ? 'gray.800' : 'white'}
-                >
-                  Completed
-                </Tab>
-                <Tab
-                  onClick={() => setCurrentTab(3)}
-                  color={colorMode === 'light' ? 'gray.800' : 'white'}
-                >
-                  All
-                </Tab>
-              </TabList>
-
-              <TabPanels>
-                <TabPanel>
-                  {currentTab === 0 && (
-                    <Box w={'100%'} p={2}>
-                      <Tasks.List
-                        showFilterBar
-                        where={{
-                          _and: [
-                            { project_id: { _eq: project[0].id } },
-                            { status: { _eq: 'todo' } },
-                          ],
-                        }}
-                      />
-                    </Box>
-                  )}
-                </TabPanel>
-                <TabPanel>
-                  {currentTab === 1 && (
-                    <Box w={'100%'} p={2}>
-                      <Wo.List
-                        showFilterBar
-                        where={{
-                          _and: [
-                            { project_id: { _eq: project[0].id } },
-                            { status: { _eq: 'in_progress' } },
-                          ],
-                        }}
-                      />
-                    </Box>
-                  )}
-                </TabPanel>
-                <TabPanel>
-                  {currentTab === 2 && (
-                    <Box w={'100%'} p={2}>
-                      <Tasks.List
-                        showFilterBar
-                        where={{
-                          _and: [
-                            { project_id: { _eq: project[0].id } },
-                            { status: { _eq: 'completed' } },
-                          ],
-                        }}
-                      />
-                    </Box>
-                  )}
-                </TabPanel>
-                <TabPanel>
-                  {currentTab === 3 && (
-                    <Box w={'100%'} p={2}>
-                      <Tasks.List
-                        showFilterBar
-                        where={{
-                          _and: [{ project_id: { _eq: project[0].id } }],
-                        }}
-                      />
-                    </Box>
-                  )}
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
+            <Tasks.List
+              where={{
+                _and: [{ project_id: { _eq: project[0].id } }],
+              }}
+            />
           </Box>
         </Stack>
       ) : (
