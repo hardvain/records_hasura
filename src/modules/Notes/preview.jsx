@@ -1,15 +1,12 @@
 import { Box, IconButton, Stack, Text } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import Delete from 'src/containers/actions/delete';
 import useMutation from 'src/hooks/graphql/useMutation';
 import ListItem from 'src/containers/collection/list/ListItem';
 export default ({ record }) => {
   const [show, setShow] = useState(false);
-  const handleToggle = () => setShow(!show);
-  const mutate = useMutation({
-    resource: 'notes',
-    operation: 'delete',
-  });
+
   return (
     <ListItem>
       <Link href={`/notes/[id]`} as={`/notes/${record.id}`}>
@@ -25,18 +22,7 @@ export default ({ record }) => {
           </Box>
 
           <Box flex={5} />
-          <IconButton
-            flex={2}
-            ml={2}
-            variant={'ghost'}
-            size={'sm'}
-            icon={'delete'}
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              mutate({ variables: { where: { id: { _eq: record.id } } } });
-            }}
-          />
+          <Delete resource={'notes'} id={record.id} />
         </Stack>
       </Link>
     </ListItem>

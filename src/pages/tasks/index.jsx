@@ -15,7 +15,7 @@ import {
   useColorMode,
   Flex,
 } from '@chakra-ui/core';
-import Card from 'src/components/core/card'
+import Card from 'src/components/core/card';
 import React, { useEffect, useState } from 'react';
 import Tasks from 'src/modules/Tasks';
 import moment from 'moment';
@@ -75,8 +75,7 @@ export default () => {
         <TabPanels>
           <TabPanel>
             {currentTab === 0 && (
-              <Box w={'100%'} p={2}>
-                <Card></Card>
+              <Box w={'100%'}>
                 <Tasks.List
                   group_by_field={(row) =>
                     row['ref_project']
@@ -95,9 +94,9 @@ export default () => {
           </TabPanel>
           <TabPanel>
             {currentTab === 1 && (
-              <Box w={'100%'} p={2}>
+              <Box w={'100%'}>
                 <Tasks.List
-                   group_by_field={(row) =>
+                  group_by_field={(row) =>
                     row['ref_project']
                       ? row['ref_project']['ref_team']['name']
                       : row['ref_team']['name']
@@ -114,9 +113,9 @@ export default () => {
           </TabPanel>
           <TabPanel>
             {currentTab === 2 && (
-              <Box w={'100%'} p={2}>
+              <Box w={'100%'}>
                 <Tasks.List
-                   group_by_field={(row) =>
+                  group_by_field={(row) =>
                     row['ref_project']
                       ? row['ref_project']['ref_team']['name']
                       : row['ref_team']['name']
@@ -133,9 +132,9 @@ export default () => {
           </TabPanel>
           <TabPanel>
             {currentTab === 3 && (
-              <Box w={'100%'} p={2}>
+              <Box w={'100%'}>
                 <Tasks.List
-                   group_by_field={(row) =>
+                  group_by_field={(row) =>
                     row['ref_project']
                       ? row['ref_project']['ref_team']['name']
                       : row['ref_team']['name']
@@ -152,9 +151,9 @@ export default () => {
           </TabPanel>
           <TabPanel>
             {currentTab === 4 && (
-              <Box w={'100%'} p={2}>
+              <Box w={'100%'}>
                 <Tasks.List
-                   group_by_field={(row) =>
+                  group_by_field={(row) =>
                     row['ref_project']
                       ? row['ref_project']['ref_team']['name']
                       : row['ref_team']['name']
@@ -164,7 +163,7 @@ export default () => {
                     due_date: 'asc',
                   }}
                   showFilterBar
-                  where={{ _and: [] }}
+                  where={{ _and: [{ parent_id: { _is_null: true } }] }}
                 />
               </Box>
             )}

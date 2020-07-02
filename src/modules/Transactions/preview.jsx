@@ -1,16 +1,14 @@
 import { Box, IconButton, Stack, Collapse, Badge, Text } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import moment from 'moment';
+import Delete from 'src/containers/actions/delete';
 import useMutation from 'src/hooks/graphql/useMutation';
 import Form from './form';
 import ListItem from 'src/containers/collection/list/ListItem';
 
 export default ({ record }) => {
   const [show, setShow] = useState(false);
-  const mutate = useMutation({
-    resource: 'transactions',
-    operation: 'delete',
-  });
+
   const handleToggle = () => setShow(!show);
   return (
     <ListItem expand={show}>
@@ -49,18 +47,7 @@ export default ({ record }) => {
         <Box>
           <Badge variantColor={'brand'}>{record.team}</Badge>
         </Box>
-        <IconButton
-          variant={'ghost'}
-          variantColor={'red'}
-          ml={2}
-          size={'sm'}
-          icon={'delete'}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            mutate({ variables: { where: { id: { _eq: record.id } } } });
-          }}
-        />
+        <Delete resource={'transactions'} id={record.id} />
       </Stack>
       <Collapse isOpen={show}>
         <Form model={record} />

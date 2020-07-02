@@ -27,8 +27,8 @@ export default ({ data, preview, group_by_field, ...rest }) => {
               <Text fontSize={14} textTransform={'uppercase'} color={'#77808F'}>
                 {key}
               </Text>
-              <Card p={3}>
-                <Section data={groupedData[key]} preview={preview} {...rest}/>
+              <Card>
+                <Section data={groupedData[key]} preview={preview} {...rest} />
               </Card>
             </Stack>
           );

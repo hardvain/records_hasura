@@ -19,6 +19,7 @@ import {
 import Link from 'next/link';
 import Router from 'next/router';
 import React, { useState } from 'react';
+import Delete from 'src/containers/actions/delete';
 import useMutation from 'src/hooks/graphql/useMutation';
 import Form from './form';
 import ListItem from 'src/containers/collection/list/ListItem';
@@ -33,10 +34,6 @@ export default ({ record }) => {
   const handleToggle = () => setShow(!show);
   const { colorMode } = useColorMode();
 
-  const mutate = useMutation({
-    resource: 'projects',
-    operation: 'delete',
-  });
   return (
     <ListItem highlight>
       <Link as={`/projects/${record.id}`} href={`/projects/[id]`}>
@@ -54,18 +51,7 @@ export default ({ record }) => {
            </Tooltip>
          </Box>
           <Box flex={5} />
-          <IconButton
-            flex={1}
-            ml={2}
-            variant={'ghost'}
-            size={'sm'}
-            icon={'delete'}
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              mutate({ variables: { where: { id: { _eq: record.id } } } });
-            }}
-          />
+          <Delete resource={'projects'} id={record.id} />
         </Stack>
       </Link>
 

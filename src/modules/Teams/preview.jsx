@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import Delete from 'src/containers/actions/delete';
 import useMutation from 'src/hooks/graphql/useMutation';
 import Form from './form';
 import ListItem from 'src/containers/collection/list/ListItem';
@@ -20,12 +21,7 @@ export default ({ record }) => {
     (t) => t.status === 'completed'
   ).length;
   const progress = (completedTasks * 100) / totalTasks;
-  const [show, setShow] = useState(false);
-  const handleToggle = () => setShow(!show);
-  const mutate = useMutation({
-    resource: 'teams',
-    operation: 'delete',
-  });
+
   return (
     <ListItem>
       <Link href={`/teams/[id]`} as={`/teams/${record?.id}`}>
@@ -54,18 +50,7 @@ export default ({ record }) => {
             />
           </Stack>
           <Box flex={5} />
-          <IconButton
-            flex={2}
-            ml={2}
-            variant={'ghost'}
-            size={'sm'}
-            icon={'delete'}
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              mutate({ variables: { where: { id: { _eq: record.id } } } });
-            }}
-          />
+          <Delete resource={'teams'} id={record.id} />
         </Stack>
       </Link>
     </ListItem>

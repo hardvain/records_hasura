@@ -9,20 +9,19 @@ import {
 import React, { useState } from 'react';
 import moment from 'moment';
 import useMutation from 'src/hooks/graphql/useMutation';
+import Delete from 'src/containers/actions/delete';
 import Form from './form';
 import ListItem from 'src/containers/collection/list/ListItem';
 export default ({ record }) => {
   const [show, setShow] = useState(false);
-  const mutate = useMutation({
-    resource: 'thoughts',
-    operation: 'delete',
-  });
+
   const handleToggle = () => setShow(!show);
   return (
     <ListItem expand={show}>
       <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
         <IconButton
           mr={0}
+          size={'xs'}
           variant={'ghost'}
           icon={show ? 'chevron-down' : 'chevron-right'}
           onClick={(e) => {
@@ -33,16 +32,7 @@ export default ({ record }) => {
         />
         <Text>{record.name}</Text>
         <Box flexGrow={1} />
-        <IconButton
-          ml={2}
-          size={'sm'}
-          icon={'delete'}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            mutate({ variables: { where: { id: { _eq: record.id } } } });
-          }}
-        />
+        <Delete resource={'thoughts'} id={record.id} />
       </Stack>
       <Collapse isOpen={show}>
         <Divider />

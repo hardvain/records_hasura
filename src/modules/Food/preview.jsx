@@ -21,15 +21,12 @@ import {
 import Link from 'next/link';
 import React, { useState } from 'react';
 import moment from 'moment';
+import Delete from 'src/containers/actions/delete';
 import useMutation from 'src/hooks/graphql/useMutation';
 import Form from './form';
 import ListItem from 'src/containers/collection/list/ListItem';
 import { BsArrowUp, BsArrowDown } from 'react-icons/bs';
 export default ({ record }) => {
-  const mutate = useMutation({
-    resource: 'food',
-    operation: 'delete',
-  });
 
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
@@ -59,16 +56,7 @@ export default ({ record }) => {
           </Stack>
         </Stack>
         <Box flexGrow={1}></Box>
-        <IconButton
-          ml={2}
-          size={'sm'}
-          icon={'delete'}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            mutate({ variables: { where: { id: { _eq: record.id } } } });
-          }}
-        />
+        <Delete resource={'food'} id={record.id} />
       </Stack>
       <Drawer
         size={'xl'}

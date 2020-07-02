@@ -217,7 +217,7 @@ export default ({
     : [];
   const graphqlFilters = constructFilters(rootFilter);
   return (
-    <Box>
+    <Box my={2}>
       {fields.length > 0 && (
         <Stack>
           {showFilterBar && (

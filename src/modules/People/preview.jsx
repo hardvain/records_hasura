@@ -1,15 +1,13 @@
 import { Box, IconButton, Stack, Collapse, Divider, Text } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import moment from 'moment';
+import Delete from 'src/containers/actions/delete';
 import useMutation from 'src/hooks/graphql/useMutation';
 import Form from './form';
 import ListItem from 'src/containers/collection/list/ListItem';
 export default ({ record }) => {
   const [show, setShow] = useState(false);
-  const mutate = useMutation({
-    resource: 'people',
-    operation: 'delete',
-  });
+
   const handleToggle = () => setShow(!show);
   return (
     <ListItem expand={show}>
@@ -26,16 +24,7 @@ export default ({ record }) => {
         />
         <Text>{record.name}</Text>
         <Box flexGrow={1}/>
-        <IconButton
-          ml={2}
-          size={'sm'}
-          icon={'delete'}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            mutate({ variables: { where: { id: { _eq: record.id } } } });
-          }}
-        />
+        <Delete resource={'people'} id={record.id} />
       </Stack>
       <Collapse isOpen={show}>
         <Divider />

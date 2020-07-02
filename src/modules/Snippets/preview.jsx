@@ -1,5 +1,6 @@
 import { Box, Collapse, IconButton, Stack, Text } from '@chakra-ui/core';
 import Link from 'next/link';
+import Delete from 'src/containers/actions/delete';
 
 import Snippets from './index';
 import React, { useState } from 'react';
@@ -8,10 +9,7 @@ import ListItem from 'src/containers/collection/list/ListItem';
 export default ({ record }) => {
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
-  const mutate = useMutation({
-    resource: 'snippets',
-    operation: 'delete',
-  });
+
   return (
     <ListItem py={1}>
       <Stack
@@ -29,18 +27,7 @@ export default ({ record }) => {
         <Box flexGrow={1} textAlign={'initial'}>
           <Text fontSize={'md'}>{record.name}</Text>
         </Box>
-
-        <IconButton
-          ml={2}
-          variant={'ghost'}
-          size={'sm'}
-          icon={'delete'}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            mutate({ variables: { where: { id: { _eq: record.id } } } });
-          }}
-        />
+        <Delete resource={'snippets'} id={record.id} />
       </Stack>
       <Collapse isOpen={show}>
         <Snippets.Form model={record} />
