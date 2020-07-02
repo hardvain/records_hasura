@@ -80,9 +80,16 @@ export default () => {
       <Box alignItems={'center'} cursor={'pointer'}>
         <NextLink href="/" as={`/`}>
           <Box alignSelf={'center'} mr={4}>
-            <Logo width={30} height={30}/>
+            <Logo width={30} height={30} />
           </Box>
         </NextLink>
+      </Box>
+      <Box>
+        <Link href="/inbox" as={`/inbox`}>
+          <Button variant={'ghost'} size={'sm'} mr={4}>
+            Inbox
+          </Button>
+        </Link>
       </Box>
       <Box>
         <Link href="/tasks" as={`/tasks`}>
@@ -91,13 +98,7 @@ export default () => {
           </Button>
         </Link>
       </Box>
-      <Box>
-        <Link href="/projects" as={`/projects`}>
-          <Button variant={'ghost'} size={'sm'} mr={4}>
-            Projects
-          </Button>
-        </Link>
-      </Box>
+
       <Box>
         <Link href="/calendar" as={`/calendar`}>
           <Button variant={'ghost'} size={'sm'} mr={4}>
@@ -117,7 +118,9 @@ export default () => {
           </ChakraMenuButton>
           <MenuList bg={colorMode === 'light' ? 'white' : '#3e4242'}>
             <MenuItem onClick={() => toggleFormPopup('inbox')}>Inbox</MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('thoughts')}>Thoughts</MenuItem>
+            <MenuItem onClick={() => toggleFormPopup('thoughts')}>
+              Thoughts
+            </MenuItem>
             <MenuItem onClick={() => toggleFormPopup('tasks')}>Task</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('water')}>Water</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('food')}>Food</MenuItem>
@@ -136,7 +139,7 @@ export default () => {
               Snippets
             </MenuItem>
 
-            <Divider/>
+            <Divider />
             <MenuItem onClick={() => toggleFormPopup('teams')}>Team</MenuItem>
             <MenuItem onClick={() => toggleFormPopup('projects')}>
               Project
@@ -176,8 +179,8 @@ export default () => {
               : progressPercentage > 75
               ? 'yellow'
               : progressPercentage < 25
-                ? 'red'
-                : 'orange'
+              ? 'red'
+              : 'orange'
           }
           value={todayTasksAgg ? progressPercentage : 0}
           w={200}
@@ -192,7 +195,7 @@ export default () => {
         />
       </Tooltip>
       <Link href={'/settings'}>
-        <IconButton variant="default" icon={'settings'}/>
+        <IconButton variant="default" icon={'settings'} />
       </Link>
     </Flex>
   );

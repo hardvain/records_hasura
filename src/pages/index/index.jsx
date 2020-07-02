@@ -1,29 +1,48 @@
 import { Box, Stack } from '@chakra-ui/core';
 import React from 'react';
 import Card from 'src/components/core/card';
-import TasksSummary from 'src/pages/index/TasksSummary';
-import GlucoseSummary from 'src/pages/index/GlucoseSummary';
-import WaterSummary from 'src/pages/index/WaterSummary';
-import TransactionSummary from 'src/pages/index/TransactionSummary';
+import Summary from 'src/pages/index/Summary';
+import Thoughts from 'src/pages/thoughts';
+import Glucose from 'src/pages/glucose';
+import Food from 'src/pages/food';
+import Finance from 'src/pages/transactions';
+import Dishes from 'src/pages/dishes';
+import People from 'src/pages/people';
+import Notes from 'src/pages/notes';
+import Tabs, { TabItem } from 'src/components/core/tabs';
+import Water from 'src/pages/water';
 export default () => {
   return (
-    <Box p={10}>
-      <Stack spacing={10}>
-        <Card animate highlight>
-          <TasksSummary />
-        </Card>
-        <Stack isInline spacing={10}>
-          <Card animate highlight w={'100%'}>
-            <GlucoseSummary />
-          </Card>
-          <Card animate highlight w={'100%'}>
-            <WaterSummary />
-          </Card>
-        </Stack>
-        <Card animate highlight>
-          <TransactionSummary />
-        </Card>
-      </Stack>
+    <Box>
+      <Tabs>
+        <TabItem title={'Overview'}>
+          <Summary />
+        </TabItem>
+        <TabItem title={'Thoughts'}>
+          <Thoughts />
+        </TabItem>
+        <TabItem title={'Water'}>
+          <Water />
+        </TabItem>
+        <TabItem title={'Glucose'}>
+          <Glucose />
+        </TabItem>
+        <TabItem title={'Food'}>
+          <Food />
+        </TabItem>
+        <TabItem title={'Finance'}>
+          <Finance />
+        </TabItem>
+        <TabItem title={'People'}>
+          <People />
+        </TabItem>
+        <TabItem title={'Dishes'}>
+          <Dishes />
+        </TabItem>
+        <TabItem title={'Notes'}>
+          <Notes />
+        </TabItem>
+      </Tabs>
     </Box>
   );
 };
