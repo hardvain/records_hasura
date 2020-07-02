@@ -6,6 +6,7 @@ import {
   Skeleton,
   Stack,
   Text,
+  useColorMode,
 } from '@chakra-ui/core';
 
 import Link from 'next/link';
@@ -20,6 +21,8 @@ import MonthView from './Month';
 import WeekView from './Week';
 
 const PreviewCard = ({ record }) => {
+  const { colorMode } = useColorMode();
+
   const statusColor =
     record.status === 'todo'
       ? 'yellow'
@@ -39,8 +42,9 @@ const PreviewCard = ({ record }) => {
         borderLeftWidth={1}
         borderColor={`${statusColor}.900`}
         bg={`${statusColor}.50`}
-        minHeight={100}
-        maxHeight={150}
+        color={'black'}
+        minHeight={50}
+        maxHeight={120}
       >
         <Stack>
           <Text fontSize={14}>{record.name}</Text>

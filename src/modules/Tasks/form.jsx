@@ -110,14 +110,12 @@ export default ({ model, onSubmitCallback = () => {} }) => {
         )}
         {model && model.id && (
           <StackedCardItem title={'Sub Tasks'}>
-            <Box pb={3}>
-              <Card p={2}>
-                <Tasks.List
-                  formContext={{ parent_id: model.id }}
-                  where={{ _and: [{ parent_id: { _eq: model.id } }] }}
-                />
-              </Card>
-            </Box>
+            <Card p={0}>
+              <Tasks.List
+                formContext={{ parent_id: model.id }}
+                where={{ _and: [{ parent_id: { _eq: model.id } }] }}
+              />
+            </Card>
           </StackedCardItem>
         )}
       </StackedCard>
