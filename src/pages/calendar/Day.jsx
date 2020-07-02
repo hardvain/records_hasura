@@ -92,14 +92,14 @@ export default ({ tasks, date }) => {
     resource: 'tasks',
     operation: 'update',
   });
-  const onDragEnd = (result) => {
+  const onDragEnd = async (result) => {
     const {
       draggableId,
       destination: { droppableId },
     } = result;
     const task = tasks.filter((t) => t.id === draggableId)[0];
     const newDueDate = moment(task).hours(droppableId);
-    taskUpdateMutation({
+    await taskUpdateMutation({
       variables: {
         object: { ...task, due_date: newDueDate },
         where: { id: { _eq: task?.id } },
