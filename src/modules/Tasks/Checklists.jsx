@@ -36,9 +36,7 @@ const Checklists = ({ checklist, setChecklist }) => {
   };
 
   return (
-    <Stack spacing={2} flex={1}>
-      <Text fontSize={12}>Checklists</Text>
-
+    <Stack spacing={0} flex={1}>
       {checklist.map((item, index) => (
         <PseudoBox
           px={2}
@@ -48,13 +46,14 @@ const Checklists = ({ checklist, setChecklist }) => {
           <Stack isInline key={index}>
             <Checkbox
               variantColor={'brand'}
-              size={'lg'}
+              size={'xs'}
               isChecked={item?.isChecked}
               onChange={(e) =>
                 setChecklistItem(e.target.checked, 'isChecked', index)
               }
             />
             <Input
+              size={'xs'}
               flexGrow={1}
               variant={'unstyled'}
               textDecoration={item?.isChecked ? 'line-through' : ''}
@@ -62,7 +61,7 @@ const Checklists = ({ checklist, setChecklist }) => {
               onChange={(e) => setChecklistItem(e.target.value, 'value', index)}
             />
             <IconButton
-              size={'sm'}
+              size={'xs'}
               icon={'delete'}
               onClick={() => deleteChecklistItem(index)}
             />

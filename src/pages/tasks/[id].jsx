@@ -24,9 +24,9 @@ export default () => {
     ],
   });
   return task ? (
-    <Card m={3} shadow p={5}>
+    <Box m={3} shadow p={5}>
       <Tasks.Form model={task[0]} />
-    </Card>
+    </Box>
   ) : (
     <Skeleton />
   );

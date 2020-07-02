@@ -5,11 +5,15 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  Icon, IconButton,
+  Stack,
+  Text,
   useColorMode,
 } from '@chakra-ui/core';
+import Link from 'next/link';
 import React from 'react';
-
-export default ({ show, setShow, title, children }) => {
+import { MdFullscreen } from 'react-icons/md';
+export default ({ show, setShow, title, children, href, as }) => {
   const { colorMode } = useColorMode();
 
   return (
@@ -26,11 +30,14 @@ export default ({ show, setShow, title, children }) => {
         overflowY={'scroll'}
         bg={colorMode === 'light' ? 'white' : '#333'}
       >
-        <DrawerHeader>{title}</DrawerHeader>
+        <DrawerHeader>
+          <Stack isInline>
+            <Text flexGrow={1}>{title}</Text>
+            <Link href={href} as={as}><IconButton onClick={e => e.stopPropagation()} variant={"ghost"} icon={MdFullscreen} /></Link>
+          </Stack>
+        </DrawerHeader>
 
-        <DrawerBody>
-          {children}
-        </DrawerBody>
+        <DrawerBody>{show && children}</DrawerBody>
       </DrawerContent>
     </Drawer>
   );

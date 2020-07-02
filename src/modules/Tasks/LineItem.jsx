@@ -16,6 +16,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import Drawer from 'src/components/drawer';
 import moment from 'moment';
+import Delete from 'src/containers/actions/delete';
 import { useStore } from 'src/store';
 import Tasks from './index';
 import useMutation from 'src/hooks/graphql/useMutation';
@@ -140,22 +141,18 @@ export default ({ record, index, expandAll, indent = 0 }) => {
           <Box flex={2} mx={2} textAlign={'right'}>
             <Badge variantColor={statusColor}>{record?.status}</Badge>
           </Box>
-          <Box flex={1}>
-            <IconButton
-              size={'xs'}
-              variant={'link'}
-              icon={'delete'}
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                deleteMutate({
-                  variables: { where: { id: { _eq: record.id } } },
-                });
-              }}
-            />
+          <Box flex={1} ml={2}>
+            <Delete resource={'tasks'} id={record.id} />
           </Box>
         </Stack>
-        <Drawer size={'xl'} title={record.name} show={show} setShow={setShow}>
+        <Drawer
+          size={'xl'}
+          title={record.name}
+          show={show}
+          setShow={setShow}
+          href={`/tasks/[id]`}
+          as={`/tasks/${record?.id}`}
+        >
           <Tasks.Form model={record} />
         </Drawer>
       </ListItem>

@@ -39,67 +39,63 @@ export default () => {
     setNewFormContext({ project_id: project[0]?.id });
     toggleFormPopup('tasks');
   };
-  return (
-    <Stack>
-      {project ? (
-        <Stack m={0}>
-          <Card
-            id={'card'}
-            mt={0}
-            borderLeftWidth={0}
-            borderRadius={0}
-            pb={0}
-            mb={0}
-          >
-            <Stack isInline spacing={10} p={5}>
-              <Box p={5} pb={10} flexGrow={1}>
-                <Heading size={'md'}>{project[0].name}</Heading>
-              </Box>
-              <Button size={'sm'} onClick={() => setShowForm(!showForm)}>
-                Edit
-              </Button>
-            </Stack>
-            {showForm && (
-              <Box p={5}>
-                <Projects.Form model={project[0]} showList={false} />
-              </Box>
-            )}
-            <Stack m={5} isInline float={'right'}>
-              <Button
-                variant={'solid'}
-                variantColor={'brand'}
-                leftIcon={'small-add'}
-                size={'sm'}
-                onClick={addTask}
-              >
-                Add Task
-              </Button>
-              <Button
-                variant={'outline'}
-                variantColor={'brand'}
-                size={'sm'}
-                onClick={() => setExpandAll(!expandAll)}
-              >
-                Toggle Sub Tasks
-              </Button>
-            </Stack>
-          </Card>
-
-          <Card m={5} borderRadius={5} shadow={'lg'}>
-            <Tasks.List
-              expandAll={expandAll}
-              where={{
-                _and: [
-                  { project_id: { _eq: project[0].id } },
-                  { parent_id: { _is_null: true } },
-                ],
-              }}
-            />
-          </Card>
+  return project ? (
+    <Stack m={0}>
+      <Card
+        id={'card'}
+        mt={0}
+        borderLeftWidth={0}
+        borderRadius={0}
+        pb={0}
+        mb={0}
+      >
+        <Stack isInline spacing={10} p={5}>
+          <Box p={5} pb={10} flexGrow={1}>
+            <Heading size={'md'}>{project[0].name}</Heading>
+          </Box>
+          <Button variant={'ghost'} variantColor={'brand'} size={'sm'} onClick={() => setShowForm(!showForm)}>
+            Edit
+          </Button>
         </Stack>
-      ) : (
-        <Skeleton />
-      )}
+        {showForm && (
+          <Box p={5}>
+            <Projects.Form model={project[0]} showList={false} />
+          </Box>
+        )}
+        <Stack m={5} isInline float={'right'}>
+          <Button
+            variant={'solid'}
+            variantColor={'brand'}
+            leftIcon={'small-add'}
+            size={'sm'}
+            onClick={addTask}
+          >
+            Add Task
+          </Button>
+          <Button
+            variant={'ghost'}
+            variantColor={'brand'}
+            size={'sm'}
+            onClick={() => setExpandAll(!expandAll)}
+          >
+            Toggle Sub Tasks
+          </Button>
+        </Stack>
+      </Card>
+
+      <Card m={5} p={0} borderRadius={5}>
+        <Tasks.List
+          expandAll={expandAll}
+          where={{
+            _and: [
+              { project_id: { _eq: project[0].id } },
+              { parent_id: { _is_null: true } },
+            ],
+          }}
+        />
+      </Card>
     </Stack>
+  ) : (
+    <Skeleton />
   );
 };

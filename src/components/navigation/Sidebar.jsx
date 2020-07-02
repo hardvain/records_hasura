@@ -55,7 +55,7 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
             ? 'brand.500'
             : 'brand.200'
           : colorMode === 'light'
-          ? '#77808F'
+          ? 'gray.700'
           : 'white'
       }
       onMouseEnter={() => setIsHovering(true)}
@@ -114,7 +114,7 @@ export default () => {
       pt={5}
       direction={'column'}
       w={showSidebar ? 250 : 50}
-      bg={colorMode === 'light' ? '#F5F6FC' : '#232626'}
+      bg={colorMode === 'light' ? '#fff' : '#333'}
       position={'fixed'}
       height={'100%'}
       borderRightWidth={1}
