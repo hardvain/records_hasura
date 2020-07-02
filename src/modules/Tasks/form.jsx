@@ -169,6 +169,7 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
                 >
                   <Stack isInline key={index}>
                     <Checkbox
+                      variantColor={'brand'}
                       size={'lg'}
                       isChecked={item?.isChecked}
                       onChange={(e) =>

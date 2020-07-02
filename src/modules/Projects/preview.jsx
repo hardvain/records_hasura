@@ -38,7 +38,7 @@ export default ({ record }) => {
     operation: 'delete',
   });
   return (
-    <ListItem>
+    <ListItem highlight>
       <Link as={`/projects/${record.id}`} href={`/projects/[id]`}>
         <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
           <Box flex={10} textAlign={'initial'}>

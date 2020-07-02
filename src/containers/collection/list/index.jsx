@@ -23,7 +23,7 @@ export default ({ data, preview, group_by_field, ...rest }) => {
       <Box>
         {Object.keys(groupedData).map((key) => {
           return (
-            <Stack spacing={5} mt={3} key={key}>
+            <Stack spacing={5} mt={3} key={key} mb={8}>
               <Text fontSize={14} textTransform={'uppercase'} color={'#77808F'}>
                 {key}
               </Text>

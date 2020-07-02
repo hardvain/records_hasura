@@ -137,3 +137,21 @@ a:hover {
   background: #333 !important;
   color: white !important;
 }
+
+.react-select .react-select-container{
+  background: #333;
+}
+.react-select .react-select__control{
+  background: #333;
+  border-color: transparent !important;
+}
+.react-select .react-select__menu{
+  background: #333;
+}
+
+.react-select .react-select__menu-list{
+  background: #333;
+}
+.react-select .react-select__option{
+  color: white;
+}

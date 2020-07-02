@@ -5,7 +5,7 @@ export const [useStore, api] = create((set, get) => ({
     date: moment(),
     user_id: undefined,
     recordType: 'tasks',
-    showSidebar: false,
+    showSidebar: true,
     newFormContext: undefined,
     currentTeam: 'all',
     showFormPopup: false,

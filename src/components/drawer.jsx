@@ -26,7 +26,6 @@ export default ({ show, setShow, title, children }) => {
         overflowY={'scroll'}
         bg={colorMode === 'light' ? 'white' : '#333'}
       >
-        <DrawerCloseButton />
         <DrawerHeader>{title}</DrawerHeader>
 
         <DrawerBody>

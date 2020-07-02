@@ -64,27 +64,28 @@ export default () => {
                 <Projects.Form model={project[0]} showList={false} />
               </Box>
             )}
+            <Stack m={5} isInline float={'right'}>
+              <Button
+                variant={'solid'}
+                variantColor={'brand'}
+                leftIcon={'small-add'}
+                size={'sm'}
+                onClick={addTask}
+              >
+                Add Task
+              </Button>
+              <Button
+                variant={'outline'}
+                variantColor={'brand'}
+                size={'sm'}
+                onClick={() => setExpandAll(!expandAll)}
+              >
+                Toggle Sub Tasks
+              </Button>
+            </Stack>
           </Card>
-          <Stack m={5} isInline>
-            <Button
-              variant={'solid'}
-              variantColor={'brand'}
-              leftIcon={'small-add'}
-              size={'sm'}
-              onClick={addTask}
-            >
-              Add Task
-            </Button>
-            <Button
-              variant={'outline'}
-              variantColor={'brand'}
-              size={'sm'}
-              onClick={() => setExpandAll(!expandAll)}
-            >
-              Toggle Sub Tasks
-            </Button>
-          </Stack>
-          <Card m={5} borderRadius={5} shadow={'none'}>
+
+          <Card m={5} borderRadius={5} shadow={'lg'}>
             <Tasks.List
               expandAll={expandAll}
               where={{

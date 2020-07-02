@@ -25,7 +25,7 @@ export default ({ model, onSubmitCallback = () => {}, formContext = {} }) => {
     operation,
   });
   const snippetMutation = useMutation({
-    resource: 'associated_snippets',
+    resource: 'snippets_mapping',
     operation: 'insert',
   });
   const onSelectSnippet = (id) => {

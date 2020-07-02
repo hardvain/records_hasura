@@ -2,7 +2,6 @@ import Form from './form';
 import Collection from 'src/containers/collection';
 import LineItem from './LineItem';
 import Preview from './preview';
-import Board from './Board';
 export const fields = [
   'id',
   'name',
@@ -77,12 +76,14 @@ const schema = {
 };
 
 const List = (props) => {
-  return <Collection
-    resource={'tasks'}
-    fields={fields}
-    preview={LineItem}
-    {...props}
-  />
-}
+  return (
+    <Collection
+      resource={'tasks'}
+      fields={fields}
+      preview={LineItem}
+      {...props}
+    />
+  );
+};
 
-export default { Form, List, schema, Board, Preview };
+export default { Form, List, schema, Preview };

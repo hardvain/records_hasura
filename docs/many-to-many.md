@@ -1,0 +1,1 @@
+* Each module, should have a hook before being saved

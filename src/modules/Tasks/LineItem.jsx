@@ -10,6 +10,7 @@ import {
   Tooltip,
   Grid,
   Badge,
+  PseudoBox,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -59,7 +60,7 @@ export default ({ record, index, expandAll, indent = 0 }) => {
         : '#232626'
       : '';
   return (
-    <Stack m={0} p={0} spacing={0} bg={background}>
+    <Stack m={0} p={0} spacing={0}>
       <ListItem
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -67,7 +68,6 @@ export default ({ record, index, expandAll, indent = 0 }) => {
         borderLeftWidth={0}
         borderBottomWidth={1}
         cursor={'pointer'}
-        bg={background}
         px={3}
         py={2}
         onClick={(e) => {
@@ -102,23 +102,22 @@ export default ({ record, index, expandAll, indent = 0 }) => {
               </Text>
             </Box>
 
-            <Box>
-              {isHovered && (
-                <Button
-                  leftIcon={'small-add'}
-                  variant={'link'}
-                  variantColor={'brand'}
-                  size={'xs'}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    addSubTask(record);
-                  }}
-                >
-                  Add Sub Task
-                </Button>
-              )}
-            </Box>
+            <PseudoBox>
+              <Button
+                visibility={isHovered ? 'visible' : 'hidden'}
+                leftIcon={'small-add'}
+                variant={'link'}
+                variantColor={'brand'}
+                size={'xs'}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  addSubTask(record);
+                }}
+              >
+                Add Sub Task
+              </Button>
+            </PseudoBox>
             <Box>{isToday && <Badge variantColor={'brand'}>Today</Badge>}</Box>
           </Stack>
           <Box flex={3} mr={2}>
@@ -163,7 +162,7 @@ export default ({ record, index, expandAll, indent = 0 }) => {
       {showSubTasks && (
         <Box>
           <Tasks.List
-            indent={indent + 10}
+            indent={indent + 5}
             where={{ _and: [{ parent_id: { _eq: record?.id } }] }}
             expandAll={expandAll}
           />

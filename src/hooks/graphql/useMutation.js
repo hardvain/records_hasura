@@ -26,7 +26,6 @@ export default ({ resource, operation = 'insert' }) => {
       return (params) => {
         delete params.variables.object['__typename'];
         delete params.variables.where;
-        console.log(params.variables)
         return mutate(params);
       };
     } else if (operation === 'update') {
