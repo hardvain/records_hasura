@@ -157,7 +157,7 @@ export default ({ record, index, expandAll }) => {
           </Box>
         </Stack>
         <Drawer size={'xl'} title={record.name} show={show} setShow={setShow}>
-          <Tasks.Preview model={record} />
+          <Tasks.Form model={record} />
         </Drawer>
       </ListItem>
       {showSubTasks && (

@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import Tasks from './index';
-import Card from 'src/components/core/card'
+import Card from 'src/components/core/card';
 import { useForm, Controller, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import Field from 'src/components/forms/Field';
@@ -121,13 +121,22 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
         <Stack isInline spacing={10} mb={5}>
           <Stack flex={2}>
             <Field name={'name'} mb={5} />
-            <Field rows={10} name={'description'} schema={Tasks.schema} height={300} />
+            <Field
+              rows={10}
+              name={'description'}
+              schema={Tasks.schema}
+              height={300}
+            />
           </Stack>
           <Stack flex={1}>
             <Field name={'due_date'} flex={1} />
             <Field name={'priority'} flex={1} />
             <Field name={'status'} flex={1} />
-            <Field flex={1} name={'parent_id'} />
+            <Field
+              flex={1}
+              name={'parent_id'}
+              where={{ _and: [{ project_id: { _eq: model?.project_id } }] }}
+            />
             <Field flex={1} name={'project_id'} />
             {<Field flex={1} name={'team_id'} disabled={model?.project_id} />}
             <Field name={'people_id'} flex={1} />
