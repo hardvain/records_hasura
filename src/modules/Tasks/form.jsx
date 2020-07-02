@@ -147,16 +147,18 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
             <Field name={'people_id'} flex={1} />
           </Stack>
         </Stack>
-        <Button
-          my={5}
-          type="submit"
-          variant={'solid'}
-          variantColor={'brand'}
-          size={'sm'}
-          onClick={onSubmit}
-        >
-          {model?.id ? 'Update' : 'Create'}
-        </Button>
+        {!model?.id && (
+          <Button
+            my={5}
+            type="submit"
+            variant={'solid'}
+            variantColor={'brand'}
+            size={'sm'}
+            onClick={onSubmit}
+          >
+            Create
+          </Button>
+        )}
         {model && model.id && (
           <Stack isInline spacing={10}>
             <Stack spacing={2} flex={1}>

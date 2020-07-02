@@ -5,9 +5,9 @@ import _ from 'lodash';
 import useMutation from 'src/hooks/graphql/useMutation';
 
 export default ({ name, options, ...rest }) => {
-  const delayedQuery = _.debounce((q) => update(q), 2000);
+  const delayedQuery = _.debounce((q) => update(q), 300);
   const { control, resource, id } = useFormContext(); // methods contain all useForm functions
-  const mutate = useMutation({ resource, operation: 'update' });
+  const mutate = useMutation({ resource, operation: 'update', silent: true });
   const update = (value) => {
     if (id) {
       mutate({
