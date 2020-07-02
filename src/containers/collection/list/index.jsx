@@ -5,16 +5,18 @@ const MotionBox = motion.custom(Box);
 import Card from 'src/components/core/card';
 import { groupBy } from 'src/utils';
 
-const Section = ({ data, preview }) => {
+const Section = ({ data, preview, ...rest }) => {
   return (
     <MotionBox>
-      {data.map((record,index) => (
-        <div key={record.id}>{createElement(preview, { record,index })}</div>
+      {data.map((record, index) => (
+        <div key={record.id}>
+          {createElement(preview, { record, index, ...rest })}
+        </div>
       ))}
     </MotionBox>
   );
 };
-export default ({ data, preview, group_by_field }) => {
+export default ({ data, preview, group_by_field, ...rest }) => {
   if (group_by_field) {
     const groupedData = groupBy(data, group_by_field);
     return (
@@ -25,13 +27,15 @@ export default ({ data, preview, group_by_field }) => {
               <Text fontSize={14} textTransform={'uppercase'} color={'#77808F'}>
                 {key}
               </Text>
-              <Section data={groupedData[key]} preview={preview} />;
+              <Card p={3}>
+                <Section data={groupedData[key]} preview={preview} {...rest}/>
+              </Card>
             </Stack>
           );
         })}
       </Box>
     );
   } else {
-    return <Section data={data} preview={preview} />;
+    return <Section data={data} preview={preview} {...rest} />;
   }
 };

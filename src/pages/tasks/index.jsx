@@ -15,6 +15,7 @@ import {
   useColorMode,
   Flex,
 } from '@chakra-ui/core';
+import Card from 'src/components/core/card'
 import React, { useEffect, useState } from 'react';
 import Tasks from 'src/modules/Tasks';
 import moment from 'moment';
@@ -60,18 +61,6 @@ export default () => {
             >
               All
             </Tab>
-            <Tab
-              onClick={() => setCurrentTab(5)}
-              color={colorMode === 'light' ? 'gray.800' : 'white'}
-            >
-              Tenure Policy
-            </Tab>
-            <Tab
-              onClick={() => setCurrentTab(6)}
-              color={colorMode === 'light' ? 'gray.800' : 'white'}
-            >
-              Records App
-            </Tab>
           </TabList>
           <Box flexGrow={1} />
           <InputGroup>
@@ -87,6 +76,7 @@ export default () => {
           <TabPanel>
             {currentTab === 0 && (
               <Box w={'100%'} p={2}>
+                <Card></Card>
                 <Tasks.List
                   group_by_field={(row) =>
                     row['ref_project']
@@ -175,55 +165,6 @@ export default () => {
                   }}
                   showFilterBar
                   where={{ _and: [] }}
-                />
-              </Box>
-            )}
-          </TabPanel>
-          <TabPanel>
-            {currentTab === 5 && (
-              <Box w={'100%'} p={2}>
-                <Tasks.List
-                  order_by={{
-                    due_date: 'asc',
-                  }}
-                  showFilterBar
-                  where={{
-                    _and: [
-                      {
-                        project_id: {
-                          _eq: '3a0ec3a0-75cd-4642-bff4-6075a9aef177',
-                        },
-                      },
-                      {
-                        parent_id: {
-                          _is_null: true,
-                        },
-                      },
-                      { status: { _neq: 'completed' } },
-                    ],
-                  }}
-                />
-              </Box>
-            )}
-          </TabPanel>
-          <TabPanel>
-            {currentTab === 6 && (
-              <Box w={'100%'} p={2}>
-                <Tasks.List
-                  order_by={{
-                    due_date: 'asc',
-                  }}
-                  showFilterBar
-                  where={{
-                    _and: [
-                      {
-                        project_id: {
-                          _eq: 'e4fa423c-9eda-48f8-a509-11e161675dab',
-                        },
-                      },
-                      { status: { _neq: 'completed' } },
-                    ],
-                  }}
                 />
               </Box>
             )}

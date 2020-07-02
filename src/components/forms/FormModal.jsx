@@ -8,7 +8,8 @@ import {
   Box,
   useColorMode,
   Divider,
-  Stack, SimpleGrid,
+  Stack,
+  SimpleGrid,
 } from '@chakra-ui/core';
 import { useState } from 'react';
 import { IoIosPeople } from 'react-icons/io';
@@ -108,176 +109,178 @@ export default () => {
           shadow={'md'}
           bg={colorMode === 'light' ? 'white' : '#333'}
         >
-          <SimpleGrid columns={6} spacing={10}>
-            <Box
-              borderColor={recordType === 'thoughts' ? 'brand.500' : ''}
-              bg={recordType === 'thoughts' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('thoughts')}
-              cursor={'pointer'}
-              mr={2}
-              borderRadius={35}
-              borderWidth={recordType === 'thoughts' ? 2 : 1}
-              p={5}
-            >
-              <Box as={RiLightbulbFlashLine} w={30} h={30} />
-            </Box>
-            <Box
-              borderColor={recordType === 'inbox' ? 'brand.500' : ''}
-              bg={recordType === 'inbox' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('inbox')}
-              cursor={'pointer'}
-              mr={2}
-              borderRadius={35}
-              borderWidth={recordType === 'inbox' ? 2 : 1}
-              p={5}
-            >
-              <Box as={FiInbox} w={30} h={30} />
-            </Box>
-            <Box
-              borderColor={recordType === 'tasks' ? 'brand.500' : ''}
-              bg={recordType === 'tasks' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('tasks')}
-              cursor={'pointer'}
-              mr={2}
-              borderRadius={35}
-              borderWidth={recordType === 'task' ? 2 : 1}
-              p={5}
-            >
-              <Box as={FaTasks} w={30} h={30} />
-            </Box>
-            <Box
-              borderColor={recordType === 'transactions' ? 'brand.500' : ''}
-              bg={recordType === 'transactions' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('transactions')}
-              cursor={'pointer'}
-              mr={2}
-              borderRadius={35}
-              borderWidth={1}
-              p={5}
-            >
-              <Box as={GiMoneyStack} w={30} h={30} />
-            </Box>
-            <Box
-              borderColor={recordType === 'glucose' ? 'brand.500' : ''}
-              bg={recordType === 'glucose' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('glucose')}
-              cursor={'pointer'}
-              mr={2}
-              borderRadius={35}
-              borderWidth={1}
-              p={5}
-            >
-              <Box as={GiSugarCane} w={30} h={30} />
-            </Box>
-            <Box
-              borderColor={recordType === 'food' ? 'brand.500' : ''}
-              bg={recordType === 'food' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('food')}
-              cursor={'pointer'}
-              mr={2}
-              borderRadius={35}
-              borderWidth={1}
-              p={5}
-            >
-              <Box as={GiFruitBowl} w={30} h={30} />
-            </Box>
-            <Box
-              borderColor={recordType === 'water' ? 'brand.500' : ''}
-              bg={recordType === 'water' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('water')}
-              cursor={'pointer'}
-              mr={2}
-              borderRadius={35}
-              borderWidth={1}
-              p={5}
-            >
-              <Box as={GiWaterDrop} w={30} h={30} />
-            </Box>
-            <Box
-              borderColor={recordType === 'snippets' ? 'brand.500' : ''}
-              bg={recordType === 'snippets' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('snippets')}
-              cursor={'pointer'}
-              mr={2}
-              borderRadius={35}
-              borderWidth={1}
-              p={5}
-            >
-              <Box as={GiBrain} w={30} h={30} />
-            </Box>
-            <Box
-              borderColor={recordType === 'dishes' ? 'brand.500' : ''}
-              bg={recordType === 'dishes' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('dishes')}
-              cursor={'pointer'}
-              mr={2}
-              borderRadius={35}
-              borderWidth={1}
-              p={5}
-            >
-              <Box as={FaPizzaSlice} w={30} h={30} />
-            </Box>
-            <Box
-              borderColor={recordType === 'people' ? 'brand.500' : ''}
-              bg={recordType === 'people' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('people')}
-              cursor={'pointer'}
-              mr={2}
-              borderRadius={35}
-              borderWidth={1}
-              p={5}
-            >
-              <Box as={IoIosPeople} w={30} h={30} />
-            </Box>
-            <Box
-              borderColor={recordType === 'categories' ? 'brand.500' : ''}
-              bg={recordType === 'categories' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('categories')}
-              cursor={'pointer'}
-              mr={2}
-              borderRadius={45}
-              borderWidth={1}
-              p={5}
-            >
-              <Box as={AiOutlineAppstore} w={30} h={30} />
-            </Box>
-            <Box
-              borderColor={recordType === 'projects' ? 'brand.500' : ''}
-              bg={recordType === 'projects' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('projects')}
-              cursor={'pointer'}
-              mr={2}
-              borderRadius={45}
-              borderWidth={1}
-              p={5}
-            >
-              <Box as={GoProject} w={30} h={30} />
-            </Box>
-            <Box
-              borderColor={recordType === 'teams' ? 'brand.500' : ''}
-              bg={recordType === 'teams' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('teams')}
-              cursor={'pointer'}
-              mr={2}
-              borderRadius={45}
-              borderWidth={1}
-              p={5}
-            >
-              <Box as={FiUsers} w={30} h={30} />
-            </Box>
-            <Box
-              borderColor={recordType === 'notes' ? 'brand.500' : ''}
-              bg={recordType === 'notes' ? 'brand.100' : 'none'}
-              onClick={() => setRecordType('notes')}
-              cursor={'pointer'}
-              mr={2}
-              borderRadius={45}
-              borderWidth={1}
-              p={5}
-            >
-              <Box as={FaEdit} w={30} h={30} />
-            </Box>
-          </SimpleGrid>
+          {!recordType && (
+            <SimpleGrid columns={6} spacing={10}>
+              <Box
+                borderColor={recordType === 'thoughts' ? 'brand.500' : ''}
+                bg={recordType === 'thoughts' ? 'brand.100' : 'none'}
+                onClick={() => setRecordType('thoughts')}
+                cursor={'pointer'}
+                mr={2}
+                borderRadius={35}
+                borderWidth={recordType === 'thoughts' ? 2 : 1}
+                p={5}
+              >
+                <Box as={RiLightbulbFlashLine} w={30} h={30} />
+              </Box>
+              <Box
+                borderColor={recordType === 'inbox' ? 'brand.500' : ''}
+                bg={recordType === 'inbox' ? 'brand.100' : 'none'}
+                onClick={() => setRecordType('inbox')}
+                cursor={'pointer'}
+                mr={2}
+                borderRadius={35}
+                borderWidth={recordType === 'inbox' ? 2 : 1}
+                p={5}
+              >
+                <Box as={FiInbox} w={30} h={30} />
+              </Box>
+              <Box
+                borderColor={recordType === 'tasks' ? 'brand.500' : ''}
+                bg={recordType === 'tasks' ? 'brand.100' : 'none'}
+                onClick={() => setRecordType('tasks')}
+                cursor={'pointer'}
+                mr={2}
+                borderRadius={35}
+                borderWidth={recordType === 'task' ? 2 : 1}
+                p={5}
+              >
+                <Box as={FaTasks} w={30} h={30} />
+              </Box>
+              <Box
+                borderColor={recordType === 'transactions' ? 'brand.500' : ''}
+                bg={recordType === 'transactions' ? 'brand.100' : 'none'}
+                onClick={() => setRecordType('transactions')}
+                cursor={'pointer'}
+                mr={2}
+                borderRadius={35}
+                borderWidth={1}
+                p={5}
+              >
+                <Box as={GiMoneyStack} w={30} h={30} />
+              </Box>
+              <Box
+                borderColor={recordType === 'glucose' ? 'brand.500' : ''}
+                bg={recordType === 'glucose' ? 'brand.100' : 'none'}
+                onClick={() => setRecordType('glucose')}
+                cursor={'pointer'}
+                mr={2}
+                borderRadius={35}
+                borderWidth={1}
+                p={5}
+              >
+                <Box as={GiSugarCane} w={30} h={30} />
+              </Box>
+              <Box
+                borderColor={recordType === 'food' ? 'brand.500' : ''}
+                bg={recordType === 'food' ? 'brand.100' : 'none'}
+                onClick={() => setRecordType('food')}
+                cursor={'pointer'}
+                mr={2}
+                borderRadius={35}
+                borderWidth={1}
+                p={5}
+              >
+                <Box as={GiFruitBowl} w={30} h={30} />
+              </Box>
+              <Box
+                borderColor={recordType === 'water' ? 'brand.500' : ''}
+                bg={recordType === 'water' ? 'brand.100' : 'none'}
+                onClick={() => setRecordType('water')}
+                cursor={'pointer'}
+                mr={2}
+                borderRadius={35}
+                borderWidth={1}
+                p={5}
+              >
+                <Box as={GiWaterDrop} w={30} h={30} />
+              </Box>
+              <Box
+                borderColor={recordType === 'snippets' ? 'brand.500' : ''}
+                bg={recordType === 'snippets' ? 'brand.100' : 'none'}
+                onClick={() => setRecordType('snippets')}
+                cursor={'pointer'}
+                mr={2}
+                borderRadius={35}
+                borderWidth={1}
+                p={5}
+              >
+                <Box as={GiBrain} w={30} h={30} />
+              </Box>
+              <Box
+                borderColor={recordType === 'dishes' ? 'brand.500' : ''}
+                bg={recordType === 'dishes' ? 'brand.100' : 'none'}
+                onClick={() => setRecordType('dishes')}
+                cursor={'pointer'}
+                mr={2}
+                borderRadius={35}
+                borderWidth={1}
+                p={5}
+              >
+                <Box as={FaPizzaSlice} w={30} h={30} />
+              </Box>
+              <Box
+                borderColor={recordType === 'people' ? 'brand.500' : ''}
+                bg={recordType === 'people' ? 'brand.100' : 'none'}
+                onClick={() => setRecordType('people')}
+                cursor={'pointer'}
+                mr={2}
+                borderRadius={35}
+                borderWidth={1}
+                p={5}
+              >
+                <Box as={IoIosPeople} w={30} h={30} />
+              </Box>
+              <Box
+                borderColor={recordType === 'categories' ? 'brand.500' : ''}
+                bg={recordType === 'categories' ? 'brand.100' : 'none'}
+                onClick={() => setRecordType('categories')}
+                cursor={'pointer'}
+                mr={2}
+                borderRadius={45}
+                borderWidth={1}
+                p={5}
+              >
+                <Box as={AiOutlineAppstore} w={30} h={30} />
+              </Box>
+              <Box
+                borderColor={recordType === 'projects' ? 'brand.500' : ''}
+                bg={recordType === 'projects' ? 'brand.100' : 'none'}
+                onClick={() => setRecordType('projects')}
+                cursor={'pointer'}
+                mr={2}
+                borderRadius={45}
+                borderWidth={1}
+                p={5}
+              >
+                <Box as={GoProject} w={30} h={30} />
+              </Box>
+              <Box
+                borderColor={recordType === 'teams' ? 'brand.500' : ''}
+                bg={recordType === 'teams' ? 'brand.100' : 'none'}
+                onClick={() => setRecordType('teams')}
+                cursor={'pointer'}
+                mr={2}
+                borderRadius={45}
+                borderWidth={1}
+                p={5}
+              >
+                <Box as={FiUsers} w={30} h={30} />
+              </Box>
+              <Box
+                borderColor={recordType === 'notes' ? 'brand.500' : ''}
+                bg={recordType === 'notes' ? 'brand.100' : 'none'}
+                onClick={() => setRecordType('notes')}
+                cursor={'pointer'}
+                mr={2}
+                borderRadius={45}
+                borderWidth={1}
+                p={5}
+              >
+                <Box as={FaEdit} w={30} h={30} />
+              </Box>
+            </SimpleGrid>
+          )}
           <Form onSubmitCallback={onSubmit} model={newFormContext} />
         </ModalBody>
       </ModalContent>

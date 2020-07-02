@@ -28,52 +28,46 @@ export default ({ record }) => {
   });
   return (
     <ListItem>
-      <Stack
-        py={2}
-        isInline
-        textAlign={'center'}
-        alignItems={'center'}
-        pr={4}
-        onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          handleToggle();
-        }}
-      >
-        <Box flex={6} textAlign={'initial'}>
-          <Text fontSize={'md'}>{record.name}</Text>
-        </Box>
-        <Text fontSize={14} flex={6}>
-          {projects.length} Active Project(s)
-        </Text>
-        <Stack flex={4} spacing={1} alignItems={'baseline'}>
-          <Text fontSize={12}>
-            Completed {completedTasks} out of {totalTasks} Tasks
+      <Link href={`/teams/[id]`} as={`/teams/${record?.id}`}>
+        <Stack
+          py={2}
+          isInline
+          textAlign={'center'}
+          alignItems={'center'}
+          pr={4}
+        >
+          <Box flex={6} textAlign={'initial'}>
+            <Text fontSize={'md'}>{record.name}</Text>
+          </Box>
+          <Text fontSize={14} flex={6}>
+            {projects.length} Active Project(s)
           </Text>
-          <Progress
-            color={progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'}
-            value={totalTasks ? progress : 0}
-            w={200}
-            borderRadius={5}
+          <Stack flex={4} spacing={1} alignItems={'baseline'}>
+            <Text fontSize={12}>
+              Completed {completedTasks} out of {totalTasks} Tasks
+            </Text>
+            <Progress
+              color={progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'}
+              value={totalTasks ? progress : 0}
+              w={200}
+              borderRadius={5}
+            />
+          </Stack>
+          <Box flex={5} />
+          <IconButton
+            flex={2}
+            ml={2}
+            variant={'ghost'}
+            size={'sm'}
+            icon={'delete'}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              mutate({ variables: { where: { id: { _eq: record.id } } } });
+            }}
           />
         </Stack>
-        <Box flex={5} />
-        <IconButton
-          flex={2}
-          ml={2}
-          variant={'ghost'}
-          size={'sm'}
-          icon={'delete'}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            mutate({ variables: { where: { id: { _eq: record.id } } } });
-          }}
-        />
-      </Stack>
-      <Drawer title={record.name} show={show} setShow={setShow}>
-        <Form model={record} />
-      </Drawer>
+      </Link>
     </ListItem>
   );
 };

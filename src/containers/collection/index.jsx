@@ -17,6 +17,7 @@ const FilteredCollection = ({
   group_by_field,
   showBanners = false,
   formContext = {},
+  ...rest
 }) => {
   const { toggleFormPopup, setNewFormContext } = useStore((state) => ({
     toggleFormPopup: state.toggleFormPopup,
@@ -83,7 +84,7 @@ const FilteredCollection = ({
     );
   } else {
     response = (
-      <List group_by_field={group_by_field} data={data} preview={preview} />
+      <List group_by_field={group_by_field} data={data} preview={preview} {...rest}/>
     );
   }
   return (

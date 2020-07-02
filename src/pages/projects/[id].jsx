@@ -21,6 +21,8 @@ import Tasks from 'src/modules/Tasks';
 import { useStore } from 'src/store';
 export default () => {
   const [showForm, setShowForm] = useState(false);
+  const [expandAll, setExpandAll] = useState(false);
+
   const router = useRouter();
   const { colorMode } = useColorMode();
   const { toggleFormPopup, setNewFormContext } = useStore((state) => ({
@@ -63,7 +65,7 @@ export default () => {
               </Box>
             )}
           </Card>
-          <Box m={5}>
+          <Stack m={5} isInline>
             <Button
               variant={'solid'}
               variantColor={'brand'}
@@ -73,9 +75,18 @@ export default () => {
             >
               Add Task
             </Button>
-          </Box>
+            <Button
+              variant={'outline'}
+              variantColor={'brand'}
+              size={'sm'}
+              onClick={() => setExpandAll(!expandAll)}
+            >
+              Toggle Sub Tasks
+            </Button>
+          </Stack>
           <Card m={5} borderRadius={5} shadow={'none'}>
             <Tasks.List
+              expandAll={expandAll}
               where={{
                 _and: [
                   { project_id: { _eq: project[0].id } },

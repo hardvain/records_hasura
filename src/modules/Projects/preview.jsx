@@ -14,7 +14,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton, useColorMode,
+  DrawerCloseButton, useColorMode, Tooltip,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import Router from 'next/router';
@@ -44,22 +44,16 @@ export default ({ record }) => {
           <Box flex={10} textAlign={'initial'}>
             {record.name}
           </Box>
-
-          <Stack flex={1} spacing={1} alignItems={'baseline'}>
-            <Text fontSize={12}>
-              Completed {completedTasks} out of {totalTasks} Tasks
-            </Text>
-
-            <Progress
-              color={progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'}
-              value={totalTasks ? progress : 0}
-              w={200}
-              borderRadius={5}
-            />
-          </Stack>
-
+         <Box flex={1}>
+           <Tooltip label={`Completed ${completedTasks} out of ${totalTasks} Tasks`}>
+             <Progress
+               color={progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'}
+               value={totalTasks ? progress : 0}
+               borderRadius={5}
+             />
+           </Tooltip>
+         </Box>
           <Box flex={5} />
-
           <IconButton
             flex={1}
             ml={2}

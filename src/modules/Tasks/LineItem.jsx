@@ -12,16 +12,14 @@ import {
   Badge,
 } from '@chakra-ui/core';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Drawer from 'src/components/drawer';
 import moment from 'moment';
 import { useStore } from 'src/store';
 import Tasks from './index';
 import useMutation from 'src/hooks/graphql/useMutation';
-import Form from './form';
 import ListItem from 'src/containers/collection/list/ListItem';
-import { BsArrowUp, BsArrowDown } from 'react-icons/bs';
-export default ({ record, index }) => {
+export default ({ record, index, expandAll }) => {
   const subTasks = record.ref_sub_tasks;
   const totalTasks = subTasks?.length;
   const completedTasks = (subTasks || []).filter(
@@ -30,11 +28,13 @@ export default ({ record, index }) => {
   const progress = (completedTasks * 100) / totalTasks;
   const [show, setShow] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [showSubTasks, setShowSubTasks] = useState(true);
+  const [showSubTasks, setShowSubTasks] = useState(expandAll);
   const handleToggle = () => setShow(!show);
   const { colorMode } = useColorMode();
   const deleteMutate = useMutation({ resource: 'tasks', operation: 'delete' });
-
+  useEffect(() => {
+    setShowSubTasks(expandAll);
+  }, [expandAll]);
   const { toggleFormPopup, setNewFormContext } = useStore((state) => ({
     toggleFormPopup: state.toggleFormPopup,
     setNewFormContext: state.setNewFormContext,
@@ -74,7 +74,7 @@ export default ({ record, index }) => {
         }}
       >
         <Stack isInline pr={4} alignItems={'baseline'}>
-          <Stack flex={30} isInline>
+          <Stack flex={30} isInline alignItems={'baseline'}>
             <Box mr={2}>
               {subTasks && subTasks.length > 0 && (
                 <IconButton
@@ -89,10 +89,17 @@ export default ({ record, index }) => {
                 />
               )}
             </Box>
-            <Box flexGrow={1}>{record.name}</Box>
-            <Box>
-              {isToday && <Badge variantColor={'brand'}>Today</Badge>}
+            <Box flexGrow={1}>
+              <Text
+                fontSize={15}
+                textDecoration={
+                  record?.status === 'completed' ? 'line-through' : ''
+                }
+              >
+                {record.name}
+              </Text>
             </Box>
+
             <Box>
               {isHovered && (
                 <Button
@@ -110,6 +117,7 @@ export default ({ record, index }) => {
                 </Button>
               )}
             </Box>
+            <Box>{isToday && <Badge variantColor={'brand'}>Today</Badge>}</Box>
           </Stack>
           <Box flex={3} mr={2}>
             {totalTasks > 0 && (
@@ -151,8 +159,11 @@ export default ({ record, index }) => {
         </Drawer>
       </ListItem>
       {showSubTasks && (
-        <Box pl={5}>
-          <Tasks.List where={{ _and: [{ parent_id: { _eq: record?.id } }] }} />
+        <Box pl={10}>
+          <Tasks.List
+            where={{ _and: [{ parent_id: { _eq: record?.id } }] }}
+            expandAll={expandAll}
+          />
         </Box>
       )}
     </Stack>
