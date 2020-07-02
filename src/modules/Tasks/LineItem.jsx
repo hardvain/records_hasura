@@ -19,7 +19,7 @@ import { useStore } from 'src/store';
 import Tasks from './index';
 import useMutation from 'src/hooks/graphql/useMutation';
 import ListItem from 'src/containers/collection/list/ListItem';
-export default ({ record, index, expandAll }) => {
+export default ({ record, index, expandAll, indent = 0 }) => {
   const subTasks = record.ref_sub_tasks;
   const totalTasks = subTasks?.length;
   const completedTasks = (subTasks || []).filter(
@@ -65,8 +65,9 @@ export default ({ record, index, expandAll }) => {
         onMouseLeave={() => setIsHovered(false)}
         borderWidth={0}
         borderLeftWidth={0}
-        bg={background}
+        borderBottomWidth={1}
         cursor={'pointer'}
+        bg={background}
         px={3}
         py={2}
         onClick={(e) => {
@@ -75,21 +76,20 @@ export default ({ record, index, expandAll }) => {
           handleToggle();
         }}
       >
-        <Stack isInline pr={4} alignItems={'baseline'}>
+        <Stack isInline pr={4} alignItems={'baseline'} pl={indent}>
           <Stack flex={30} isInline alignItems={'baseline'}>
             <Box mr={2}>
-              {subTasks && subTasks.length > 0 && (
-                <IconButton
-                  variant={'ghost'}
-                  size={'xs'}
-                  icon={showSubTasks ? 'chevron-down' : 'chevron-right'}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    setShowSubTasks(!showSubTasks);
-                  }}
-                />
-              )}
+              <IconButton
+                visibility={subTasks && subTasks.length > 0 ? '' : 'hidden'}
+                variant={'ghost'}
+                size={'xs'}
+                icon={showSubTasks ? 'chevron-down' : 'chevron-right'}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  setShowSubTasks(!showSubTasks);
+                }}
+              />
             </Box>
             <Box flexGrow={1}>
               <Text
@@ -161,8 +161,9 @@ export default ({ record, index, expandAll }) => {
         </Drawer>
       </ListItem>
       {showSubTasks && (
-        <Box pl={10}>
+        <Box>
           <Tasks.List
+            indent={indent + 10}
             where={{ _and: [{ parent_id: { _eq: record?.id } }] }}
             expandAll={expandAll}
           />
