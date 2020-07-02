@@ -9,7 +9,6 @@ import {
 import React, { useState } from 'react';
 import moment from 'moment';
 import Delete from 'src/containers/actions/delete';
-import useMutation from 'src/hooks/graphql/useMutation';
 import Form from './form';
 import ListItem from 'src/containers/collection/list/ListItem';
 export default ({ record }) => {

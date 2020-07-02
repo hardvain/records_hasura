@@ -117,7 +117,12 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
           </Button>
         </Stack>
       )}
-      <FormContext {...methods} schema={Tasks.schema}>
+      <FormContext
+        {...methods}
+        schema={Tasks.schema}
+        resource={'tasks'}
+        id={model?.id}
+      >
         <Stack isInline spacing={10} mb={5}>
           <Stack flex={2}>
             <Field name={'name'} mb={5} />

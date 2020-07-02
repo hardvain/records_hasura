@@ -18,7 +18,7 @@ const map = {
   ref: ResourceSelector,
 };
 export default ({ name, ...rest }) => {
-  const { schema } = useFormContext(); // methods contain all useForm functions
+  const { schema, action } = useFormContext(); // methods contain all useForm functions
   const metadata = schema[name];
   const component = map[metadata.type];
   return (
