@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Input, Spinner, Stack } from '@chakra-ui/core';
 import { useStore } from 'src/store';
 import List from './list';
+import Board from './board';
 import useQuery from 'src/hooks/graphql/useQuery';
 import { useQuery as useApolloQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
@@ -15,8 +16,10 @@ const FilteredCollection = ({
   offset,
   preview,
   group_by_field,
+  group_by_options,
   showBanners = false,
   formContext = {},
+  type = 'list',
   ...rest
 }) => {
   const { toggleFormPopup, setNewFormContext } = useStore((state) => ({
@@ -84,9 +87,23 @@ const FilteredCollection = ({
       <div />
     );
   } else {
-    response = (
-      <List group_by_field={group_by_field} data={data} preview={preview} {...rest}/>
-    );
+    response =
+      type === 'list' ? (
+        <List
+          group_by_field={group_by_field}
+          data={data}
+          preview={preview}
+          {...rest}
+        />
+      ) : (
+        <Board
+          group_by_field={group_by_field}
+          group_by_options={group_by_options}
+          data={data}
+          preview={preview}
+          {...rest}
+        />
+      );
   }
   return (
     <Stack>

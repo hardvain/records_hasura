@@ -35,6 +35,7 @@ export default ({ name, options, ...rest }) => {
         name={name}
         as={({ onChange, value }) => (
           <MdEditor
+            onBlur={console.log}
             size={'sm'}
             value={value || ''}
             {...rest}

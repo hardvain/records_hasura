@@ -11,18 +11,18 @@ export default () => {
   return (
     <Box>
       <Stack spacing={10}>
-        <Card animate highlight>
+        <Card animate highlight p={2}>
           <TasksSummary />
         </Card>
         <Stack isInline spacing={10}>
-          <Card animate highlight w={'100%'}>
+          <Card animate highlight w={'100%'} p={2}>
             <GlucoseSummary />
           </Card>
-          <Card animate highlight w={'100%'}>
+          <Card animate highlight w={'100%'} p={2}>
             <WaterSummary />
           </Card>
         </Stack>
-        <Card animate highlight>
+        <Card animate highlight p={2}>
           <TransactionSummary />
         </Card>
       </Stack>

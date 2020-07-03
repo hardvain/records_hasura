@@ -1,7 +1,6 @@
 import {
   Box,
   Skeleton,
-  Tabs,
   TabList,
   TabPanels,
   Tab,
@@ -18,7 +17,9 @@ import Projects from 'src/modules/Projects';
 import { useRouter } from 'next/router';
 import Card from 'src/components/core/card';
 import Tasks from 'src/modules/Tasks';
+import Summary from 'src/pages/index/Summary';
 import { useStore } from 'src/store';
+import Tabs, { TabItem } from 'src/components/core/tabs';
 export default () => {
   const [showForm, setShowForm] = useState(false);
   const [expandAll, setExpandAll] = useState(false);
@@ -33,7 +34,7 @@ export default () => {
   const [project] = useQuery({
     name: 'projects',
     where: { id: { _eq: id } },
-    fields: ['id', 'name', 'description'],
+    fields: ['id', 'name', 'description', 'team_id'],
   });
   const addTask = () => {
     setNewFormContext({ project_id: project[0]?.id });
@@ -42,7 +43,6 @@ export default () => {
   return project ? (
     <Stack m={0}>
       <Card
-        id={'card'}
         mt={0}
         borderLeftWidth={0}
         borderTopWidth={0}

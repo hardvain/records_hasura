@@ -7,7 +7,7 @@ export default ({ children }) => {
   const [currentTab, setCurrentTab] = useState(0);
   return (
     <Box py={1}>
-      <Stack isInline borderBottomWidth={1} mb={5} px={2} justifyContent={'space-between'}>
+      <Stack isInline borderBottomWidth={1} mb={5} px={2} justifyContent={'space-evenly'}>
         {children.map((c, index) => (
           <Button
             py={5}

@@ -9,7 +9,6 @@ import {
 import React, { useEffect, useState } from 'react';
 import Card from 'src/components/core/card';
 import FieldFilter from './FieldFilter';
-// Step 1: Create a component that accepts `isChecked` and `isDisabled` prop
 const CustomRadio = React.forwardRef((props, ref) => {
   const { isChecked, isDisabled, value, ...rest } = props;
   return (

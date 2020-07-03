@@ -89,8 +89,15 @@ export default () => {
       </Box>
     );
   }
-  return teams.length > 0 ? (
-    <Box w={245} pt={2} bg={colorMode ==='light' ? 'white':'#333'} borderRightWidth={1}>
+  return (
+    <Box
+      height={'100vh'}
+      w={245}
+      pt={2}
+      bg={colorMode === 'light' ? 'white' : '#333'}
+      borderRightWidth={1}
+      position={'fixed'}
+    >
       {teams.map((t) => (
         <MenuItem
           key={t.id}
@@ -106,18 +113,16 @@ export default () => {
         children={[]}
         resource={'teams'}
       />
-    </Box>
-  ) : (
-    <Box p={5} w={245}>
-      <Button
-        variant={'solid'}
-        variantColor={'brand'}
-        size={'xs'}
-        onClick={() => toggleFormPopup('teams')}
-        leftIcon={'small-add'}
-      >
-        Add New Team
-      </Button>
+      <Box p={5} w={245}>
+        <Button
+          variant={'link'}
+          size={'xs'}
+          onClick={() => toggleFormPopup('teams')}
+          leftIcon={'small-add'}
+        >
+          Add New Team
+        </Button>
+      </Box>
     </Box>
   );
 };

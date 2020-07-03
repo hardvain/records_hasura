@@ -24,8 +24,8 @@ export default ({ actions, children, expandAll = false }) => {
     <Card>
       <Stack spacing={0}>
         {actions && (
-          <Box p={2}>
-            <Box>{actions}</Box>
+          <Box>
+            <Box p={2}>{actions}</Box>
             <Divider />
           </Box>
         )}

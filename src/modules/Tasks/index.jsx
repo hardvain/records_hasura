@@ -1,6 +1,7 @@
 import Form from './form';
 import Collection from 'src/containers/collection';
 import LineItem from './LineItem';
+import BoardCard from './BoardCard';
 import Preview from './preview';
 export const fields = [
   'id',
@@ -86,4 +87,18 @@ const List = (props) => {
   );
 };
 
-export default { Form, List, schema, Preview };
+const Board = (props) => {
+  return (
+    <Collection
+      resource={'tasks'}
+      fields={fields}
+      group_by_field={(row) => row['status']}
+      group_by_options={['todo','in_progress','completed']}
+      preview={BoardCard}
+      type={'board'}
+      {...props}
+    />
+  );
+};
+
+export default { Form, List, schema, Preview, Board };

@@ -6,6 +6,7 @@ const fields = [
   'name',
   'description',
   'is_archived',
+  'team_id',
   'ref_tasks{id,name,status,due_date}',
   'ref_team{name}',
 ];

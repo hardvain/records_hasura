@@ -19,7 +19,6 @@ import moment from 'moment';
 import DayView from './Day';
 import MonthView from './Month';
 import WeekView from './Week';
-
 const PreviewCard = ({ record }) => {
   const { colorMode } = useColorMode();
 
