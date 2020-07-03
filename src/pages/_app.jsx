@@ -38,13 +38,13 @@ export function reportWebVitals(metric) {
 const config = (theme) => ({
   light: {
     color: theme.colors.gray[800],
-    bg: '#fff',
+    bg: '#FAFBFC',
     borderColor: theme.colors.gray[200],
     placeholderColor: theme.colors.gray[400],
   },
   dark: {
     color: theme.colors.whiteAlpha[900],
-    bg: '#333',
+    bg: '#232626',
     borderColor: theme.colors.whiteAlpha[100],
     placeholderColor: theme.colors.whiteAlpha[400],
   },

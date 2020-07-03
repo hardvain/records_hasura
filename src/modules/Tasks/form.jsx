@@ -14,6 +14,7 @@ import Delete from 'src/containers/actions/delete';
 import { SmartChecklists } from 'src/modules/Tasks/Checklists';
 import Tasks from './index';
 import Card from 'src/components/core/card';
+import CardActions from 'src/modules/Tasks/CardActions';
 import { useForm, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import Field from 'src/components/forms/Field';
@@ -47,20 +48,7 @@ export default ({ model, onSubmitCallback = () => {} }) => {
   return (
     <Stack>
       <StackedCard
-        actions={
-          model &&
-          model.id && (
-            <Stack isInline spacing={10}>
-              <Box flex={1}>
-                <SegmentedControl
-                  options={Tasks.schema.status.options}
-                  value={model?.status}
-                />
-              </Box>
-              <Delete resource={'tasks'} id={model.id} />
-            </Stack>
-          )
-        }
+        actions={model && model.id && <CardActions id={model?.id} />}
       >
         <FormContext
           {...methods}

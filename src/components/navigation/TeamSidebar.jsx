@@ -6,7 +6,8 @@ import {
   Text,
   Tooltip,
   Box,
-  useColorMode, Skeleton,
+  useColorMode,
+  Skeleton,
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import React, { useState } from 'react';
@@ -20,6 +21,7 @@ const MenuItem = ({ id, name, resource, children = [] }) => {
 
   return (
     <Box
+      minHeight={30}
       w={showSidebar ? '100%' : 45}
       cursor={'pointer'}
       borderRadius={0}
@@ -63,7 +65,9 @@ const MenuItem = ({ id, name, resource, children = [] }) => {
 };
 
 export default () => {
-  const [data,loading] = useQuery({
+  const { colorMode } = useColorMode();
+
+  const [data, loading] = useQuery({
     name: 'teams',
     fields: ['name', 'id', 'ref_projects{id,name}'],
   });
@@ -71,20 +75,22 @@ export default () => {
     toggleFormPopup: state.toggleFormPopup,
   }));
   const teams = data || [];
-  if(loading){
-    return <Box w={245} p={2}>
-      <Skeleton h={5} my={3}/>
-      <Skeleton h={5} my={3}/>
-      <Skeleton h={5} my={3}/>
-      <Skeleton h={5} my={3}/>
-      <Skeleton h={5} my={3}/>
-      <Skeleton h={5} my={3}/>
-      <Skeleton h={5} my={3}/>
-      <Skeleton h={5} my={3}/>
-    </Box>
+  if (loading) {
+    return (
+      <Box w={250} p={2}>
+        <Skeleton h={5} my={3} />
+        <Skeleton h={5} my={3} />
+        <Skeleton h={5} my={3} />
+        <Skeleton h={5} my={3} />
+        <Skeleton h={5} my={3} />
+        <Skeleton h={5} my={3} />
+        <Skeleton h={5} my={3} />
+        <Skeleton h={5} my={3} />
+      </Box>
+    );
   }
   return teams.length > 0 ? (
-    <Box borderRightWidth={1} w={245} pt={2}>
+    <Box w={245} pt={2} bg={colorMode ==='light' ? 'white':'#333'} borderRightWidth={1}>
       {teams.map((t) => (
         <MenuItem
           key={t.id}
@@ -94,9 +100,15 @@ export default () => {
           resource={'teams'}
         />
       ))}
+      <MenuItem
+        name={'All Teams'}
+        id={'all'}
+        children={[]}
+        resource={'teams'}
+      />
     </Box>
   ) : (
-    <Box p={5} w={245} >
+    <Box p={5} w={245}>
       <Button
         variant={'solid'}
         variantColor={'brand'}

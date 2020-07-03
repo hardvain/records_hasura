@@ -54,7 +54,12 @@ export default () => {
           <Box p={5} pb={10} flexGrow={1}>
             <Heading size={'md'}>{project[0].name}</Heading>
           </Box>
-          <Button variant={'ghost'} variantColor={'brand'} size={'sm'} onClick={() => setShowForm(!showForm)}>
+          <Button
+            variant={'ghost'}
+            variantColor={'brand'}
+            size={'sm'}
+            onClick={() => setShowForm(!showForm)}
+          >
             Edit
           </Button>
         </Stack>
@@ -65,6 +70,14 @@ export default () => {
         )}
         <Stack m={5} isInline float={'right'}>
           <Button
+            variant={'ghost'}
+            variantColor={'brand'}
+            size={'sm'}
+            onClick={() => setExpandAll(!expandAll)}
+          >
+            Toggle Sub Tasks
+          </Button>
+          <Button
             variant={'solid'}
             variantColor={'brand'}
             leftIcon={'small-add'}
@@ -72,14 +85,6 @@ export default () => {
             onClick={addTask}
           >
             Add Task
-          </Button>
-          <Button
-            variant={'ghost'}
-            variantColor={'brand'}
-            size={'sm'}
-            onClick={() => setExpandAll(!expandAll)}
-          >
-            Toggle Sub Tasks
           </Button>
         </Stack>
       </Card>

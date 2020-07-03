@@ -18,7 +18,7 @@ const filterColors = (inputValue) => {
   );
 };
 
-export default () => {
+export default (props) => {
   const { colorMode } = useColorMode();
 
   const [input, setInput] = useState('');
@@ -33,9 +33,9 @@ export default () => {
     }, 1000);
   };
   return (
-    <Box className={colorMode === 'light' ? '' : 'react-select'}>
+    <Box className={colorMode === 'light' ? '' : 'react-select'} {...props}>
       <Select
-        className='react-select-container'
+        className="react-select-container"
         classNamePrefix="react-select"
         options={colourOptions}
         closeMenuOnSelect={false}
