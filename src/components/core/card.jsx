@@ -16,10 +16,11 @@ export default ({
   return (
     <Box
       minWidth={300}
+      shadow={'sm'}
       borderWidth={1}
       borderLeftWidth={thickLeftBorder ? 5 : 1}
       borderLeftColor={thickLeftBorder ? 'brand.300' : ''}
-      borderRadius={5}
+      borderRadius={10}
       h={'100%'}
       cursor={highlight ? 'pointer' : ''}
       bg={colorMode === 'light' ? 'white' : '#333'}

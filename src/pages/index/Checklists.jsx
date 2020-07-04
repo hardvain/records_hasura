@@ -38,14 +38,7 @@ const Checklists = ({ checklist, setChecklist }) => {
                 setChecklistItem(e.target.checked, 'isChecked', index)
               }
             />
-            <Input
-              size={'xs'}
-              flexGrow={1}
-              variant={'unstyled'}
-              textDecoration={item?.isChecked ? 'line-through' : ''}
-              value={item?.value}
-              onChange={(e) => setChecklistItem(e.target.value, 'value', index)}
-            />
+            <Text textDecoration={item?.isChecked ? 'line-through' : ''}>{item?.value}</Text>
           </Stack>
         </PseudoBox>
       ))}

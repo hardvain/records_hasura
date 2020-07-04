@@ -11,6 +11,7 @@ import {
   Text,
 } from '@chakra-ui/core';
 import moment from 'moment';
+import Skeleton from 'src/components/core/Skeleton';
 import React, { useEffect, useState } from 'react';
 import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
 import DatePicker from 'src/components/DatePicker';
@@ -148,10 +149,15 @@ export default () => {
       <StackedCard
         actions={
           <Stack isInline px={5} py={2} alignItems={'center'}>
-            <Button flex={1} size={'sm'} variant={'outline'}>
+            <Button
+              flex={1}
+              size={'sm'}
+              variant={'outline'}
+              onClick={() => setDate(moment())}
+            >
               Today
             </Button>
-            <Stack isInline flex={1}>
+            <Stack isInline>
               <IconButton
                 size={'sm'}
                 icon={'chevron-left'}
@@ -172,28 +178,27 @@ export default () => {
             <Box flex={2}>
               <DatePicker type={'button'} onChange={setDate} selected={date} />
             </Box>
-
             <Box flexGrow={1} flex={10} />
           </Stack>
         }
       >
         <Stack isInline px={5}>
           <Stack spacing={2} flex={2}>
-            <Heading size={'md'}>
-              {review?.timestamp
-                ? moment(review?.timestamp).format('MMMM D, yyyy')
-                : ''}
-            </Heading>
             <Stack>
               <Heading size={'xs'}>Checklists</Heading>
-
-              <SmartChecklists
-                id={review?.id}
-                name={'checklist'}
-                resource={'reviews'}
-                checklist={checklist}
-                setChecklist={setChecklist}
-              />
+              {review ? (
+                <SmartChecklists
+                  id={review?.id}
+                  name={'checklist'}
+                  resource={'reviews'}
+                  checklist={checklist}
+                  setChecklist={setChecklist}
+                />
+              ) : (
+                <Box px={5}>
+                  <Skeleton h={5} my={3} count={10} />
+                </Box>
+              )}
             </Stack>
             <Scores id={review?.id} scores={review?.scores} />
           </Stack>

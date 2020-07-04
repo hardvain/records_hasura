@@ -7,18 +7,22 @@ import {
   Tooltip,
   Box,
   useColorMode,
-  Skeleton,
+  Divider,
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import React, { useState } from 'react';
 import useQuery from 'src/hooks/graphql/useQuery';
 import { useStore } from 'src/store';
+import Skeleton from 'src/components/core/Skeleton';
 
 const MenuItem = ({ id, name, resource, children = [] }) => {
   const { colorMode } = useColorMode();
   const showSidebar = useStore((state) => state.ui.showSidebar);
   const [open, setOpen] = useState(false);
-
+  const { toggleFormPopup, setNewFormContext } = useStore((state) => ({
+    toggleFormPopup: state.toggleFormPopup,
+    setNewFormContext: state.setNewFormContext,
+  }));
   return (
     <Box
       minHeight={30}
@@ -34,18 +38,20 @@ const MenuItem = ({ id, name, resource, children = [] }) => {
         <Stack isInline alignItems={'center'}>
           <Box>
             <IconButton
-              visibility={children.length > 0 ? '' : 'hidden'}
+              visibility={id !== 'all' ? 'visible' : 'hidden'}
               size={'sm'}
               variant={'link'}
               icon={open ? 'chevron-down' : 'chevron-right'}
               onClick={() => setOpen(!open)}
             />
           </Box>
-          <NextLink href={`/${resource}/[id]`} as={`/${resource}/${id}`}>
-            <Text ml={0} fontSize={14}>
-              {name}
-            </Text>
-          </NextLink>
+          <Box>
+            <NextLink href={`/${resource}/[id]`} as={`/${resource}/${id}`}>
+              <Text ml={0} fontSize={14}>
+                {name}
+              </Text>
+            </NextLink>
+          </Box>
         </Stack>
         <Collapse isOpen={open}>
           <Stack pl={2}>
@@ -57,6 +63,21 @@ const MenuItem = ({ id, name, resource, children = [] }) => {
                 resource={'projects'}
               />
             ))}
+            {id !== 'all' && (
+              <Box px={5} mb={2} w={245}>
+                <Button
+                  variant={'link'}
+                  size={'xs'}
+                  onClick={() => {
+                    setNewFormContext({ team_id: id });
+                    toggleFormPopup('projects');
+                  }}
+                  leftIcon={'small-add'}
+                >
+                  Add Project
+                </Button>
+              </Box>
+            )}
           </Stack>
         </Collapse>
       </Stack>
@@ -85,15 +106,8 @@ export default () => {
         borderRightWidth={1}
         position={'fixed'}
       >
-        <Box w={250} p={2}>
-          <Skeleton h={5} my={3} />
-          <Skeleton h={5} my={3} />
-          <Skeleton h={5} my={3} />
-          <Skeleton h={5} my={3} />
-          <Skeleton h={5} my={3} />
-          <Skeleton h={5} my={3} />
-          <Skeleton h={5} my={3} />
-          <Skeleton h={5} my={3} />
+        <Box w={250} px={5}>
+          <Skeleton h={10} my={3} count={10}/>
         </Box>
       </Box>
     );
@@ -116,20 +130,22 @@ export default () => {
           resource={'teams'}
         />
       ))}
+      <Divider />
       <MenuItem
         name={'All Teams'}
         id={'all'}
         children={[]}
         resource={'teams'}
       />
-      <Box p={5} w={245}>
+      <Divider />
+      <Box px={5} w={245}>
         <Button
           variant={'link'}
           size={'xs'}
           onClick={() => toggleFormPopup('teams')}
           leftIcon={'small-add'}
         >
-          Add New Team
+          Add Team
         </Button>
       </Box>
     </Box>
