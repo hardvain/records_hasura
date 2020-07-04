@@ -23,9 +23,13 @@ const schema = {
       { value: 'quarter', label: 'Quarter' },
     ],
   },
-  score: {
-    type: 'number',
-    label:'Score'
+  scores: {
+    type: 'json',
+    label:'Scores'
+  },
+  checklist: {
+    type: 'json',
+    label:'Scores'
   },
   summary: {
     type: 'text',

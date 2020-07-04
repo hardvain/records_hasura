@@ -12,19 +12,38 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
 import DatePicker from 'src/components/DatePicker';
+import useMutation from 'src/hooks/graphql/useMutation';
 import Reviews from 'src/modules/Reviews';
+import { getReviewForDate } from 'src/modules/Reviews/factories';
+import Checklists from 'src/pages/daily/Checklists';
 import Chart from './Chart';
-const routines = [
-  `Get an overview of today's task`,
-  `Plan topics to read for the day`,
-  `Manage the inbox`,
-  'Go through slack messages',
-  `Review PRs`,
-  `Review Jira Board`,
-  `Update timesheets`,
+const checklist = [
+  { value: `Get an overview of today's task`, isChecked: false },
+  { value: `Plan topics to read for the day`, isChecked: false },
+  { value: `Manage the inbox`, isChecked: false },
+  { value: `Go through slack messages`, isChecked: false },
+  { value: `Review PRs`, isChecked: false },
+  { value: `Review Jira Board`, isChecked: false },
+  { value: `Update timesheets`, isChecked: false },
 ];
 export default () => {
   const [date, setDate] = useState(moment());
+  const [data] = getReviewForDate(date);
+  const mutate = useMutation({
+    resource: 'reviews',
+    operation: 'update',
+    silent: true,
+  });
+  const review = data ? data[0] : {};
+  const setChecklist = (list) => {
+    console.log(data, list);
+    mutate({
+      variables: {
+        object: { ...review, checklist: list },
+        where: { id: { _eq: review?.id } },
+      },
+    });
+  };
   return (
     <Box>
       <Stack isInline spacing={0}>
@@ -67,14 +86,11 @@ export default () => {
           >
             <Box p={5}>
               <Stack spacing={2}>
-                {routines.map((r, i) => (
-                  <Stack key={i} isInline spacing={2}>
-                    <Checkbox variantColor={'brand'}/>
-                    <Text>{r}</Text>
-                  </Stack>
-                ))}
+                <Checklists
+                  checklist={review.checklist || checklist}
+                  setChecklist={setChecklist}
+                />
               </Stack>
-              <Reviews.Form />
             </Box>
           </StackedCard>
         </Box>

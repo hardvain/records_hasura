@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import {  useSubscription } from '@apollo/react-hooks';
+import { useSubscription } from '@apollo/react-hooks';
 
 export default ({
   name,

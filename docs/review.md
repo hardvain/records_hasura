@@ -1,10 +1,9 @@
 # Review
-## Monitoring
-* Ability to track daily, weekly and monthly scores
-* Types:
-    * Daily
-    * Weekly
-    * Monthly
-    * Quarterly
-* Summary
-* Scoring from 1 to 10
+* The daily page captures every information pertaining to a day
+* It includes hourly mood tracker, daily score, daily checklists, and hourly/daily graph
+* The graphs are present on the right side always to increase visibility
+* The checklists are present on the top to increase visibility
+* Whenever a mood tracker is clicked, it logs score.
+* Hourly, daily, weekly averages are calculated based on the scores tracked 
+
+* A new entry for every day

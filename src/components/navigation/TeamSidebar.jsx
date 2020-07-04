@@ -77,15 +77,24 @@ export default () => {
   const teams = data || [];
   if (loading) {
     return (
-      <Box w={250} p={2}>
-        <Skeleton h={5} my={3} />
-        <Skeleton h={5} my={3} />
-        <Skeleton h={5} my={3} />
-        <Skeleton h={5} my={3} />
-        <Skeleton h={5} my={3} />
-        <Skeleton h={5} my={3} />
-        <Skeleton h={5} my={3} />
-        <Skeleton h={5} my={3} />
+      <Box
+        height={'100vh'}
+        w={245}
+        pt={2}
+        bg={colorMode === 'light' ? 'white' : '#333'}
+        borderRightWidth={1}
+        position={'fixed'}
+      >
+        <Box w={250} p={2}>
+          <Skeleton h={5} my={3} />
+          <Skeleton h={5} my={3} />
+          <Skeleton h={5} my={3} />
+          <Skeleton h={5} my={3} />
+          <Skeleton h={5} my={3} />
+          <Skeleton h={5} my={3} />
+          <Skeleton h={5} my={3} />
+          <Skeleton h={5} my={3} />
+        </Box>
       </Box>
     );
   }
