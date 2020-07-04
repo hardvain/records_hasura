@@ -15,11 +15,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import useMutation from 'src/hooks/graphql/useMutation';
 
 const Checklists = ({ checklist, setChecklist }) => {
-  const { colorMode } = useColorMode();
-
-  const addCheckListItem = () => {
-    setChecklist([...checklist, { checked: false }]);
-  };
   const setChecklistItem = (value, property, index) => {
     const list = [...checklist];
     const item = list[index];
@@ -54,16 +49,6 @@ const Checklists = ({ checklist, setChecklist }) => {
           </Stack>
         </PseudoBox>
       ))}
-      <Box>
-        <Button
-          size={'xs'}
-          variant={'link'}
-          leftIcon={'small-add'}
-          onClick={addCheckListItem}
-        >
-          Add New
-        </Button>
-      </Box>
     </Stack>
   );
 };
@@ -81,7 +66,7 @@ export const SmartChecklists = ({ resource, id, name, ...rest }) => {
       setResourceId(id);
     }
   }, [id]);
-  const mutate = useMutation({ resource, operation: 'update' });
+  const mutate = useMutation({ resource, operation: 'update', silent: true });
   const update = (value) => {
     if (resourceId) {
       mutate({

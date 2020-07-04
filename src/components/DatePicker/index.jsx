@@ -94,7 +94,7 @@ const Component = ({ selected, onChange, type, includeTime, ...rest }) => {
       showWeekNumbers
       todayButton="Today"
       onChange={(v) => onChange(moment(v))}
-      dateFormat={'MMMM d, yyyy - HH:mm'}
+      dateFormat={includeTime ? 'MMMM d, yyyy - HH:mm':'MMMM d, yyyy'}
       customInput={createElement(ComponentMap[type || 'input'], { ref })}
       {...rest}
     />
