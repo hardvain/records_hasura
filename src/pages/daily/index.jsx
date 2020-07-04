@@ -9,15 +9,16 @@ import {
   Text,
 } from '@chakra-ui/core';
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
 import DatePicker from 'src/components/DatePicker';
 import useMutation from 'src/hooks/graphql/useMutation';
 import Reviews from 'src/modules/Reviews';
 import { getReviewForDate } from 'src/modules/Reviews/factories';
+import { SmartChecklists } from './Checklists';
 import Checklists from 'src/pages/daily/Checklists';
 import Chart from './Chart';
-const checklist = [
+const routines = [
   { value: `Get an overview of today's task`, isChecked: false },
   { value: `Plan topics to read for the day`, isChecked: false },
   { value: `Manage the inbox`, isChecked: false },
@@ -29,21 +30,19 @@ const checklist = [
 export default () => {
   const [date, setDate] = useState(moment());
   const [data] = getReviewForDate(date);
+  const [checklist, setChecklist] = useState([]);
   const mutate = useMutation({
     resource: 'reviews',
     operation: 'update',
     silent: true,
   });
-  const review = data ? data[0] : {};
-  const setChecklist = (list) => {
-    console.log(data, list);
-    mutate({
-      variables: {
-        object: { ...review, checklist: list },
-        where: { id: { _eq: review?.id } },
-      },
-    });
-  };
+
+  const review = data ? data[0] : undefined;
+  useEffect(() => {
+    if (review?.id) {
+      setChecklist(review.checklist);
+    }
+  }, [review]);
   return (
     <Box>
       <Stack isInline spacing={0}>
@@ -86,8 +85,11 @@ export default () => {
           >
             <Box p={5}>
               <Stack spacing={2}>
-                <Checklists
-                  checklist={review.checklist || checklist}
+                <SmartChecklists
+                  id={review?.id}
+                  name={'checklist'}
+                  resource={'reviews'}
+                  checklist={checklist}
                   setChecklist={setChecklist}
                 />
               </Stack>

@@ -9,6 +9,10 @@ const fields = [
   'summary',
 ];
 const schema = {
+  id: {
+    type: 'uuid',
+    label: 'ID',
+  },
   timestamp: {
     type: 'timestamp',
     label: 'Timestamp',

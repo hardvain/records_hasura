@@ -11,7 +11,7 @@ import {
   useColorMode,
 } from '@chakra-ui/core';
 import _ from 'lodash';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import useMutation from 'src/hooks/graphql/useMutation';
 
 const Checklists = ({ checklist, setChecklist }) => {
@@ -71,18 +71,23 @@ const Checklists = ({ checklist, setChecklist }) => {
 export default Checklists;
 
 export const SmartChecklists = ({ resource, id, name, ...rest }) => {
+  const [resourceId, setResourceId] = useState(id);
   const delayedQuery = useCallback(
     _.debounce((q) => update(q), 500),
     []
   );
-
-  const mutate = useMutation({ resource, operation: 'update', silent: true });
-  const update = (value) => {
+  useEffect(() => {
     if (id) {
+      setResourceId(id);
+    }
+  }, [id]);
+  const mutate = useMutation({ resource, operation: 'update' });
+  const update = (value) => {
+    if (resourceId) {
       mutate({
         variables: {
           object: { [name]: value },
-          where: { id: { _eq: id } },
+          where: { id: { _eq: resourceId } },
         },
       });
     }
