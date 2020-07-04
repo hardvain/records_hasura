@@ -56,29 +56,19 @@ const Checklists = ({ checklist, setChecklist }) => {
 export default Checklists;
 
 export const SmartChecklists = ({ resource, id, name, ...rest }) => {
-  const [resourceId, setResourceId] = useState(id);
-  const delayedQuery = useCallback(
-    _.debounce((q) => update(q), 500),
-    []
-  );
-  useEffect(() => {
-    if (id) {
-      setResourceId(id);
-    }
-  }, [id]);
-  const mutate = useMutation({ resource, operation: 'update', silent: true });
+  const mutate = useMutation({ resource, operation: 'update' });
   const update = (value) => {
-    if (resourceId) {
+    if (id) {
       mutate({
         variables: {
           object: { [name]: value },
-          where: { id: { _eq: resourceId } },
+          where: { id: { _eq: id } },
         },
       });
     }
   };
   const setChecklist = (v) => {
-    delayedQuery(v);
+    update(v);
     rest.setChecklist(v);
   };
   return <Checklists {...rest} setChecklist={setChecklist} />;

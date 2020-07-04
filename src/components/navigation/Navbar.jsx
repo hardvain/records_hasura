@@ -99,13 +99,6 @@ export default () => {
         </Link>
       </Box>
       <Box>
-        <Link href="/daily" as={`/daily`}>
-          <Button variant={'ghost'} size={'sm'} mr={4}>
-            Daily
-          </Button>
-        </Link>
-      </Box>
-      <Box>
         <Link href="/calendar" as={`/calendar`}>
           <Button variant={'ghost'} size={'sm'} mr={4}>
             Calendar
