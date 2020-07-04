@@ -85,20 +85,6 @@ export default () => {
         </NextLink>
       </Box>
       <Box>
-        <Link href="/inbox" as={`/inbox`}>
-          <Button variant={'ghost'} size={'sm'} mr={4}>
-            Inbox
-          </Button>
-        </Link>
-      </Box>
-      <Box>
-        <Link href="/tasks" as={`/tasks`}>
-          <Button variant={'ghost'} size={'sm'} mr={4}>
-            Tasks
-          </Button>
-        </Link>
-      </Box>
-      <Box>
         <Link href="/calendar" as={`/calendar`}>
           <Button variant={'ghost'} size={'sm'} mr={4}>
             Calendar
