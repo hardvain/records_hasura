@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Input, Spinner, Stack } from '@chakra-ui/core';
+import Skeleton from 'src/components/core/Skeleton';
 import { useStore } from 'src/store';
 import List from './list';
 import Board from './board';
@@ -42,23 +43,7 @@ const FilteredCollection = ({
   };
   let response;
   if (loading) {
-    response = (
-      <Flex
-        w={'100%'}
-        height={'100%'}
-        direction={'column'}
-        alignItems={'center'}
-        py={4}
-      >
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="gray.200"
-          color="brand.500"
-          size="xs"
-        />
-      </Flex>
-    );
+    response = <Skeleton h={10} count={10} />;
   } else if (error) {
     console.error(error);
     response = <Box>Something went wrong</Box>;
