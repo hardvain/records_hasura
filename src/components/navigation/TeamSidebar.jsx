@@ -38,7 +38,9 @@ const MenuItem = ({ id, name, resource, children = [] }) => {
         <Stack isInline alignItems={'center'}>
           <Box>
             <IconButton
-              visibility={id !== 'all' ? 'visible' : 'hidden'}
+              visibility={
+                id === 'all' || resource === 'projects' ? 'hidden' : 'visible'
+              }
               size={'sm'}
               variant={'link'}
               icon={open ? 'chevron-down' : 'chevron-right'}
@@ -107,7 +109,7 @@ export default () => {
         position={'fixed'}
       >
         <Box w={250} px={5}>
-          <Skeleton h={10} my={3} count={10}/>
+          <Skeleton h={10} my={3} count={10} />
         </Box>
       </Box>
     );

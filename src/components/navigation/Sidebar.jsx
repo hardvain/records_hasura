@@ -12,6 +12,7 @@ import {
   IconButton,
   Flex,
 } from '@chakra-ui/core';
+import TeamSidebar from 'src/components/navigation/TeamSidebar';
 import useAggregate from 'src/hooks/graphql/useAggregate';
 import { useStore } from 'src/store';
 import { MdTimer } from 'react-icons/md';
@@ -115,10 +116,8 @@ export default () => {
       direction={'column'}
       w={showSidebar ? 250 : 50}
       bg={colorMode === 'light' ? '#fff' : '#333'}
-      position={'fixed'}
-      height={'100%'}
-      borderRightWidth={1}
-      left={0}
+      height={'100vh'}
+      borderLeftWidth={1}
       overflowX={'hidden'}
     >
       <MenuItem

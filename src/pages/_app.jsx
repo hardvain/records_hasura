@@ -100,6 +100,7 @@ const App = ({ Component, pageProps }) => {
                 <Component {...pageProps} />
                 <FormModal />
               </Box>
+              <Sidebar />
             </Flex>
           </DarkMode>
         </ColorModeProvider>

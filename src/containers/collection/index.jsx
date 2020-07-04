@@ -43,7 +43,11 @@ const FilteredCollection = ({
   };
   let response;
   if (loading) {
-    response = <Skeleton h={10} count={10} />;
+    response = (
+      <Box p={2}>
+        <Skeleton h={10} count={10} />
+      </Box>
+    );
   } else if (error) {
     console.error(error);
     response = <Box>Something went wrong</Box>;
