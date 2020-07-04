@@ -11,13 +11,17 @@ import {
   Text,
 } from '@chakra-ui/core';
 import moment from 'moment';
+import { FormContext, useForm } from 'react-hook-form';
 import Skeleton from 'src/components/core/Skeleton';
 import React, { useEffect, useState } from 'react';
 import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
 import DatePicker from 'src/components/DatePicker';
+import Field from 'src/components/forms/Field';
+import TextArea from 'src/components/forms/TextArea';
 import useMutation from 'src/hooks/graphql/useMutation';
 import Reviews from 'src/modules/Reviews';
 import { getReviewForDate } from 'src/modules/Reviews/factories';
+import Tasks from 'src/modules/Tasks';
 import { SmartChecklists } from './Checklists';
 import Checklists from './Checklists';
 import Chart from './Chart';
@@ -51,7 +55,6 @@ const Scores = ({ id, scores = [] }) => {
   };
   return (
     <Stack>
-      <Heading size={'xs'}>Scores</Heading>
       <SimpleGrid columns={5}>
         <Button
           onClick={() => addScore(1)}
@@ -137,10 +140,14 @@ export default () => {
     operation: 'update',
     silent: true,
   });
+  const methods = useForm();
 
   const review = data ? data[0] : undefined;
+
   useEffect(() => {
     if (review?.id) {
+      methods.reset(review);
+
       setChecklist(review.checklist || routines);
     }
   }, [review?.id]);
@@ -200,16 +207,34 @@ export default () => {
                 </Box>
               )}
             </Stack>
-            <Scores id={review?.id} scores={review?.scores} />
           </Stack>
-          <Stack flex={1} borderLeftWidth={1} h={'100vh'} px={2}>
+          <Stack flex={1} borderLeftWidth={1} px={2}>
             <Text textAlign={'center'}>Daily Score</Text>
+            <Scores id={review?.id} scores={review?.scores} />
+
             <Box mt={2}>
               <Chart scores={review?.scores} />
             </Box>
             <Divider />
           </Stack>
         </Stack>
+        <StackedCardItem title={'Summary'}>
+          <Box p={5}>
+            <FormContext
+              {...methods}
+              schema={Reviews.schema}
+              resource={'reviews'}
+              id={review?.id}
+            >
+              <Field
+                rows={10}
+                name={'summary'}
+                schema={Tasks.schema}
+                hideLabel={true}
+              />
+            </FormContext>
+          </Box>
+        </StackedCardItem>
       </StackedCard>
     </Box>
   );

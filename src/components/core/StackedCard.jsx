@@ -30,27 +30,31 @@ export default ({ actions, children, expandAll = false }) => {
           </Box>
         )}
         <Box p={2}>{first}</Box>
-        {rest
-          .filter((c) => c)
-          .map((child, index) => (
-            <Box key={index}>
-              <Divider m={0} />
-              <Box borderWidth={0} p={2}>
-                <Stack isInline alignItems={'baseline'}>
-                  <IconButton
-                    size={'sm'}
-                    variant={'ghost'}
-                    icon={openItems[index] ? 'chevron-down' : 'chevron-right'}
-                    onClick={() => toggleItem(index)}
-                  />
-                  <Text>{child.props.title}</Text>
-                </Stack>
-                <Collapse borderWidth={0} isOpen={openItems[index]}>
-                  {openItems[index] && <Box p={2}>{child.props.children}</Box>}
-                </Collapse>
+        <Stack>
+          {rest
+            .filter((c) => c)
+            .map((child, index) => (
+              <Box key={index}>
+                <Divider m={0} />
+                <Box borderWidth={0} p={2}>
+                  <Stack isInline alignItems={'baseline'}>
+                    <IconButton
+                      size={'sm'}
+                      variant={'ghost'}
+                      icon={openItems[index] ? 'chevron-down' : 'chevron-right'}
+                      onClick={() => toggleItem(index)}
+                    />
+                    <Text>{child.props.title}</Text>
+                  </Stack>
+                  <Collapse borderWidth={0} isOpen={openItems[index]}>
+                    {openItems[index] && (
+                      <Box p={2}>{child.props.children}</Box>
+                    )}
+                  </Collapse>
+                </Box>
               </Box>
-            </Box>
-          ))}
+            ))}s
+        </Stack>
       </Stack>
     </Card>
   );

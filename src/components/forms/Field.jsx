@@ -17,14 +17,14 @@ const map = {
   timestamp: CustomDatePicker,
   ref: ResourceSelector,
 };
-export default ({ name, ...rest }) => {
+export default ({ name, hideLabel = false, ...rest }) => {
   const { schema, action } = useFormContext(); // methods contain all useForm functions
   const metadata = schema[name];
   const component = map[metadata.type];
   return (
     <Box {...rest}>
       <Stack alignItems={'baseline'}>
-        <Text fontSize={14}>{metadata.label}</Text>
+        {!hideLabel && <Text fontSize={14}>{metadata.label}</Text>}
         {React.createElement(component, { name, ...metadata, ...rest })}
       </Stack>
     </Box>

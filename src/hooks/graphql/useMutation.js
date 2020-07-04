@@ -29,6 +29,7 @@ export default ({ resource, operation = 'insert', silent = false }) => {
         return mutate(params);
       };
     } else if (operation === 'update') {
+
       return (params) => {
         Object.keys(params.variables.object).forEach((k) => {
           if (k.startsWith('ref')) {
