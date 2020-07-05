@@ -29,6 +29,7 @@ const schema = {
   due_date: {
     type: 'timestamp',
     label: 'Due Date',
+    datePickerType: 'button',
   },
   description: {
     type: 'text',
@@ -93,7 +94,7 @@ const Board = (props) => {
       resource={'tasks'}
       fields={fields}
       group_by_field={(row) => row['status']}
-      group_by_options={['todo','in_progress','completed']}
+      group_by_options={['todo', 'in_progress', 'completed']}
       preview={BoardCard}
       type={'board'}
       {...props}

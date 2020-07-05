@@ -11,7 +11,10 @@ const Default = ({ value, onChange, options, ...rest }) => {
       size={'sm'}
       placeholder={'Select a value'}
       value={value || ''}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => {
+        const value = e.target.value;
+        onChange(value === '' ? null : value);
+      }}
     >
       {options.map((o) => (
         <option value={o.value} key={o.value}>

@@ -33,7 +33,10 @@ const Default = ({
     <Select
       size={'sm'}
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => {
+        const value = e.target.value;
+        onChange(value === '' ? null : value);
+      }}
       {...rest}
       placeholder={'Select an entry'}
     >

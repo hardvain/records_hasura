@@ -51,7 +51,7 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
       justifyContent={'flex-start'}
       variant={'ghost'}
       leftIcon={children}
-      variantColor={isHovering ? 'brand' : ''}
+      variantColor={isHovering ? 'brand' : 'gray'}
 
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}

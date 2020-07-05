@@ -4,7 +4,6 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { Controller, useFormContext } from 'react-hook-form';
 import { FaCalendarAlt } from 'react-icons/fa';
-import { Controlled } from 'src/components/forms/Input';
 import useMutation from 'src/hooks/graphql/useMutation';
 import { useStore } from 'src/store';
 
@@ -55,8 +54,9 @@ const ComponentMap = {
   input: InputComponent,
 };
 
-const Default = ({ selected, onChange, type, includeTime, ...rest }) => {
+const Default = ({ value, onChange, type = 'input', includeTime, ...rest }) => {
   const ref = createRef();
+  let datePickerType = rest.datePickerType || 'input';
   return (
     <DatePicker
       className="data-picker"
@@ -64,34 +64,31 @@ const Default = ({ selected, onChange, type, includeTime, ...rest }) => {
       timeFormat="HH:mm"
       timeIntervals={15}
       timeCaption="Time"
-      selected={selected ? moment(selected)?.toDate() : undefined}
+      selected={value ? moment(value)?.toDate() : undefined}
       showWeekNumbers
       todayButton="Today"
-      onChange={(v) => onChange(moment(v))}
-      dateFormat={includeTime ? 'MMMM d, yyyy - HH:mm':'MMMM d, yyyy'}
-      customInput={createElement(ComponentMap[type || 'input'], { ref })}
+      onChange={(v) => onChange(moment(v).toISOString(true))}
+      dateFormat={includeTime ? 'MMMM d, yyyy - HH:mm' : 'MMMM d, yyyy'}
+      customInput={createElement(ComponentMap[datePickerType], { ref })}
       {...rest}
     />
   );
 };
 
-
-const ControlledDatePicker = ({
-  selected,
-  onChange,
-  type,
-  includeTime,
-  ...rest
-}) => {
+const Controlled = ({ name, onChangeCallback = () => {}, ...rest }) => {
   const { control } = useFormContext();
 
   return (
     <Controller
-      as={Default}
       control={control}
-      valueName={'selected'}
-      onChange={([selected]) => selected}
-      {...rest}
+      name={name}
+      as={({ onChange, value }) => {
+        const onChangeHandler = (v) => {
+          onChange(v);
+          onChangeCallback(v);
+        };
+        return <Default value={value} onChange={onChangeHandler} {...rest} />;
+      }}
     />
   );
 };
