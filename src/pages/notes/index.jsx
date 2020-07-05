@@ -15,7 +15,7 @@ export default () => {
         <Input rounded="0" placeholder="Search..." />
         <InputRightElement children={<Icon name="search" />} />
       </InputGroup>
-      <Notes.List showFilterBar />
+      <Notes.List showBanners showFilterBar />
     </Stack>
   );
 };
