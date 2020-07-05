@@ -1,7 +1,6 @@
 import Card from 'src/components/core/card';
 import Water from 'src/modules/Water';
 import moment from 'moment';
-import DatePicker from 'src/components/DatePicker';
 import {
   Box,
   Stack,

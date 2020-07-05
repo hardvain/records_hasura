@@ -10,7 +10,6 @@ import {
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
-import SegmentedControl from 'src/components/forms/SegmentedControl';
 import Delete from 'src/containers/actions/delete';
 import { SmartChecklists } from 'src/modules/Tasks/Checklists';
 import Tasks from './index';
@@ -47,55 +46,49 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
     onSubmitCallback();
   };
   return (
-    <Stack>
-      <Stack isInline>
-        <Box flex={2}>
-          <StackedCard>
-            <FormContext
-              {...methods}
-              schema={Tasks.schema}
-              resource={'tasks'}
-              id={model?.id}
-            >
+    <FormContext
+      isSmart={model?.id}
+      {...methods}
+      schema={Tasks.schema}
+      resource={'tasks'}
+      id={model?.id}
+    >
+      <Stack>
+        <Stack isInline>
+          <Box flex={2}>
+            <StackedCard>
               <Stack flex={3}>
                 <Field name={'name'} mb={5} />
                 <Field rows={10} name={'description'} schema={Tasks.schema} />
               </Stack>
-            </FormContext>
 
-            {model && model.id && (
-              <StackedCardItem title={'Checklists'}>
-                <Box>
-                  <SmartChecklists
-                    id={model?.id}
-                    name={'checklist'}
-                    resource={'tasks'}
-                    checklist={checklist}
-                    setChecklist={setChecklist}
-                  />
-                </Box>
-              </StackedCardItem>
-            )}
-            {model && model.id && (
-              <StackedCardItem title={'Sub Tasks'}>
-                <Card p={0}>
-                  <Tasks.List
-                    formContext={{ parent_id: model.id }}
-                    where={{ _and: [{ parent_id: { _eq: model.id } }] }}
-                  />
-                </Card>
-              </StackedCardItem>
-            )}
-          </StackedCard>
-        </Box>
-        {!isPreview && (
-          <Box flex={1} p={5}>
-            <FormContext
-              {...methods}
-              schema={Tasks.schema}
-              resource={'tasks'}
-              id={model?.id}
-            >
+              {model && model.id && (
+                <StackedCardItem title={'Checklists'}>
+                  <Box>
+                    <SmartChecklists
+                      id={model?.id}
+                      name={'checklist'}
+                      resource={'tasks'}
+                      checklist={checklist}
+                      setChecklist={setChecklist}
+                    />
+                  </Box>
+                </StackedCardItem>
+              )}
+              {model && model.id && (
+                <StackedCardItem title={'Sub Tasks'}>
+                  <Card p={0}>
+                    <Tasks.List
+                      formContext={{ parent_id: model.id }}
+                      where={{ _and: [{ parent_id: { _eq: model.id } }] }}
+                    />
+                  </Card>
+                </StackedCardItem>
+              )}
+            </StackedCard>
+          </Box>
+          {!isPreview && (
+            <Box flex={1} p={5}>
               <Field name={'due_date'} flex={1} />
               <Divider />
               <Field name={'priority'} flex={1} />
@@ -112,22 +105,22 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
               <Divider />
               {!model?.project_id && <Field flex={1} name={'team_id'} />}
               <Field name={'people_id'} flex={1} />
-            </FormContext>
-          </Box>
+            </Box>
+          )}
+        </Stack>
+        {!model?.id && (
+          <Button
+            my={5}
+            type="submit"
+            variant={'solid'}
+            variantColor={'brand'}
+            size={'sm'}
+            onClick={onSubmit}
+          >
+            Create
+          </Button>
         )}
       </Stack>
-      {!model?.id && (
-        <Button
-          my={5}
-          type="submit"
-          variant={'solid'}
-          variantColor={'brand'}
-          size={'sm'}
-          onClick={onSubmit}
-        >
-          Create
-        </Button>
-      )}
-    </Stack>
+    </FormContext>
   );
 };

@@ -15,11 +15,10 @@ import {
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import Card from 'src/components/core/card';
-import People from './index';
+import Inbox from './index';
 import Select from 'src/components/forms/Select';
 import { useForm, Controller, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
-import { CustomDatePicker } from 'src/components/DatePicker';
 import Field from 'src/components/forms/Field';
 import useMutation from 'src/hooks/graphql/useMutation';
 export default ({ model, onSubmitCallback = () => {} }) => {
@@ -51,7 +50,7 @@ export default ({ model, onSubmitCallback = () => {} }) => {
 
   return (
     <Stack spacing={10}>
-      <FormContext {...methods} schema={People.schema}>
+      <FormContext {...methods} schema={Inbox.schema}>
         <Stack spacing={10} flex={2}>
           <Field name={'name'} mb={5} />
           <Field name={'description'} mb={5} />

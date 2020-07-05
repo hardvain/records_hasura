@@ -1,11 +1,12 @@
 import {
   Drawer,
   DrawerBody,
-  DrawerCloseButton,
+  Box,
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  Icon, IconButton,
+  Icon,
+  IconButton,
   Stack,
   Text,
   useColorMode,
@@ -33,7 +34,15 @@ export default ({ show, setShow, title, children, href, as }) => {
         <DrawerHeader>
           <Stack isInline>
             <Text flexGrow={1}>{title}</Text>
-            <Link href={href} as={as}><IconButton onClick={e => e.stopPropagation()} variant={"ghost"} icon={MdFullscreen} /></Link>
+            <Box>
+              <Link href={href} as={as}>
+                <IconButton
+                  onClick={(e) => e.stopPropagation()}
+                  variant={'ghost'}
+                  icon={MdFullscreen}
+                />
+              </Link>
+            </Box>
           </Stack>
         </DrawerHeader>
 

@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { Controller, useFormContext } from 'react-hook-form';
 import { FaCalendarAlt } from 'react-icons/fa';
+import { Controlled } from 'src/components/forms/Input';
 import useMutation from 'src/hooks/graphql/useMutation';
 import { useStore } from 'src/store';
 
@@ -54,7 +55,7 @@ const ComponentMap = {
   input: InputComponent,
 };
 
-const Component = ({ selected, onChange, type, includeTime, ...rest }) => {
+const Default = ({ selected, onChange, type, includeTime, ...rest }) => {
   const ref = createRef();
   return (
     <DatePicker
@@ -67,16 +68,15 @@ const Component = ({ selected, onChange, type, includeTime, ...rest }) => {
       showWeekNumbers
       todayButton="Today"
       onChange={(v) => onChange(moment(v))}
-      dateFormat={includeTime ? 'MMMM d, yyyy - HH:mm' : 'MMMM d, yyyy'}
+      dateFormat={includeTime ? 'MMMM d, yyyy - HH:mm':'MMMM d, yyyy'}
       customInput={createElement(ComponentMap[type || 'input'], { ref })}
       {...rest}
     />
   );
 };
 
-export default Component;
 
-export const CustomDatePicker = ({
+const ControlledDatePicker = ({
   selected,
   onChange,
   type,
@@ -87,7 +87,7 @@ export const CustomDatePicker = ({
 
   return (
     <Controller
-      as={Component}
+      as={Default}
       control={control}
       valueName={'selected'}
       onChange={([selected]) => selected}
@@ -96,30 +96,19 @@ export const CustomDatePicker = ({
   );
 };
 
-export const SmartDatePicker = ({ name, options, ...rest }) => {
-  const { control, resource, id } = useFormContext();
-  const mutate = useMutation({ resource, operation: 'update' });
+const Smart = (props) => {
+  const { resource, id } = useFormContext();
+  const mutate = useMutation({ resource, operation: 'update', silent: true });
   const update = (value) => {
     if (id) {
       mutate({
         variables: {
-          object: { [name]: value },
+          object: { [props.name]: value },
           where: { id: { _eq: id } },
         },
       });
     }
   };
-  return (
-    <Controller
-      name={name}
-      as={Component}
-      control={control}
-      valueName={'selected'}
-      onChange={([selected]) => {
-        update(selected);
-        return selected;
-      }}
-      {...rest}
-    />
-  );
+  return <Controlled {...props} onChangeCallback={update} />;
 };
+export { Default, Controlled, Smart };

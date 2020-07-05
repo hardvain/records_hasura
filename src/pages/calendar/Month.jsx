@@ -18,7 +18,6 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import Card from 'src/components/core/card';
 import ListItem from 'src/containers/collection/list/ListItem';
-import DatePicker from 'src/components/DatePicker';
 import useQuery from 'src/hooks/graphql/useQuery';
 import Tasks from 'src/modules/Tasks';
 import * as TaskFilters from 'src/modules/Tasks/filters';

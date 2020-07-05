@@ -15,7 +15,7 @@ import { FormContext, useForm } from 'react-hook-form';
 import Skeleton from 'src/components/core/Skeleton';
 import React, { useEffect, useState } from 'react';
 import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
-import DatePicker from 'src/components/DatePicker';
+import * as DatePicker from 'src/components/forms/DatePicker';
 import Field from 'src/components/forms/Field';
 import TextArea from 'src/components/forms/TextArea';
 import useMutation from 'src/hooks/graphql/useMutation';
@@ -183,7 +183,11 @@ export default () => {
               />
             </Stack>
             <Box flex={2}>
-              <DatePicker type={'button'} onChange={setDate} selected={date} />
+              <DatePicker.Default
+                type={'button'}
+                onChange={setDate}
+                selected={date}
+              />
             </Box>
             <Box flexGrow={1} flex={10} />
           </Stack>

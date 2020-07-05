@@ -5,7 +5,7 @@ import Snippets from 'src/modules/Snippets';
 import { useForm, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import Field from 'src/components/forms/Field';
-import { ResourceSelector } from 'src/containers/collection/Selector';
+import { ResourceSelector } from 'src/components/forms/ResourceSelector';
 import useMutation from 'src/hooks/graphql/useMutation';
 export default ({ model, onSubmitCallback = () => {} }) => {
   const [operation, setOperation] = useState('insert');

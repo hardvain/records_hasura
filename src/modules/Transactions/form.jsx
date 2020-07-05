@@ -19,7 +19,6 @@ import Tasks from './index';
 import Select from 'src/components/forms/Select';
 import { useForm, Controller, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
-import { CustomDatePicker } from 'src/components/DatePicker';
 import Field from 'src/components/forms/Field';
 import useMutation from 'src/hooks/graphql/useMutation';
 export default ({ model, onSubmitCallback = () => {}, showTasks }) => {

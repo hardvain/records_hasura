@@ -1,39 +1,45 @@
-import { Input, Select } from '@chakra-ui/core';
+import { Input } from '@chakra-ui/core';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import _ from 'lodash';
 import useMutation from 'src/hooks/graphql/useMutation';
 
-export default ({ name, options, ...rest }) => {
-  const delayedQuery = _.debounce((q) => update(q), 300);
-  const { control, resource, id } = useFormContext(); // methods contain all useForm functions
+const Default = ({ value = '', onChange, ...rest }) => {
+  return (
+    <Input value={value} onChange={(e) => onChange(e.target.value)} {...rest} />
+  );
+};
+
+const Controlled = ({ name, onChangeCallback = () => {}, ...rest }) => {
+  const { control } = useFormContext();
+
+  return (
+    <Controller
+      control={control}
+      name={name}
+      as={({ onChange, value }) => {
+        const onChangeHandler = (v) => {
+          onChange(v);
+          onChangeCallback(v);
+        };
+        return <Default value={value} onChange={onChangeHandler} {...rest} />;
+      }}
+    />
+  );
+};
+
+const Smart = (props) => {
+  const { resource, id } = useFormContext();
   const mutate = useMutation({ resource, operation: 'update', silent: true });
   const update = (value) => {
     if (id) {
       mutate({
         variables: {
-          object: { [name]: value },
+          object: { [props.name]: value },
           where: { id: { _eq: id } },
         },
       });
     }
   };
-  return (
-    <Controller
-      control={control}
-      size={'sm'}
-      name={name}
-      as={({ onChange, value }) => (
-        <Input
-          size={'sm'}
-          value={value || ''}
-          {...rest}
-          onChange={(e) => {
-            delayedQuery(e.target.value);
-            onChange(e);
-          }}
-        />
-      )}
-    />
-  );
+  return <Controlled {...props} onChangeCallback={update} />;
 };
+export { Default, Controlled, Smart };

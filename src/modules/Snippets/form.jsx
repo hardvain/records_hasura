@@ -1,7 +1,7 @@
 // Render Prop
 import { Stack, Box, Button, Text } from '@chakra-ui/core';
 import Link from 'next/link';
-import { ResourceSelector } from 'src/containers/collection/Selector';
+import { ResourceSelector } from 'src/components/forms/ResourceSelector';
 import Tasks from './index';
 import Snippets from './index';
 import { getNextRevisionDate } from './spaced-repetition';

@@ -1,6 +1,49 @@
-import { Checkbox, Input } from '@chakra-ui/core';
+import { Checkbox } from '@chakra-ui/core';
+import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-export default ({ options, ...rest }) => {
-  const { control } = useFormContext(); // methods contain all useForm functions
-  return <Controller control={control} as={Checkbox} size={'sm'} {...rest} />;
+import useMutation from 'src/hooks/graphql/useMutation';
+
+const Default = ({ value, onChange, ...rest }) => {
+  return (
+    <Checkbox
+      value={value}
+      onChange={(e) => onChange(e.target.checked)}
+      {...rest}
+    />
+  );
 };
+
+const Controlled = ({ name, onChangeCallback = () => {}, ...rest }) => {
+  const { control } = useFormContext();
+
+  return (
+    <Controller
+      control={control}
+      name={name}
+      as={({ onChange, value }) => {
+        const onChangeHandler = (v) => {
+          onChange(v);
+          onChangeCallback(v);
+        };
+        return <Default value={value} onChange={onChangeHandler} {...rest} />;
+      }}
+    />
+  );
+};
+
+const Smart = (props) => {
+  const { resource, id } = useFormContext();
+  const mutate = useMutation({ resource, operation: 'update', silent: true });
+  const update = (value) => {
+    if (id) {
+      mutate({
+        variables: {
+          object: { [props.name]: value },
+          where: { id: { _eq: id } },
+        },
+      });
+    }
+  };
+  return <Controlled {...props} onChangeCallback={update} />;
+};
+export { Default, Controlled, Smart };

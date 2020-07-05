@@ -7,8 +7,8 @@ import {
   SimpleGrid,
   Stack,
 } from '@chakra-ui/core';
-import Selector from 'src/containers/collection/Selector';
-import DatePicker from 'src/components/DatePicker';
+import * as ResourceSelector from 'src/components/forms/ResourceSelector';
+import * as DatePicker from 'src/components/forms/DatePicker';
 import moment from 'moment';
 const options = {
   uuid: {
@@ -110,7 +110,7 @@ const options = {
     field: ({ operator, value, onChange }) => {
       if (!['_is_null'].includes(operator)) {
         return (
-          <DatePicker
+          <DatePicker.Default
             selected={moment(value)}
             type={'input'}
             onChange={(v) => onChange(v.toISOString(true))}
@@ -223,7 +223,7 @@ export default ({ fields, filter, setFilter, onDelete }) => {
   const fieldName = field?.name;
   let ValueComponent;
   if (fieldName && fieldName.startsWith('ref')) {
-    ValueComponent = <Selector name={fieldType} />;
+    ValueComponent = <ResourceSelector.Default name={fieldType} />;
   } else if (fieldType && options[fieldType].field) {
     ValueComponent = React.createElement(options[fieldType].field, {
       value: filter.value,

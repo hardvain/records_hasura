@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/core';
 import React from 'react';
 import Delete from 'src/containers/actions/delete';
-import ResourceSelector from 'src/components/forms/ResourceSelector';
 export default ({ id }) => {
   return (
     <Stack isInline spacing={10} justifyContent={'flex-end'}>
@@ -48,7 +47,6 @@ export default ({ id }) => {
           <MenuItem>Very Low</MenuItem>
         </MenuList>
       </Menu>
-      <ResourceSelector style={{ width: 200 }} />
       <Delete resource={'tasks'} id={id} />
     </Stack>
   );

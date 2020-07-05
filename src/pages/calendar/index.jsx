@@ -12,7 +12,7 @@ import {
 import Link from 'next/link';
 import React, { useState } from 'react';
 import Card from 'src/components/core/card';
-import DatePicker from 'src/components/DatePicker';
+import * as DatePicker from 'src/components/forms/DatePicker';
 import useQuery from 'src/hooks/graphql/useQuery';
 import * as TaskFilters from 'src/modules/Tasks/filters';
 import moment from 'moment';
@@ -124,7 +124,7 @@ export default () => {
               />
             </Stack>
             <Box flex={2}>
-              <DatePicker type={'button'} onChange={setDate} selected={date} />
+              <DatePicker.Default type={'button'} onChange={setDate} selected={date} />
             </Box>
 
             <Box flexGrow={1} flex={10} />
