@@ -1,5 +1,4 @@
 import { Select } from '@chakra-ui/core';
-import { useField } from 'formik';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import useMutation from 'src/hooks/graphql/useMutation';

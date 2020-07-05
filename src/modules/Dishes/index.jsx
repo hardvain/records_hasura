@@ -11,6 +11,36 @@ const fields = [
   'quantity',
   'unit',
 ];
+const schema = {
+  name: {
+    type: 'string',
+    label: 'Name',
+  },
+  description: {
+    type: 'text',
+    label: 'Description',
+  },
+  carbs: {
+    type: 'number',
+    label: 'Carbs',
+  },
+  fat: {
+    type: 'number',
+    label: 'Fat',
+  },
+  protein: {
+    type: 'number',
+    label: 'Protein',
+  },
+  quantity: {
+    type: 'number',
+    label: 'Quantity',
+  },
+  unit: {
+    type: 'string',
+    label: 'Unit',
+  },
+};
 const List = (props) => (
   <Collection
     resource={'dishes'}
@@ -20,4 +50,4 @@ const List = (props) => (
   />
 );
 
-export default { Form, List };
+export default { Form, List, schema };

@@ -9,113 +9,54 @@ import {
   FormLabel,
 } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { FormikDatePicker } from 'src/components/DatePicker';
+import { FormContext, useForm } from 'react-hook-form';
+import Field from 'src/components/forms/Field';
 import useMutation from 'src/hooks/graphql/useMutation';
 
 import moment from 'moment';
-export default ({ model, onSubmit }) => {
-  const [currentModel, setCurrentModel] = useState(model);
+import Glucose from 'src/modules/Glucose';
+export default ({ model, onSubmitCallback = () => {} }) => {
+  const methods = useForm();
+  const [operation, setOperation] = useState('insert');
+
   useEffect(() => {
-    setCurrentModel(model);
+    methods.reset(model);
+    if (model?.id) {
+      setOperation('update');
+    }
   }, [model]);
   const mutate = useMutation({
     resource: 'glucose',
-    operation: currentModel && currentModel.id ? 'update' : 'insert',
+    operation,
   });
+  const onSubmit = () => {
+    methods.handleSubmit((data) =>
+      mutate({
+        variables: {
+          object: { ...model, ...data },
+          where: { id: { _eq: model?.id } },
+        },
+      })
+    )();
+    onSubmitCallback();
+  };
   return (
-    <Formik
-      enableReinitialize={true}
-      initialValues={{
-        value: currentModel?.value || 0,
-        description: currentModel?.description || '',
-        timestamp: currentModel?.timestamp
-          ? moment(currentModel.timestamp).toISOString(true)
-          : moment().toISOString(true),
-      }}
-      validate={(values) => {
-        const errors = {};
-        if (!values.value) {
-          errors.value = 'Required';
-        } else if (values.value <= 0) {
-          errors.value = 'Invalid value';
-        } else if (!values.timestamp) {
-          errors.timestamp = 'Invalid timestamp';
-        }
-        return errors;
-      }}
-      onSubmit={(values, { setSubmitting }) => {
-        mutate({
-          variables: {
-            object: values,
-            where: { id: { _eq: currentModel?.id } },
-          },
-        });
-        if (!currentModel) {
-          setCurrentModel();
-        }
-        onSubmit();
-      }}
-    >
-      {({ isSubmitting }) => (
-        <Form>
-          <Stack spacing={10} my={5}>
-            <Stack isInline>
-              <Box>
-                <FormControl>
-                  <FormLabel htmlFor="value">Value</FormLabel>
-                  <Field
-                    name="value"
-                    type="number"
-                    size={'sm'}
-                    as={Input}
-                    placeholder={'Value'}
-                  />
-                  <ErrorMessage name="value" component="div" />
-                </FormControl>
-              </Box>
-              <Box>
-                <FormControl>
-                  <FormLabel htmlFor="timestamp">Timestamp</FormLabel>
-
-                  <Box>
-                    <FormikDatePicker
-                      name={'timestamp'}
-                      type={'input'}
-                      includeTime
-                    />
-                    <ErrorMessage name="timestamp" component="div" />
-                  </Box>
-                </FormControl>
-              </Box>
-            </Stack>
-
-            <Box>
-              <FormControl>
-                <FormLabel htmlFor="description">Description</FormLabel>
-                <Field
-                  name="description"
-                  as={Textarea}
-                  placeholder={'Description'}
-                />
-                <ErrorMessage name="description" component="div" />
-              </FormControl>
-            </Box>
-          </Stack>
-
-          <Stack isInline>
-            <Box flexGrow={1}></Box>
-            <Button
-              type="submit"
-              variant={'solid'}
-              variantColor={'brand'}
-              size={'sm'}
-            >
-              {currentModel?.id ? 'Update' : 'Create'}
-            </Button>
-          </Stack>
-        </Form>
-      )}
-    </Formik>
+    <Stack spacing={10}>
+      <FormContext {...methods} schema={Glucose.schema}>
+        <Field name={'value'} mb={5} />
+        <Field name={'timestamp'} mb={5} />
+        <Field name={'description'} mb={5} />
+      </FormContext>
+      <Button
+        my={5}
+        type="submit"
+        variant={'solid'}
+        variantColor={'brand'}
+        size={'sm'}
+        onClick={onSubmit}
+      >
+        {model?.id ? 'Update' : 'Create'}
+      </Button>
+    </Stack>
   );
 };

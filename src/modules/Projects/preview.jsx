@@ -14,7 +14,9 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton, useColorMode, Tooltip,
+  DrawerCloseButton,
+  useColorMode,
+  Tooltip,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import Router from 'next/router';
@@ -37,24 +39,33 @@ export default ({ record }) => {
 
   return (
     <ListItem highlight>
-      <Link as={`/projects/${record.id}`} href={`/projects/[id]`}>
-        <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
+      <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
+        <Link as={`/projects/${record.id}`} href={`/projects/[id]`}>
           <Box flex={10} textAlign={'initial'}>
             {record.name}
           </Box>
-         <Box flex={1}>
-           <Tooltip label={`Completed ${completedTasks} out of ${totalTasks} Tasks`}>
-             <Progress
-               color={progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'}
-               value={totalTasks ? progress : 0}
-               borderRadius={5}
-             />
-           </Tooltip>
-         </Box>
-          <Box flex={5} />
-          <Delete resource={'projects'} id={record.id} />
-        </Stack>
-      </Link>
+        </Link>
+
+        <Box flex={1}>
+          <Tooltip
+            label={`Completed ${completedTasks} out of ${totalTasks} Tasks`}
+          >
+            <Box>
+              <Progress
+                h={3}
+                w={200}
+                color={
+                  progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'
+                }
+                value={totalTasks ? progress : 0}
+                borderRadius={2}
+              />
+            </Box>
+          </Tooltip>
+        </Box>
+        <Box flex={5} />
+        <Delete resource={'projects'} id={record.id} />
+      </Stack>
 
       <Drawer
         size={'xl'}
@@ -65,7 +76,10 @@ export default ({ record }) => {
         bg={colorMode === 'light' ? 'white' : '#333'}
       >
         <DrawerOverlay />
-        <DrawerContent overflowY={'scroll'} bg={colorMode === 'light' ? 'white' : '#333'}>
+        <DrawerContent
+          overflowY={'scroll'}
+          bg={colorMode === 'light' ? 'white' : '#333'}
+        >
           <DrawerCloseButton />
           <DrawerHeader>Create your account</DrawerHeader>
 

@@ -4,7 +4,8 @@ import {
   Stack,
   Text,
   Progress,
-  useColorMode, Tooltip,
+  useColorMode,
+  Tooltip,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -24,20 +25,19 @@ export default ({ record }) => {
 
   return (
     <ListItem>
-      <Link href={`/teams/[id]`} as={`/teams/${record?.id}`}>
-        <Stack
-          isInline
-          textAlign={'center'}
-          alignItems={'center'}
-          pr={4}
-        >
+      <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
+        <Link href={`/teams/[id]`} as={`/teams/${record?.id}`}>
           <Box flex={6} textAlign={'initial'}>
             <Text fontSize={'md'}>{record.name}</Text>
           </Box>
-          <Text fontSize={14} flex={6}>
-            {projects.length} Active Project(s)
-          </Text>
-          <Tooltip label={`Completed ${completedTasks} out of ${totalTasks} Tasks`}>
+        </Link>
+        <Text fontSize={14} flex={6}>
+          {projects.length} Active Project(s)
+        </Text>
+        <Box>
+          <Tooltip
+            label={`Completed ${completedTasks} out of ${totalTasks} Tasks`}
+          >
             <Progress
               color={progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'}
               value={totalTasks ? progress : 0}
@@ -45,10 +45,10 @@ export default ({ record }) => {
               borderRadius={5}
             />
           </Tooltip>
-          <Box flex={5} />
-          <Delete resource={'teams'} id={record.id} />
-        </Stack>
-      </Link>
+        </Box>
+        <Box flex={5} />
+        <Delete resource={'teams'} id={record.id} />
+      </Stack>
     </ListItem>
   );
 };

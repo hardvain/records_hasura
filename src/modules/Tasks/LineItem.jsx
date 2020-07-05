@@ -128,11 +128,13 @@ export default ({ record, index, expandAll, indent = 0 }) => {
               >
                 <Box>
                   <Progress
+                    h={3}
+                    w={200}
                     color={
                       progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'
                     }
                     value={totalTasks ? progress : 0}
-                    borderRadius={5}
+                    borderRadius={2}
                   />
                 </Box>
               </Tooltip>
