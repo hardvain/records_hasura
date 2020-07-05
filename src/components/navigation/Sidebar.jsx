@@ -29,6 +29,7 @@ import {
 } from 'react-icons/gi';
 import {
   FaTasks,
+  FaFile,
   FaHeartbeat,
   FaBriefcaseMedical,
   FaPizzaSlice,
@@ -215,6 +216,14 @@ export default () => {
         isActive={pathname === '/notes'}
         href="/notes"
         as={`/notes`}
+      >
+        {FaFile}
+      </MenuItem>
+      <MenuItem
+        title={'Snippets'}
+        isActive={pathname === '/snippets'}
+        href="/snippets"
+        as={`/snippets`}
       >
         {GiBrain}
       </MenuItem>

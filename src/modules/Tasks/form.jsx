@@ -6,6 +6,7 @@ import {
   Text,
   useColorMode,
   Collapse,
+  Divider,
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
@@ -19,7 +20,7 @@ import { useForm, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import Field from 'src/components/forms/Field';
 import useMutation from 'src/hooks/graphql/useMutation';
-export default ({ model, onSubmitCallback = () => {} }) => {
+export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
   const [showMore, setShowMore] = useState(false);
   const methods = useForm();
   const [checklist, setChecklist] = useState([]);
@@ -47,66 +48,74 @@ export default ({ model, onSubmitCallback = () => {} }) => {
   };
   return (
     <Stack>
-      <StackedCard
-        actions={model && model.id && <CardActions id={model?.id} />}
-      >
-        <FormContext
-          {...methods}
-          schema={Tasks.schema}
-          resource={'tasks'}
-          id={model?.id}
-        >
-          <Stack flex={2}>
-            <Field name={'name'} mb={5} />
-            <Field rows={10} name={'description'} schema={Tasks.schema} />
-          </Stack>
-        </FormContext>
-        <StackedCardItem title={'More Details'}>
-          <FormContext
-            {...methods}
-            schema={Tasks.schema}
-            resource={'tasks'}
-            id={model?.id}
-          >
-            <Stack flex={1}>
+      <Stack isInline>
+        <Box flex={2}>
+          <StackedCard>
+            <FormContext
+              {...methods}
+              schema={Tasks.schema}
+              resource={'tasks'}
+              id={model?.id}
+            >
+              <Stack flex={3}>
+                <Field name={'name'} mb={5} />
+                <Field rows={10} name={'description'} schema={Tasks.schema} />
+              </Stack>
+            </FormContext>
+
+            {model && model.id && (
+              <StackedCardItem title={'Checklists'}>
+                <Box>
+                  <SmartChecklists
+                    id={model?.id}
+                    name={'checklist'}
+                    resource={'tasks'}
+                    checklist={checklist}
+                    setChecklist={setChecklist}
+                  />
+                </Box>
+              </StackedCardItem>
+            )}
+            {model && model.id && (
+              <StackedCardItem title={'Sub Tasks'}>
+                <Card p={0}>
+                  <Tasks.List
+                    formContext={{ parent_id: model.id }}
+                    where={{ _and: [{ parent_id: { _eq: model.id } }] }}
+                  />
+                </Card>
+              </StackedCardItem>
+            )}
+          </StackedCard>
+        </Box>
+        {!isPreview && (
+          <Box flex={1} p={5}>
+            <FormContext
+              {...methods}
+              schema={Tasks.schema}
+              resource={'tasks'}
+              id={model?.id}
+            >
               <Field name={'due_date'} flex={1} />
+              <Divider />
               <Field name={'priority'} flex={1} />
+              <Divider />
               <Field name={'status'} flex={1} />
+              <Divider />
               <Field
                 flex={1}
                 name={'parent_id'}
                 where={{ _and: [{ project_id: { _eq: model?.project_id } }] }}
               />
+              <Divider />
               <Field flex={1} name={'project_id'} />
+              <Divider />
               {!model?.project_id && <Field flex={1} name={'team_id'} />}
               <Field name={'people_id'} flex={1} />
-            </Stack>
-          </FormContext>
-        </StackedCardItem>
-        {model && model.id && (
-          <StackedCardItem title={'Checklists'}>
-            <Box>
-              <SmartChecklists
-                id={model?.id}
-                name={'checklist'}
-                resource={'tasks'}
-                checklist={checklist}
-                setChecklist={setChecklist}
-              />
-            </Box>
-          </StackedCardItem>
+            </FormContext>
+          </Box>
         )}
-        {model && model.id && (
-          <StackedCardItem title={'Sub Tasks'}>
-            <Card p={0}>
-              <Tasks.List
-                formContext={{ parent_id: model.id }}
-                where={{ _and: [{ parent_id: { _eq: model.id } }] }}
-              />
-            </Card>
-          </StackedCardItem>
-        )}
-      </StackedCard>
+      </Stack>
       {!model?.id && (
         <Button
           my={5}

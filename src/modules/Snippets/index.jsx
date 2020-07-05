@@ -1,7 +1,7 @@
 import Form from './form';
 import Collection from 'src/containers/collection';
 import Preview from './preview';
-const fields = ['id', 'name', 'description', 'checkins', 'status', 'priority'];
+const fields = ['id', 'name', 'description', 'checkins', 'difficulty','due_date'];
 const List = (props) => (
   <Collection
     resource={'snippets'}
@@ -19,28 +19,32 @@ const schema = {
     type: 'text',
     label: 'Description',
   },
+  due_date: {
+    type: 'timestamp',
+    label: 'Due Date',
+  },
   checkins: {
     type: 'json',
     label: 'Check Ins',
   },
-  priority: {
-    type: 'select',
-    label: 'Priority',
-    options: [
-      { value: 1, label: 'Very Important' },
-      { value: 2, label: 'Important' },
-      { value: 3, label: 'Medium' },
-    ],
-  },
-  status: {
+  // priority: {
+  //   type: 'select',
+  //   label: 'Priority',
+  //   options: [
+  //     { value: 1, label: 'Very Important' },
+  //     { value: 2, label: 'Important' },
+  //     { value: 3, label: 'Medium' },
+  //   ],
+  // },
+  difficulty: {
     type: 'select',
     label: 'Status',
     options: [
-      { value: 5, label: 'Very Easy' },
-      { value: 4, label: 'Easy' },
+      { value: 5, label: 'Very Hard' },
+      { value: 4, label: 'Hard' },
       { value: 3, label: 'Medium' },
-      { value: 2, label: 'Hard' },
-      { value: 1, label: 'Very Had' },
+      { value: 2, label: 'Easy' },
+      { value: 1, label: 'Very Easy' },
     ],
   },
 };

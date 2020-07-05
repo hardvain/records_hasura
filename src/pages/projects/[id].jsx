@@ -43,6 +43,7 @@ export default () => {
   return project ? (
     <Stack m={0}>
       <Card
+        shadow={false}
         mt={0}
         borderLeftWidth={0}
         borderTopWidth={0}

@@ -10,7 +10,7 @@ export default () => {
   const [snippet] = useQuery({
     name: 'snippets',
     where: { id: { _eq: id } },
-    fields: ['id', 'name', 'description', 'checkins', 'status', 'priority'],
+    fields: ['id', 'name', 'description', 'checkins', 'difficulty', 'due_date'],
   });
   return snippet ? (
     <Card m={5} p={5}>

@@ -17,6 +17,9 @@ export default ({
   const { error, data, loading } = useSubscription(gql(queryString), {
     variables: { where, order_by, limit, offset },
   });
+  if (error) {
+    console.error(name, error);
+  }
   if (data) {
     const resultData = data[name];
     return [resultData, loading, error];

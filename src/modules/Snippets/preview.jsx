@@ -1,5 +1,6 @@
 import { Box, Collapse, IconButton, Stack, Text } from '@chakra-ui/core';
 import Link from 'next/link';
+import Card from 'src/components/core/card';
 import Drawer from 'src/components/drawer';
 import Delete from 'src/containers/actions/delete';
 import Tasks from 'src/modules/Tasks';
@@ -13,19 +14,19 @@ export default ({ record }) => {
   const handleToggle = () => setShow(!show);
 
   return (
-    <ListItem py={1}>
-      <Stack
-        py={2}
-        isInline
-        textAlign={'center'}
-        alignItems={'center'}
-        pr={4}
-        onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          handleToggle();
-        }}
-      >
+    <ListItem
+      borderWidth={1}
+      borderLeftWidth={1}
+      cursor={'pointer'}
+      px={3}
+      py={1}
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        handleToggle();
+      }}
+    >
+      <Stack py={2} isInline textAlign={'center'} alignItems={'center'} pr={4}>
         <Box flexGrow={1} textAlign={'initial'}>
           <Text fontSize={'md'}>{record.name}</Text>
         </Box>

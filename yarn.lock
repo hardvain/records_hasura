@@ -10681,6 +10681,11 @@ slide@^1.1.6, slide@~1.1.3, slide@~1.1.6:
   resolved "https://registry.yarnpkg.com/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
   integrity sha1-VusCfWW00tzmyy4tMsTUr8nh1wc=
 
+sm2-plus@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/sm2-plus/-/sm2-plus-1.0.6.tgz#7181b291f4bc1f2df6087a4005b01573820c704f"
+  integrity sha512-V0dUGTwS7hKAzmoPY8Bao2t1DsfIAgu9aR3n7S0faWUw+grvhomCD21PohcT8HjHzCQTyZ/JETc5UAAH/aSFpQ==
+
 smart-buffer@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.1.0.tgz#91605c25d91652f4661ea69ccf45f1b331ca21ba"

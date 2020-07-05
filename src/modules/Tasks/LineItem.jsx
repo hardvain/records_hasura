@@ -153,7 +153,7 @@ export default ({ record, index, expandAll, indent = 0 }) => {
           href={`/tasks/[id]`}
           as={`/tasks/${record?.id}`}
         >
-          <Tasks.Form model={record} />
+          <Tasks.Form model={record} isPreview={true} />
         </Drawer>
       </ListItem>
       {showSubTasks && (

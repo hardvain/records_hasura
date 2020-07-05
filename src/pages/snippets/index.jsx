@@ -1,11 +1,15 @@
-import Notes from 'src/modules/Notes';
+import Snippets from 'src/modules/Snippets';
 import { Box, Stack } from '@chakra-ui/core';
 
 export default () => {
   return (
     <Stack isInline>
       <Box w={'100%'} p={10}>
-        <Notes.List showFilterBar/>
+        <Snippets.List
+          showFilterBar
+          showBanners
+          order_by={{ due_date: 'asc_nulls_first' }}
+        />
       </Box>
     </Stack>
   );
