@@ -21,7 +21,7 @@ export default () => {
 
   const [date, setDate] = useState(moment().toISOString(true));
   return (
-    <Box w={'100%'} p={3}>
+    <Box w={'100%'} px={10} py={3}>
       <Transactions.List
         showFilterBar
         where={{ _and: [] }}

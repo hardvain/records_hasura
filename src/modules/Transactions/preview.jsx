@@ -11,43 +11,39 @@ export default ({ record }) => {
 
   const handleToggle = () => setShow(!show);
   return (
-    <ListItem expand={show}>
+    <ListItem
+      expand={show}
+      borderLeftWidth={4}
+      borderLeftColor={record?.type === 'expense' ? 'red.500' : 'green.500'}
+    >
       <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
-        <IconButton
-          mr={0}
-          variant={'ghost'}
-          size="sm"
-          icon={show ? 'chevron-down' : 'chevron-right'}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            handleToggle();
-          }}
-        />
-        <Stack alignItems={'flex-start'} flexGrow={1}>
-          <Stack isInline spacing={10} w={'100%'}>
-            <Box>
-              {record.name} - {record.value}
-            </Box>
-            <Box flexGrow={1}></Box>
-          </Stack>
+        <Stack isInline flex={5} alignItems={'baseline'}>
+          <IconButton
+            mr={0}
+            variant={'ghost'}
+            size="sm"
+            icon={show ? 'chevron-down' : 'chevron-right'}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              handleToggle();
+            }}
+          />
           <Box>
-            <Text fontSize={12}>
-              {record.timestamp
-                ? moment(record.timestamp).format('Do, MMMM YYYY')
-                : '-'}
-            </Text>
+            {record.name}
           </Box>
         </Stack>
-        <Box mr={2}>
-          <Badge>{record.priority}</Badge>
+        <Box flex={1}>
+          <Text fontSize={14}>{record.value}</Text>
         </Box>
-        <Box mr={2}>
-          <Badge variantColor={'yellow'}>{record.status}</Badge>
-        </Box>
-        <Box>
-          <Badge variantColor={'brand'}>{record.team}</Badge>
-        </Box>
+        {/*<Box flex={1}>*/}
+        {/*  <Text fontSize={12}>*/}
+        {/*    {record.timestamp*/}
+        {/*      ? moment(record.timestamp).format('Do, MMMM YYYY')*/}
+        {/*      : '-'}*/}
+        {/*  </Text>*/}
+        {/*</Box>*/}
+        <Box flexGrow={1}></Box>
         <Delete resource={'transactions'} id={record.id} />
       </Stack>
       <Collapse isOpen={show}>
