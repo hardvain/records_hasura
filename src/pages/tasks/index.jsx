@@ -28,7 +28,7 @@ export default () => {
   const [date, setDate] = useState(moment().toISOString(true));
   return (
     <Box w={'100%'} px={10} py={5}>
-      <Tabs variantColor={'brand'}  size={'sm'} isManual>
+      <Tabs variantColor={'brand'} size={'sm'} isManual>
         <Stack isInline spacing={0}>
           <TabList borderWidth={0}>
             <Tab
@@ -71,103 +71,110 @@ export default () => {
           </InputGroup>
         </Stack>
 
-        <TabPanels>
-          <TabPanel>
-            {currentTab === 0 && (
-              <Box w={'100%'}>
-                <Tasks.List
-                  group_by_field={(row) =>
-                    row['ref_project']
-                      ? row['ref_project']['ref_team']['name']
-                      : row['ref_team']['name']
-                  }
-                  order_by={{
-                    ref_project: { ref_team: { created_at: 'asc' } },
-                    due_date: 'asc',
-                  }}
-                  showFilterBar
-                  where={TaskFilters.today(date)}
-                />
-              </Box>
-            )}
-          </TabPanel>
-          <TabPanel>
-            {currentTab === 1 && (
-              <Box w={'100%'}>
-                <Tasks.List
-                  group_by_field={(row) =>
-                    row['ref_project']
-                      ? row['ref_project']['ref_team']['name']
-                      : row['ref_team']['name']
-                  }
-                  order_by={{
-                    ref_project: { ref_team: { created_at: 'asc' } },
-                    due_date: 'asc',
-                  }}
-                  showFilterBar
-                  where={TaskFilters.backlog()}
-                />
-              </Box>
-            )}
-          </TabPanel>
-          <TabPanel>
-            {currentTab === 2 && (
-              <Box w={'100%'}>
-                <Tasks.List
-                  group_by_field={(row) =>
-                    row['ref_project']
-                      ? row['ref_project']['ref_team']['name']
-                      : row['ref_team']['name']
-                  }
-                  order_by={{
-                    ref_project: { ref_team: { created_at: 'asc' } },
-                    due_date: 'asc',
-                  }}
-                  showFilterBar
-                  where={TaskFilters.overDue(date)}
-                />
-              </Box>
-            )}
-          </TabPanel>
-          <TabPanel>
-            {currentTab === 3 && (
-              <Box w={'100%'}>
-                <Tasks.List
-                  group_by_field={(row) =>
-                    row['ref_project']
-                      ? row['ref_project']['ref_team']['name']
-                      : row['ref_team']['name']
-                  }
-                  order_by={{
-                    ref_project: { ref_team: { created_at: 'asc' } },
-                    due_date: 'asc',
-                  }}
-                  showFilterBar
-                  where={TaskFilters.activeNext7Days(date)}
-                />
-              </Box>
-            )}
-          </TabPanel>
-          <TabPanel>
-            {currentTab === 4 && (
-              <Box w={'100%'}>
-                <Tasks.List
-                  group_by_field={(row) =>
-                    row['ref_project']
-                      ? row['ref_project']['ref_team']['name']
-                      : row['ref_team']['name']
-                  }
-                  order_by={{
-                    ref_project: { ref_team: { created_at: 'asc' } },
-                    due_date: 'asc',
-                  }}
-                  showFilterBar
-                  where={{ _and: [{ parent_id: { _is_null: true } }] }}
-                />
-              </Box>
-            )}
-          </TabPanel>
-        </TabPanels>
+        <Box my={5}>
+          <TabPanels>
+            <TabPanel>
+              {currentTab === 0 && (
+                <Box w={'100%'}>
+                  <Tasks.List
+                    showBanners
+                    group_by_field={(row) =>
+                      row['ref_project']
+                        ? row['ref_project']['ref_team']['name']
+                        : row['ref_team']['name']
+                    }
+                    order_by={{
+                      ref_project: { ref_team: { created_at: 'asc' } },
+                      due_date: 'asc',
+                    }}
+                    showFilterBar
+                    where={TaskFilters.today(date)}
+                  />
+                </Box>
+              )}
+            </TabPanel>
+            <TabPanel>
+              {currentTab === 1 && (
+                <Box w={'100%'}>
+                  <Tasks.List
+                    showBanners
+                    group_by_field={(row) =>
+                      row['ref_project']
+                        ? row['ref_project']['ref_team']['name']
+                        : row['ref_team']['name']
+                    }
+                    order_by={{
+                      ref_project: { ref_team: { created_at: 'asc' } },
+                      due_date: 'asc',
+                    }}
+                    showFilterBar
+                    where={TaskFilters.backlog()}
+                  />
+                </Box>
+              )}
+            </TabPanel>
+            <TabPanel>
+              {currentTab === 2 && (
+                <Box w={'100%'}>
+                  <Tasks.List
+                    showBanners
+                    group_by_field={(row) =>
+                      row['ref_project']
+                        ? row['ref_project']['ref_team']['name']
+                        : row['ref_team']['name']
+                    }
+                    order_by={{
+                      ref_project: { ref_team: { created_at: 'asc' } },
+                      due_date: 'asc',
+                    }}
+                    showFilterBar
+                    where={TaskFilters.overDue(date)}
+                  />
+                </Box>
+              )}
+            </TabPanel>
+            <TabPanel>
+              {currentTab === 3 && (
+                <Box w={'100%'}>
+                  <Tasks.List
+                    showBanners
+                    group_by_field={(row) =>
+                      row['ref_project']
+                        ? row['ref_project']['ref_team']['name']
+                        : row['ref_team']['name']
+                    }
+                    order_by={{
+                      ref_project: { ref_team: { created_at: 'asc' } },
+                      due_date: 'asc',
+                    }}
+                    showFilterBar
+                    where={TaskFilters.activeNext7Days(date)}
+                  />
+                </Box>
+              )}
+            </TabPanel>
+            <TabPanel>
+              {currentTab === 4 && (
+                <Box w={'100%'}>
+                  <Tasks.List
+                    showBanners
+                    group_by_field={(row) =>
+                      row['ref_project']
+                        ? row['ref_project']['ref_team']['name']
+                        : row['ref_team']['name']
+                    }
+                    order_by={{
+                      ref_project: { ref_team: { created_at: 'asc' } },
+                      due_date: 'asc',
+                    }}
+                    showFilterBar
+                    where={{ _and: [{ parent_id: { _is_null: true } }] }}
+                  />
+                </Box>
+              )}
+            </TabPanel>
+          </TabPanels>
+        </Box>
       </Tabs>
     </Box>
   );

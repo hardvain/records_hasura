@@ -25,8 +25,7 @@ export default ({ name, options, ...rest }) => {
     }
   };
   return (
-    <Box
-      h={'100%'}
+    <Stack
       className={colorMode === 'light' ? 'md-editor-light' : 'md-editor-dark'}
       w={'100%'}
     >
@@ -72,6 +71,6 @@ export default ({ name, options, ...rest }) => {
         )}
         control={control}
       />
-    </Box>
+    </Stack>
   );
 };

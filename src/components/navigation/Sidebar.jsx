@@ -113,6 +113,8 @@ export default () => {
   return (
     <Flex
       pt={5}
+      position={'fixed'}
+      right={0}
       direction={'column'}
       w={showSidebar ? 250 : 50}
       bg={colorMode === 'light' ? '#fff' : '#333'}

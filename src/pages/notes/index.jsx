@@ -1,12 +1,21 @@
 import Notes from 'src/modules/Notes';
-import { Box, Stack } from '@chakra-ui/core';
+import {
+  Box,
+  Stack,
+  InputGroup,
+  InputRightElement,
+  Icon,
+  Input,
+} from '@chakra-ui/core';
 
 export default () => {
   return (
-    <Stack isInline>
-      <Box w={'100%'} p={10}>
-        <Notes.List showFilterBar/>
-      </Box>
+    <Stack w={'100%'} p={10}>
+      <InputGroup mb={4}>
+        <Input rounded="0" placeholder="Search..." />
+        <InputRightElement children={<Icon name="search" />} />
+      </InputGroup>
+      <Notes.List showFilterBar />
     </Stack>
   );
 };

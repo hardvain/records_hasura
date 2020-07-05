@@ -50,12 +50,6 @@ export default ({ model, onSubmitCallback = () => {} }) => {
     <Stack spacing={10}>
       <FormContext {...methods} schema={Tasks.schema}>
         <Field name={'name'} />
-        <Button size={'xs'} onClick={() => setShowDesc(!showDesc)}>
-          Description
-        </Button>
-        <Collapse isOpen={showDesc}>
-          <Field name={'description'} height={500} />
-        </Collapse>
       </FormContext>
       <Box mt={2} flexGrow={1}>
         <Button
@@ -75,17 +69,18 @@ export default ({ model, onSubmitCallback = () => {} }) => {
               Snippets
             </Text>
             <Snippets.List
+              showBanners
               formContext={{
                 notes_snippets: {
                   data: { note_id: model.id },
                 },
               }}
               where={{
-                _and: [{ notes_snippets: { note_id: { _eq: model.id } } }],
+                _and: [{ ref_notes: { note_id: { _eq: model.id } } }],
               }}
             />
           </Box>
-          <ResourceSelector resource={'snippets'} onChange={onSelectSnippet} />
+          {/*<ResourceSelector resource={'snippets'} onChange={onSelectSnippet} />*/}
         </Stack>
       )}
     </Stack>

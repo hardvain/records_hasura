@@ -96,7 +96,7 @@ const App = ({ Component, pageProps }) => {
             <Navbar />
             <Flex direction={'row'} pt={58}>
               <TeamSidebar />
-              <Box flexGrow={1} minHeight={'100vh'} ml={245}>
+              <Box flexGrow={1} minHeight={'100vh'} ml={245} mr={245}>
                 <Component {...pageProps} />
                 <FormModal />
               </Box>

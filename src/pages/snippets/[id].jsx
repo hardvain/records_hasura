@@ -10,12 +10,12 @@ export default () => {
   const [snippet] = useQuery({
     name: 'snippets',
     where: { id: { _eq: id } },
-    fields: ['id', 'name', 'description'],
+    fields: ['id', 'name', 'description', 'checkins', 'status', 'priority'],
   });
   return snippet ? (
-    <Box m={3} shadow p={5}>
+    <Card m={5} p={5}>
       <Snippets.Form model={snippet[0]} />
-    </Box>
+    </Card>
   ) : (
     <Skeleton />
   );

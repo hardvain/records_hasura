@@ -43,7 +43,22 @@ const FilteredCollection = ({
   };
   let response;
   if (loading) {
-    response = (
+    response = group_by_field ? (
+      <Stack p={2} spacing={30}>
+        <Box my={4}>
+          <Skeleton h={10} count={4} />
+        </Box>
+        <Box my={4}>
+          <Skeleton h={10} count={4} />
+        </Box>
+        <Box my={4}>
+          <Skeleton h={10} count={4} />
+        </Box>
+        <Box my={4}>
+          <Skeleton h={10} count={4} />
+        </Box>
+      </Stack>
+    ) : (
       <Box p={2}>
         <Skeleton h={10} count={10} />
       </Box>

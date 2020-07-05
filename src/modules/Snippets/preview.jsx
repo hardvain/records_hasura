@@ -1,6 +1,8 @@
 import { Box, Collapse, IconButton, Stack, Text } from '@chakra-ui/core';
 import Link from 'next/link';
+import Drawer from 'src/components/drawer';
 import Delete from 'src/containers/actions/delete';
+import Tasks from 'src/modules/Tasks';
 
 import Snippets from './index';
 import React, { useState } from 'react';
@@ -29,9 +31,16 @@ export default ({ record }) => {
         </Box>
         <Delete resource={'snippets'} id={record.id} />
       </Stack>
-      <Collapse isOpen={show}>
+      <Drawer
+        size={'xl'}
+        title={record.name}
+        show={show}
+        setShow={setShow}
+        href={`/snippets/[id]`}
+        as={`/snippets/${record?.id}`}
+      >
         <Snippets.Form model={record} />
-      </Collapse>
+      </Drawer>
     </ListItem>
   );
 };

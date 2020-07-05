@@ -5,6 +5,7 @@ import { ResourceSelector } from 'src/containers/collection/Selector';
 import Loader from 'src/components/core/Loader';
 import Tasks from './index';
 import Snippets from './index';
+import moment from 'moment';
 import { useForm, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import Field from 'src/components/forms/Field';
@@ -24,17 +25,21 @@ export default ({ model, onSubmitCallback = () => {}, formContext = {} }) => {
     resource: 'snippets',
     operation,
   });
-  const snippetMutation = useMutation({
-    resource: 'snippets_mapping',
-    operation: 'insert',
-  });
-  const onSelectSnippet = (id) => {
-    snippetMutation({
+
+  const onCheckin = () => {
+    mutate({
       variables: {
-        object: { source_id: model.id, target_id: id },
+        where: { id: { _eq: model?.id } },
+        object: {
+          checkins: [
+            ...model.checkins,
+            { timestamp: moment().toISOString(true) },
+          ],
+        },
       },
     });
   };
+
   const onSubmit = () => {
     methods.handleSubmit((data) => {
       return mutate({
@@ -48,15 +53,22 @@ export default ({ model, onSubmitCallback = () => {}, formContext = {} }) => {
   };
   return (
     <Stack spacing={10}>
-      <Box>
-        <Link href={`/snippets/[id]`} as={`/snippets/${model?.id}`}>
-          <Button size={'xs'}>View Details</Button>
-        </Link>
-      </Box>
+      <Stack isInline borderWidth={1} borderRadius={3} p={3}>
+        <Button
+          variant={'solid'}
+          variantColor={'brand'}
+          size={'sm'}
+          onClick={onCheckin}
+        >
+          Check In
+        </Button>
+      </Stack>
       <Stack spacing={10}>
         <FormContext {...methods} schema={Tasks.schema}>
           <Field name={'name'} />
-          <Field name={'description'} />
+          <Field name={'priority'} />
+          <Field name={'status'} />
+          <Field name={'description'} height={1000} />
         </FormContext>
       </Stack>
 
@@ -72,37 +84,37 @@ export default ({ model, onSubmitCallback = () => {}, formContext = {} }) => {
           {model?.id ? 'Update' : 'Create'}
         </Button>
       </Stack>
-      {model && model.id && (
-        <Loader title={'References'}>
-          <Stack spacing={10}>
-            <Box mb={5}>
-              <Text fontSize={13} mb={3}>
-                References
-              </Text>
-              <Snippets.List
-                where={{
-                  _and: [{ ref_snippets: { source_id: { _eq: model.id } } }],
-                }}
-              />
-            </Box>
-            <ResourceSelector
-              resource={'snippets'}
-              onChange={onSelectSnippet}
-            />
+      {/*{model && model.id && (*/}
+      {/*  <Loader title={'References'}>*/}
+      {/*    <Stack spacing={10}>*/}
+      {/*      <Box mb={5}>*/}
+      {/*        <Text fontSize={13} mb={3}>*/}
+      {/*          References*/}
+      {/*        </Text>*/}
+      {/*        <Snippets.List*/}
+      {/*          where={{*/}
+      {/*            _and: [{ ref_snippets: { source_id: { _eq: model.id } } }],*/}
+      {/*          }}*/}
+      {/*        />*/}
+      {/*      </Box>*/}
+      {/*      <ResourceSelector*/}
+      {/*        resource={'snippets'}*/}
+      {/*        onChange={onSelectSnippet}*/}
+      {/*      />*/}
 
-            <Box>
-              <Text fontSize={13} mb={3}>
-                Referenced By
-              </Text>
-              <Snippets.List
-                where={{
-                  _and: [{ ref_snippets: { target_id: { _eq: model.id } } }],
-                }}
-              />
-            </Box>
-          </Stack>
-        </Loader>
-      )}
+      {/*      <Box>*/}
+      {/*        <Text fontSize={13} mb={3}>*/}
+      {/*          Referenced By*/}
+      {/*        </Text>*/}
+      {/*        <Snippets.List*/}
+      {/*          where={{*/}
+      {/*            _and: [{ ref_snippets: { target_id: { _eq: model.id } } }],*/}
+      {/*          }}*/}
+      {/*        />*/}
+      {/*      </Box>*/}
+      {/*    </Stack>*/}
+      {/*  </Loader>*/}
+      {/*)}*/}
     </Stack>
   );
 };

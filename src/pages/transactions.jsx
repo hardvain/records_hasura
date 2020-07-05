@@ -22,7 +22,12 @@ export default () => {
   const [date, setDate] = useState(moment().toISOString(true));
   return (
     <Box w={'100%'} p={3}>
-      <Transactions.List showFilterBar where={{ _and: [] }} />
+      <Transactions.List
+        showFilterBar
+        where={{ _and: [] }}
+        order_by={{ timestamp: 'desc_nulls_last' }}
+        group_by_field={(row) => moment(row['timestamp']).format('DD-MM-yyyy')}
+      />
     </Box>
   );
 };
