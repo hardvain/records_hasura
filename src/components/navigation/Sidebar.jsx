@@ -59,7 +59,7 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
       <NextLink href={href} as={as}>
         <Stack isInline alignItems={'center'}>
           {showSidebar && (
-            <Text ml={5} fontSize={14}>
+            <Text ml={5} fontSize={14} fontWeight={500}>
               {title}
             </Text>
           )}

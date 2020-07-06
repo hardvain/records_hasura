@@ -50,13 +50,13 @@ const MenuItem = ({ id, name, resource, children = [] }) => {
           <Box>
             {id === 'all' ? (
               <NextLink href={`/${resource}/all`}>
-                <Text ml={0} fontSize={14}>
+                <Text ml={0} fontSize={14} fontWeight={500}>
                   {name}
                 </Text>
               </NextLink>
             ) : (
               <NextLink href={`/${resource}/[id]`} as={`/${resource}/${id}`}>
-                <Text ml={0} fontSize={14}>
+                <Text ml={0} fontSize={14} fontWeight={500}>
                   {name}
                 </Text>
               </NextLink>

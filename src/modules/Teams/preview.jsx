@@ -26,11 +26,13 @@ export default ({ record }) => {
   return (
     <ListItem>
       <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
-        <Link href={`/teams/[id]`} as={`/teams/${record?.id}`}>
-          <Box flex={6} textAlign={'initial'}>
-            <Text fontSize={'md'}>{record.name}</Text>
-          </Box>
-        </Link>
+        <Box>
+          <Link href={`/teams/[id]`} as={`/teams/${record?.id}`}>
+            <Box flex={6} textAlign={'initial'}>
+              <Text fontSize={'md'}>{record.name}</Text>
+            </Box>
+          </Link>
+        </Box>
         <Text fontSize={14} flex={6}>
           {projects.length} Active Project(s)
         </Text>

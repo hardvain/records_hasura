@@ -40,6 +40,7 @@ const createHttpLink = (headers) => {
 const createWSLink = () => {
   let subscriptionClient = new SubscriptionClient(process.env.HASURA_GRAPHQL_URL_WSS, {
     reconnect: true,
+    lazy:true,
     timeout: 30000,
     connectionParams: async () => {
       const token = await requestAccessToken()

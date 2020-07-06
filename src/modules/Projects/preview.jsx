@@ -40,11 +40,11 @@ export default ({ record }) => {
   return (
     <ListItem highlight>
       <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
-        <Link as={`/projects/${record.id}`} href={`/projects/[id]`}>
-          <Box flex={10} textAlign={'initial'}>
-            {record.name}
-          </Box>
-        </Link>
+        <Box flex={10}>
+          <Link as={`/projects/${record.id}`} href={`/projects/[id]`}>
+            <Box textAlign={'initial'}>{record.name}</Box>
+          </Link>
+        </Box>
 
         <Box flex={1}>
           <Tooltip
