@@ -231,6 +231,7 @@ export default () => {
               id={review?.id}
             >
               <Field
+                isSmart={true}
                 rows={10}
                 name={'summary'}
                 schema={Tasks.schema}

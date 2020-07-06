@@ -1,11 +1,13 @@
-import { Select, Box, Editable, Text, EditablePreview } from '@chakra-ui/core';
+import { Select } from '@chakra-ui/core';
+import React, { useState } from 'react';
 
-import { Input } from '@chakra-ui/core';
-import React from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import useMutation from 'src/hooks/graphql/useMutation';
-
-const Default = ({ value, onChange, options, ...rest }) => {
+const Default = ({
+  value,
+  onChange,
+  updateCallback = () => {},
+  options,
+  ...rest
+}) => {
   return (
     <Select
       size={'sm'}
@@ -14,6 +16,7 @@ const Default = ({ value, onChange, options, ...rest }) => {
       onChange={(e) => {
         const value = e.target.value;
         onChange(value === '' ? null : value);
+        updateCallback(value === '' ? null : value);
       }}
     >
       {options.map((o) => (
@@ -24,4 +27,4 @@ const Default = ({ value, onChange, options, ...rest }) => {
     </Select>
   );
 };
-export { Default};
+export { Default };
