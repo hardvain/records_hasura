@@ -67,9 +67,9 @@ export default ({ name, isSmart = false, hideLabel = false, ...rest }) => {
   const DefaultComponent = map[metadata.type].Default;
   const component =
     isGlobalSmart || isSmart ? (
-      <Smart name={name} component={DefaultComponent}/>
+      <Smart name={name} component={DefaultComponent} {...metadata} {...rest}/>
     ) : (
-      <Controlled name={name} component={DefaultComponent}/>
+      <Controlled name={name} component={DefaultComponent} {...metadata} {...rest}/>
     );
   return (
     <Box {...rest}>
