@@ -1,11 +1,23 @@
 import { Input } from '@chakra-ui/core';
-import React from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import useMutation from 'src/hooks/graphql/useMutation';
+import React, { useState } from 'react';
 
-const Default = ({ value = '', onChange, ...rest }) => {
+const Default = ({
+  value = '',
+  onChange,
+  updateCallback = () => {},
+  ...rest
+}) => {
+  const [state, setState] = useState('');
   return (
-    <Input value={value} onChange={(e) => onChange(e.target.value)} {...rest} />
+    <Input
+      value={value}
+      onBlur={() => updateCallback(state)}
+      onChange={(e) => {
+        onChange(e.target.value);
+        setState(e.target.value);
+      }}
+      {...rest}
+    />
   );
 };
 

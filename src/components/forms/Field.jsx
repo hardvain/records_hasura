@@ -22,13 +22,10 @@ const Controlled = ({
       control={control}
       name={name}
       as={({ onChange, value }) => {
-        const onChangeHandler = (v) => {
-          onChange(v);
-          onChangeCallback(v);
-        };
         return React.createElement(component, {
           value,
-          onChange: onChangeHandler,
+          onChange: onChange,
+          updateCallback: onChangeCallback,
           ...rest,
         });
       }}
@@ -67,9 +64,14 @@ export default ({ name, isSmart = false, hideLabel = false, ...rest }) => {
   const DefaultComponent = map[metadata.type].Default;
   const component =
     isGlobalSmart || isSmart ? (
-      <Smart name={name} component={DefaultComponent} {...metadata} {...rest}/>
+      <Smart name={name} component={DefaultComponent} {...metadata} {...rest} />
     ) : (
-      <Controlled name={name} component={DefaultComponent} {...metadata} {...rest}/>
+      <Controlled
+        name={name}
+        component={DefaultComponent}
+        {...metadata}
+        {...rest}
+      />
     );
   return (
     <Box {...rest}>
