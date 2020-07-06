@@ -111,7 +111,7 @@ const options = {
       if (!['_is_null'].includes(operator)) {
         return (
           <DatePicker.Default
-            selected={moment(value)}
+            value={moment(value)}
             type={'input'}
             onChange={(v) => onChange(v.toISOString(true))}
           />

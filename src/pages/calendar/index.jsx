@@ -124,7 +124,7 @@ export default () => {
               />
             </Stack>
             <Box flex={2}>
-              <DatePicker.Default type={'button'} onChange={setDate} selected={date} />
+              <DatePicker.Default type={'button'} onChange={setDate} value={date} />
             </Box>
 
             <Box flexGrow={1} flex={10} />

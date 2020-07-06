@@ -186,7 +186,7 @@ export default () => {
               <DatePicker.Default
                 type={'button'}
                 onChange={setDate}
-                selected={date}
+                value={date}
               />
             </Box>
             <Box flexGrow={1} flex={10} />
