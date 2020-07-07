@@ -14,6 +14,7 @@ const schema = {
   timestamp: {
     type: 'timestamp',
     label: 'Timestamp',
+    includeTime: true,
   },
 
   quantity: {

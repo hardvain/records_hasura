@@ -54,7 +54,14 @@ const ComponentMap = {
   input: InputComponent,
 };
 
-const Default = ({ value, onChange, type = 'input', includeTime, ...rest }) => {
+const Default = ({
+  value,
+  onChange,
+  updateCallback = () => {},
+  type = 'input',
+  includeTime,
+  ...rest
+}) => {
   const ref = createRef();
   let datePickerType = rest.datePickerType || 'input';
   return (
@@ -64,10 +71,13 @@ const Default = ({ value, onChange, type = 'input', includeTime, ...rest }) => {
       timeFormat="HH:mm"
       timeIntervals={15}
       timeCaption="Time"
-      selected={value ? moment(value)?.toDate() : undefined}
+      selected={value ? moment(value)?.toDate() : moment().toDate()}
       showWeekNumbers
       todayButton="Today"
-      onChange={(v) => onChange(moment(v).toISOString(true))}
+      onChange={(v) => {
+        onChange(moment(v).toISOString(true));
+        updateCallback(moment(v).toISOString(true));
+      }}
       dateFormat={includeTime ? 'MMMM d, yyyy - HH:mm' : 'MMMM d, yyyy'}
       customInput={createElement(ComponentMap[datePickerType], { ref })}
       {...rest}
@@ -75,4 +85,4 @@ const Default = ({ value, onChange, type = 'input', includeTime, ...rest }) => {
   );
 };
 
-export { Default};
+export { Default };

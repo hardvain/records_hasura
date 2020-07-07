@@ -1,25 +1,5 @@
-import {
-  Box,
-  Stack,
-  Button,
-  Divider,
-  Tabs,
-  TabList,
-  TabPanels,
-  InputGroup,
-  InputLeftElement,
-  Input,
-  Icon,
-  Tab,
-  TabPanel,
-  useColorMode,
-  Flex,
-} from '@chakra-ui/core';
-import Card from 'src/components/core/card';
-import React, { useEffect, useState } from 'react';
+import { Box } from '@chakra-ui/core';
 import Projects from 'src/modules/Projects';
-import moment from 'moment';
-import * as TaskFilters from 'src/modules/Projects/filters';
 
 export default () => {
   return (
