@@ -49,9 +49,11 @@ const createWSLink = () => {
       lazy: true,
       timeout: 30000,
       connectionCallback: (error) => {
-        console.group('Apollo Client Connection Callback');
-        console.error(error);
-        console.groupEnd();
+        if (error) {
+          console.group('Apollo Client Connection Callback');
+          console.error(error);
+          console.groupEnd();
+        }
       },
       connectionParams: async () => {
         const token = await requestAccessToken();
@@ -63,11 +65,11 @@ const createWSLink = () => {
       },
     }
   );
-  subscriptionClient.onError(error => {
+  subscriptionClient.onError((error) => {
     console.group('Subscription Client Error Callback');
     console.error(error);
     console.groupEnd();
-  })
+  });
   return new WebSocketLink(subscriptionClient);
 };
 

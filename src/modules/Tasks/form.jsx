@@ -59,7 +59,7 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
       },
     });
   };
-
+  console.log(model?.id);
   return (
     <FormContext
       isSmart={model?.id}
@@ -69,10 +69,21 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
       id={model?.id}
     >
       <Stack>
-        <Stack spacing={2}>
-          <Stack borderRadius={1} p={2} spacing={10} isInline>
+        <Stack
+          spacing={2}
+          borderRadius={3}
+          borderWidth={1}
+          display={model ? 'flex' : 'none'}
+        >
+          <Stack p={2} spacing={10} isInline>
             <Button onClick={() => update('due_date', undefined)} size={'xs'}>
               Clear
+            </Button>
+            <Button
+              onClick={() => update('due_date', moment().toISOString(true))}
+              size={'xs'}
+            >
+              Today
             </Button>
             <Button
               onClick={() =>
@@ -89,6 +100,38 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
               size={'xs'}
             >
               Next Week
+            </Button>
+            <Button
+              onClick={() =>
+                update('due_date', moment().add(1, 'month').toISOString(true))
+              }
+              size={'xs'}
+            >
+              Next Month
+            </Button>
+            <Button
+              onClick={() =>
+                update('due_date', moment().add(3, 'month').toISOString(true))
+              }
+              size={'xs'}
+            >
+              3 Months
+            </Button>
+            <Button
+              onClick={() =>
+                update('due_date', moment().add(6, 'month').toISOString(true))
+              }
+              size={'xs'}
+            >
+              6 Months
+            </Button>
+            <Button
+              onClick={() =>
+                update('due_date', moment().add(1, 'year').toISOString(true))
+              }
+              size={'xs'}
+            >
+              Next Year
             </Button>
           </Stack>
           <Divider />
