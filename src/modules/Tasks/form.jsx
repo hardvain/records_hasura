@@ -11,6 +11,7 @@ import {
 import Link from 'next/link';
 import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
 import Delete from 'src/containers/actions/delete';
+import moment from 'moment';
 import { SmartChecklists } from 'src/modules/Tasks/Checklists';
 import Tasks from './index';
 import Card from 'src/components/core/card';
@@ -34,6 +35,11 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
     resource: 'tasks',
     operation: 'insert',
   });
+
+  const updateMutation = useMutation({
+    resource: 'tasks',
+    operation: 'update',
+  });
   const onSubmit = () => {
     methods.handleSubmit((data) =>
       mutate({
@@ -45,6 +51,15 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
     )();
     onSubmitCallback();
   };
+  const update = (name, value) => {
+    updateMutation({
+      variables: {
+        object: { ...model, [name]: value },
+        where: { id: { _eq: model?.id } },
+      },
+    });
+  };
+
   return (
     <FormContext
       isSmart={model?.id}
@@ -54,6 +69,41 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
       id={model?.id}
     >
       <Stack>
+        <Stack spacing={2}>
+          <Stack borderRadius={1} p={2} spacing={10} isInline>
+            <Button onClick={() => update('due_date', undefined)} size={'xs'}>
+              Clear
+            </Button>
+            <Button
+              onClick={() =>
+                update('due_date', moment().add(1, 'day').toISOString(true))
+              }
+              size={'xs'}
+            >
+              Tomorrow
+            </Button>
+            <Button
+              onClick={() =>
+                update('due_date', moment().add(1, 'week').toISOString(true))
+              }
+              size={'xs'}
+            >
+              Next Week
+            </Button>
+          </Stack>
+          <Divider />
+          <Stack borderRadius={1} p={2} spacing={10} isInline>
+            <Button onClick={() => update('status', 'todo')} size={'xs'}>
+              To Do
+            </Button>
+            <Button onClick={() => update('status', 'in_progress')} size={'xs'}>
+              In Progress
+            </Button>
+            <Button onClick={() => update('status', 'completed')} size={'xs'}>
+              Completed
+            </Button>
+          </Stack>
+        </Stack>
         <Stack isInline>
           <Box flex={2}>
             <StackedCard>
@@ -108,6 +158,26 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
             </Box>
           )}
         </Stack>
+        {isPreview && (
+          <Box flex={1} p={5}>
+            <Field name={'due_date'} flex={1} />
+            <Divider />
+            <Field name={'priority'} flex={1} />
+            <Divider />
+            <Field name={'status'} flex={1} />
+            <Divider />
+            <Field
+              flex={1}
+              name={'parent_id'}
+              where={{ _and: [{ project_id: { _eq: model?.project_id } }] }}
+            />
+            <Divider />
+            <Field flex={1} name={'project_id'} />
+            <Divider />
+            {!model?.project_id && <Field flex={1} name={'team_id'} />}
+            <Field name={'people_id'} flex={1} />
+          </Box>
+        )}
         {!model?.id && (
           <Button
             my={5}
