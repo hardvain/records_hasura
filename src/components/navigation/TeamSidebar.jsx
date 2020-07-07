@@ -102,8 +102,9 @@ export default () => {
     name: 'teams',
     fields: ['name', 'id', 'ref_projects{id,name}'],
   });
-  const { toggleFormPopup } = useStore((state) => ({
+  const { toggleFormPopup, showTeambar } = useStore((state) => ({
     toggleFormPopup: state.toggleFormPopup,
+    showTeambar: state.ui.showTeambar,
   }));
   const teams = data || [];
   if (loading) {
@@ -130,6 +131,7 @@ export default () => {
       bg={colorMode === 'light' ? 'white' : '#333'}
       borderRightWidth={1}
       position={'fixed'}
+      display={[showTeambar ? 'block' : 'none', 'block']}
     >
       {teams.map((t) => (
         <MenuItem

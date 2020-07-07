@@ -1,47 +1,24 @@
+import { Box, Button, Flex, IconButton, Stack, Text, Tooltip, useColorMode } from '@chakra-ui/core';
 import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import {
-  Box,
-  Button,
-  Tooltip,
-  Stack,
-  Text,
-  useColorMode,
-  IconButton,
-  Flex,
-} from '@chakra-ui/core';
-import TeamSidebar from 'src/components/navigation/TeamSidebar';
-import useAggregate from 'src/hooks/graphql/useAggregate';
-import { useStore } from 'src/store';
+import { FaBriefcaseMedical, FaFile, FaHeartbeat, FaPizzaSlice, FaTasks } from 'react-icons/fa';
+import { FiInbox } from 'react-icons/fi';
+import { GiBed, GiBrain, GiFruitBowl, GiMoneyStack, GiSugarCane, GiWaterDrop } from 'react-icons/gi';
+import { IoIosLogOut, IoIosPeople } from 'react-icons/io';
 import { MdTimer } from 'react-icons/md';
 import { RiLightbulbFlashLine } from 'react-icons/ri';
-import { FiInbox } from 'react-icons/fi';
-import { IoIosLogOut, IoIosPeople, IoIosMenu } from 'react-icons/io';
-import {
-  GiSugarCane,
-  GiWaterDrop,
-  GiFruitBowl,
-  GiMoneyStack,
-  GiBed,
-  GiBrain,
-} from 'react-icons/gi';
-import {
-  FaTasks,
-  FaFile,
-  FaHeartbeat,
-  FaBriefcaseMedical,
-  FaPizzaSlice,
-} from 'react-icons/fa';
+import useAggregate from 'src/hooks/graphql/useAggregate';
+import { useStore } from 'src/store';
+
 const MenuItem = ({ children, isActive, title, href, as }) => {
   const { colorMode } = useColorMode();
   const showSidebar = useStore((state) => state.ui.showSidebar);
 
   const [isHovering, setIsHovering] = useState(false);
-  const content = (
+  return (
     <Button
-      w={showSidebar ? 245 : 45}
+      w={245}
       cursor={'pointer'}
       borderRadius={0}
       borderRightColor={'brand.500'}
@@ -52,53 +29,30 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
       variant={'ghost'}
       leftIcon={children}
       variantColor={isHovering ? 'brand' : 'gray'}
-
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
       <NextLink href={href} as={as}>
         <Stack isInline alignItems={'center'}>
-          {showSidebar && (
-            <Text ml={5} fontSize={14} fontWeight={500}>
-              {title}
-            </Text>
-          )}
+          <Text ml={5} fontSize={14} fontWeight={500}>
+            {title}
+          </Text>
         </Stack>
       </NextLink>
     </Button>
   );
-  return showSidebar ? (
-    content
-  ) : (
-    <Tooltip label={title}>
-      <NextLink href={href} as={as}>
-        <IconButton
-          bg={
-            isActive || isHovering
-              ? colorMode === 'light'
-                ? '#F5F6FC'
-                : '#3e4242'
-              : ''
-          }
-          mb={5}
-          variant={'ghost'}
-          fontSize={20}
-          icon={children}
-        />
-      </NextLink>
-    </Tooltip>
-  );
 };
 
 export default () => {
-  const showSidebar = useStore((state) => state.ui.showSidebar);
+  const { showSidebar } = useStore((state) => ({
+    showSidebar: state.ui.showSidebar,
+  }));
 
   const { colorMode } = useColorMode();
   const [inboxAgg] = useAggregate({
     name: 'inbox',
     aggregates: { count: [] },
   });
-  const [show, setShow] = useState(false);
   const router = useRouter();
   const pathname = router.pathname;
   const logout = () => {
@@ -107,10 +61,11 @@ export default () => {
   return (
     <Flex
       pt={5}
+      display={[showSidebar ? 'flex' : 'none', 'flex']}
       position={'fixed'}
       right={0}
       direction={'column'}
-      w={showSidebar ? 250 : 50}
+      w={250}
       bg={colorMode === 'light' ? '#fff' : '#333'}
       height={'100vh'}
       borderLeftWidth={1}

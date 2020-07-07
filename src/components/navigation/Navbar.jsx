@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import Link from 'next/link';
-import { FaEdit } from 'react-icons/fa';
+import { FaHamburger } from 'react-icons/fa';
 import React, { useState } from 'react';
 import Logo from 'src/assets/Logo';
 import useAggregate from 'src/hooks/graphql/useAggregate';
@@ -28,8 +28,10 @@ import { useStore } from 'src/store';
 export default () => {
   const [inboxItem, setInboxItem] = useState('');
   const { colorMode, toggleColorMode, date } = useColorMode();
-  const { toggleFormPopup } = useStore((state) => ({
+  const { toggleFormPopup, toggleSidebar, toggleTeambar} = useStore((state) => ({
     toggleFormPopup: state.toggleFormPopup,
+    toggleSidebar: state.toggleSidebar,
+    toggleTeambar: state.toggleTeambar,
     date: state.ui.date,
   }));
   const inboxInsertMutation = useMutation({
@@ -77,6 +79,12 @@ export default () => {
       py={1}
       pl={4}
     >
+      <IconButton
+        display={['block','none']}
+        variant="default"
+        icon={FaHamburger}
+        onClick={toggleTeambar}
+      />
       <Box alignItems={'center'} cursor={'pointer'}>
         <NextLink href="/" as={`/`}>
           <Box alignSelf={'center'} mr={4}>
@@ -134,6 +142,7 @@ export default () => {
       </Box>
       <Box flexGrow={1}></Box>
       <Input
+        display={['none','inline-flex']}
         w={300}
         size={'sm'}
         mr={5}
@@ -143,6 +152,7 @@ export default () => {
         placeholder={'Quick add'}
       />
       <Stack
+        display={['none','inline-flex']}
         borderRadius={3}
         spacing={1}
         alignItems={'baseline'}
@@ -184,6 +194,12 @@ export default () => {
           <IconButton variant="default" icon={'settings'} />
         </Link>
       </Box>
+      <IconButton
+        display={['block','none']}
+        variant="default"
+        icon={FaHamburger}
+        onClick={toggleSidebar}
+      />
     </Flex>
   );
 };

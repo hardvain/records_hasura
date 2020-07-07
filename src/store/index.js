@@ -5,7 +5,8 @@ export const [useStore, api] = create((set, get) => ({
     date: moment(),
     user_id: undefined,
     recordType: 'tasks',
-    showSidebar: true,
+    showSidebar: false,
+    showTeambar: false,
     newFormContext: undefined,
     currentTeam: 'all',
     showFormPopup: false,
@@ -25,6 +26,12 @@ export const [useStore, api] = create((set, get) => ({
     set((state) => ({
       ...state,
       ui: { ...state.ui, showSidebar: !get().ui.showSidebar },
+    }));
+  },
+  toggleTeambar: () => {
+    set((state) => ({
+      ...state,
+      ui: { ...state.ui, showTeambar: !get().ui.showTeambar },
     }));
   },
   setRecordType: (value) => {

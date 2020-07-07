@@ -50,9 +50,10 @@ const config = (theme) => ({
   },
 });
 const App = ({ Component, pageProps }) => {
-  const { setUserId, showSidebar } = useStore((state) => ({
+  const { setUserId, showSidebar, showTeambar } = useStore((state) => ({
     setUserId: state.setUserId,
     showSidebar: state.ui.showSidebar,
+    showTeambar: state.ui.showTeambar,
   }));
   const { user, loading } = useFetchUser({ required: true });
   useEffect(() => {
@@ -96,7 +97,7 @@ const App = ({ Component, pageProps }) => {
             <Navbar />
             <Flex direction={'row'} pt={58}>
               <TeamSidebar />
-              <Box flexGrow={1} minHeight={'100vh'} ml={245} mr={245}>
+              <Box flexGrow={1} minHeight={'100vh'} ml={[0, 245]} mr={[0, 245]}>
                 <Component {...pageProps} />
                 <FormModal />
               </Box>
