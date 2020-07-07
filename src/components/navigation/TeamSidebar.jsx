@@ -26,7 +26,6 @@ const MenuItem = ({ id, name, resource, children = [] }) => {
   return (
     <Box
       minHeight={30}
-      w={showSidebar ? '100%' : 45}
       cursor={'pointer'}
       borderRadius={0}
       borderRightColor={'brand.500'}
