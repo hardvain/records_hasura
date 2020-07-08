@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import Card from 'src/components/core/card';
-import People from './index';
+import Food from './index';
 import Select from 'src/components/forms/Select';
 import { useForm, Controller, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
@@ -50,22 +50,30 @@ export default ({ model, onSubmitCallback = () => {} }) => {
 
   return (
     <Stack spacing={10}>
-      <FormContext {...methods} schema={People.schema}>
+      <FormContext
+        {...methods}
+        schema={Food.schema}
+        isSmart={model?.id}
+        id={model?.id}
+        resource={'food'}
+      >
         <Stack spacing={10} flex={2}>
           <Field name={'timestamp'} mb={5} />
           <Field name={'dish_id'} mb={5} />
         </Stack>
       </FormContext>
-      <Button
-        my={5}
-        type="submit"
-        variant={'solid'}
-        variantColor={'brand'}
-        size={'sm'}
-        onClick={onSubmit}
-      >
-        {model?.id ? 'Update' : 'Create'}
-      </Button>
+      {!model?.id && (
+        <Button
+          my={5}
+          type="submit"
+          variant={'solid'}
+          variantColor={'brand'}
+          size={'sm'}
+          onClick={onSubmit}
+        >
+          Create
+        </Button>
+      )}
     </Stack>
   );
 };

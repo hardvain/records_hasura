@@ -59,7 +59,6 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
       },
     });
   };
-  console.log(model?.id);
   return (
     <FormContext
       isSmart={model?.id}

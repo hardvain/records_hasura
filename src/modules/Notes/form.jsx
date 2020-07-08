@@ -1,6 +1,7 @@
 // Render Prop
 import { Stack, Box, Button, Text, Collapse } from '@chakra-ui/core';
-import Tasks from './index';
+import People from 'src/modules/Categories';
+import Notes from './index';
 import Snippets from 'src/modules/Snippets';
 import { useForm, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
@@ -48,7 +49,13 @@ export default ({ model, onSubmitCallback = () => {} }) => {
   };
   return (
     <Stack spacing={10}>
-      <FormContext {...methods} schema={Tasks.schema}>
+      <FormContext
+        {...methods}
+        schema={Notes.schema}
+        isSmart={model?.id}
+        id={model?.id}
+        resource={'notes'}
+      >
         <Field name={'name'} />
       </FormContext>
       <Box mt={2} flexGrow={1}>

@@ -14,6 +14,7 @@ import Field from 'src/components/forms/Field';
 import useMutation from 'src/hooks/graphql/useMutation';
 
 import moment from 'moment';
+import People from 'src/modules/Categories';
 import Water from 'src/modules/Water';
 export default ({ model, onSubmitCallback = () => {} }) => {
   const methods = useForm();
@@ -42,21 +43,29 @@ export default ({ model, onSubmitCallback = () => {} }) => {
   };
   return (
     <Stack spacing={10}>
-      <FormContext {...methods} schema={Water.schema}>
+      <FormContext
+        {...methods}
+        schema={Water.schema}
+        isSmart={model?.id}
+        id={model?.id}
+        resource={'water'}
+      >
         <Field name={'quantity'} mb={5} />
         <Field name={'timestamp'} mb={5} />
         <Field name={'description'} mb={5} />
       </FormContext>
-      <Button
-        my={5}
-        type="submit"
-        variant={'solid'}
-        variantColor={'brand'}
-        size={'sm'}
-        onClick={onSubmit}
-      >
-        {model?.id ? 'Update' : 'Create'}
-      </Button>
+      {!model?.id && (
+        <Button
+          my={5}
+          type="submit"
+          variant={'solid'}
+          variantColor={'brand'}
+          size={'sm'}
+          onClick={onSubmit}
+        >
+          Create
+        </Button>
+      )}
     </Stack>
   );
 };

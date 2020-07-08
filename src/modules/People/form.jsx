@@ -50,21 +50,29 @@ export default ({ model, onSubmitCallback = () => {} }) => {
 
   return (
     <Stack spacing={10}>
-      <FormContext {...methods} schema={People.schema}>
+      <FormContext
+        {...methods}
+        schema={People.schema}
+        isSmart={model?.id}
+        id={model?.id}
+        resource={'people'}
+      >
         <Stack spacing={10} flex={2}>
           <Field name={'name'} mb={5} />
         </Stack>
       </FormContext>
-      <Button
-        my={5}
-        type="submit"
-        variant={'solid'}
-        variantColor={'brand'}
-        size={'sm'}
-        onClick={onSubmit}
-      >
-        {model?.id ? 'Update' : 'Create'}
-      </Button>
+      {!model?.id && (
+        <Button
+          my={5}
+          type="submit"
+          variant={'solid'}
+          variantColor={'brand'}
+          size={'sm'}
+          onClick={onSubmit}
+        >
+          Create
+        </Button>
+      )}
     </Stack>
   );
 };

@@ -16,8 +16,6 @@ import { useStore } from 'src/store';
 import Skeleton from 'src/components/core/Skeleton';
 
 const MenuItem = ({ id, name, resource, children = [] }) => {
-  const { colorMode } = useColorMode();
-  const showSidebar = useStore((state) => state.ui.showSidebar);
   const [open, setOpen] = useState(false);
   const { toggleFormPopup, setNewFormContext } = useStore((state) => ({
     toggleFormPopup: state.toggleFormPopup,

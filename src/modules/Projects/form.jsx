@@ -1,5 +1,6 @@
 // Render Prop
 import { Stack, Box, Button } from '@chakra-ui/core';
+import People from 'src/modules/Categories';
 import Tasks from 'src/modules/Tasks';
 import Projects from './index';
 import { useForm, FormContext } from 'react-hook-form';
@@ -36,7 +37,13 @@ export default ({ model, showList = true, onSubmitCallback = () => {} }) => {
   return (
     <Stack spacing={10}>
       <Stack spacing={10}>
-        <FormContext {...methods} schema={Projects.schema}>
+        <FormContext
+          {...methods}
+          schema={Projects.schema}
+          isSmart={model?.id}
+          id={model?.id}
+          resource={'projects'}
+        >
           <Field name={'name'} />
           <Field name={'description'} />
           <Field name={'team_id'} />
@@ -45,15 +52,18 @@ export default ({ model, showList = true, onSubmitCallback = () => {} }) => {
 
       <Stack isInline>
         <Box flexGrow={1} />
-        <Button
-          type="submit"
-          variant={'solid'}
-          variantColor={'brand'}
-          size={'sm'}
-          onClick={onSubmit}
-        >
-          {model?.id ? 'Update' : 'Create'}
-        </Button>
+        {!model?.id && (
+          <Button
+            my={5}
+            type="submit"
+            variant={'solid'}
+            variantColor={'brand'}
+            size={'sm'}
+            onClick={onSubmit}
+          >
+            Create
+          </Button>
+        )}
       </Stack>
       {model && model.id && showList && (
         <Box pb={3}>

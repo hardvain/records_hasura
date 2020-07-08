@@ -1,7 +1,7 @@
 // Render Prop
 import { Stack, Box, Button, Text } from '@chakra-ui/core';
 import Link from 'next/link';
-import { ResourceSelector } from 'src/components/forms/ResourceSelector';
+import People from 'src/modules/Categories';
 import Tasks from './index';
 import Snippets from './index';
 import { getNextRevisionDate } from './spaced-repetition';
@@ -113,7 +113,13 @@ export default ({ model, onSubmitCallback = () => {}, formContext = {} }) => {
         </Stack>
       )}
       <Stack spacing={10}>
-        <FormContext {...methods} schema={Tasks.schema}>
+        <FormContext
+          {...methods}
+          schema={Snippets.schema}
+          isSmart={model?.id}
+          id={model?.id}
+          resource={'categories'}
+        >
           <Field name={'name'} />
           <Field name={'due_date'} />
           <Field name={'difficulty'} />
@@ -123,15 +129,18 @@ export default ({ model, onSubmitCallback = () => {}, formContext = {} }) => {
 
       <Stack isInline>
         <Box flexGrow={1} />
-        <Button
-          type="submit"
-          variant={'solid'}
-          variantColor={'brand'}
-          size={'sm'}
-          onClick={onSubmit}
-        >
-          {model?.id ? 'Update' : 'Create'}
-        </Button>
+        {!model?.id && (
+          <Button
+            my={5}
+            type="submit"
+            variant={'solid'}
+            variantColor={'brand'}
+            size={'sm'}
+            onClick={onSubmit}
+          >
+            Create
+          </Button>
+        )}
       </Stack>
       {/*{model && model.id && (*/}
       {/*  <Loader title={'References'}>*/}
