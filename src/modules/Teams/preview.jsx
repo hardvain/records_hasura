@@ -13,7 +13,7 @@ import Delete from 'src/containers/actions/delete';
 import useMutation from 'src/hooks/graphql/useMutation';
 import Form from './form';
 import ListItem from 'src/containers/collection/list/ListItem';
-import Drawer from 'src/components/drawer';
+import Drawer from 'src/components/core/drawer';
 export default ({ record }) => {
   const projects = record.ref_projects;
   const allTasks = record.ref_projects.map((proj) => proj.ref_tasks).flat();

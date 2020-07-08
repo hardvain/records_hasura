@@ -14,7 +14,8 @@ import {
 } from '@chakra-ui/core';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import Drawer from 'src/components/drawer';
+import Drawer from 'src/components/core/drawer';
+import Modal from 'src/components/core/modal';
 import moment from 'moment';
 import Delete from 'src/containers/actions/delete';
 import { useStore } from 'src/store';
@@ -147,16 +148,15 @@ export default ({ record, index, expandAll, indent = 0 }) => {
             <Delete resource={'tasks'} id={record.id} />
           </Box>
         </Stack>
-        <Drawer
-          size={'xl'}
+        <Modal
           title={record.name}
           show={show}
-          setShow={setShow}
+          onClose={() => setShow(!show)}
           href={`/tasks/[id]`}
           as={`/tasks/${record?.id}`}
         >
           <Tasks.Form model={record} isPreview={true} />
-        </Drawer>
+        </Modal>
       </ListItem>
       {showSubTasks && (
         <Box>

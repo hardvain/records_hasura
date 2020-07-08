@@ -1,7 +1,7 @@
 import { Box, Collapse, IconButton, Stack, Text } from '@chakra-ui/core';
 import Link from 'next/link';
 import Card from 'src/components/core/card';
-import Drawer from 'src/components/drawer';
+import Drawer from 'src/components/core/drawer';
 import Delete from 'src/containers/actions/delete';
 import Tasks from 'src/modules/Tasks';
 

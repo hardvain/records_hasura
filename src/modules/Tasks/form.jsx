@@ -3,140 +3,19 @@ import {
   Stack,
   Box,
   Button,
-  Text,
-  useColorMode,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuGroup,
-  MenuDivider,
-  MenuOptionGroup,
-  MenuItemOption,
-  Collapse,
   Divider,
 } from '@chakra-ui/core';
-import Link from 'next/link';
 import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
-import Delete from 'src/containers/actions/delete';
-import moment from 'moment';
 import { SmartChecklists } from 'src/modules/Tasks/Checklists';
 import Tasks from './index';
 import Card from 'src/components/core/card';
-import CardActions from 'src/modules/Tasks/CardActions';
 import { useForm, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import Field from 'src/components/forms/Field';
 import useMutation from 'src/hooks/graphql/useMutation';
-
-const TaskActions = ({ props, model }) => {
-  const updateMutation = useMutation({
-    resource: 'tasks',
-    operation: 'update',
-  });
-  const update = (name, value) => {
-    updateMutation({
-      variables: {
-        object: { ...model, [name]: value },
-        where: { id: { _eq: model?.id } },
-      },
-    });
-  };
-  return (
-    <Stack isInline spacing={2} {...props}>
-      <Box flexGrow={1} />
-      <Menu>
-        <MenuButton
-          mr={2}
-          variant={'outline'}
-          variantColor={'brand'}
-          as={Button}
-          rightIcon="chevron-down"
-          size={'sm'}
-        >
-          {model?.due_date
-            ? moment(model?.due_date).format('MMM DD, yyyy')
-            : 'Due Date'}
-        </MenuButton>
-        <MenuList>
-          <MenuItem onClick={() => update('due_date', undefined)}>
-            Clear
-          </MenuItem>
-          <MenuItem
-            onClick={() => update('due_date', moment().toISOString(true))}
-          >
-            Today
-          </MenuItem>
-          <MenuItem
-            onClick={() =>
-              update('due_date', moment().add(1, 'day').toISOString(true))
-            }
-          >
-            Tomorrow
-          </MenuItem>
-          <MenuItem
-            onClick={() =>
-              update('due_date', moment().add(1, 'week').toISOString(true))
-            }
-          >
-            Next Week
-          </MenuItem>
-          <MenuItem
-            onClick={() =>
-              update('due_date', moment().add(1, 'month').toISOString(true))
-            }
-          >
-            Next Month
-          </MenuItem>
-          <MenuItem
-            onClick={() =>
-              update('due_date', moment().add(3, 'month').toISOString(true))
-            }
-          >
-            3 Months
-          </MenuItem>
-          <MenuItem
-            onClick={() =>
-              update('due_date', moment().add(6, 'month').toISOString(true))
-            }
-          >
-            6 Months
-          </MenuItem>
-          <MenuItem
-            onClick={() =>
-              update('due_date', moment().add(1, 'year').toISOString(true))
-            }
-          >
-            Next Year
-          </MenuItem>
-        </MenuList>
-      </Menu>
-      <Menu>
-        <MenuButton
-          variant={'outline'}
-          variantColor={'brand'}
-          as={Button}
-          rightIcon="chevron-down"
-          size={'sm'}
-        >
-          Status
-        </MenuButton>
-        <MenuList>
-          <MenuItem onClick={() => update('status', 'todo')}>To Do</MenuItem>
-          <MenuItem onClick={() => update('status', 'in_progress')}>
-            In Progress
-          </MenuItem>
-          <MenuItem onClick={() => update('status', 'completed')}>
-            Completed
-          </MenuItem>
-        </MenuList>
-      </Menu>
-    </Stack>
-  );
-};
+import TaskFormActions from 'src/modules/Tasks/TaskFormActions';
 
 export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
-  const [showMore, setShowMore] = useState(false);
   const methods = useForm();
   const [checklist, setChecklist] = useState([]);
   useEffect(() => {
@@ -172,7 +51,7 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
       id={model?.id}
     >
       <Stack spacing={5}>
-        {model?.id && <TaskActions model={model} />}
+        {model?.id && <TaskFormActions model={model} />}
         <Stack mt={2} isInline>
           <Box flex={2}>
             <StackedCard>

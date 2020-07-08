@@ -27,8 +27,8 @@ import { useStore } from 'src/store';
 
 export default () => {
   const [inboxItem, setInboxItem] = useState('');
-  const { colorMode, toggleColorMode, date } = useColorMode();
-  const { toggleFormPopup, toggleSidebar, toggleTeambar} = useStore((state) => ({
+  const { colorMode, toggleColorMode } = useColorMode();
+  const { toggleFormPopup, toggleSidebar, toggleTeambar, date} = useStore((state) => ({
     toggleFormPopup: state.toggleFormPopup,
     toggleSidebar: state.toggleSidebar,
     toggleTeambar: state.toggleTeambar,
