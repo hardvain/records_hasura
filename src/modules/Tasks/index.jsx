@@ -22,6 +22,10 @@ export const fields = [
   'checklist',
 ];
 const schema = {
+  id:{
+    type:'uuid',
+    label:'ID'
+  },
   name: {
     type: 'string',
     label: 'Name',

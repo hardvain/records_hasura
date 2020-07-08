@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/core';
 import { useState } from 'react';
 import Card from 'src/components/core/card';
-export const StackedCardItem = ({ title, children }) => {
+export const StackedCardItem = ({ title, children, show }) => {
   return <Box>{children}</Box>;
 };
 export default ({ actions, children, expandAll = false }) => {

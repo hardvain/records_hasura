@@ -9,6 +9,7 @@ const Default = ({
   where,
   order_by,
   fields = ['id', 'name'],
+  updateCallback = () => {},
   value = '',
   onChange = () => {},
   ...rest
@@ -24,7 +25,9 @@ const Default = ({
       <Select
         size={'sm'}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => {
+          onChange(e.target.value);
+        }}
         {...rest}
       />
     );
@@ -36,6 +39,7 @@ const Default = ({
       onChange={(e) => {
         const value = e.target.value;
         onChange(value === '' ? null : value);
+        updateCallback(value === '' ? null : value);
       }}
       {...rest}
       placeholder={'Select an entry'}
@@ -49,4 +53,4 @@ const Default = ({
   );
 };
 
-export { Default};
+export { Default };
