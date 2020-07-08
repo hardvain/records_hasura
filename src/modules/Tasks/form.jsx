@@ -1,10 +1,5 @@
 // Render Prop
-import {
-  Stack,
-  Box,
-  Button,
-  Divider,
-} from '@chakra-ui/core';
+import { Stack, Box, Button, Divider } from '@chakra-ui/core';
 import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
 import { SmartChecklists } from 'src/modules/Tasks/Checklists';
 import Tasks from './index';
@@ -85,26 +80,19 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
               )}
             </StackedCard>
           </Box>
-          {!isPreview && (
-            <Box flex={1} p={5}>
-              <Field name={'due_date'} flex={1} />
-              <Divider />
-              <Field name={'priority'} flex={1} />
-              <Divider />
-              <Field name={'status'} flex={1} />
-              <Divider />
-              <Field
-                flex={1}
-                name={'parent_id'}
-                where={{ _and: [{ project_id: { _eq: model?.project_id } }] }}
-              />
-              <Divider />
-              <Field flex={1} name={'project_id'} />
-              <Divider />
-              {!model?.project_id && <Field flex={1} name={'team_id'} />}
-              <Field name={'people_id'} flex={1} />
-            </Box>
-          )}
+          <Box flex={1} p={5}>
+            <Field name={'due_date'} flex={1} />
+            <Field name={'priority'} flex={1} />
+            <Field name={'status'} flex={1} />
+            <Field
+              flex={1}
+              name={'parent_id'}
+              where={{ _and: [{ project_id: { _eq: model?.project_id } }] }}
+            />
+            <Field flex={1} name={'project_id'} />
+            {!model?.project_id && <Field flex={1} name={'team_id'} />}
+            <Field name={'people_id'} flex={1} />
+          </Box>
         </Stack>
 
         {!model?.id && (
