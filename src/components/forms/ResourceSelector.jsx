@@ -1,7 +1,6 @@
-import { Select } from '@chakra-ui/core';
+import Select from 'react-select';
+import { Box } from '@chakra-ui/core';
 import React from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import useMutation from 'src/hooks/graphql/useMutation';
 import useQuery from 'src/hooks/graphql/useQuery';
 
 const Default = ({
@@ -32,24 +31,25 @@ const Default = ({
       />
     );
   }
+  const options = data.map((i) => ({ value: i.id, label: i.name }));
+  const selectedValue = options.filter((o) => o.value === value);
   return (
-    <Select
-      size={'sm'}
-      value={value}
-      onChange={(e) => {
-        const value = e.target.value;
-        onChange(value === '' ? null : value);
-        updateCallback(value === '' ? null : value);
-      }}
-      {...rest}
-      placeholder={'Select an entry'}
-    >
-      {data.map((p) => (
-        <option key={p.id} value={p.id}>
-          {p.name}
-        </option>
-      ))}
-    </Select>
+    <Box w={'100%'}>
+      <Select
+        onChange={(e) => {
+          const value = e.value;
+          onChange(value === '' ? null : value);
+          updateCallback(value === '' ? null : value);
+        }}
+        className="basic-single"
+        classNamePrefix="select"
+        value={selectedValue ? selectedValue[0] : ''}
+        isClearable={true}
+        isSearchable={true}
+        name="color"
+        options={options}
+      />
+    </Box>
   );
 };
 

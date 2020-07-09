@@ -1,6 +1,6 @@
-import { Select } from '@chakra-ui/core';
-import React, { useState } from 'react';
-
+import Select from 'react-select';
+import React, { useEffect, useState } from 'react';
+import { Box } from '@chakra-ui/core';
 const Default = ({
   value,
   onChange,
@@ -8,23 +8,24 @@ const Default = ({
   options,
   ...rest
 }) => {
+  const selectedValue = options.filter((o) => o.value === value);
   return (
-    <Select
-      size={'sm'}
-      placeholder={'Select a value'}
-      value={value || ''}
-      onChange={(e) => {
-        const value = e.target.value;
-        onChange(value === '' ? null : value);
-        updateCallback(value === '' ? null : value);
-      }}
-    >
-      {options.map((o) => (
-        <option value={o.value} key={o.value}>
-          {o.label}
-        </option>
-      ))}
-    </Select>
+    <Box w={'100%'}>
+      <Select
+        onChange={(e) => {
+          const value = e.value;
+          onChange(value === '' ? null : value);
+          updateCallback(value === '' ? null : value);
+        }}
+        className="basic-single"
+        classNamePrefix="select"
+        value={selectedValue}
+        isClearable={true}
+        isSearchable={true}
+        name="color"
+        options={options}
+      />
+    </Box>
   );
 };
 export { Default };
