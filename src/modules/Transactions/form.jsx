@@ -16,7 +16,6 @@ import {
 import Link from 'next/link';
 import Card from 'src/components/core/card';
 import Transactions from './index';
-import Select from 'src/components/forms/Select';
 import { useForm, Controller, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import Field from 'src/components/forms/Field';
@@ -64,7 +63,7 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
         <Stack spacing={10}>
           <Field name={'value'} />
           <Field name={'name'} />
-          <Field rows={10} name={'description'} schema={Tasks.schema} />
+          <Field rows={10} name={'description'} />
           <Field name={'timestamp'} />
           <Field name={'type'} />
           <Field name={'mode'} />
