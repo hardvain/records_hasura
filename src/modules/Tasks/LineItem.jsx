@@ -55,12 +55,7 @@ export default ({ record, index, expandAll, indent = 0 }) => {
   const isToday = moment(record.due_date)
     .startOf('day')
     .isSame(moment().startOf('day'));
-  const background =
-    index % 2 !== 0 && !record?.parent_id
-      ? colorMode === 'light'
-        ? '#F5F6FC'
-        : '#232626'
-      : '';
+
   return (
     <Stack m={0} p={0} spacing={0}>
       <ListItem

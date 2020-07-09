@@ -10,7 +10,10 @@ export default () => {
     <Box p={5}>
       <Stack isInline>
         <Box w={'100%'} px={2} py={5}>
-          <Thoughts.List orderBy={{ created_at: 'desc' }} />
+          <Thoughts.List
+            orderBy={{ created_at: 'desc' }}
+            group_by_field={(row) => row['ref_team']['name']}
+          />
         </Box>
       </Stack>
     </Box>

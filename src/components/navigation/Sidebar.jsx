@@ -1,10 +1,33 @@
-import { Box, Button, Flex, IconButton, Stack, Text, Tooltip, useColorMode } from '@chakra-ui/core';
+import {
+  Box,
+  Button,
+  Flex,
+  IconButton,
+  Stack,
+  Text,
+  Link,
+  Tooltip,
+  useColorMode,
+} from '@chakra-ui/core';
 import NextLink from 'next/link';
 import Router, { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { FaBriefcaseMedical, FaFile, FaHeartbeat, FaPizzaSlice, FaTasks } from 'react-icons/fa';
+import {
+  FaBriefcaseMedical,
+  FaFile,
+  FaHeartbeat,
+  FaPizzaSlice,
+  FaTasks,
+} from 'react-icons/fa';
 import { FiInbox } from 'react-icons/fi';
-import { GiBed, GiBrain, GiFruitBowl, GiMoneyStack, GiSugarCane, GiWaterDrop } from 'react-icons/gi';
+import {
+  GiBed,
+  GiBrain,
+  GiFruitBowl,
+  GiMoneyStack,
+  GiSugarCane,
+  GiWaterDrop,
+} from 'react-icons/gi';
 import { IoIosLogOut, IoIosPeople } from 'react-icons/io';
 import { MdTimer } from 'react-icons/md';
 import { RiLightbulbFlashLine } from 'react-icons/ri';
@@ -17,29 +40,29 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
 
   const [isHovering, setIsHovering] = useState(false);
   return (
-    <Button
-      w={245}
-      cursor={'pointer'}
-      borderRadius={0}
-      borderRightColor={'brand.500'}
-      borderRightWidth={isActive ? 3 : 0}
-      mb={2}
-      pl={5}
-      justifyContent={'flex-start'}
-      variant={'ghost'}
-      leftIcon={children}
-      variantColor={isHovering ? 'brand' : 'gray'}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-    >
-      <NextLink href={href} as={as}>
+    <NextLink href={href} as={as}>
+      <Button
+        w={245}
+        cursor={'pointer'}
+        borderRadius={0}
+        borderLeftColor={'brand.500'}
+        borderLeftWidth={isActive ? 3 : 0}
+        mb={2}
+        pl={5}
+        justifyContent={'flex-start'}
+        variant={'ghost'}
+        leftIcon={children}
+        variantColor={isHovering ? 'brand' : 'gray'}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
         <Stack isInline alignItems={'center'}>
           <Text ml={5} fontSize={14} fontWeight={500}>
             {title}
           </Text>
         </Stack>
-      </NextLink>
-    </Button>
+      </Button>
+    </NextLink>
   );
 };
 

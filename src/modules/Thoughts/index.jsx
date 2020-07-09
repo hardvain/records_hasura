@@ -1,7 +1,7 @@
 import Form from './form';
 import Collection from 'src/containers/collection';
 import Preview from './preview';
-const fields = ['id', 'name', 'created_at','description'];
+const fields = ['id', 'name', 'created_at','description','team_id','ref_team{id,name}','project_id','ref_project{id,name}'];
 
 const List = (props) => (
   <Collection

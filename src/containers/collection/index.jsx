@@ -67,7 +67,7 @@ const FilteredCollection = ({
     console.error(error);
     response = <Box>Something went wrong</Box>;
   } else if (data.length === 0) {
-    response = showBanners ? (
+    response = (
       <Card>
         <Stack
           w={'100%'}
@@ -87,8 +87,6 @@ const FilteredCollection = ({
           </Button>
         </Stack>
       </Card>
-    ) : (
-      <div />
     );
   } else {
     response =

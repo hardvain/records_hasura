@@ -60,26 +60,32 @@ export default ({ model, onSubmitCallback = () => {}, showTasks }) => {
         resource={'transactions'}
         id={model?.id}
       >
-        <Stack spacing={10}>
-          <Field name={'value'} />
-          <Field name={'name'} />
-          <Field rows={10} name={'description'} />
-          <Field name={'timestamp'} />
-          <Field name={'type'} />
-          <Field name={'mode'} />
-          <Field name={'category_id'} />
+        <Stack isInline spacing={5}>
+          <Stack spacing={10} flex={2}>
+            <Field name={'value'} />
+            <Field name={'name'} />
+            <Field rows={10} name={'description'} />
+          </Stack>
+          <Stack spacing={10} flex={1}>
+            <Field name={'timestamp'} />
+            <Field name={'type'} />
+            <Field name={'mode'} />
+            <Field name={'category_id'} />
+          </Stack>
         </Stack>
       </FormContext>
-      <Button
-        my={5}
-        type="submit"
-        variant={'solid'}
-        variantColor={'brand'}
-        size={'sm'}
-        onClick={onSubmit}
-      >
-        {model?.id ? 'Update' : 'Create'}
-      </Button>
+      {!model?.id && (
+        <Button
+          my={5}
+          type="submit"
+          variant={'solid'}
+          variantColor={'brand'}
+          size={'sm'}
+          onClick={onSubmit}
+        >
+          Create
+        </Button>
+      )}
     </Stack>
   );
 };

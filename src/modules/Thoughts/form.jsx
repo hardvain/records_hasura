@@ -43,11 +43,9 @@ export default ({ model, onSubmitCallback = () => {} }) => {
         <Stack spacing={10} flex={2}>
           <Field name={'name'} mb={5} />
           <Field name={'description'} mb={5} />
-          <Stack isInline>
-            <Field name={'task_id'} />
-            <Field name={'project_id'} />
-            <Field name={'team_id'} />
-          </Stack>
+          <Field name={'task_id'} />
+          <Field name={'project_id'} />
+          <Field name={'team_id'} />
         </Stack>
       </FormContext>
       {!model?.id && (

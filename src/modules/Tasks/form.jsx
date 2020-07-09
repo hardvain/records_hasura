@@ -87,19 +87,6 @@ export default ({ model, onSubmitCallback, isPreview = false }) => {
                 where={{ _and: [{ parent_id: { _eq: model.id } }] }}
               />
             </Card>
-            <Button
-              leftIcon={'small-add'}
-              variant={'link'}
-              variantColor={'brand'}
-              size={'xs'}
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                addSubTask(model);
-              }}
-            >
-              Add Sub Task
-            </Button>
           </Box>
         )}
         {!model?.id && (

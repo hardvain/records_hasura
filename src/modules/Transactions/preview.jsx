@@ -1,6 +1,7 @@
 import { Box, IconButton, Stack, Collapse, Badge, Text } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import moment from 'moment';
+import Modal from 'src/components/core/modal';
 import Delete from 'src/containers/actions/delete';
 import useMutation from 'src/hooks/graphql/useMutation';
 import Form from './form';
@@ -15,40 +16,32 @@ export default ({ record }) => {
       expand={show}
       borderLeftWidth={4}
       borderLeftColor={record?.type === 'expense' ? 'red.500' : 'green.500'}
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        handleToggle();
+      }}
     >
+      <Modal
+        title={record.name}
+        show={show}
+        onClose={() => setShow(!show)}
+        href={`/transactions/[id]`}
+        as={`/transactions/${record?.id}`}
+      >
+        <Form model={record} isPreview={true} />
+      </Modal>
       <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
         <Stack isInline flex={5} alignItems={'baseline'}>
-          <IconButton
-            mr={0}
-            variant={'ghost'}
-            size="sm"
-            icon={show ? 'chevron-down' : 'chevron-right'}
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              handleToggle();
-            }}
-          />
-          <Box>
-            {record.name}
-          </Box>
+          <Box>{record.name}</Box>
         </Stack>
         <Box flex={1}>
           <Text fontSize={14}>{record.value}</Text>
         </Box>
-        {/*<Box flex={1}>*/}
-        {/*  <Text fontSize={12}>*/}
-        {/*    {record.timestamp*/}
-        {/*      ? moment(record.timestamp).format('Do, MMMM YYYY')*/}
-        {/*      : '-'}*/}
-        {/*  </Text>*/}
-        {/*</Box>*/}
+
         <Box flexGrow={1}></Box>
         <Delete resource={'transactions'} id={record.id} />
       </Stack>
-      <Collapse isOpen={show}>
-        <Form model={record} />
-      </Collapse>
     </ListItem>
   );
 };
