@@ -8,6 +8,7 @@ export default () => {
         <Snippets.List
           showFilterBar
           showBanners
+          groupByField={(row) => row['type']}
           order_by={{ due_date: 'asc_nulls_first' }}
         />
       </Box>

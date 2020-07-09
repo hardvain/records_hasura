@@ -6,9 +6,12 @@ import {
   Textarea,
   useColorMode,
 } from '@chakra-ui/core';
+import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-const Default = ({
+export default ({
   value = '',
   onChange,
   updateCallback = () => {},
@@ -22,20 +25,20 @@ const Default = ({
     }
   }, [value]);
   return (
-    <Textarea
-      rows={10}
-      height={null}
-      value={value}
-      onBlur={() => {
+    <CKEditor
+      editor={ClassicEditor}
+      data={value}
+      onInit={(editor) => {
+        // You can store the "editor" and use when it is needed.
+      }}
+      onChange={(event, editor) => {
+        const data = editor.getData();
+        onChange(data);
+        setState(data);
+      }}
+      onBlur={(event, editor) => {
         updateCallback(state);
       }}
-      onChange={(e) => {
-        onChange(e.target.value);
-        setState(e.target.value);
-      }}
-      {...rest}
     />
   );
 };
-
-export { Default };

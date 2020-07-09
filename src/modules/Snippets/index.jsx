@@ -1,7 +1,15 @@
 import Form from './form';
 import Collection from 'src/containers/collection';
 import Preview from './preview';
-const fields = ['id', 'name', 'description', 'checkins', 'difficulty','due_date'];
+const fields = [
+  'id',
+  'name',
+  'description',
+  'checkins',
+  'type',
+  'difficulty',
+  'due_date',
+];
 const List = (props) => (
   <Collection
     resource={'snippets'}
@@ -27,15 +35,15 @@ const schema = {
     type: 'json',
     label: 'Check Ins',
   },
-  // priority: {
-  //   type: 'select',
-  //   label: 'Priority',
-  //   options: [
-  //     { value: 1, label: 'Very Important' },
-  //     { value: 2, label: 'Important' },
-  //     { value: 3, label: 'Medium' },
-  //   ],
-  // },
+  type: {
+    type: 'select',
+    label: 'Type',
+    options: [
+      { value: 'tech', label: 'Tech' },
+      { value: 'math', label: 'Math' },
+      { value: 'other', label: 'Other' },
+    ],
+  },
   difficulty: {
     type: 'select',
     label: 'Status',

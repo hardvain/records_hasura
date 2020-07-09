@@ -1,14 +1,15 @@
 import { Box, Heading, Stack, Text, useColorMode } from '@chakra-ui/core';
+import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import useMutation from 'src/hooks/graphql/useMutation';
 import * as Input from './Input';
 import * as Checkbox from './Checkbox';
 import { Default } from './Select';
-import * as TextArea from './TextArea';
 import * as Select from './Select';
 import * as DatePicker from './DatePicker';
 import * as ResourceSelector from 'src/components/forms/ResourceSelector';
+const TextArea = dynamic(() => import('./TextArea'), { ssr: false });
 
 const Controlled = ({
   name,
@@ -61,7 +62,8 @@ const map = {
 export default ({ name, isSmart = false, hideLabel = false, ...rest }) => {
   const { schema, isSmart: isGlobalSmart } = useFormContext();
   const metadata = schema[name];
-  const DefaultComponent = map[metadata.type].Default;
+  const DefaultComponent =
+    metadata.type === 'text' ? map[metadata.type] : map[metadata.type].Default;
   const component =
     isGlobalSmart || isSmart ? (
       <Smart name={name} component={DefaultComponent} {...metadata} {...rest} />
@@ -76,7 +78,11 @@ export default ({ name, isSmart = false, hideLabel = false, ...rest }) => {
   return (
     <Box {...rest}>
       <Stack alignItems={'baseline'}>
-        {!hideLabel && <Text fontSize={14} fontWeight={'bold'}>{metadata.label}</Text>}
+        {!hideLabel && (
+          <Text fontSize={14} fontWeight={'bold'}>
+            {metadata.label}
+          </Text>
+        )}
         {component}
       </Stack>
     </Box>

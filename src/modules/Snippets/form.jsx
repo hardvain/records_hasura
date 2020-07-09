@@ -118,11 +118,12 @@ export default ({ model, onSubmitCallback = () => {}, formContext = {} }) => {
           schema={Snippets.schema}
           isSmart={model?.id}
           id={model?.id}
-          resource={'categories'}
+          resource={'snippets'}
         >
           <Field name={'name'} />
           <Field name={'due_date'} />
           <Field name={'difficulty'} />
+          <Field name={'type'} />
           <Field name={'description'} height={1000} />
         </FormContext>
       </Stack>
