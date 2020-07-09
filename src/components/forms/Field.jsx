@@ -1,5 +1,5 @@
-import { Box, Heading, Stack, Text } from '@chakra-ui/core';
-import React from 'react';
+import { Box, Heading, Stack, Text, useColorMode } from '@chakra-ui/core';
+import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import useMutation from 'src/hooks/graphql/useMutation';
 import * as Input from './Input';
@@ -76,7 +76,7 @@ export default ({ name, isSmart = false, hideLabel = false, ...rest }) => {
   return (
     <Box {...rest}>
       <Stack alignItems={'baseline'}>
-        {!hideLabel && <Text fontSize={14}>{metadata.label}</Text>}
+        {!hideLabel && <Text fontSize={14} fontWeight={'bold'}>{metadata.label}</Text>}
         {component}
       </Stack>
     </Box>

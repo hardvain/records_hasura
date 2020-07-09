@@ -1,10 +1,6 @@
 import {
   Box,
   Skeleton,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
   Stack,
   useColorMode,
   Heading,
@@ -12,6 +8,8 @@ import {
 } from '@chakra-ui/core';
 import moment from 'moment';
 import React, { useState } from 'react';
+import Modal from 'src/components/core/modal';
+import ListItem from 'src/containers/collection/list/ListItem';
 import useQuery from 'src/hooks/graphql/useQuery';
 import Projects from 'src/modules/Projects';
 import { useRouter } from 'next/router';
@@ -19,9 +17,7 @@ import Card from 'src/components/core/card';
 import Tasks from 'src/modules/Tasks';
 import Summary from 'src/pages/index/Summary';
 import { useStore } from 'src/store';
-import Tabs, { TabItem } from 'src/components/core/tabs';
 export default () => {
-  const [showForm, setShowForm] = useState(false);
   const [expandAll, setExpandAll] = useState(false);
 
   const router = useRouter();
@@ -30,6 +26,8 @@ export default () => {
     toggleFormPopup: state.toggleFormPopup,
     setNewFormContext: state.setNewFormContext,
   }));
+  const [show, setShow] = useState(false);
+
   const { id } = router.query;
   const [project] = useQuery({
     name: 'projects',
@@ -59,37 +57,44 @@ export default () => {
             variant={'ghost'}
             variantColor={'brand'}
             size={'sm'}
-            onClick={() => setShowForm(!showForm)}
+            onClick={() => setShow(!show)}
           >
             Edit
           </Button>
         </Stack>
-        {showForm && (
-          <Box p={5}>
+        <Box p={5}>
+          <Modal
+            title={project[0].name}
+            show={show}
+            onClose={() => setShow(!show)}
+            href={`/projects/[id]`}
+            as={`/projects/${project[0]?.id}`}
+          >
             <Projects.Form model={project[0]} showList={false} />
-          </Box>
-        )}
-        <Stack m={5} isInline float={'right'}>
-          <Button
-            variant={'ghost'}
-            variantColor={'brand'}
-            size={'sm'}
-            onClick={() => setExpandAll(!expandAll)}
-          >
-            Toggle Sub Tasks
-          </Button>
-          <Button
-            variant={'solid'}
-            variantColor={'brand'}
-            leftIcon={'small-add'}
-            size={'sm'}
-            onClick={addTask}
-          >
-            Add Task
-          </Button>
-        </Stack>
+          </Modal>
+        </Box>
       </Card>
 
+      <Stack m={5} isInline>
+        <Box flexGrow={1} />
+        <Button
+          variant={'ghost'}
+          variantColor={'brand'}
+          size={'sm'}
+          onClick={() => setExpandAll(!expandAll)}
+        >
+          Toggle Sub Tasks
+        </Button>
+        <Button
+          variant={'solid'}
+          variantColor={'brand'}
+          leftIcon={'small-add'}
+          size={'sm'}
+          onClick={addTask}
+        >
+          Add Task
+        </Button>
+      </Stack>
       <Card m={5} p={0} borderRadius={5}>
         <Tasks.List
           expandAll={expandAll}

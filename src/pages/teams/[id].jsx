@@ -1,3 +1,4 @@
+import Modal from 'src/components/core/modal';
 import Teams from 'src/modules/Teams';
 import {
   Box,
@@ -24,6 +25,8 @@ export default () => {
   const [showForm, setShowForm] = useState(false);
   const router = useRouter();
   const { colorMode } = useColorMode();
+  const [show, setShow] = useState(false);
+
   const { toggleFormPopup, setNewFormContext } = useStore((state) => ({
     toggleFormPopup: state.toggleFormPopup,
     setNewFormContext: state.setNewFormContext,
@@ -42,46 +45,76 @@ export default () => {
     <Stack>
       {team ? (
         <Stack m={0}>
-          <Card
-            id={'card'}
-            mt={0}
-            borderLeftWidth={0}
-            borderRadius={0}
-            pb={0}
-            mb={0}
-          >
-            <Stack isInline spacing={10} p={5}>
-              <Box p={5} pb={10} flexGrow={1}>
-                <Heading size={'md'}>{team[0].name}</Heading>
-              </Box>
-              <Button size={'sm'} onClick={() => setShowForm(!showForm)}>
-                Edit
-              </Button>
-            </Stack>
-            {showForm && (
-              <Box p={5}>
-                <Teams.Form model={team[0]} showList={false} />
-              </Box>
-            )}
-          </Card>
-          <Box m={5}>
-            <Button
-              variant={'solid'}
-              variantColor={'brand'}
-              leftIcon={'small-add'}
-              size={'sm'}
-              onClick={addProject}
+          <Tabs isFitted variantColor={'brand'}>
+            <Card
+              id={'card'}
+              mt={0}
+              borderLeftWidth={0}
+              borderRadius={0}
+              pb={0}
+              mb={0}
             >
-              Add Project
-            </Button>
-          </Box>
-          <Card m={5} borderRadius={5} shadow={'none'}>
-            <Projects.List
-              where={{
-                _and: [{ team_id: { _eq: team[0].id } }],
-              }}
-            />
-          </Card>
+              <Stack isInline spacing={10} p={5}>
+                <Box p={5} pb={10} flexGrow={1}>
+                  <Heading size={'md'}>{team[0].name}</Heading>
+                </Box>
+                <Button
+                  size={'sm'}
+                  variantColor={'brand'}
+                  variant={'ghost'}
+                  onClick={() => setShow(!show)}
+                >
+                  Edit
+                </Button>
+              </Stack>
+              <Box p={5}>
+                <Modal
+                  title={team[0].name}
+                  show={show}
+                  onClose={() => setShow(!show)}
+                  href={`/teams/[id]`}
+                  as={`/teams/${team[0]?.id}`}
+                >
+                  <Teams.Form model={team[0]} showList={false} />
+                </Modal>
+              </Box>
+              <TabList>
+                <Tab>Projects</Tab>
+                <Tab>Objectives</Tab>
+                <Tab>Timeline</Tab>
+              </TabList>
+            </Card>
+
+            <TabPanels>
+              <TabPanel>
+                <Stack m={5} isInline>
+                  <Box flexGrow={1} />
+                  <Button
+                    variant={'solid'}
+                    variantColor={'brand'}
+                    leftIcon={'small-add'}
+                    size={'sm'}
+                    onClick={addProject}
+                  >
+                    Add Project
+                  </Button>
+                </Stack>
+                <Card m={5} borderRadius={5} shadow={'none'}>
+                  <Projects.List
+                    where={{
+                      _and: [{ team_id: { _eq: team[0].id } }],
+                    }}
+                  />
+                </Card>
+              </TabPanel>
+              <TabPanel>
+                <p>two!</p>
+              </TabPanel>
+              <TabPanel>
+                <p>three!</p>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
         </Stack>
       ) : (
         <Skeleton />

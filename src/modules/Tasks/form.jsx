@@ -1,7 +1,8 @@
 // Render Prop
-import { Stack, Box, Button, Divider } from '@chakra-ui/core';
+import { Stack, Box, Button, Divider, Heading } from '@chakra-ui/core';
 import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
 import { SmartChecklists } from 'src/modules/Tasks/Checklists';
+import { useStore } from 'src/store';
 import Tasks from './index';
 import Card from 'src/components/core/card';
 import { useForm, FormContext } from 'react-hook-form';
@@ -10,8 +11,12 @@ import Field from 'src/components/forms/Field';
 import useMutation from 'src/hooks/graphql/useMutation';
 import TaskFormActions from 'src/modules/Tasks/TaskFormActions';
 
-export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
+export default ({ model, onSubmitCallback, isPreview = false }) => {
   const methods = useForm();
+  const { toggleFormPopup, setNewFormContext } = useStore((state) => ({
+    toggleFormPopup: state.toggleFormPopup,
+    setNewFormContext: state.setNewFormContext,
+  }));
   const [checklist, setChecklist] = useState([]);
   useEffect(() => {
     methods.reset(model);
@@ -36,7 +41,10 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
     )();
     onSubmitCallback();
   };
-
+  const addSubTask = (task) => {
+    setNewFormContext({ project_id: task.project_id, parent_id: task.id });
+    toggleFormPopup('tasks');
+  };
   return (
     <FormContext
       isSmart={model?.id}
@@ -45,41 +53,15 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
       resource={'tasks'}
       id={model?.id}
     >
-      <Stack spacing={5}>
+      <Stack spacing={5} mb={5}>
         {model?.id && <TaskFormActions model={model} />}
         <Stack mt={2} isInline>
-          <Box flex={2}>
-            <StackedCard>
-              <Stack flex={3}>
-                <Field name={'name'} mb={5} />
-                <Field rows={10} name={'description'} schema={Tasks.schema} />
-              </Stack>
-
-              {model && model.id && (
-                <StackedCardItem title={'Checklists'}>
-                  <Box>
-                    <SmartChecklists
-                      id={model?.id}
-                      name={'checklist'}
-                      resource={'tasks'}
-                      checklist={checklist}
-                      setChecklist={setChecklist}
-                    />
-                  </Box>
-                </StackedCardItem>
-              )}
-              {model && model.id && (
-                <StackedCardItem title={'Sub Tasks'}>
-                  <Card p={0}>
-                    <Tasks.List
-                      formContext={{ parent_id: model.id }}
-                      where={{ _and: [{ parent_id: { _eq: model.id } }] }}
-                    />
-                  </Card>
-                </StackedCardItem>
-              )}
-            </StackedCard>
-          </Box>
+          <Stack spacing={5} flex={2}>
+            <Stack flex={3}>
+              <Field name={'name'} mb={5} />
+              <Field rows={10} name={'description'} schema={Tasks.schema} />
+            </Stack>
+          </Stack>
           <Box flex={1} p={5}>
             <Field name={'due_date'} flex={1} />
             <Field name={'priority'} flex={1} />
@@ -94,7 +76,32 @@ export default ({ model, onSubmitCallback = () => {}, isPreview = false }) => {
             <Field name={'people_id'} flex={1} />
           </Box>
         </Stack>
-
+        {model?.id && (
+          <Box>
+            <Heading size={'xs'} mb={2}>
+              Sub Tasks
+            </Heading>
+            <Card>
+              <Tasks.List
+                formContext={{ parent_id: model.id }}
+                where={{ _and: [{ parent_id: { _eq: model.id } }] }}
+              />
+            </Card>
+            <Button
+              leftIcon={'small-add'}
+              variant={'link'}
+              variantColor={'brand'}
+              size={'xs'}
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                addSubTask(model);
+              }}
+            >
+              Add Sub Task
+            </Button>
+          </Box>
+        )}
         {!model?.id && (
           <Button
             my={5}

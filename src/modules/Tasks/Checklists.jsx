@@ -14,7 +14,7 @@ import _ from 'lodash';
 import React, { useCallback } from 'react';
 import useMutation from 'src/hooks/graphql/useMutation';
 
-const Checklists = ({ checklist, setChecklist }) => {
+const Checklists = ({ checklist, setChecklist, onUpdateCallback }) => {
   const { colorMode } = useColorMode();
 
   const addCheckListItem = () => {
@@ -48,12 +48,14 @@ const Checklists = ({ checklist, setChecklist }) => {
               variantColor={'brand'}
               size={'xs'}
               isChecked={item?.isChecked}
-              onChange={(e) =>
-                setChecklistItem(e.target.checked, 'isChecked', index)
-              }
+              onChange={(e) => {
+                setChecklistItem(e.target.checked, 'isChecked', index);
+                onUpdateCallback()
+              }}
             />
             <Input
               size={'xs'}
+              onBlur={onUpdateCallback}
               flexGrow={1}
               variant={'unstyled'}
               textDecoration={item?.isChecked ? 'line-through' : ''}
@@ -101,9 +103,17 @@ export const SmartChecklists = ({ resource, id, name, ...rest }) => {
       });
     }
   };
+  const onUpdate = () => {
+    update(rest.checklist);
+  };
   const setChecklist = (v) => {
-    delayedQuery(v);
     rest.setChecklist(v);
   };
-  return <Checklists {...rest} setChecklist={setChecklist} />;
+  return (
+    <Checklists
+      {...rest}
+      setChecklist={setChecklist}
+      onUpdateCallback={onUpdate}
+    />
+  );
 };

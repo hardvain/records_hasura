@@ -13,9 +13,9 @@ const Default = ({
     <Box w={'100%'}>
       <Select
         onChange={(e) => {
-          const value = e.value;
-          onChange(value === '' ? null : value);
-          updateCallback(value === '' ? null : value);
+          const value = e?.value;
+          onChange(value === '' || value === undefined ? null : value);
+          updateCallback(value === '' || value === undefined ? null : value);
         }}
         className="basic-single"
         classNamePrefix="select"

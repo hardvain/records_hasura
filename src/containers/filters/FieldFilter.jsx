@@ -221,6 +221,7 @@ export default ({ fields, filter, setFilter, onDelete }) => {
     : undefined;
   const fieldType = field?.type;
   const fieldName = field?.name;
+
   let ValueComponent;
   if (fieldName && fieldName.startsWith('ref')) {
     ValueComponent = <ResourceSelector.Default name={fieldType} />;
@@ -256,7 +257,9 @@ export default ({ fields, filter, setFilter, onDelete }) => {
             ? options[fieldType].options
             : GenericOptions
           ).map((o) => (
-            <option key={o.value} value={o.value}>{o.label}</option>
+            <option key={o.value} value={o.value}>
+              {o.label}
+            </option>
           ))}
         </Select>
       )}

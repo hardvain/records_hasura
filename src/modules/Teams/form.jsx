@@ -7,7 +7,7 @@ import { useForm, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import Field from 'src/components/forms/Field';
 import useMutation from 'src/hooks/graphql/useMutation';
-export default ({ model, onSubmitCallback = () => {} }) => {
+export default ({ model, onSubmitCallback = () => {}, showList = true }) => {
   const [operation, setOperation] = useState('insert');
   const methods = useForm();
   const [showProjects, setShowProjects] = useState(false);
@@ -64,7 +64,7 @@ export default ({ model, onSubmitCallback = () => {} }) => {
           </Button>
         )}
       </Stack>
-      {model && model.id && (
+      {model && model.id && showList && (
         <Projects.List
           formContext={{ team_id: model.id }}
           where={{ _and: [{ team_id: { _eq: model.id } }] }}

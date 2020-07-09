@@ -1,6 +1,6 @@
 import Select from 'react-select';
 import { Box } from '@chakra-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useQuery from 'src/hooks/graphql/useQuery';
 
 const Default = ({
@@ -19,6 +19,12 @@ const Default = ({
     order_by,
     fields,
   });
+  const [options, setOptions] = useState([]);
+  useEffect(() => {
+    if (data) {
+      setOptions(data.map((i) => ({ value: i.id, label: i.name })));
+    }
+  }, [data]);
   if (!data) {
     return (
       <Select
@@ -31,15 +37,14 @@ const Default = ({
       />
     );
   }
-  const options = data.map((i) => ({ value: i.id, label: i.name }));
   const selectedValue = options.filter((o) => o.value === value);
   return (
     <Box w={'100%'}>
       <Select
         onChange={(e) => {
-          const value = e.value;
-          onChange(value === '' ? null : value);
-          updateCallback(value === '' ? null : value);
+          const value = e?.value;
+          onChange(value === '' || value === undefined ? null : value);
+          updateCallback(value === '' || value === undefined ? null : value);
         }}
         className="basic-single"
         classNamePrefix="select"
