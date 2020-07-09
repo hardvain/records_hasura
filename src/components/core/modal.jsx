@@ -30,6 +30,8 @@ export default ({ show, onClose, title, children, href, as }) => {
     >
       <ModalOverlay />
       <ModalContent
+        h={'100%'}
+
         borderRadius={5}
         shadow={'lg'}
         bg={colorMode === 'light' ? 'white' : '#333'}

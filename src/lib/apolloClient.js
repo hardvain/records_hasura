@@ -47,7 +47,7 @@ const createWSLink = () => {
     {
       reconnect: true,
       lazy: true,
-      timeout: 30000,
+      timeout: 3000000,
       connectionCallback: (error) => {
         if (error) {
           console.group('Apollo Client Connection Callback');
