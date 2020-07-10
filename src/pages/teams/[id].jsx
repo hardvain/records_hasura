@@ -18,6 +18,7 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import useQuery from 'src/hooks/graphql/useQuery';
 import Projects from 'src/modules/Projects';
+import Objectives from 'src/modules/Objectives';
 import Thoughts from 'src/modules/Thoughts';
 import { useRouter } from 'next/router';
 import Card from 'src/components/core/card';
@@ -46,6 +47,9 @@ export default () => {
   const addThoughts = () => {
     setNewFormContext({ team_id: team[0]?.id });
     toggleFormPopup('thoughts');
+  };
+  const addObjectives = () => {
+    toggleFormPopup('objectives');
   };
   return (
     <Stack>
@@ -85,14 +89,41 @@ export default () => {
                   <Teams.Form model={team[0]} showList={false} />
                 </Modal>
               </Box>
-              <TabList>
+              <TabList borderWidth={0}>
+                <Tab>Objectives</Tab>
                 <Tab>Projects</Tab>
                 <Tab>Thoughts</Tab>
-                <Tab>Objectives</Tab>
               </TabList>
             </Card>
 
             <TabPanels>
+              <TabPanel>
+                <Stack m={5} isInline>
+                  <Box flexGrow={1} />
+                  <Button
+                    variant={'solid'}
+                    variantColor={'brand'}
+                    leftIcon={'small-add'}
+                    size={'sm'}
+                    onClick={addObjectives}
+                  >
+                    Add Objective
+                  </Button>
+                </Stack>
+                <Card m={5} borderRadius={5} shadow={'none'}>
+                  <Objectives.List
+                    where={{
+                      _and: [
+                        {
+                          ref_objective_teams: {
+                            ref_team: { id: { _eq: team[0].id } },
+                          },
+                        },
+                      ],
+                    }}
+                  />
+                </Card>
+              </TabPanel>
               <TabPanel>
                 <Stack m={5} isInline>
                   <Box flexGrow={1} />
@@ -124,22 +155,17 @@ export default () => {
                     size={'sm'}
                     onClick={addThoughts}
                   >
-                    Add Thoughts
+                    Add Thought
                   </Button>
                 </Stack>
                 <Card m={5} borderRadius={5} shadow={'none'}>
                   <Thoughts.List
                     formContext={{ team_id: team[0].id }}
                     where={{
-                      _and: [
-                        { team_id: { _eq: team[0].id } },
-                      ],
+                      _and: [{ team_id: { _eq: team[0].id } }],
                     }}
                   />
                 </Card>
-              </TabPanel>
-              <TabPanel>
-                <p>Objectives!</p>
               </TabPanel>
             </TabPanels>
           </Tabs>

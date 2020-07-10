@@ -42,10 +42,11 @@ const Default = ({
     <Box w={'100%'}>
       <Select
         onChange={(e) => {
-          const value = e?.value;
+          const value = rest.isMulti ? e.map((item) => item.value) : e?.value;
           onChange(value === '' || value === undefined ? null : value);
           updateCallback(value === '' || value === undefined ? null : value);
         }}
+        isMulti={rest.isMulti}
         className="basic-single"
         classNamePrefix="select"
         value={selectedValue ? selectedValue[0] : ''}

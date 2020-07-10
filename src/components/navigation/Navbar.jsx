@@ -100,6 +100,13 @@ export default () => {
         </Link>
       </Box>
       <Box>
+        <Link href="/objectives" as={`/objectives`}>
+          <Button variant={'ghost'} size={'sm'} mr={4}>
+            Objectives
+          </Button>
+        </Link>
+      </Box>
+      <Box>
         <Menu>
           <ChakraMenuButton
             variantColor={'brand'}

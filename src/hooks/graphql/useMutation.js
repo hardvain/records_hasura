@@ -2,34 +2,33 @@ import { useToast } from '@chakra-ui/core';
 import gql from 'graphql-tag';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 
-export default ({ resource, operation = 'insert', silent = false }) => {
+export default ({ resource, operation = 'insert', silent = false, callback }) => {
   const toast = useToast();
   const updateString = `
       mutation update_${resource}($where:${resource}_bool_exp!,$object:${resource}_set_input){
-          update_${resource}(where:$where,_set:$object){affected_rows}
+          update_${resource}(where:$where,_set:$object){returning{id}}
       }
   `;
   const deleteString = `
       mutation delete_${resource}($where:${resource}_bool_exp!){
           delete_${resource}(where:$where){
-            affected_rows
+            returning{id}
           }
       }
   `;
   const insertString = `
       mutation insert_${resource}($object:${resource}_insert_input!){
-          insert_${resource}(objects:[$object]){affected_rows}
+          insert_${resource}(objects:[$object]){returning{id}}
       }
   `;
-  const mutateWrapper = (mutate) => {
+  const mutateWrapper = (mutateFn) => {
     if (operation === 'insert') {
       return (params) => {
         delete params.variables.object['__typename'];
         delete params.variables.where;
-        return mutate(params);
+        return mutateFn(params);
       };
     } else if (operation === 'update') {
-
       return (params) => {
         Object.keys(params.variables.object).forEach((k) => {
           if (k.startsWith('ref')) {
@@ -40,10 +39,10 @@ export default ({ resource, operation = 'insert', silent = false }) => {
         });
         delete params.variables.object['__typename'];
         delete params.variables.object.id;
-        return mutate(params);
+        return mutateFn(params);
       };
     } else {
-      return mutate;
+      return mutateFn;
     }
   };
   const mutationString =
@@ -53,8 +52,11 @@ export default ({ resource, operation = 'insert', silent = false }) => {
       ? deleteString
       : insertString;
 
-  const [mutate, { data }] = useMutation(gql(mutationString), {
-    onCompleted: () => {
+  const [mutate, data] = useMutation(gql(mutationString), {
+    onCompleted: (data) => {
+      if(callback){
+        callback(data[`${operation}_${resource}`]['returning'])
+      }
       if (!silent) {
         toast({
           title:

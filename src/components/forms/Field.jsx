@@ -58,6 +58,7 @@ const map = {
   select: Select,
   timestamp: DatePicker,
   ref: ResourceSelector,
+  ref_multi: ResourceSelector,
 };
 export default ({ name, isSmart = false, hideLabel = false, ...rest }) => {
   const { schema, isSmart: isGlobalSmart } = useFormContext();

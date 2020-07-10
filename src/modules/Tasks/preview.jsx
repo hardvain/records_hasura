@@ -46,7 +46,6 @@ export default ({ model }) => {
         },
       })
     )();
-    onSubmitCallback();
   };
   const deleteMutate = useMutation({ resource: 'tasks', operation: 'delete' });
   const addCheckListItem = () => {

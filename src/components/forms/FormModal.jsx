@@ -12,19 +12,7 @@ import {
   SimpleGrid,
 } from '@chakra-ui/core';
 import { useState } from 'react';
-import { IoIosPeople } from 'react-icons/io';
-import {
-  GiSugarCane,
-  GiWaterDrop,
-  GiMoneyStack,
-  GiFruitBowl,
-  GiBrain,
-} from 'react-icons/gi';
-import { AiOutlineAppstore } from 'react-icons/ai';
-import { FaTasks, FaPizzaSlice, FaEdit } from 'react-icons/fa';
-import { GoProject } from 'react-icons/go';
-import { FiUsers, FiInbox } from 'react-icons/fi';
-import { RiLightbulbFlashLine } from 'react-icons/ri';
+
 import { useStore } from 'src/store';
 import Tasks from 'src/modules/Tasks';
 import Food from 'src/modules/Food';
@@ -36,6 +24,7 @@ import Water from 'src/modules/Water';
 import Snippets from 'src/modules/Snippets';
 import People from 'src/modules/People';
 import Inbox from 'src/modules/Inbox';
+import Objectives from 'src/modules/Objectives';
 import Projects from 'src/modules/Projects';
 import Dishes from 'src/modules/Dishes';
 import Teams from 'src/modules/Teams';
@@ -79,6 +68,7 @@ export default () => {
     snippets: Snippets,
     thoughts: Thoughts,
     notes: Notes,
+    objectives: Objectives,
   };
   const Form = formMap[recordType]['Form'] || <div />;
   return (
