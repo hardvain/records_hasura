@@ -128,7 +128,7 @@ export default () => {
       pt={2}
       bg={colorMode === 'light' ? 'white' : '#333'}
       borderRightWidth={1}
-      zIndex={1000}
+      zIndex={[1000,0]}
       position={'fixed'}
       display={[showTeambar ? 'block' : 'none', 'block']}
     >
