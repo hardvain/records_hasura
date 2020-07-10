@@ -19,6 +19,7 @@ import Summary from 'src/pages/index/Summary';
 import { useStore } from 'src/store';
 export default () => {
   const [expandAll, setExpandAll] = useState(false);
+  const [showCompleted, setShowCompleted] = useState(false);
 
   const router = useRouter();
   const { colorMode } = useColorMode();
@@ -38,6 +39,15 @@ export default () => {
     setNewFormContext({ project_id: project[0]?.id });
     toggleFormPopup('tasks');
   };
+  const taskFilters = {
+    _and: [
+      { project_id: { _eq: project ? project[0].id : null } },
+      { parent_id: { _is_null: true } },
+    ],
+  };
+  if (!showCompleted) {
+    taskFilters._and.push({ status: { _neq: 'completed' } });
+  }
   return project ? (
     <Stack m={0}>
       <Card
@@ -86,6 +96,15 @@ export default () => {
           Toggle Sub Tasks
         </Button>
         <Button
+          mx={2}
+          variant={'ghost'}
+          variantColor={'brand'}
+          size={'sm'}
+          onClick={() => setShowCompleted(!showCompleted)}
+        >
+          Toggle Completed
+        </Button>
+        <Button
           variant={'solid'}
           variantColor={'brand'}
           leftIcon={'small-add'}
@@ -98,12 +117,8 @@ export default () => {
       <Card m={5} p={0} borderRadius={5}>
         <Tasks.List
           expandAll={expandAll}
-          where={{
-            _and: [
-              { project_id: { _eq: project[0].id } },
-              { parent_id: { _is_null: true } },
-            ],
-          }}
+          where={taskFilters}
+          listItemProps={{ showCompleted }}
         />
       </Card>
     </Stack>

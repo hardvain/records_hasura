@@ -22,7 +22,7 @@ import { useStore } from 'src/store';
 import Tasks from './index';
 import useMutation from 'src/hooks/graphql/useMutation';
 import ListItem from 'src/containers/collection/list/ListItem';
-export default ({ record, index, expandAll, indent = 0 }) => {
+export default ({ record, index, expandAll, indent = 0, listItemProps }) => {
   const subTasks = record.ref_sub_tasks;
   const totalTasks = subTasks?.length;
   const completedTasks = (subTasks || []).filter(
@@ -55,7 +55,10 @@ export default ({ record, index, expandAll, indent = 0 }) => {
   const isToday = moment(record.due_date)
     .startOf('day')
     .isSame(moment().startOf('day'));
-
+  const subTasksFilters = { _and: [{ parent_id: { _eq: record?.id } }] };
+  if (!listItemProps?.showCompleted) {
+    subTasksFilters._and.push({ status: { _neq: 'completed' } });
+  }
   return (
     <Stack m={0} p={0} spacing={0}>
       <ListItem
@@ -157,7 +160,7 @@ export default ({ record, index, expandAll, indent = 0 }) => {
         <Box>
           <Tasks.List
             indent={indent + 5}
-            where={{ _and: [{ parent_id: { _eq: record?.id } }] }}
+            where={subTasksFilters}
             expandAll={expandAll}
           />
         </Box>
