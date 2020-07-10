@@ -12,6 +12,7 @@ const Section = ({ data, preview, isGrouped, ...rest }) => {
   return isGrouped ? <Box>{body}</Box> : <Card>{body}</Card>;
 };
 export default ({ data, preview, group_by_field, ...rest }) => {
+  console.log(data)
   if (group_by_field) {
     const groupedData = groupBy(data, group_by_field);
     return (

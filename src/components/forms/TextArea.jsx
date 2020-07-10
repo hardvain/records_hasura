@@ -16,25 +16,17 @@ const Default = ({ value, onChange, updateCallback = () => {}, ...rest }) => {
     }
   }, [value]);
   return (
-    <Box w={'100%'}>
-      <Editor
-        value={JSON.parse(state)}
-        onChange={(e) => {
-          const content = JSON.stringify(e);
-          setState(content);
-        }}
-        {...rest}
-      />
-      <Button
-        my={2}
-        size={'sm'}
-        variant={'solid'}
-        variantColor={'brand'}
-        onClick={() => updateCallback(state)}
-      >
-        Save
-      </Button>
-    </Box>
+    <Editor
+      value={JSON.parse(state)}
+      onBlur={() => {
+        updateCallback(state);
+      }}
+      onChange={(e) => {
+        const content = JSON.stringify(e);
+        setState(content);
+      }}
+      {...rest}
+    />
   );
 };
 

@@ -25,10 +25,10 @@ import Delete from 'src/containers/actions/delete';
 import ListItem from 'src/containers/collection/list/ListItem';
 
 export default ({ record }) => {
-  let product = 0;
+  let sum = 0;
   const krs = record.ref_key_results;
-  krs.forEach((v) => (product = product + v.progress));
-  let percentage = product / krs.length;
+  krs.forEach((v) => (sum = sum + v.progress));
+  let percentage = krs?.length > 0 ? sum / krs.length : 0;
   return (
     <ListItem highlight>
       <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>

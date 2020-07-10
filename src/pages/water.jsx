@@ -14,7 +14,7 @@ import React, { useState } from 'react';
 export default () => {
   const [date, setDate] = useState(moment().toISOString(true));
   return (
-    <Card p={0}>
+    <Box p={5}>
       <Water.List
         showFilterBar
         where={{
@@ -32,6 +32,6 @@ export default () => {
           ],
         }}
       />
-    </Card>
+    </Box>
   );
 };

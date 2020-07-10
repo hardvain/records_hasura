@@ -2,6 +2,7 @@ import { Box, Collapse, IconButton, Stack, Text } from '@chakra-ui/core';
 import Link from 'next/link';
 import Card from 'src/components/core/card';
 import Drawer from 'src/components/core/drawer';
+import Modal from 'src/components/core/modal';
 import Delete from 'src/containers/actions/delete';
 import Tasks from 'src/modules/Tasks';
 
@@ -26,22 +27,21 @@ export default ({ record }) => {
         handleToggle();
       }}
     >
-      <Stack py={2} isInline textAlign={'center'} alignItems={'center'} pr={4}>
+      <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
         <Box flexGrow={1} textAlign={'initial'}>
           <Text fontSize={'md'}>{record.name}</Text>
         </Box>
         <Delete resource={'snippets'} id={record.id} />
       </Stack>
-      <Drawer
-        size={'xl'}
+      <Modal
         title={record.name}
         show={show}
-        setShow={setShow}
+        onClose={() => setShow(!show)}
         href={`/snippets/[id]`}
         as={`/snippets/${record?.id}`}
       >
-        <Snippets.Form model={record} />
-      </Drawer>
+        <Snippets.Form model={record} isPreview={true} />
+      </Modal>
     </ListItem>
   );
 };

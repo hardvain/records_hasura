@@ -124,7 +124,7 @@ export default ({ model, onSubmitCallback = () => {}, formContext = {} }) => {
           <Field name={'due_date'} />
           <Field name={'difficulty'} />
           <Field name={'type'} />
-          <Field name={'description'} height={1000} />
+          <Field name={'description'}  />
         </FormContext>
       </Stack>
 

@@ -62,6 +62,7 @@ export default ({ model, onSubmitCallback = () => {} }) => {
           <Field name={'name'} mb={5} />
           <Field name={'description'} mb={5} />
           <Field name={'progress'} mb={5} />
+          <Field name={'objective_id'} mb={5} />
         </Stack>
       </FormContext>
       {!model?.id && (
