@@ -5,7 +5,6 @@ export default ({ expand, children,...rest }) => {
 
   return (
     <Card
-      borderRadius={3}
       p={3}
       py={1}
       borderWidth={0}

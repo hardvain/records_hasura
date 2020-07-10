@@ -1,6 +1,5 @@
 import Form from './form';
 import Collection from 'src/containers/collection';
-import LineItem from './LineItem';
 import BoardCard from './BoardCard';
 import Preview from './preview';
 export const fields = [
@@ -82,11 +81,12 @@ const schema = {
 };
 
 const List = (props) => {
+  console.log(props)
   return (
     <Collection
       resource={'tasks'}
       fields={fields}
-      preview={LineItem}
+      preview={Preview}
       {...props}
     />
   );
@@ -106,4 +106,4 @@ const Board = (props) => {
   );
 };
 
-export default { Form, List, schema, Preview, Board };
+export default { Form, List, schema, Board };

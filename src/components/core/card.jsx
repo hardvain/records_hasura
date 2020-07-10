@@ -15,9 +15,7 @@ export default ({
     <Box
       minWidth={300}
       borderWidth={1}
-      borderLeftWidth={thickLeftBorder ? 5 : 1}
-      borderLeftColor={thickLeftBorder ? 'brand.300' : ''}
-      borderRadius={5}
+      borderRadius={0}
       shadow={shadow ? 'xs' : ''}
       h={'100%'}
       cursor={highlight ? 'pointer' : ''}

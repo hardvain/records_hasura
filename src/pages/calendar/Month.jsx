@@ -23,7 +23,6 @@ import Tasks from 'src/modules/Tasks';
 import * as TaskFilters from 'src/modules/Tasks/filters';
 import Collection from 'src/containers/collection';
 import moment from 'moment';
-import Preview from 'src/modules/Tasks/preview';
 
 const MonthDay = ({ day, groupedTasks, date }) => {
   const tasks = groupedTasks[day];

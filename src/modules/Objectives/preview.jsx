@@ -23,8 +23,10 @@ import Router from 'next/router';
 import React, { useState } from 'react';
 import Delete from 'src/containers/actions/delete';
 import ListItem from 'src/containers/collection/list/ListItem';
+import KeyResults from 'src/modules/KeyResults';
+import Tasks from 'src/modules/Tasks';
 
-export default ({ record }) => {
+export default ({ record, indent = 0 }) => {
   let sum = 0;
   const krs = record.ref_key_results;
   krs.forEach((v) => (sum = sum + v.progress));

@@ -9,7 +9,13 @@ const Section = ({ data, preview, ...rest }) => {
       {createElement(preview, { record, index, ...rest })}
     </div>
   ));
-  return <Card>{body}</Card>;
+  return (
+    <Card
+      borderWidth={rest.noBorder ? 0 : 1}
+    >
+      {body}
+    </Card>
+  );
 };
 export default ({ data, preview, group_by_field, ...rest }) => {
   if (group_by_field) {
