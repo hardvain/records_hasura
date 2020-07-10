@@ -156,3 +156,9 @@ a:hover {
 .react-select .react-select__option{
   color: white;
 }
+.ck-editor__editable_inline {
+  min-height: 300px;
+}
+.ck-editor {
+  width: 100% !important;
+}

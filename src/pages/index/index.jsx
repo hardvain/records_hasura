@@ -17,7 +17,6 @@ import React, { useEffect, useState } from 'react';
 import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
 import * as DatePicker from 'src/components/forms/DatePicker';
 import Field from 'src/components/forms/Field';
-import TextArea from 'src/components/forms/TextArea';
 import useMutation from 'src/hooks/graphql/useMutation';
 import Reviews from 'src/modules/Reviews';
 import { getReviewForDate } from 'src/modules/Reviews/factories';

@@ -1,44 +1,41 @@
 import {
-  Box,
-  Button,
   Input,
+  Box,
   Text,
-  Textarea,
   useColorMode,
+  EditablePreview,
+  Button,
 } from '@chakra-ui/core';
-import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
-export default ({
-  value = '',
-  onChange,
-  updateCallback = () => {},
-  ...rest
-}) => {
-  const [state, setState] = useState('Click to start typing');
-
+import Editor from 'src/components/core/editor';
+const Default = ({ value, onChange, updateCallback = () => {}, ...rest }) => {
+  const [state, setState] = useState(`[{"children": [{ "text": "" }]}]`);
   useEffect(() => {
-    if (value && value.length > 0) {
+    if (value) {
       setState(value);
     }
   }, [value]);
   return (
-    <CKEditor
-      editor={ClassicEditor}
-      data={value}
-      onInit={(editor) => {
-        // You can store the "editor" and use when it is needed.
-      }}
-      onChange={(event, editor) => {
-        const data = editor.getData();
-        onChange(data);
-        setState(data);
-      }}
-      onBlur={(event, editor) => {
-        updateCallback(state);
-      }}
-    />
+    <Box w={'100%'}>
+      <Editor
+        value={JSON.parse(state)}
+        onChange={(e) => {
+          const content = JSON.stringify(e);
+          setState(content);
+        }}
+        {...rest}
+      />
+      <Button
+        my={2}
+        size={'sm'}
+        variant={'solid'}
+        variantColor={'brand'}
+        onClick={() => updateCallback(state)}
+      >
+        Save
+      </Button>
+    </Box>
   );
 };
+
+export { Default };
