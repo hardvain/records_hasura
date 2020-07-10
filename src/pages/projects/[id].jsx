@@ -114,13 +114,13 @@ export default () => {
           Add Task
         </Button>
       </Stack>
-      <Card m={5} p={0} borderRadius={5}>
+      <Box m={5} p={0} borderRadius={5}>
         <Tasks.List
           expandAll={expandAll}
           where={taskFilters}
           listItemProps={{ showCompleted }}
         />
-      </Card>
+      </Box>
     </Stack>
   ) : (
     <Skeleton />

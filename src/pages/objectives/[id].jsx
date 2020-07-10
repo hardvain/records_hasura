@@ -87,14 +87,14 @@ export default () => {
           Add Key Result
         </Button>
       </Stack>
-      <Card m={5} p={0} borderRadius={5}>
+      <Box m={5} p={0} borderRadius={5}>
         <KeyResults.List
           expandAll={expandAll}
           where={{
             _and: [{ objective_id: { _eq: objective[0].id } }],
           }}
         />
-      </Card>
+      </Box>
     </Stack>
   ) : (
     <Skeleton />

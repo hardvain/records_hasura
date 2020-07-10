@@ -3,16 +3,15 @@ import { Box, Button, Input, Stack, Text } from '@chakra-ui/core';
 import Card from 'src/components/core/card';
 import { groupBy } from 'src/utils';
 
-const Section = ({ data, preview, isGrouped, ...rest }) => {
+const Section = ({ data, preview, ...rest }) => {
   const body = data.map((record, index) => (
     <div key={record.id}>
       {createElement(preview, { record, index, ...rest })}
     </div>
   ));
-  return isGrouped ? <Box>{body}</Box> : <Card>{body}</Card>;
+  return <Card>{body}</Card>;
 };
 export default ({ data, preview, group_by_field, ...rest }) => {
-  console.log(data)
   if (group_by_field) {
     const groupedData = groupBy(data, group_by_field);
     return (
@@ -23,22 +22,13 @@ export default ({ data, preview, group_by_field, ...rest }) => {
               <Text fontSize={14} textTransform={'uppercase'} color={'#77808F'}>
                 {key}
               </Text>
-              <Card p={0}>
-                <Section
-                  data={groupedData[key]}
-                  preview={preview}
-                  {...rest}
-                  isGrouped
-                />
-              </Card>
+              <Section data={groupedData[key]} preview={preview} {...rest} />
             </Stack>
           );
         })}
       </Box>
     );
   } else {
-    return (
-      <Section data={data} preview={preview} {...rest} isGrouped={false} />
-    );
+    return <Section data={data} preview={preview} {...rest} />;
   }
 };

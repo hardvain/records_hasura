@@ -11,7 +11,6 @@ export default ({ record }) => {
     <ListItem>
       <Link href={`/notes/[id]`} as={`/notes/${record.id}`}>
         <Stack
-          py={2}
           isInline
           textAlign={'center'}
           alignItems={'center'}
