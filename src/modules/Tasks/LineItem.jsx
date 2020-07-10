@@ -68,7 +68,7 @@ export default ({ record, index, expandAll, indent = 0, listItemProps }) => {
         borderLeftWidth={0}
         borderBottomWidth={1}
         cursor={'pointer'}
-        px={3}
+        px={1}
         py={2}
         onClick={(e) => {
           e.stopPropagation();
@@ -159,6 +159,7 @@ export default ({ record, index, expandAll, indent = 0, listItemProps }) => {
       {showSubTasks && (
         <Box>
           <Tasks.List
+            showBanners={false}
             indent={indent + 5}
             where={subTasksFilters}
             expandAll={expandAll}

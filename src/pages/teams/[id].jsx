@@ -110,7 +110,7 @@ export default () => {
                     Add Objective
                   </Button>
                 </Stack>
-                <Card m={5} borderRadius={5} shadow={'none'}>
+                <Box m={5} p={5} borderRadius={5} shadow={'none'}>
                   <Objectives.List
                     where={{
                       _and: [
@@ -122,7 +122,7 @@ export default () => {
                       ],
                     }}
                   />
-                </Card>
+                </Box>
               </TabPanel>
               <TabPanel>
                 <Stack m={5} isInline>
@@ -137,13 +137,13 @@ export default () => {
                     Add Project
                   </Button>
                 </Stack>
-                <Card m={5} borderRadius={5} shadow={'none'}>
+                <Box m={5} p={5} borderRadius={5} shadow={'none'}>
                   <Projects.List
                     where={{
                       _and: [{ team_id: { _eq: team[0].id } }],
                     }}
                   />
-                </Card>
+                </Box>
               </TabPanel>
               <TabPanel>
                 <Stack m={5} isInline>
@@ -158,14 +158,14 @@ export default () => {
                     Add Thought
                   </Button>
                 </Stack>
-                <Card m={5} borderRadius={5} shadow={'none'}>
+                <Box m={5} borderRadius={5} shadow={'none'}>
                   <Thoughts.List
                     formContext={{ team_id: team[0].id }}
                     where={{
                       _and: [{ team_id: { _eq: team[0].id } }],
                     }}
                   />
-                </Card>
+                </Box>
               </TabPanel>
             </TabPanels>
           </Tabs>
