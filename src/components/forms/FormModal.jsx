@@ -19,6 +19,7 @@ import Food from 'src/modules/Food';
 import Glucose from 'src/modules/Glucose';
 import Thoughts from 'src/modules/Thoughts';
 import Notes from 'src/modules/Notes';
+import KeyResults from 'src/modules/KeyResults';
 import Categories from 'src/modules/Categories';
 import Water from 'src/modules/Water';
 import Snippets from 'src/modules/Snippets';
@@ -69,6 +70,7 @@ export default () => {
     thoughts: Thoughts,
     notes: Notes,
     objectives: Objectives,
+    key_results: KeyResults,
   };
   const Form = formMap[recordType]['Form'] || <div />;
   return (

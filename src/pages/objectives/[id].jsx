@@ -14,6 +14,7 @@ import useQuery from 'src/hooks/graphql/useQuery';
 import { useRouter } from 'next/router';
 import Card from 'src/components/core/card';
 import Objectives from 'src/modules/Objectives';
+import KeyResults from 'src/modules/KeyResults';
 import Summary from 'src/pages/index/Summary';
 import { useStore } from 'src/store';
 export default () => {
@@ -31,10 +32,11 @@ export default () => {
   const [objective] = useQuery({
     name: 'objectives',
     where: { id: { _eq: id } },
-    fields: ['id', 'name', 'description', 'start_date','end_date'],
+    fields: ['id', 'name', 'description', 'start_date', 'end_date'],
   });
   const addKeyResult = () => {
-    toggleFormPopup('objectives');
+    setNewFormContext({ objective_id: objective[0]?.id });
+    toggleFormPopup('key_results');
   };
   return objective ? (
     <Stack m={0}>
@@ -85,17 +87,14 @@ export default () => {
           Add Key Result
         </Button>
       </Stack>
-      {/*<Card m={5} p={0} borderRadius={5}>*/}
-      {/*  <Objectives.List*/}
-      {/*    expandAll={expandAll}*/}
-      {/*    where={{*/}
-      {/*      _and: [*/}
-      {/*        { objective_id: { _eq: objective[0].id } },*/}
-      {/*        { parent_id: { _is_null: true } },*/}
-      {/*      ],*/}
-      {/*    }}*/}
-      {/*  />*/}
-      {/*</Card>*/}
+      <Card m={5} p={0} borderRadius={5}>
+        <KeyResults.List
+          expandAll={expandAll}
+          where={{
+            _and: [{ objective_id: { _eq: objective[0].id } }],
+          }}
+        />
+      </Card>
     </Stack>
   ) : (
     <Skeleton />

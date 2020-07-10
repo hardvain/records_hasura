@@ -1,6 +1,7 @@
 // Render Prop
 import { Stack, Box, Button } from '@chakra-ui/core';
 import People from 'src/modules/Categories';
+import KeyResults from 'src/modules/KeyResults';
 import Objectives from './index';
 import Teams from 'src/modules/Teams';
 import { useForm, FormContext } from 'react-hook-form';
@@ -83,6 +84,13 @@ export default ({ model, onSubmitCallback = () => {}, showList = true }) => {
           </Button>
         )}
       </Stack>
+      {model && model.id && showList && (
+        <Box pb={3}>
+          <KeyResults.List
+            where={{ _and: [{ objective_id: { _eq: model.id } }] }}
+          />
+        </Box>
+      )}
     </Stack>
   );
 };

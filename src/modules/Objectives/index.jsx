@@ -7,7 +7,8 @@ const fields = [
   'description',
   'start_date',
   'end_date',
-  "ref_objective_teams{ref_team{id,name}}"
+  "ref_objective_teams{ref_team{id,name}}",
+  "ref_key_results{progress}"
 ];
 const List = (props) => (
   <Collection

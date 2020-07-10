@@ -25,6 +25,10 @@ import Delete from 'src/containers/actions/delete';
 import ListItem from 'src/containers/collection/list/ListItem';
 
 export default ({ record }) => {
+  let product = 0;
+  const krs = record.ref_key_results;
+  krs.forEach((v) => (product = product + v.progress));
+  let percentage = product / krs.length;
   return (
     <ListItem highlight>
       <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
@@ -33,7 +37,20 @@ export default ({ record }) => {
             <Box textAlign={'initial'}>{record.name}</Box>
           </Link>
         </Box>
-
+        <Box flexGrow={1} />
+        <Tooltip label={`${percentage} %`}>
+          <Box>
+            <Progress
+              h={3}
+              w={200}
+              color={
+                percentage > 85 ? 'green' : percentage < 25 ? 'red' : 'yellow'
+              }
+              value={percentage}
+              borderRadius={2}
+            />
+          </Box>
+        </Tooltip>
         <Delete resource={'objectives'} id={record.id} />
       </Stack>
     </ListItem>
