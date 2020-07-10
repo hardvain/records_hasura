@@ -108,14 +108,14 @@ export default () => {
     return (
       <Box
         height={'100vh'}
-        w={245}
+        w={showTeambar ? 245 : 0}
         pt={2}
         bg={colorMode === 'light' ? 'white' : '#333'}
         borderRightWidth={1}
         display={[showTeambar ? 'block' : 'none', 'block']}
         position={'fixed'}
       >
-        <Box w={250} px={5}>
+        <Box w={showTeambar ? 250 : 0} px={5}>
           <Skeleton h={10} my={3} count={10} />
         </Box>
       </Box>
@@ -124,13 +124,13 @@ export default () => {
   return (
     <Box
       height={'100vh'}
-      w={245}
+      w={showTeambar ? 245 : 0}
       pt={2}
       bg={colorMode === 'light' ? 'white' : '#333'}
       borderRightWidth={1}
-      zIndex={[1000,0]}
+      zIndex={[1000, 0]}
       position={'fixed'}
-      display={[showTeambar ? 'block' : 'none', 'block']}
+      display={showTeambar ? 'block' : 'none'}
     >
       {teams.map((t) => (
         <MenuItem
@@ -149,7 +149,7 @@ export default () => {
         resource={'teams'}
       />
       <Divider />
-      <Box px={5} w={245}>
+      <Box px={5} w={showTeambar ? 245 : 0}>
         <Button
           variant={'link'}
           size={'xs'}

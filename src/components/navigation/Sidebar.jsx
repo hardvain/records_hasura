@@ -36,13 +36,13 @@ import { useStore } from 'src/store';
 
 const MenuItem = ({ children, isActive, title, href, as }) => {
   const { colorMode } = useColorMode();
-  const showSidebar = useStore((state) => state.ui.showSidebar);
+  const showTeambar = useStore((state) => state.ui.showTeambar);
 
   const [isHovering, setIsHovering] = useState(false);
   return (
     <NextLink href={href} as={as}>
       <Button
-        w={245}
+        w={showTeambar ? 245 : 0}
         cursor={'pointer'}
         borderRadius={0}
         borderLeftColor={'brand.500'}
@@ -67,8 +67,8 @@ const MenuItem = ({ children, isActive, title, href, as }) => {
 };
 
 export default () => {
-  const { showSidebar } = useStore((state) => ({
-    showSidebar: state.ui.showSidebar,
+  const { showTeambar } = useStore((state) => ({
+    showTeambar: state.ui.showTeambar,
   }));
 
   const { colorMode } = useColorMode();
@@ -84,11 +84,11 @@ export default () => {
   return (
     <Flex
       pt={5}
-      display={[showSidebar ? 'flex' : 'none', 'flex']}
+      display={[showTeambar ? 'flex' : 'none']}
       position={'fixed'}
       right={0}
       direction={'column'}
-      w={250}
+      w={showTeambar ? 250 : 0}
       bg={colorMode === 'light' ? '#fff' : '#333'}
       height={'100vh'}
       borderLeftWidth={1}

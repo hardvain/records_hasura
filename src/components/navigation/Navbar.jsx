@@ -167,9 +167,8 @@ export default () => {
           borderBottom="gray.200"
           alignItems={'center'}
           py={1}
-          pl={4}
         >
-
+          <IconButton ml={1}  variant="default" icon={MdMenu} onClick={toggleTeambar} />
           <AppLogo />
           <Box>
             <Link href="/calendar" as={`/calendar`}>
@@ -203,7 +202,6 @@ export default () => {
               <IconButton variant="default" icon={'settings'} />
             </Link>
           </Box>
-
         </Flex>
       </Box>
       <Box display={['block', 'none']}>
@@ -218,11 +216,7 @@ export default () => {
           py={1}
           pl={4}
         >
-          <IconButton
-            variant="default"
-            icon={MdMenu}
-            onClick={toggleTeambar}
-          />
+          <IconButton variant="default" icon={MdMenu} onClick={toggleTeambar} />
           <AppLogo />
           <Box>
             <Link href="/calendar" as={`/calendar`}>
@@ -253,11 +247,7 @@ export default () => {
               <IconButton variant="default" icon={'settings'} />
             </Link>
           </Box>
-          <IconButton
-            variant="default"
-            icon={GrApps}
-            onClick={toggleSidebar}
-          />
+          <IconButton variant="default" icon={GrApps} onClick={toggleSidebar} />
         </Flex>
       </Box>
     </Box>

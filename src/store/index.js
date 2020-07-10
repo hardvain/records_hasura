@@ -6,7 +6,7 @@ export const [useStore, api] = create((set, get) => ({
     user_id: undefined,
     recordType: 'tasks',
     showSidebar: false,
-    showTeambar: false,
+    showTeambar: true,
     newFormContext: undefined,
     currentTeam: 'all',
     showFormPopup: false,
