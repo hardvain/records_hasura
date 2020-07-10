@@ -20,6 +20,7 @@ import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
 import * as DatePicker from 'src/components/forms/DatePicker';
 import Field from 'src/components/forms/Field';
 import useMutation from 'src/hooks/graphql/useMutation';
+import Objectives from 'src/modules/Objectives';
 import Reviews from 'src/modules/Reviews';
 import { getReviewForDate } from 'src/modules/Reviews/factories';
 import Tasks from 'src/modules/Tasks';
@@ -154,97 +155,114 @@ export default () => {
     }
   }, [review?.id]);
   return (
-    <Stack spacing={10} p={5}>
-      <Box>
-        <StackedCard
-          actions={
-            <Stack isInline={[false, true]} px={5} py={2} alignItems={'center'}>
-              <Button
-                flex={1}
-                size={'sm'}
-                variant={'outline'}
-                onClick={() => setDate(moment())}
+    <Stack isInline>
+      <Stack spacing={10} p={5} flex={2}>
+        <Box>
+          <StackedCard
+            actions={
+              <Stack
+                isInline={[false, true]}
+                px={5}
+                py={2}
+                alignItems={'center'}
               >
-                Today
-              </Button>
-              <Stack isInline>
-                <IconButton
+                <Button
+                  flex={1}
                   size={'sm'}
-                  icon={'chevron-left'}
-                  variant={'solid'}
-                  onClick={() => {
-                    setDate(moment(date).subtract(1, 'days'));
-                  }}
-                />
-                <IconButton
-                  onClick={() => {
-                    setDate(moment(date).add(1, 'days'));
-                  }}
-                  size={'sm'}
-                  icon={'chevron-right'}
-                  variant={'solid'}
-                />
-              </Stack>
-              <Box flex={2}>
-                <DatePicker.Default
-                  type={'button'}
-                  onChange={setDate}
-                  value={date}
-                />
-              </Box>
-              <Box flexGrow={1} flex={10} />
-            </Stack>
-          }
-        >
-          <Flex direction={['column', 'flex']} px={5}>
-            <Stack spacing={2} flex={2}>
-              <Heading size={'xs'}>Checklists</Heading>
-              {review ? (
-                <SmartChecklists
-                  id={review?.id}
-                  name={'checklist'}
-                  resource={'reviews'}
-                  checklist={checklist}
-                  setChecklist={setChecklist}
-                />
-              ) : (
-                <Box px={5}>
-                  <Skeleton h={5} my={3} count={10} />
+                  variant={'outline'}
+                  onClick={() => setDate(moment())}
+                >
+                  Today
+                </Button>
+                <Stack isInline>
+                  <IconButton
+                    size={'sm'}
+                    icon={'chevron-left'}
+                    variant={'solid'}
+                    onClick={() => {
+                      setDate(moment(date).subtract(1, 'days'));
+                    }}
+                  />
+                  <IconButton
+                    onClick={() => {
+                      setDate(moment(date).add(1, 'days'));
+                    }}
+                    size={'sm'}
+                    icon={'chevron-right'}
+                    variant={'solid'}
+                  />
+                </Stack>
+                <Box flex={2}>
+                  <DatePicker.Default
+                    type={'button'}
+                    onChange={setDate}
+                    value={date}
+                  />
                 </Box>
-              )}
-            </Stack>
-          </Flex>
-          <StackedCardItem title={'Summary'}>
-            <Box p={5}>
-              <FormContext
-                {...methods}
-                schema={Reviews.schema}
-                resource={'reviews'}
-                id={review?.id}
-              >
-                <Field
-                  isSmart={true}
-                  rows={10}
-                  name={'summary'}
-                  schema={Tasks.schema}
-                  hideLabel={true}
-                />
-              </FormContext>
-            </Box>
-          </StackedCardItem>
-        </StackedCard>
-      </Box>
-      <Card p={5}>
-        <Tasks.List
-          showBanners
+                <Box flexGrow={1} flex={10} />
+              </Stack>
+            }
+          >
+            <Flex direction={['column', 'flex']} px={5}>
+              <Stack spacing={2} flex={2}>
+                <Heading size={'xs'}>Checklists</Heading>
+                {review ? (
+                  <SmartChecklists
+                    id={review?.id}
+                    name={'checklist'}
+                    resource={'reviews'}
+                    checklist={checklist}
+                    setChecklist={setChecklist}
+                  />
+                ) : (
+                  <Box px={5}>
+                    <Skeleton h={5} my={3} count={10} />
+                  </Box>
+                )}
+              </Stack>
+            </Flex>
+            <StackedCardItem title={'Summary'}>
+              <Box p={5}>
+                <FormContext
+                  {...methods}
+                  schema={Reviews.schema}
+                  resource={'reviews'}
+                  id={review?.id}
+                >
+                  <Field
+                    isSmart={true}
+                    rows={10}
+                    name={'summary'}
+                    schema={Tasks.schema}
+                    hideLabel={true}
+                  />
+                </FormContext>
+              </Box>
+            </StackedCardItem>
+          </StackedCard>
+        </Box>
+        <Card p={5}>
+          <Tasks.List
+            showBanners
+            order_by={{
+              ref_project: { ref_team: { created_at: 'asc' } },
+              due_date: 'asc',
+            }}
+            showFilterBar
+            where={TaskFilters.today(date)}
+          />
+        </Card>
+      </Stack>
+      <Box flex={1} pr={10}>
+        <Objectives.List
+          group_by_field={(row) =>
+            row['ref_objective_teams'][0]['ref_team']['name']
+          }
           order_by={{
-            ref_project: { ref_team: { created_at: 'asc' } },
-            due_date: 'asc',
+            created_at: 'asc_nulls_first',
           }}
-          showFilterBar
-          where={TaskFilters.today(date)}
         />
-      </Card>
+      </Box>
     </Stack>
   );
 };

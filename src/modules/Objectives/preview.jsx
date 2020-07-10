@@ -34,17 +34,16 @@ export default ({ record, indent = 0 }) => {
   return (
     <ListItem highlight>
       <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
-        <Box flex={10}>
+        <Box flexGrow={1}>
           <Link as={`/objectives/${record.id}`} href={`/objectives/[id]`}>
             <Box textAlign={'initial'}>{record.name}</Box>
           </Link>
         </Box>
-        <Box flexGrow={1} />
         <Tooltip label={`${percentage} %`}>
           <Box>
             <Progress
               h={3}
-              w={200}
+              w={100}
               color={
                 percentage > 85 ? 'green' : percentage < 25 ? 'red' : 'yellow'
               }
