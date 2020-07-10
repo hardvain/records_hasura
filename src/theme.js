@@ -294,12 +294,24 @@ const colors = {
     '800': '#37474f',
     '900': '#263238',
   },
+  matteblack: {
+    '50': '#333',
+    '100': '#333',
+    '200': '#333',
+    '300': '#333',
+    '400': '#333',
+    '500': '#333',
+    '600': '#333',
+    '700': '#333',
+    '800': '#333',
+    '900': '#333',
+  },
 };
 export default {
   ...theme,
   colors: {
     ...theme.colors,
     ...colors,
-    brand: colors.blue,
+    brand: colors.deeppurple,
   },
 };
