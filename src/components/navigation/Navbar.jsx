@@ -133,18 +133,7 @@ export default () => {
       />
     </Stack>
   );
-  const QuickInbox = () => (
-    <Input
-      display={['none', 'inline-flex']}
-      w={300}
-      size={'sm'}
-      mr={5}
-      value={inboxItem}
-      onChange={(e) => setInboxItem(e.target.value)}
-      onKeyDown={onKeyDown}
-      placeholder={'Quick add'}
-    />
-  );
+
   const AppLogo = () => (
     <Box alignItems={'center'} cursor={'pointer'}>
       <NextLink href="/" as={`/`}>
@@ -168,7 +157,12 @@ export default () => {
           alignItems={'center'}
           py={1}
         >
-          <IconButton ml={1}  variant="default" icon={MdMenu} onClick={toggleTeambar} />
+          <IconButton
+            ml={1}
+            variant="default"
+            icon={MdMenu}
+            onClick={toggleTeambar}
+          />
           <AppLogo />
           <Box>
             <Link href="/calendar" as={`/calendar`}>
@@ -188,7 +182,16 @@ export default () => {
             <CreateMenu />
           </Box>
           <Box flexGrow={1}></Box>
-          <QuickInbox />
+          <Input
+            display={['none', 'inline-flex']}
+            w={300}
+            size={'sm'}
+            mr={5}
+            value={inboxItem}
+            onChange={(e) => setInboxItem(e.target.value)}
+            onKeyDown={onKeyDown}
+            placeholder={'Quick add'}
+          />
           <TaskProgress />
           <Tooltip label={colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}>
             <IconButton

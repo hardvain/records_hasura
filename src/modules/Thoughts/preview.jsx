@@ -6,6 +6,7 @@ import {
   Divider,
   Text,
 } from '@chakra-ui/core';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import moment from 'moment';
 import useMutation from 'src/hooks/graphql/useMutation';
@@ -18,26 +19,14 @@ export default ({ record }) => {
   const handleToggle = () => setShow(!show);
   return (
     <ListItem expand={show}>
-      <Stack isInline textAlign={'center'} alignItems={'center'} pr={4}>
-        <IconButton
-          mr={0}
-          size={'xs'}
-          variant={'ghost'}
-          icon={show ? 'chevron-down' : 'chevron-right'}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            handleToggle();
-          }}
-        />
-        <Text>{record.name}</Text>
-        <Box flexGrow={1} />
+      <Stack isInline alignItems={'center'} pr={4}>
+        <Box flexGrow={1}>
+          <Link href={'/thoughts/[id]'} as={`/thoughts/${record.id}`}>
+            <Text>{record.name}</Text>
+          </Link>
+        </Box>
         <Delete resource={'thoughts'} id={record.id} />
       </Stack>
-      <Collapse isOpen={show}>
-        <Divider />
-        <Form model={record} />
-      </Collapse>
     </ListItem>
   );
 };

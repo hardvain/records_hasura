@@ -39,7 +39,7 @@ const Default = ({
   }
   const selectedValue = options.filter((o) => o.value === value);
   return (
-    <Box w={'100%'}>
+    <Box w={'100%'} className={'react-select'}>
       <Select
         onChange={(e) => {
           const value = rest.isMulti ? e.map((item) => item.value) : e?.value;
@@ -47,8 +47,6 @@ const Default = ({
           updateCallback(value === '' || value === undefined ? null : value);
         }}
         isMulti={rest.isMulti}
-        className="basic-single"
-        classNamePrefix="select"
         value={selectedValue ? selectedValue[0] : ''}
         isClearable={true}
         isSearchable={true}
