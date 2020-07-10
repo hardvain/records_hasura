@@ -209,7 +209,6 @@ export default () => {
       <Box display={['block', 'none']}>
         <Flex
           position={'fixed'}
-          w={'100%'}
           zIndex={1000}
           bg={colorMode === 'light' ? 'white' : '#333'}
           direction="row"
@@ -242,7 +241,6 @@ export default () => {
           <Box>
             <CreateMenu />
           </Box>
-          <Box flexGrow={1} />
           <Tooltip label={colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}>
             <IconButton
               variant="default"

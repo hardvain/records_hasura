@@ -2,7 +2,8 @@ import {
   Box,
   Button,
   Checkbox,
-  Divider, Flex,
+  Divider,
+  Flex,
   Heading,
   IconButton,
   Select,
@@ -154,7 +155,7 @@ export default () => {
     <Box flex={2} p={5}>
       <StackedCard
         actions={
-          <Stack isInline={[false,true]} px={5} py={2} alignItems={'center'}>
+          <Stack isInline={[false, true]} px={5} py={2} alignItems={'center'}>
             <Button
               flex={1}
               size={'sm'}
@@ -192,33 +193,22 @@ export default () => {
           </Stack>
         }
       >
-        <Flex direction={['column','flex']} px={5}>
+        <Flex direction={['column', 'flex']} px={5}>
           <Stack spacing={2} flex={2}>
-            <Stack>
-              <Heading size={'xs'}>Checklists</Heading>
-              {review ? (
-                <SmartChecklists
-                  id={review?.id}
-                  name={'checklist'}
-                  resource={'reviews'}
-                  checklist={checklist}
-                  setChecklist={setChecklist}
-                />
-              ) : (
-                <Box px={5}>
-                  <Skeleton h={5} my={3} count={10} />
-                </Box>
-              )}
-            </Stack>
-          </Stack>
-          <Stack flex={1} borderLeftWidth={1} px={2}>
-            <Text textAlign={'center'}>Daily Score</Text>
-            <Scores id={review?.id} scores={review?.scores} />
-
-            <Box mt={2}>
-              <Chart scores={review?.scores} />
-            </Box>
-            <Divider />
+            <Heading size={'xs'}>Checklists</Heading>
+            {review ? (
+              <SmartChecklists
+                id={review?.id}
+                name={'checklist'}
+                resource={'reviews'}
+                checklist={checklist}
+                setChecklist={setChecklist}
+              />
+            ) : (
+              <Box px={5}>
+                <Skeleton h={5} my={3} count={10} />
+              </Box>
+            )}
           </Stack>
         </Flex>
         <StackedCardItem title={'Summary'}>
