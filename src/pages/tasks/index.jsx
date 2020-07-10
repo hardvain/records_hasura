@@ -62,13 +62,6 @@ export default () => {
               All
             </Tab>
           </TabList>
-          <Box flexGrow={1} />
-          <InputGroup>
-            <InputLeftElement
-              children={<Icon name="search" color="gray.300" />}
-            />
-            <Input type="phone" placeholder="Search" w={400} />
-          </InputGroup>
         </Stack>
 
         <Box my={5}>

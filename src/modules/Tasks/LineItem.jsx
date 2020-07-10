@@ -59,6 +59,43 @@ export default ({ record, index, expandAll, indent = 0, listItemProps }) => {
   if (!listItemProps?.showCompleted) {
     subTasksFilters._and.push({ status: { _neq: 'completed' } });
   }
+  const ProgressBar = () => (
+    <Box flex={3} mr={2}>
+      {totalTasks > 0 && (
+        <Tooltip
+          label={`Completed ${completedTasks} out of ${totalTasks} Sub Tasks`}
+        >
+          <Box>
+            <Progress
+              h={3}
+              w={200}
+              color={progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'}
+              value={totalTasks ? progress : 0}
+              borderRadius={2}
+            />
+          </Box>
+        </Tooltip>
+      )}
+    </Box>
+  );
+  const SubTaskButton = () => (
+    <PseudoBox>
+      <Button
+        visibility={isHovered ? 'visible' : 'hidden'}
+        leftIcon={'small-add'}
+        variant={'link'}
+        variantColor={'brand'}
+        size={'xs'}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          addSubTask(record);
+        }}
+      >
+        Add Sub Task
+      </Button>
+    </PseudoBox>
+  );
   return (
     <Stack m={0} p={0} spacing={0}>
       <ListItem
@@ -70,82 +107,94 @@ export default ({ record, index, expandAll, indent = 0, listItemProps }) => {
         cursor={'pointer'}
         px={1}
         py={2}
-        onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          handleToggle();
-        }}
       >
-        <Stack isInline pr={4} alignItems={'baseline'} pl={indent}>
-          <Stack flex={30} isInline alignItems={'baseline'}>
-            <Box mr={2}>
-              <IconButton
-                visibility={subTasks && subTasks.length > 0 ? '' : 'hidden'}
-                variant={'ghost'}
-                size={'xs'}
-                icon={showSubTasks ? 'chevron-down' : 'chevron-right'}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  setShowSubTasks(!showSubTasks);
-                }}
-              />
-            </Box>
-            <Box flexGrow={1}>
-              <Text
-                fontSize={15}
-                textDecoration={
-                  record?.status === 'completed' ? 'line-through' : ''
-                }
-              >
-                {record.name}
-              </Text>
-            </Box>
-
-            <PseudoBox>
-              <Button
-                visibility={isHovered ? 'visible' : 'hidden'}
-                leftIcon={'small-add'}
-                variant={'link'}
-                variantColor={'brand'}
-                size={'xs'}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  addSubTask(record);
-                }}
-              >
-                Add Sub Task
-              </Button>
-            </PseudoBox>
-            <Box>{isToday && <Badge variantColor={'brand'}>Today</Badge>}</Box>
-          </Stack>
-          <Box flex={3} mr={2}>
-            {totalTasks > 0 && (
-              <Tooltip
-                label={`Completed ${completedTasks} out of ${totalTasks} Sub Tasks`}
-              >
-                <Box>
-                  <Progress
-                    h={3}
-                    w={200}
-                    color={
-                      progress > 85 ? 'green' : progress < 25 ? 'red' : 'yellow'
-                    }
-                    value={totalTasks ? progress : 0}
-                    borderRadius={2}
+        <Box>
+          <Box
+            display={['none', 'block']}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              handleToggle();
+            }}
+          >
+            <Stack isInline pr={4} alignItems={'baseline'} pl={indent}>
+              <Stack flex={30} isInline alignItems={'baseline'}>
+                <Box mr={2}>
+                  <IconButton
+                    visibility={subTasks && subTasks.length > 0 ? '' : 'hidden'}
+                    variant={'ghost'}
+                    size={'xs'}
+                    icon={showSubTasks ? 'chevron-down' : 'chevron-right'}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      setShowSubTasks(!showSubTasks);
+                    }}
                   />
                 </Box>
-              </Tooltip>
-            )}
+                <Box flexGrow={1}>
+                  <Text
+                    fontSize={15}
+                    textDecoration={
+                      record?.status === 'completed' ? 'line-through' : ''
+                    }
+                  >
+                    {record.name}
+                  </Text>
+                </Box>
+                <SubTaskButton />
+
+                <Box>
+                  {isToday && <Badge variantColor={'brand'}>Today</Badge>}
+                </Box>
+              </Stack>
+              <ProgressBar />
+              <Box flex={2} mx={2} textAlign={'right'}>
+                <Badge variantColor={statusColor}>{record?.status}</Badge>
+              </Box>
+              <Box flex={1} ml={2}>
+                <Delete resource={'tasks'} id={record.id} />
+              </Box>
+            </Stack>
           </Box>
-          <Box flex={2} mx={2} textAlign={'right'}>
-            <Badge variantColor={statusColor}>{record?.status}</Badge>
+          <Box display={['block', 'none']}>
+            <Link href={'/tasks/[id]'} as={`/tasks/${record?.id}`}>
+              <Stack isInline alignItems={'center'}>
+                <IconButton
+                  visibility={subTasks && subTasks.length > 0 ? '' : 'hidden'}
+                  variant={'ghost'}
+                  size={'xs'}
+                  icon={showSubTasks ? 'chevron-down' : 'chevron-right'}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    setShowSubTasks(!showSubTasks);
+                  }}
+                />
+                <Stack>
+                  <Text
+                    fontSize={15}
+                    textDecoration={
+                      record?.status === 'completed' ? 'line-through' : ''
+                    }
+                  >
+                    {record.name}
+                  </Text>
+                  <ProgressBar />
+                </Stack>
+                <Box>
+                  {isToday && <Badge variantColor={'brand'}>Today</Badge>}
+                </Box>
+                <Box flex={2} mx={2} textAlign={'right'}>
+                  <Badge variantColor={statusColor}>{record?.status}</Badge>
+                </Box>
+                <Box flex={1} ml={2}>
+                  <Delete resource={'tasks'} id={record.id} />
+                </Box>
+              </Stack>
+            </Link>
           </Box>
-          <Box flex={1} ml={2}>
-            <Delete resource={'tasks'} id={record.id} />
-          </Box>
-        </Stack>
+        </Box>
         <Modal
           title={record.name}
           show={show}

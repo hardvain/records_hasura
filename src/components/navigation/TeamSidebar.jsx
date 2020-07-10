@@ -112,6 +112,7 @@ export default () => {
         pt={2}
         bg={colorMode === 'light' ? 'white' : '#333'}
         borderRightWidth={1}
+        display={[showTeambar ? 'block' : 'none', 'block']}
         position={'fixed'}
       >
         <Box w={250} px={5}>
@@ -127,6 +128,7 @@ export default () => {
       pt={2}
       bg={colorMode === 'light' ? 'white' : '#333'}
       borderRightWidth={1}
+      zIndex={1000}
       position={'fixed'}
       display={[showTeambar ? 'block' : 'none', 'block']}
     >

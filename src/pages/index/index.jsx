@@ -2,7 +2,7 @@ import {
   Box,
   Button,
   Checkbox,
-  Divider,
+  Divider, Flex,
   Heading,
   IconButton,
   Select,
@@ -154,7 +154,7 @@ export default () => {
     <Box flex={2} p={5}>
       <StackedCard
         actions={
-          <Stack isInline px={5} py={2} alignItems={'center'}>
+          <Stack isInline={[false,true]} px={5} py={2} alignItems={'center'}>
             <Button
               flex={1}
               size={'sm'}
@@ -192,7 +192,7 @@ export default () => {
           </Stack>
         }
       >
-        <Stack isInline px={5}>
+        <Flex direction={['column','flex']} px={5}>
           <Stack spacing={2} flex={2}>
             <Stack>
               <Heading size={'xs'}>Checklists</Heading>
@@ -220,7 +220,7 @@ export default () => {
             </Box>
             <Divider />
           </Stack>
-        </Stack>
+        </Flex>
         <StackedCardItem title={'Summary'}>
           <Box p={5}>
             <FormContext

@@ -1,5 +1,5 @@
 // Render Prop
-import { Stack, Box, Button, Divider, Heading } from '@chakra-ui/core';
+import { Stack, Box, Button, Divider, Heading, Flex } from '@chakra-ui/core';
 import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
 import { SmartChecklists } from 'src/modules/Tasks/Checklists';
 import { useStore } from 'src/store';
@@ -55,14 +55,14 @@ export default ({ model, onSubmitCallback, isPreview = false }) => {
     >
       <Stack spacing={5} mb={5}>
         {model?.id && <TaskFormActions model={model} />}
-        <Stack mt={2} isInline>
+        <Flex mt={2} direction={['column', 'row']}>
           <Stack spacing={5} flex={2}>
             <Stack flex={3}>
               <Field name={'name'} mb={5} />
               <Field rows={10} name={'description'} schema={Tasks.schema} />
             </Stack>
           </Stack>
-          <Box flex={1} p={5}>
+          <Box flex={1} p={[0, 5]}>
             <Field name={'due_date'} flex={1} />
             <Field name={'priority'} flex={1} />
             <Field name={'status'} flex={1} />
@@ -75,7 +75,7 @@ export default ({ model, onSubmitCallback, isPreview = false }) => {
             {!model?.project_id && <Field flex={1} name={'team_id'} />}
             <Field name={'people_id'} flex={1} />
           </Box>
-        </Stack>
+        </Flex>
         {model?.id && (
           <Box>
             <Heading size={'xs'} mb={2}>

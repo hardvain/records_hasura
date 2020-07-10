@@ -17,7 +17,8 @@ import {
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import Link from 'next/link';
-import { FaHamburger } from 'react-icons/fa';
+import { MdMenu } from 'react-icons/md';
+import { GrApps } from 'react-icons/gr';
 import React, { useState } from 'react';
 import Logo from 'src/assets/Logo';
 import useAggregate from 'src/hooks/graphql/useAggregate';
@@ -28,12 +29,14 @@ import { useStore } from 'src/store';
 export default () => {
   const [inboxItem, setInboxItem] = useState('');
   const { colorMode, toggleColorMode } = useColorMode();
-  const { toggleFormPopup, toggleSidebar, toggleTeambar, date} = useStore((state) => ({
-    toggleFormPopup: state.toggleFormPopup,
-    toggleSidebar: state.toggleSidebar,
-    toggleTeambar: state.toggleTeambar,
-    date: state.ui.date,
-  }));
+  const { toggleFormPopup, toggleSidebar, toggleTeambar, date } = useStore(
+    (state) => ({
+      toggleFormPopup: state.toggleFormPopup,
+      toggleSidebar: state.toggleSidebar,
+      toggleTeambar: state.toggleTeambar,
+      date: state.ui.date,
+    })
+  );
   const inboxInsertMutation = useMutation({
     resource: 'inbox',
     operation: 'insert',
@@ -66,147 +69,199 @@ export default () => {
       setInboxItem('');
     }
   };
-  return (
-    <Flex
-      position={'fixed'}
-      w={'100%'}
-      zIndex={1000}
-      bg={colorMode === 'light' ? 'white' : '#333'}
-      direction="row"
-      borderBottomWidth={1}
-      borderBottom="gray.200"
-      alignItems={'center'}
-      py={1}
-      pl={4}
-    >
-      <IconButton
-        display={['block','none']}
-        variant="default"
-        icon={FaHamburger}
-        onClick={toggleTeambar}
-      />
-      <Box alignItems={'center'} cursor={'pointer'}>
-        <NextLink href="/" as={`/`}>
-          <Box alignSelf={'center'} mr={4}>
-            <Logo width={30} height={30} />
-          </Box>
-        </NextLink>
-      </Box>
-      <Box>
-        <Link href="/calendar" as={`/calendar`}>
-          <Button variant={'ghost'} size={'sm'} mr={4}>
-            Calendar
-          </Button>
-        </Link>
-      </Box>
-      <Box>
-        <Link href="/objectives" as={`/objectives`}>
-          <Button variant={'ghost'} size={'sm'} mr={4}>
-            Objectives
-          </Button>
-        </Link>
-      </Box>
-      <Box>
-        <Menu>
-          <ChakraMenuButton
-            variantColor={'brand'}
-            size={'sm'}
-            as={Button}
-            mr={4}
-          >
-            Create
-          </ChakraMenuButton>
-          <MenuList bg={colorMode === 'light' ? 'white' : '#3e4242'}>
-            <MenuItem onClick={() => toggleFormPopup('inbox')}>Inbox</MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('thoughts')}>
-              Thoughts
-            </MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('tasks')}>Task</MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('water')}>Water</MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('food')}>Food</MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('notes')}>Notes</MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('glucose')}>
-              Glucose
-            </MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('transactions')}>
-              Transaction
-            </MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('dishes')}>Dish</MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('people')}>
-              People
-            </MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('snippets')}>
-              Snippets
-            </MenuItem>
+  const CreateMenu = () => (
+    <Menu>
+      <ChakraMenuButton variantColor={'brand'} size={'sm'} as={Button} mr={4}>
+        Create
+      </ChakraMenuButton>
+      <MenuList bg={colorMode === 'light' ? 'white' : '#3e4242'}>
+        <MenuItem onClick={() => toggleFormPopup('inbox')}>Inbox</MenuItem>
+        <MenuItem onClick={() => toggleFormPopup('thoughts')}>
+          Thoughts
+        </MenuItem>
+        <MenuItem onClick={() => toggleFormPopup('tasks')}>Task</MenuItem>
+        <MenuItem onClick={() => toggleFormPopup('water')}>Water</MenuItem>
+        <MenuItem onClick={() => toggleFormPopup('food')}>Food</MenuItem>
+        <MenuItem onClick={() => toggleFormPopup('notes')}>Notes</MenuItem>
+        <MenuItem onClick={() => toggleFormPopup('glucose')}>Glucose</MenuItem>
+        <MenuItem onClick={() => toggleFormPopup('transactions')}>
+          Transaction
+        </MenuItem>
+        <MenuItem onClick={() => toggleFormPopup('dishes')}>Dish</MenuItem>
+        <MenuItem onClick={() => toggleFormPopup('people')}>People</MenuItem>
+        <MenuItem onClick={() => toggleFormPopup('snippets')}>
+          Snippets
+        </MenuItem>
 
-            <Divider />
-            <MenuItem onClick={() => toggleFormPopup('teams')}>Team</MenuItem>
-            <MenuItem onClick={() => toggleFormPopup('projects')}>
-              Project
-            </MenuItem>
-          </MenuList>
-        </Menu>
-      </Box>
-      <Box flexGrow={1}></Box>
-      <Input
-        display={['none','inline-flex']}
-        w={300}
-        size={'sm'}
-        mr={5}
-        value={inboxItem}
-        onChange={(e) => setInboxItem(e.target.value)}
-        onKeyDown={onKeyDown}
-        placeholder={'Quick add'}
-      />
-      <Stack
-        display={['none','inline-flex']}
-        borderRadius={3}
-        spacing={1}
-        alignItems={'baseline'}
-        mr={2}
-        bg={colorMode === 'light' ? 'brand.50' : ''}
-        p={2}
-        borderColor={'brand.500'}
+        <Divider />
+        <MenuItem onClick={() => toggleFormPopup('teams')}>Team</MenuItem>
+        <MenuItem onClick={() => toggleFormPopup('projects')}>Project</MenuItem>
+      </MenuList>
+    </Menu>
+  );
+
+  const TaskProgress = () => (
+    <Stack
+      display={['none', 'inline-flex']}
+      borderRadius={3}
+      spacing={1}
+      alignItems={'baseline'}
+      mr={2}
+      bg={colorMode === 'light' ? 'brand.50' : ''}
+      p={2}
+      borderColor={'brand.500'}
+      borderWidth={1}
+    >
+      <Text fontSize={10}>
+        Completed {completedTasksCount} out of{' '}
+        {todayTasksAgg ? todayTasksAgg.count : 0} Tasks for today
+      </Text>
+      <Progress
         borderWidth={1}
-      >
-        <Text fontSize={10}>
-          Completed {completedTasksCount} out of{' '}
-          {todayTasksAgg ? todayTasksAgg.count : 0} Tasks for today
-        </Text>
-        <Progress
-          borderWidth={1}
-          color={
-            progressPercentage >= 100
-              ? 'green'
-              : progressPercentage > 75
-              ? 'yellow'
-              : progressPercentage < 25
-              ? 'red'
-              : 'orange'
-          }
-          value={todayTasksAgg ? progressPercentage : 0}
-          w={200}
-          borderRadius={5}
-        />
-      </Stack>
-      <Tooltip label={colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}>
-        <IconButton
-          variant="default"
-          icon={colorMode === 'light' ? 'moon' : 'sun'}
-          onClick={toggleColorMode}
-        />
-      </Tooltip>
-      <Box>
-        <Link href={'/settings'}>
-          <IconButton variant="default" icon={'settings'} />
-        </Link>
-      </Box>
-      <IconButton
-        display={['block','none']}
-        variant="default"
-        icon={FaHamburger}
-        onClick={toggleSidebar}
+        color={
+          progressPercentage >= 100
+            ? 'green'
+            : progressPercentage > 75
+            ? 'yellow'
+            : progressPercentage < 25
+            ? 'red'
+            : 'orange'
+        }
+        value={todayTasksAgg ? progressPercentage : 0}
+        w={200}
+        borderRadius={5}
       />
-    </Flex>
+    </Stack>
+  );
+  const QuickInbox = () => (
+    <Input
+      display={['none', 'inline-flex']}
+      w={300}
+      size={'sm'}
+      mr={5}
+      value={inboxItem}
+      onChange={(e) => setInboxItem(e.target.value)}
+      onKeyDown={onKeyDown}
+      placeholder={'Quick add'}
+    />
+  );
+  const AppLogo = () => (
+    <Box alignItems={'center'} cursor={'pointer'}>
+      <NextLink href="/" as={`/`}>
+        <Box alignSelf={'center'} mr={4}>
+          <Logo width={30} height={30} />
+        </Box>
+      </NextLink>
+    </Box>
+  );
+  return (
+    <Box>
+      <Box display={['none', 'block']}>
+        <Flex
+          position={'fixed'}
+          w={'100%'}
+          zIndex={1000}
+          bg={colorMode === 'light' ? 'white' : '#333'}
+          direction="row"
+          borderBottomWidth={1}
+          borderBottom="gray.200"
+          alignItems={'center'}
+          py={1}
+          pl={4}
+        >
+
+          <AppLogo />
+          <Box>
+            <Link href="/calendar" as={`/calendar`}>
+              <Button variant={'ghost'} size={'sm'} mr={4}>
+                Calendar
+              </Button>
+            </Link>
+          </Box>
+          <Box>
+            <Link href="/objectives" as={`/objectives`}>
+              <Button variant={'ghost'} size={'sm'} mr={4}>
+                Objectives
+              </Button>
+            </Link>
+          </Box>
+          <Box>
+            <CreateMenu />
+          </Box>
+          <Box flexGrow={1}></Box>
+          <QuickInbox />
+          <TaskProgress />
+          <Tooltip label={colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}>
+            <IconButton
+              variant="default"
+              icon={colorMode === 'light' ? 'moon' : 'sun'}
+              onClick={toggleColorMode}
+            />
+          </Tooltip>
+          <Box>
+            <Link href={'/settings'}>
+              <IconButton variant="default" icon={'settings'} />
+            </Link>
+          </Box>
+
+        </Flex>
+      </Box>
+      <Box display={['block', 'none']}>
+        <Flex
+          position={'fixed'}
+          w={'100%'}
+          zIndex={1000}
+          bg={colorMode === 'light' ? 'white' : '#333'}
+          direction="row"
+          borderBottomWidth={1}
+          borderBottom="gray.200"
+          alignItems={'center'}
+          py={1}
+          pl={4}
+        >
+          <IconButton
+            variant="default"
+            icon={MdMenu}
+            onClick={toggleTeambar}
+          />
+          <AppLogo />
+          <Box>
+            <Link href="/calendar" as={`/calendar`}>
+              <Button variant={'ghost'} size={'sm'} mr={4}>
+                Calendar
+              </Button>
+            </Link>
+          </Box>
+          <Box>
+            <Link href="/objectives" as={`/objectives`}>
+              <Button variant={'ghost'} size={'sm'} mr={4}>
+                Objectives
+              </Button>
+            </Link>
+          </Box>
+          <Box>
+            <CreateMenu />
+          </Box>
+          <Box flexGrow={1} />
+          <Tooltip label={colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}>
+            <IconButton
+              variant="default"
+              icon={colorMode === 'light' ? 'moon' : 'sun'}
+              onClick={toggleColorMode}
+            />
+          </Tooltip>
+          <Box>
+            <Link href={'/settings'}>
+              <IconButton variant="default" icon={'settings'} />
+            </Link>
+          </Box>
+          <IconButton
+            variant="default"
+            icon={GrApps}
+            onClick={toggleSidebar}
+          />
+        </Flex>
+      </Box>
+    </Box>
   );
 };
