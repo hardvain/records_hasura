@@ -1,8 +1,5 @@
-import { motion } from 'framer-motion';
 import { createElement } from 'react';
 import { Box, Button, Input, Stack, Text } from '@chakra-ui/core';
-const MotionBox = motion.custom(Box);
-import Card from 'src/components/core/card';
 import { groupBy } from 'src/utils';
 
 const Section = ({ data = [], preview, ...rest }) => {
