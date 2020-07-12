@@ -1,9 +1,11 @@
-import { Box, Button } from '@chakra-ui/core';
+import { Box, Button, Stack } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import Editor from 'src/components/core/editor';
+import Fullscreen from 'react-full-screen';
 
 const Default = ({ value, onChange, updateCallback = () => {}, ...rest }) => {
   const [state, setState] = useState(``);
+  const [isFullScreen, setIsFullScreen] = useState(false);
   useEffect(() => {
     if (value) {
       setState(value);
@@ -13,6 +15,7 @@ const Default = ({ value, onChange, updateCallback = () => {}, ...rest }) => {
   return (
     <Box w={'100%'}>
       <Editor
+        isFullscreen={isFullScreen}
         value={state}
         onBlur={() => {
           updateCallback(state);
@@ -22,16 +25,6 @@ const Default = ({ value, onChange, updateCallback = () => {}, ...rest }) => {
         }}
         {...rest}
       />
-      <Button
-        float={'right'}
-        mt={2}
-        size={'sm'}
-        variant={'solid'}
-        variantColor={'brand'}
-        onClick={() => updateCallback(state)}
-      >
-        Save
-      </Button>
     </Box>
   );
 };

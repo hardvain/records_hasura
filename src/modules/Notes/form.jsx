@@ -57,6 +57,7 @@ export default ({ model, onSubmitCallback = () => {} }) => {
         resource={'notes'}
       >
         <Field name={'name'} />
+        <Field name={'description'} />
       </FormContext>
       <Box mt={2} flexGrow={1}>
         <Button
@@ -69,27 +70,27 @@ export default ({ model, onSubmitCallback = () => {} }) => {
           {model?.id ? 'Update' : 'Create'}
         </Button>
       </Box>
-      {model && model.id && (
-        <Stack flex={1}>
-          <Box mb={5}>
-            <Text fontSize={13} mb={3}>
-              Snippets
-            </Text>
-            <Snippets.List
-              showBanners
-              formContext={{
-                notes_snippets: {
-                  data: { note_id: model.id },
-                },
-              }}
-              where={{
-                _and: [{ ref_notes: { note_id: { _eq: model.id } } }],
-              }}
-            />
-          </Box>
-          {/*<ResourceSelector resource={'snippets'} onChange={onSelectSnippet} />*/}
-        </Stack>
-      )}
+      {/*{model && model.id && (*/}
+      {/*  <Stack flex={1}>*/}
+      {/*    <Box mb={5}>*/}
+      {/*      <Text fontSize={13} mb={3}>*/}
+      {/*        Snippets*/}
+      {/*      </Text>*/}
+      {/*      <Snippets.List*/}
+      {/*        showBanners*/}
+      {/*        formContext={{*/}
+      {/*          notes_snippets: {*/}
+      {/*            data: { note_id: model.id },*/}
+      {/*          },*/}
+      {/*        }}*/}
+      {/*        where={{*/}
+      {/*          _and: [{ ref_notes: { note_id: { _eq: model.id } } }],*/}
+      {/*        }}*/}
+      {/*      />*/}
+      {/*    </Box>*/}
+      {/*    /!*<ResourceSelector resource={'snippets'} onChange={onSelectSnippet} />*!/*/}
+      {/*  </Stack>*/}
+      {/*)}*/}
     </Stack>
   );
 };

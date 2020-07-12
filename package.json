@@ -44,6 +44,7 @@
     "react-customizable-progressbar": "^1.0.1",
     "react-datepicker": "^3.0.0",
     "react-dom": "16.13.1",
+    "react-full-screen": "^0.2.4",
     "react-hook-form": "^5.7.2",
     "react-icons": "^3.10.0",
     "react-markdown-editor-lite": "^1.1.5",
