@@ -20,11 +20,17 @@ import React, { useEffect, useState } from 'react';
 import Tasks from 'src/modules/Tasks';
 import moment from 'moment';
 import * as TaskFilters from 'src/modules/Tasks/filters';
+import {
+  useGetTasksSubscription,
+  useUpdateTasksMutation,
+} from 'src/generated/graphql';
 
 export default () => {
   const { colorMode } = useColorMode();
   const [currentTab, setCurrentTab] = useState(0);
-
+  const { data, error, loading } = useGetTasksSubscription({
+    variables: { where: { due_date: { _is_null: true } }, limit: 2 },
+  });
   const [date, setDate] = useState(moment().toISOString(true));
   return (
     <Box w={'100%'} px={10} py={5}>

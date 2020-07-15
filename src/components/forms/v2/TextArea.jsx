@@ -27,6 +27,7 @@ const Default = ({ value, onChange, updateCallback = () => {}, ...rest }) => {
         value={state}
         onChange={(e) => {
           setState(e);
+          onChange(e);
         }}
         {...rest}
       />

@@ -81,7 +81,6 @@ const schema = {
 };
 
 const List = (props) => {
-  console.log(props)
   return (
     <Collection
       resource={'tasks'}

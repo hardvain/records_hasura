@@ -8,13 +8,14 @@ import dynamic from 'next/dynamic';
 
 const MonacoEditor = dynamic(import('react-monaco-editor'), { ssr: false });
 
-export default ({ value, onChange, isFullscreen,...rest }) => {
+export default ({ value, onChange, isFullscreen, ...rest }) => {
   const { colorMode } = useColorMode();
 
   // Create a Slate editor object that won't change across renders.
   const options = {
     fontLigatures: true,
-    lineNumbers:"on",
+    wordWrap: 'on',
+    lineNumbers: 'off',
     fontSize: 13,
     minimap: {
       enabled: false,
@@ -25,7 +26,7 @@ export default ({ value, onChange, isFullscreen,...rest }) => {
       height={isFullscreen ? '100%' : '300'}
       language="markdown"
       theme={colorMode === 'light' ? 'vs-light' : 'vs-dark'}
-      value={value}
+      value={value || ''}
       options={options}
       onChange={(value) => onChange(value)}
       {...rest}

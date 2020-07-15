@@ -1,0 +1,22 @@
+overwrite: true
+schema:
+  - "https://records-app-graphql.herokuapp.com/v1/graphql":
+      headers:
+        x-hasura-admin-secret: ${HASURA_ADMIN_SECRET}
+documents:
+  - 'src/**/*.tsx'
+  - 'src/**/*.ts'
+generates:
+  src/generated/graphql.tsx:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      skipTypename: false
+      withHooks: true
+      withHOC: false
+      withComponent: false
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"

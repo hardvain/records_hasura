@@ -37,8 +37,12 @@ const schema = {
     label: 'Quantity',
   },
   unit: {
-    type: 'string',
+    type: 'select',
     label: 'Unit',
+    options: [
+      { value: 'plate', label: 'Plate' },
+      { value: '100g', label: '100 Grams' },
+    ],
   },
 };
 const List = (props) => (

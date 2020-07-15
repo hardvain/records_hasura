@@ -1,7 +1,5 @@
 // Render Prop
-import { Stack, Box, Button, Divider, Heading, Flex } from '@chakra-ui/core';
-import StackedCard, { StackedCardItem } from 'src/components/core/StackedCard';
-import { SmartChecklists } from 'src/modules/Tasks/Checklists';
+import { Stack, Box, Button, Heading, Flex } from '@chakra-ui/core';
 import { useStore } from 'src/store';
 import Tasks from './index';
 import Card from 'src/components/core/card';

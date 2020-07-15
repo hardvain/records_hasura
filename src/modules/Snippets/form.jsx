@@ -10,8 +10,11 @@ import { useForm, FormContext } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import Field from 'src/components/forms/Field';
 import useMutation from 'src/hooks/graphql/useMutation';
+import MarkdownIt from 'markdown-it';
 
 export default ({ model, onSubmitCallback = () => {}, formContext = {} }) => {
+  const mdParser = new MarkdownIt(/* Markdown-it options */);
+
   const [operation, setOperation] = useState('insert');
   const methods = useForm();
   const [showProjects, setShowProjects] = useState(false);
@@ -58,75 +61,79 @@ export default ({ model, onSubmitCallback = () => {}, formContext = {} }) => {
     onSubmitCallback();
   };
   return (
-    <Stack spacing={10}>
-      {model && model?.id && (
-        <Stack isInline borderWidth={1} borderRadius={3} p={3}>
-          <Button
-            variant={'solid'}
-            variantColor={'brand'}
-            size={'sm'}
-            onClick={() => onCheckin(0)}
-          >
-            0
-          </Button>
+    <Stack spacing={10} w={'100%'}>
+      <FormContext
+        {...methods}
+        schema={Snippets.schema}
+        isSmart={model?.id}
+        id={model?.id}
+        resource={'snippets'}
+      >
+        <Stack isInline w={'100%'}>
+         <Box w={'100%'}>
+           <Field name={'name'} />
+         </Box>
 
-          <Button
-            variant={'solid'}
-            variantColor={'brand'}
-            size={'sm'}
-            onClick={() => onCheckin(1)}
-          >
-            1
-          </Button>
-          <Button
-            variant={'solid'}
-            variantColor={'brand'}
-            size={'sm'}
-            onClick={() => onCheckin(2)}
-          >
-            2
-          </Button>
-          <Button
-            variant={'solid'}
-            variantColor={'brand'}
-            size={'sm'}
-            onClick={() => onCheckin(3)}
-          >
-            3
-          </Button>
-          <Button
-            variant={'solid'}
-            variantColor={'brand'}
-            size={'sm'}
-            onClick={() => onCheckin(4)}
-          >
-            4
-          </Button>
-          <Button
-            variant={'solid'}
-            variantColor={'brand'}
-            size={'sm'}
-            onClick={() => onCheckin(5)}
-          >
-            5
-          </Button>
+          {model && model?.id && (
+            <Stack isInline borderWidth={1} borderRadius={3} p={3}>
+              <Button
+                variant={'solid'}
+                variantColor={'brand'}
+                size={'sm'}
+                onClick={() => onCheckin(0)}
+              >
+                0
+              </Button>
+
+              <Button
+                variant={'solid'}
+                variantColor={'brand'}
+                size={'sm'}
+                onClick={() => onCheckin(1)}
+              >
+                1
+              </Button>
+              <Button
+                variant={'solid'}
+                variantColor={'brand'}
+                size={'sm'}
+                onClick={() => onCheckin(2)}
+              >
+                2
+              </Button>
+              <Button
+                variant={'solid'}
+                variantColor={'brand'}
+                size={'sm'}
+                onClick={() => onCheckin(3)}
+              >
+                3
+              </Button>
+              <Button
+                variant={'solid'}
+                variantColor={'brand'}
+                size={'sm'}
+                onClick={() => onCheckin(4)}
+              >
+                4
+              </Button>
+              <Button
+                variant={'solid'}
+                variantColor={'brand'}
+                size={'sm'}
+                onClick={() => onCheckin(5)}
+              >
+                5
+              </Button>
+            </Stack>
+          )}
         </Stack>
-      )}
-      <Stack spacing={10}>
-        <FormContext
-          {...methods}
-          schema={Snippets.schema}
-          isSmart={model?.id}
-          id={model?.id}
-          resource={'snippets'}
-        >
-          <Field name={'name'} />
-          <Field name={'due_date'} />
-          <Field name={'difficulty'} />
-          <Field name={'type'} />
-          <Field name={'description'}  />
-        </FormContext>
-      </Stack>
+        {model && model?.id && (
+          <Box borderWidth={1} p={2}>
+            <Field name={'description'} height={'100vh'} />
+          </Box>
+        )}
+      </FormContext>
 
       <Stack isInline>
         <Box flexGrow={1} />
@@ -143,37 +150,6 @@ export default ({ model, onSubmitCallback = () => {}, formContext = {} }) => {
           </Button>
         )}
       </Stack>
-      {/*{model && model.id && (*/}
-      {/*  <Loader title={'References'}>*/}
-      {/*    <Stack spacing={10}>*/}
-      {/*      <Box mb={5}>*/}
-      {/*        <Text fontSize={13} mb={3}>*/}
-      {/*          References*/}
-      {/*        </Text>*/}
-      {/*        <Snippets.List*/}
-      {/*          where={{*/}
-      {/*            _and: [{ ref_snippets: { source_id: { _eq: model.id } } }],*/}
-      {/*          }}*/}
-      {/*        />*/}
-      {/*      </Box>*/}
-      {/*      <ResourceSelector*/}
-      {/*        resource={'snippets'}*/}
-      {/*        onChange={onSelectSnippet}*/}
-      {/*      />*/}
-
-      {/*      <Box>*/}
-      {/*        <Text fontSize={13} mb={3}>*/}
-      {/*          Referenced By*/}
-      {/*        </Text>*/}
-      {/*        <Snippets.List*/}
-      {/*          where={{*/}
-      {/*            _and: [{ ref_snippets: { target_id: { _eq: model.id } } }],*/}
-      {/*          }}*/}
-      {/*        />*/}
-      {/*      </Box>*/}
-      {/*    </Stack>*/}
-      {/*  </Loader>*/}
-      {/*)}*/}
     </Stack>
   );
 };
